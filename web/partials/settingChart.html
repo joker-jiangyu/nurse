@@ -1,0 +1,39 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.MdcSignalRecord.SettingBox.BoxTitle}}</h4><!--设置曲线图-->
+            </div>
+            <div class="modal-body center-block div_body">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" ng-click="addChartSignal()">{{languageJson.MdcSignalRecord.SettingBox.AddCharts}}</button><!--新增曲线图-->
+                </div>
+                <div class="form-group">
+                    <table class="table table-condensed table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <td align="center">{{languageJson.MdcSignalRecord.SettingBox.Title}}</td><!--标题-->
+                            <td align="center">{{languageJson.MdcSignalRecord.SettingBox.Type}}</td><!--类型-->
+                            <td align="center">{{languageJson.MdcSignalRecord.SettingBox.SignalNumber}}</td><!--信号数量-->
+                            <td align="center">{{languageJson.MdcSignalRecord.SettingBox.Operation}}</td><!--操作-->
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="row in HisChartConfigs">
+                            <td align="center">{{row.Title}}</td>
+                            <td align="center">{{row.ChartType}}</td>
+                            <td align="center">{{row.Series.length}}</td>
+                            <td align="center">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="settingChartSignal(row)">{{languageJson.MdcSignalRecord.SettingBox.Modify}}</button><!--修改-->
+                                <button type="button" class="btn btn-sm btn-danger"  ng-click="removeChartClick(row.ChartMapId)">{{languageJson.MdcSignalRecord.SettingBox.Delete}}</button><!--删除-->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="confirm()">{{languageJson.MdcSignalRecord.SettingBox.OK}}</button><!--确定-->
+            </div>
+        </div>
+    </div>
+</div>

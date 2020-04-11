@@ -1,0 +1,99 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog" style="width: 600px;">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.EquipmentControl.AddTitle}}</h4><!--新增设备状态控件-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body div_body" style="height: 470px;">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">{{languageJson.Configuration.EquipmentControl.Name}}</label><!--名称：-->
+                            <div class="col-md-8">
+                                <input class="form-control" ng-model="Device.Name" placeholder="{{languageJson.Configuration.EquipmentControl.NamePrompt}}" type="text" Virtual-Key-Board="Device.Name"/><!--可为空-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label tooltip-options col-md-3">{{languageJson.Configuration.EquipmentControl.TextIcon.Title}}
+                                <a  href data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                    title="<h5>文本图表根据FontAwesome 4.7.0实现</h5>">
+                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                </a>:
+                            </label><!--文本图标-->
+                            <div class="col-md-6 input-font-chart">
+                                <select class="form-control" ng-model="Device.fontChart" style="width: 90px;float: left;">
+                                    <option value="">{{languageJson.Configuration.EquipmentControl.TextIcon.Empty}}</option><!--空-->
+                                    <option value="fa-th-large">[{{languageJson.Configuration.EquipmentControl.TextIcon.System}}]</option><!--系统-->
+                                    <option value="fa-eye">[{{languageJson.Configuration.EquipmentControl.TextIcon.Eye}}]</option><!--眼睛-->
+                                    <option value="fa-thermometer-half">[{{languageJson.Configuration.EquipmentControl.TextIcon.Thermometer}}]</option><!--温度计-->
+                                    <option value="fa-tint">[{{languageJson.Configuration.EquipmentControl.TextIcon.Water}}]</option><!--水滴-->
+                                    <option value="fa-bolt">[{{languageJson.Configuration.EquipmentControl.TextIcon.Electricity}}]</option><!--电-->
+                                    <option value="fa-hdd-o">[{{languageJson.Configuration.EquipmentControl.TextIcon.Equipment}}]</option><!--设备-->
+                                    <option value="fa-leaf">[{{languageJson.Configuration.EquipmentControl.TextIcon.Leaves}}]</option><!--树叶-->
+                                    <option value="fa-trello">[{{languageJson.Configuration.EquipmentControl.TextIcon.Door}}]</option><!--门-->
+                                    <option value="fa-desktop">[{{languageJson.Configuration.EquipmentControl.TextIcon.Screen}}]</option><!--屏幕-->
+                                    <option value="fa-line-chart">[{{languageJson.Configuration.EquipmentControl.TextIcon.Chart}}]</option><!--图表-->
+                                    <option value="fa-video-camera">[{{languageJson.Configuration.EquipmentControl.TextIcon.Video}}]</option><!--视频-->
+                                </select>
+                                <input type="text" class="form-control" ng-model="Device.fontChart" ng-click="showDeviceStatus()" style="width: 155px;float: left;margin-left: 5px;">
+                                <!--<ul id="myDeviceStatus" class="show-font-chart" style="display:none;">
+                                    <li ng-click="clickFontChart('')">{{languageJson.Configuration.EquipmentControl.TextIcon.Empty}}</li>&lt;!&ndash;空&ndash;&gt;
+                                    <li ng-click="clickFontChart('fa-th-large')"><i class="fa fa-th-large fa-fw"></i>fa-th-large</li>
+                                    <li ng-click="clickFontChart('fa-eye')"><i class="fa fa-eye fa-fw"></i>fa-eye</li>
+                                    <li ng-click="clickFontChart('fa-thermometer-half')"><i class="fa fa-thermometer-half fa-fw"></i>fa-thermometer-half</li>
+                                    <li ng-click="clickFontChart('fa-tint')"><i class="fa fa-tint fa-fw"></i>fa-tint</li>
+                                    <li ng-click="clickFontChart('fa-bolt')"><i class="fa fa-bolt fa-fw"></i>fa-bolt</li>
+                                    <li ng-click="clickFontChart('fa-hdd-o')"><i class="fa fa-hdd-o fa-fw"></i>fa-hdd-o</li>
+                                    <li ng-click="clickFontChart('fa-leaf')"><i class="fa fa-leaf fa-fw"></i>fa-leaf</li>
+                                    <li ng-click="clickFontChart('fa-trello')"><i class="fa fa-trello fa-fw"></i>fa-trello</li>
+                                    <li ng-click="clickFontChart('fa-desktop')"><i class="fa fa-desktop fa-fw"></i>fa-desktop</li>
+                                    <li ng-click="clickFontChart('fa-line-chart')"><i class="fa fa-line-chart fa-fw"></i>fa-line-chart</li>
+                                    <li ng-click="clickFontChart('fa-video-camera')"><i class="fa fa-video-camera"></i>fa-video-camera</li>
+                                </ul>-->
+                            </div>
+                            <label class="control-label col-md-2">{{languageJson.Configuration.EquipmentControl.Effect}}</label><!--效果:-->
+                            <div class="col-md-1" style="line-height: 35px;">
+                                <i class="fa {{Device.fontChart}} fa-fw fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <label class="col-md-3"><i class="fa fa-search" style="font-size: 24px;line-height: 50px;float: right;"></i></label>
+                            <div class="col-md-8">
+                                <input  class="form-control" type="text" placeholder="{{languageJson.Configuration.EquipmentControl.FilterPrompt}}" style="margin: 10px 0px" ng-model="template" Virtual-Key-Board="template"/><!--筛选设备-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label  col-md-3">{{languageJson.Configuration.EquipmentControl.ListPrompt}}</label><!--设备列表：-->
+                            <div class="modal-body center-block col-md-8">
+                                <div  style="width: 100%; height: 200px; padding:0px 5px 0px 5px;" class="div_content">
+                                    <div ng-repeat="item in deviceList | filter:{EquipmentName: template} ">
+                                        <label>
+                                            <input type="checkbox" ng-click="checkedDeviceBox(item)" ng-checked="item.isChecked">{{item.EquipmentId}}-{{item.EquipmentName}}
+                                        </label><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label  col-md-3">{{languageJson.Configuration.EquipmentControl.SelectPrompt}}</label><!--所选设备：-->
+                            <div class="col-md-6">
+                                <input class="form-control" ng-model="Device.List" type="text" readonly/>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary" ng-click="empty()">{{languageJson.Configuration.EquipmentControl.Clear}}</button><!--清空-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveNewStatus()">{{languageJson.Configuration.EquipmentControl.Add}}</button><!--新增-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.EquipmentControl.Close}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

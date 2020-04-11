@@ -1,0 +1,88 @@
+<div class="container-fluid" ng-controller="hisDataRecordCtrl">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">{{languageJson.SignalRecord.Title}}</h1><!--历史 > 历史数据记录-->
+		</div>
+	</div>
+	<spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="form-inline">
+				<div class="form-group">
+					<label class="control-label"><i class="fa fa-bullseye"></i> {{languageJson.SignalRecord.Selected.Title}}</label><!--已选信号:-->
+					<span isteven-multi-select
+						input-model="allsigs"
+						output-model="selectedsigs"
+						button-label="name (deviceName)"
+						item-label="name"
+						tick-property="selected"
+						translation="localLang"
+						orientation="horizontal"
+						max-labels="20"
+						max-height="450px"
+						group-property="msGroup"
+						on-select-all="onSelectAll()"
+						>
+					</span>
+				</div>
+				<p/>
+					<div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+						<label class="control-label"><i class="fa fa-calendar"></i> {{languageJson.SignalRecord.StartTime}}</label><!--开始时间-->
+						<input type="text" class="form-control" ng-model="params.startDate" data-date-format="yyyy/MM/dd" name="startDate" bs-datepicker>
+					</div>
+					<div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+						<label class="control-label"><i class="fa fa-calendar"></i> {{languageJson.SignalRecord.EndTime}}</label><!--结束时间-->
+						<input type="text" class="form-control" ng-model="params.endDate" data-date-format="yyyy/MM/dd" name="endDate" bs-datepicker>
+					</div>
+					<button class="btn btn-primary padding-bottom" ng-click="query()" >{{languageJson.SignalRecord.Query}}</button><!--查询-->
+					<button class="btn btn-default padding-bottom pull-right"
+					ng-click="exportToHtml()">{{languageJson.SignalRecord.Export}}</button><!--导出...-->
+
+				</div>
+			</div>
+		</div>
+	<br/><br/>
+	<div class="table-opacity">
+		<div class="row">
+			<div class="col-lg-12">
+				<div><chart value="chartData" height="450" obj="chart"></chart></div>
+			</div>
+		</div>
+		<div class="row dialog_box">
+			<div class="col-lg-12 alarm_table_body">
+
+				<table  id="hisDataTable" ng-table="tableParams" show-filter="false" class="table ng-table-responsive  table-condensed alarm_table table_body" >
+					<tr ng-repeat="hisData in $data">
+						<td data-title="languageJson.SignalRecord.Table.Name" filter="{ 'name': 'text' }">
+							<div  class="text-center">
+								<span>{{hisData.name}}</span>
+							</div>
+						</td><!--'名称'-->
+						<td data-title="languageJson.SignalRecord.Table.Type" filter="{ 'baseType': 'text' }">
+							<div  class="text-center">
+								<span>{{hisData.baseType}}</span>
+							</div>
+						</td><!--'类型'-->
+						<td data-title="languageJson.SignalRecord.Table.Value" >
+							<div  class="text-center">
+								<span>
+									{{hisData.floatValue | precise : hisData.showPrecision}} {{hisData.unit}}
+								</span>
+							</div>
+						</td><!--'值'-->
+						<td data-title="languageJson.SignalRecord.Table.Meaning" >
+							<div class="text-center">
+								<span>{{hisData.meanings}}</span>
+							</div>
+						</td><!--'含义'-->
+						<td data-title="languageJson.SignalRecord.Table.Time" >
+							<div class="text-center">
+								<span>{{hisData.sampleTime}}</span>
+							</div>
+						</td><!--'采集时间'-->
+					</tr>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	version: Mdc Nurse v2.11.2
+	update date: 2019/08/30
+-->
+<Main>
+  <Telnet UserName="root" PassWord="hello" />
+	<Table>
+		<!--仅备份还原用,复制时不需要修改的表,Tables字段用,隔开-->
+		<ItemTable Tables="activenotification,tbl_controlbak,TBL_Employee,NT_EventNotifyRule,TBL_TimeGroupSpan,TBL_TimeGroup,TBL_UserRole,TBL_UserRoleMap,TBL_Account,TBL_VideoEquipment,TBL_Camera,TBL_IntervalClearData,TBL_NetworkPhone,EMailTiming,NT_SmsPort,MDC_AisleDeviceLocation,TBL_RtspVideo,TBL_DoorControlGovern" />
+	</Table>
+	<NeedUpdateTable>
+		<!--复制需要修改相关ID的表,Item为要修改的字段,MainTable为主表有唯一主键, OtherTables为关联主表Item字段的关联表集合-->
+		<UpdateItem Item="StationId" MainTable="TBL_Station" OtherTables="TBL_Card,TBL_Door,TBL_Equipment,TBL_EventLogAction,TBL_House,TBL_StationStructureMap,TSL_MonitorUnit,EventNotifyReciever" />
+		<UpdateItem Item="MonitorUnitId" MainTable="TSL_MonitorUnit" OtherTables="TBL_Equipment,TSL_Port,TSL_SamplerUnit,TBL_EventLogAction" />
+		<UpdateItem Item="WorkStationId" MainTable="TBL_WorkStation" OtherTables="TBL_Equipment,TSL_MonitorUnit" />
+		<UpdateItem Item="SamplerUnitId" MainTable="TSL_SamplerUnit" OtherTables="TBL_Door,TBL_Equipment" />
+		<UpdateItem Item="PortId" MainTable="TSL_Port" OtherTables="TSL_SamplerUnit" />
+		<UpdateItem Item="EquipmentTemplateId" MainTable="TBL_EquipmentTemplate" OtherTables="TBL_Control,TBL_ControlMeanings,TBL_Equipment,TBL_Event,TBL_EventCondition,TBL_Signal,TBL_SignalMeanings,TBL_SignalProperty" />
+		<UpdateItem Item="NotifyServerId" MainTable="NotifyServer" OtherTables="EventNotifyReciever,NotifyReceiverMap" />
+		<UpdateItem Item="SamplerId" MainTable="TSL_Sampler" OtherTables="TSL_SamplerUnit" />
+		<UpdateItem Item="EquipmentId" MainTable="TBL_Equipment" OtherTables="TBL_ControlLogAction,TBL_Door,TBL_EquipmentMaintain,TBL_ConfigureMold,MDC_Environment,TBL_AssetsManager,TBL_ConfigureMold" />
+		<UpdateItem Item="DoorId" MainTable="TBL_Door" OtherTables="TBL_DoorCard,TBL_DoorTimeGroup" />
+	</NeedUpdateTable>
+	<TableColumnMap>	<!--不同表不同字段相关的映射配置,Item为主表被关联字段,MainTable为主表,RelColumn为需关联字段,RelMap为需要关联的表-->
+		<RelMap Item="EquipmentId" MainTable="TBL_Equipment" RelColumns="Line1PhaseACurrentDeviceId,Line1PhaseAVoltageDeviceId,Line1PhaseBCurrentDeviceId,Line1PhaseBVoltageDeviceId,Line1PhaseCCurrentDeviceId,Line1PhaseCVoltageDeviceId,Line2PhaseACurrentDeviceId,Line2PhaseAVoltageDeviceId,Line2PhaseBCurrentDeviceId,Line2PhaseBVoltageDeviceId,Line2PhaseCCurrentDeviceId,Line2PhaseCVoltageDeviceId,PowerConsumptionDeviceId" RelTable="MDC"/>
+		<RelMap Item="EquipmentId" MainTable="TBL_Equipment" RelColumns="PhaseACurrentDeviceId,PhaseAVoltageDeviceId,PhaseBCurrentDeviceId,PhaseBVoltageDeviceId,PhaseCCurrentDeviceId,PhaseCVoltageDeviceId" RelTable="Cabinet"/>
+		<RelMap Item="EquipmentId" MainTable="TBL_Equipment" RelColumns="DeviceId" RelTable="MDC_CabinetDeviceMap"/>
+		<RelMap Item="EquipmentId" MainTable="TBL_Equipment" RelColumns="DeviceId" RelTable="Cabinet_Signal_Map"/>
+		<RelMap Item="EquipmentId" MainTable="TBL_Equipment" RelColumns="DeviceId" RelTable="Thermal_Sensors"/>
+		<RelMap Item="EquipmentId" MainTable="TBL_Equipment" RelColumns="TDeviceId,HDeviceId" RelTable="MDC_AisleThermalHumidity"/>
+	</TableColumnMap>
+  <!-- 备份的配置文件目录 存储在Config目录，还原到/home/app/web目录 -->
+  <ConfigFiles>
+    <ConfigFile Item="/home/app/web/log4j.properties" />
+    <ConfigFile Item="/home/app/web/mainconfig.xml" />
+    <ConfigFile Item="/home/app/web/nurse.jar" />
+  </ConfigFiles>
+  <!-- 备份的Web文件目录 Root:备份文件目录；File:备份文件(*.*:表示为文件而不是文件夹)；Backup:存放位置 -->
+  <WebFiles>
+    <WebFile Root="/home/app/web/web/" File="*.*" Backup="Web"/>
+    <WebFile Root="/home/app/web/web/data/" File="*.*" Backup="Web\\data"/>
+    <WebFile Root="/home/app/web/web/data/language/" File="*.*" Backup="Web\\data\\language"/>
+    <WebFile Root="/home/app/web/web/data/module/" File="*.*" Backup="Web\\data\\module"/>
+    <WebFile Root="/home/app/web/web/upload/" File="*.*" Backup="Web\\upload"/>
+  </WebFiles>
+</Main>

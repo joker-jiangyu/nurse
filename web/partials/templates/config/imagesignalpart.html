@@ -1,0 +1,27 @@
+<div class="panel-primary" partid="[id]" style="position: absolute; left: [left]px; top: [top]px; width: [width]px; height: [height]px; z-index: [zindex];">
+    <div class="panel-body filled image-signal-body [options.Background]" style="height:calc(100% - 19px);">
+        <div style="background-size:100% 100% !important; height: 100%;  border-radius: 10px;">
+            <table class="filled body_transparent">
+                <tbody>
+                <tr>
+                    <td rowspan="2" class="diagram-sigimg-img-td" ng-show="{{[options.isImage]}}">
+                        <div class="diagram-sigimg-img lead" style="background-image: url('[options.Img]');{{[options.isSignal] == false ? 'margin: 10px 15px;' : ''}}">
+                            <img styles="width:100%; height:auto;">
+                        </div>
+                    </td>
+                    <td valign="bottom" class="diagram-sigimg-title-td" ng-hide="{{'[options.Name]' == ''}}">
+                        <div class="diagram-sigimg-title">
+                            <strong>[options.Name]</strong>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" class="diagram-sigimg-value-td" ng-show="{{[options.isSignal]}}">
+                        <div class="diagram-sigimg-value signal-value-disconnect">加载中...</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

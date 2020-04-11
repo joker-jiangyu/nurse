@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/lib/webVideoCtrl.js"></script>
+
+    <style>
+        html,body{
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #camera-plugin{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div  id="camera-plugin">
+
+</div>
+
+</body>
+<script>
+
+    initplugin();
+
+    function JudgeBrowser(){
+        var NV = {};
+        var UA =  navigator.userAgent.toLowerCase();
+        NV.name = (UA.indexOf("chrome")>0)?'chrome':'unkonw';
+        NV.version = (NV.name=='chrome')?UA.match(/chrome\/([\d.]+)/)[1]:'0';
+        var isIe = "ActiveXObject" in window;
+        if(isIe) return true;
+        if(NV.name === 'chrome' && parseInt(NV.version) <= 42) return true;//64bit chrome v34
+        console.log("视频浏览不支持当前浏览器或版本，请使用IE或者Chrome v42以下的浏览器！");/*"视频浏览不支持当前浏览器或版本，请使用IE或者Chrome v42以下的浏览器！"*/
+        return false;
+    }
+
+    function initplugin() {
+        var is = JudgeBrowser();
+        if(is == false) return;
+
+        if (-1==WebVideoCtrl.I_CheckPluginInstall()) {
+            ocument.getElementById('abc').innerHTML="<a href='files/WebComponentsKit.exe'  target='_black'> 您还未安装过插件，单击该连接下载安装！</a>";
+            return;
+        }
+        WebVideoCtrl.I_InitPlugin(570, 300, {
+            bWndFull: true,     //是否支持单窗口双击全屏，默认支持 true:支持 false:不支持
+            iPackageType: 11,    //2:PS 11:MP4
+            iWndowType: 1,  //窗口数
+            bNoPlugin: true,
+            cbSelWnd: function (xmlDoc) {
+                g_iWndIndex = parseInt($(xmlDoc).find("SelectWnd").eq(0).text(), 10);
+            }
+        });
+        WebVideoCtrl.I_InsertOBJECTPlugin("camera-plugin");
+        setTimeout(loginplayview,500);
+
+    }
+
+    function loginplayview() {
+        var ip=getUrlParameter('ip'),
+                port=getUrlParameter('port'),
+                username=getUrlParameter('user'),
+                pwd=getUrlParameter('pwd'),
+                channelno=getUrlParameter('channo');
+        var iRet = WebVideoCtrl.I_Login(ip, 1, port, username, pwd, {
+            success: function (xmlDoc) {
+                playview(ip,channelno);
+            },
+            error: function (e) {
+                var error = e;
+            }
+        });
+    }
+
+    // start view
+    function playview(ip,channelno) {
+        var oWndInfo = WebVideoCtrl.I_GetWindowStatus(0),
+                iStreamType =1, //码流
+                bZeroChannel = false;
+        if ("" == ip) return;
+        if (oWndInfo != null) WebVideoCtrl.I_Stop();
+
+        var iRet = WebVideoCtrl.I_StartRealPlay(ip, {
+            iStreamType: iStreamType,
+            iChannelID: channelno,
+            bZeroChannel: bZeroChannel
+        });
+
+    }
+
+function fullscreen(){
+    if(-1==WebVideoCtrl.I_CheckPluginInstall()) return;
+    WebVideoCtrl.I_FullScreen(true)
+}
+
+    function getUrlParameter(name)
+    {
+        var url = location.href;
+        var parameters = url.substr(url.indexOf("?")+1);
+        var paramItems = parameters.split("&");
+        var paramName;
+        var paramValue = "";
+        for(i in paramItems)
+        {
+            paramName = paramItems[i].split("=")[0];
+            paramValue = paramItems[i].split("=")[1];
+            if(paramName.toLowerCase() == name.toLowerCase())
+            {
+                return(paramValue);
+            }
+        }
+        return "";
+    }
+</script>
+</html>

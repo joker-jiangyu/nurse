@@ -1,0 +1,33 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog device-info" style="width: 400px;margin: 50px auto;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.DeviceInfo.RecordTitle}}</h4><!--设备操作记录-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="scroll-root">
+                            <div class="col-md-12 device-record scroll-easy">
+                                <div class="record-body" ng-repeat="item in DeviceRecords">
+                                    <div class="record-comment-title">
+                                        <span>[{{item.UserName}}]</span>
+                                        <span>{{item.Operation}}</span>
+                                        <span class="right">IP:{{item.IPAddress}} </span>
+                                    </div>
+                                    <div class="record-comment-body">
+                                        <span>{{item.Comment}}</span>
+                                    </div>
+                                    <div class="record-time">
+                                        <span>{{item.OperationTime}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

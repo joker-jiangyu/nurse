@@ -1,0 +1,35 @@
+<div class="panel-primary" partid="[id]" style="position: absolute; left: [left]px; top: [top]px; width: [width]px; height: [height]px; z-index: [zindex];">
+    <div class="panel-body chart-body [options.Background]">
+        <div class="avg-max-min" ng-show="{{[options.DataType] == 7}}">
+            <div class="max">
+                <div>
+                    <span class="value">0.0</span>
+                    <span class="name">MAX</span>
+                </div>
+            </div>
+            <div class="min">
+                <div>
+                    <span class="value">0.0</span>
+                    <span class="name">MIN</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="border-bottom: 1px solid rgba(243, 240, 240, 0.5);font-size: 20px;padding-left: 15px;" class="pie-chart-title" ng-hide="{{'[options.Title]' === ''}}">
+            <label class="title">[options.Title]</label>
+        </div>
+        <div class="pie" style="width: 100%; height: calc(100% - 30px);" ng-hide="{{'[options.ChartType]' === 'newGauge'}}"></div>
+        <div class="circle" ng-show="{{'[options.ChartType]' === 'newGauge'}}" style="font-size: [control.FontSize]px;width: [control.Width]px;">
+            <canvas class="new_gauge" width="[control.Width]" height="[control.Height]" style="background-image: url('/img/diagram/[options.LineImages].png');background-size: [control.Width]px"></canvas>
+            <div class="circle-value" style="line-height: [control.FontSize]px;width: [control.Width]px;top:[control.Top]px;">{{getCurrentValue('[id]')}}</div>
+            <div class="circle-name" style="line-height: [control.FontSize]px;width: [control.Width]px;">[options.Y1Name]</div>
+        </div>
+
+        <div style="display: none;">
+            <i style="position: absolute;top: 26px;right: 40px;cursor: pointer;font-size: 12px;border: 1px solid;border-radius: 5px;padding: 2px 5px;display: none;" class="pue" ng-click="clickPue()" title="{{languageJson.Configuration.ActiveChartControl.Export}}">PUE</i>
+        </div>
+        <div class="export-button" ng-hide="{{'[options.Title]' === ''}}">
+            <i class="fa fa-download" style="position: absolute;top: 27px;right: 10px;cursor: pointer;font-size: 20px;" ng-click="clickExport('[id]','piechartpart')" title="{{languageJson.Configuration.ActiveChartControl.Export}}"></i>
+        </div>
+    </div>
+</div>

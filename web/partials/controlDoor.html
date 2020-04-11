@@ -1,0 +1,54 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.ControlBox.Title}}</h4><!--控制-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div id="ControlDoor" class="panel-body">
+                                        <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                            <!--<tr>
+                                                <td data-title="'命令'" class="td1" align="right">门禁校时</td>
+                                                <td data-title="'解释'">设置门禁时间为服务器时间</td>
+                                                <td data-title="'操作'" align="center"><button type="button" class="btn btn-primary"  ng-click="activeControlDoor('timing')">执行</button></td>
+                                            </tr>-->
+                                            <tr>
+                                                <td data-title="languageJson.ControlBox.Command" class="td1" align="right">{{languageJson.ControlBox.DeleteCard.Name}}</td><!--'命令' 删除所有准进卡-->
+                                                <td data-title="languageJson.ControlBox.Explain">{{languageJson.ControlBox.DeleteCard.Explain}}</td><!--'解释' 删除门禁的所有准进卡-->
+                                                <td data-title="languageJson.ControlBox.Operation" align="center"><button type="button" class="btn btn-primary"  ng-click="activeControlDoor('removeCard')">{{languageJson.ControlBox.Execute}}</button></td><!--'操作' 执行-->
+                                            </tr>
+                                            <tr>
+                                                <td class="td1" align="right">{{languageJson.ControlBox.DeleteTime.Name}}</td><!--删除准进时段-->
+                                                <td>{{languageJson.ControlBox.DeleteTime.Explain}}</td><!--删除门禁内所有准进时段和准进时段数据-->
+                                                <td align="center"><button type="button" class="btn btn-primary"  ng-click="activeControlDoor('removeAllTimeGroup')">{{languageJson.ControlBox.Execute}}</button></td><!--执行-->
+                                            </tr>
+                                            <tr>
+                                                <td class="td1" align="right">{{languageJson.ControlBox.CardPwd.Name}}</td><!--刷卡加密码-->
+                                                <td>{{languageJson.ControlBox.CardPwd.Explain}}</td><!--刷卡后输入密码门才会打开，请先确认该门禁是否支持此功能-->
+                                                <td align="center" class="timeGroupCheck">
+                                                    <label>
+                                                        <input type="checkbox" ng-click="checkedEncryption($event)" ng-model="DoorManage.activeControl.isAllCheck">
+                                                        <i>{{getCheckbox(DoorManage.activeControl.isAllCheck)}}</i>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

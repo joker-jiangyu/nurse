@@ -1,0 +1,144 @@
+﻿<div id="diagram" ng-controller="diagramCtrl" style="height:100%;position:relative;" onkeydown="keydown(event);">
+
+    <!--  ng-right-click="changeEditState()" -->
+
+
+
+
+	<div id="editor_config" class="pull-right diagram-menu editor-menu" ng-show="isAdminRole && !hideEdit"><!-- ng-show="diagram.edit" -->
+		<div style="width: 100%; height: 0px; "></div>
+        <div class="is-show-div" ng-click="changeEditState()">
+            <!--编辑器-->
+            <div style="{{languageJson.Language == 'Chinese' ? 'height: 65px;' : ''}}">
+                <div class="font-one" style="height: 35px;margin-top: 10px;">{{diagram.edit ? languageJson.Configuration.Save : languageJson.Configuration.Edit}}</div>
+                <i ng-show="!diagram.edit" class="fa fa-chevron-left" style="margin: 0px 2px;"></i>
+                <i ng-show="diagram.edit" class="fa fa-chevron-right" style="margin: 0px 2px;"></i>
+            </div>
+        </div>
+        <ul class="is-show-ul" style="display: none;width: 0px;">
+            <li ng-click="setPage()"><i class="fa fa-wrench" ></i>{{languageJson.Configuration.Page.Title}}</li><!--页面设置-->
+            <li ng-click="downloadUploadPage()"><i class="fa fa-download" ></i>{{languageJson.Configuration.ConfigurationPage.Title}}</li><!--组态页面管理-->
+            <li newlarymdcsetter ng-show="false"><i class="fa fa-th-large"></i>{{languageJson.Configuration.LaryMdcControl.AddTitle}}</li><!--3D MDC-->
+            <li newlabelsetter><i class="fa fa-text-width" ></i>{{languageJson.Configuration.TextControl.AddTitle}}</li><!--新增文本框-->
+            <li newimagesetter><i class="fa fa-file-image-o" ></i>{{languageJson.Configuration.ImageControl.AddControl.Title}}</li><!--新增图片-->
+            <li newlinkbuttonsetter><i class="glyphicon glyphicon-link"></i>{{languageJson.Configuration.LinkControl.AddTitle}}</li><!--新增链接按钮-->
+            <li newcamerasetter><i class="glyphicon glyphicon-facetime-video"></i>{{languageJson.Configuration.VideoControl.AddTitle}} </li><!--新增摄像头-->
+            <li newimagesignalsetter><i class="fa fa-tint fa-fw" ></i>{{languageJson.Configuration.ImageSignalControl.AddTitle}}</li><!--新增环境量-->
+            <li newdevicestatussetter><i class="fa fa-reorder"></i>{{languageJson.Configuration.EquipmentControl.AddTitle}}</li><!--  ng-show="imagesShow" 新增设备状态 -->
+            <li newalarmlistsetter><i class="fa fa-list-ul"></i>{{languageJson.AlarmConfigure.AddAlarmConfigure}}</li><!-- 新增告警列表 -->
+            <li newsignalsetter><i class="fa fa-rss fa-fw"></i>{{languageJson.Configuration.SignalControl.AddTitle}}</li><!-- signalShow &&  / 新增信号量 -->
+            <li newvirtualsignalsetter ><i class="fa fa-font fa-fw"></i>{{languageJson.Configuration.VirtualControl.AddTitle}}</li><!--  ng-show="imagesShow" / 新增虚拟量 -->
+            <li newtopologysetter><i class="fa fa-photo fa-fw"></i>{{languageJson.Configuration.TopologyControl.AddTitle}}</li> <!--  ng-show="topologyShow" / 新增拓扑图 -->
+            <li newpercentsetter><i class="fa fa-tachometer fa-fw"></i>{{languageJson.Configuration.PercentControl.AddTitle}}</li><!--新增能量柱-->
+            <!--<li newgaugesetter><i class="fa fa-tachometer"></i>新增仪表盘</li>-->
+            <li newpiechartsetter ><i class="fa fa-pie-chart"></i>{{languageJson.Configuration.ActiveChartControl.AddTitle}}</li><!--新增实时图表-->
+            <li newhspiechartsetter ><i class="fa fa-area-chart"></i>{{languageJson.Configuration.HistoryChartControl.AddTitle}}</li><!--新增历史图表-->
+            <li newcontrolsetter ><i class="fa fa-power-off"></i>{{languageJson.Configuration.RemoteControl.AddTitle}}</li><!--新增遥控遥调-->
+            <li newtablesetter ><i class="fa fa-table"></i>{{languageJson.Configuration.TableControl.AddTitle}}</li><!--新增表格-->
+        </ul>
+	</div>
+
+    <!-- 组态编辑按钮 -->
+    <div id="editor_menu" class="editor tooltip-options" ng-show="diagram.edit">
+        <button class="editor_lock true" id="Radio" ng-click="select('one')" title="<h6>{{languageJson.ConfigOperate.Radio}}</h6>"><i class="fa fa-mouse-pointer fa-fw"></i></button><!--单选-->
+        <button class="editor_lock true" id="Checkbox" ng-click="select('multi')" title="<h6>{{languageJson.ConfigOperate.Checkbox}}</h6>"><i class="fa fa-window-restore fa-fw"></i></button><!--框选-->
+        <button class="editor_lock true" id="Copy" ng-click="copy()" title="<h6>{{languageJson.ConfigOperate.Copy}}</h6>"><i class="fa fa-files-o fa-fw"></i></button><!--复制-->
+        <button class="editor_lock true" id="Paste" ng-click="paste()" title="<h6>{{languageJson.ConfigOperate.Paste}}</h6>"><i class="fa fa-clipboard fa-fw"></i></button><!--粘贴-->
+        <button class="editor_lock true" id="Delete" ng-click="remove()" title="<h6>{{languageJson.ConfigOperate.Delete}}</h6>"><i class="fa fa-trash fa-fw"></i></button><!--删除-->
+        <button style="border: 0px;background-color: rgba(0, 0, 0, 0);cursor: auto;visibility: hidden;"></button>
+        <button class="editor_lock true" id="TopAlign" ng-click="align('up')" title="<h6>{{languageJson.ConfigOperate.TopAlign}}</h6>"><i class="fa fa-align-left fa-rotate-90 fa-fw"></i></button><!--上对齐-->
+        <button class="editor_lock true" id="BottomAlign" ng-click="align('down')" title="<h6>{{languageJson.ConfigOperate.BottomAlign}}</h6>"><i class="fa fa-align-right fa-rotate-90 fa-fw"></i></button><!--下对齐-->
+        <button class="editor_lock true" id="LeftAlign" ng-click="align('left')" title="<h6>{{languageJson.ConfigOperate.LeftAlign}}</h6>"><i class="fa fa-align-left fa-fw"></i></button><!--左对齐-->
+        <button class="editor_lock true" id="RightAlign" ng-click="align('right')" title="<h6>{{languageJson.ConfigOperate.RightAlign}}</h6>"><i class="fa fa-align-right fa-fw"></i></button><!--右对齐-->
+        <button style="border: 0px;background-color: rgba(0, 0, 0, 0);cursor: auto;visibility: hidden;"></button>
+        <button class="editor_lock true" id="SameHeight" ng-click="same('height')" title="<h6>{{languageJson.ConfigOperate.SameHeight}}</h6>">
+            <span class="fa-stack">
+                <i class="fa fa-window-minimize fa-rotate-90 fa-stack-1x"></i>
+                <i class="fa fa-window-minimize fa-rotate-270 fa-stack-1x"></i>
+            </span>
+        </button><!--尺寸等高-->
+        <button class="editor_lock true" id="SameWidth" ng-click="same('width')" title="<h6>{{languageJson.ConfigOperate.SameWidth}}</h6>">
+            <span class="fa-stack">
+                <i class="fa fa-window-minimize fa-stack-1x"></i>
+                <i class="fa fa-window-minimize fa-rotate-180 fa-stack-1x"></i>
+            </span>
+        </button><!--尺寸等宽-->
+        <button class="editor_lock true" id="VerticalDistance" ng-click="space('vertical')" title="<h6>{{languageJson.ConfigOperate.VerticalDistance}}</h6>"><i class="fa fa-align-justify fa-fw"></i></button><!--垂直等距-->
+        <button class="editor_lock true" id="HorizontalDistance" ng-click="space('level')" title="<h6>{{languageJson.ConfigOperate.HorizontalDistance}}</h6>"><i class="fa fa-align-justify fa-rotate-90 fa-fw"></i></button><!--水平等距-->
+        <!--<button style="border: 0px;background-color: rgba(0, 0, 0, 0);cursor: auto;"></button>
+        <button ng-click="move('left')" title="<h6>左移</h6>"><i class="fa fa-arrow-left"></i></button>
+        <button ng-click="move('up')" title="<h6>上移</h6>"><i class="fa fa-arrow-up"></i></button>
+        <button ng-click="move('right')" title="<h6>右移</h6>"><i class="fa fa-arrow-right"></i></button>
+        <button ng-click="move('down')" title="<h6>下移</h6>"><i class="fa fa-arrow-down"></i></button>-->
+        <button style="border: 0px;background-color: rgba(0, 0, 0, 0);cursor: auto;visibility: hidden;"></button>
+        <button class="editor_lock true" id="UpperLevel" ng-click="z_index('+1')" title="<h6>{{languageJson.ConfigOperate.UpperLevel}}</h6>"><i class="fa fa-eject fa-fw"></i></button><!--上一层-->
+        <button class="editor_lock true" id="NextLevel" ng-click="z_index('-1')" title="<h6>{{languageJson.ConfigOperate.NextLevel}}</h6>"><i class="fa fa-eject fa-rotate-180 fa-fw"></i></button><!--下一层-->
+        <button class="editor_lock true" id="Topping" ng-click="z_index('+50')" title="<h6>{{languageJson.ConfigOperate.Topping}}</h6>"><i class="fa fa-fast-backward fa-rotate-90 fa-fw"></i></button><!--置顶-->
+        <button class="editor_lock true" id="Bottom" ng-click="z_index('=0')" title="<h6>{{languageJson.ConfigOperate.Bottom}}</h6>"><i class="fa fa-fast-forward fa-rotate-90 fa-fw"></i></button><!--置低-->
+        <button style="border: 0px;background-color: rgba(0, 0, 0, 0);cursor: auto;visibility: hidden;"></button>
+        <button id="HideEdit" title="<h6>{{hideEdit ? languageJson.ConfigOperate.ShowEdit : languageJson.ConfigOperate.HideEdit}}</h6>" ng-click="hideEdit = !hideEdit"><i class="fa {{hideEdit ? 'fa-eye-slash' : 'fa-eye'}} fa-fw"></i></button><!--隐藏、显示编辑器-->
+        <button id="FloatWheel" title="<h6>{{floatMode == 'left'?languageJson.ConfigOperate.LeftWheel:languageJson.ConfigOperate.RightWheel}}</h6>" ng-click="FloatWheel()"><i class="fa {{floatMode == 'left'?'fa-caret-square-o-left':'fa-caret-square-o-right'}} fa-fw"></i></button><!--键盘左浮、键盘右浮-->
+        <button id="Lock" title="<h6>{{isLock ? languageJson.ConfigOperate.Unlock : languageJson.ConfigOperate.Lock}}</h6>" ng-click="Lock()"><i class="fa {{isLock ? 'fa-lock' : 'fa-unlock-alt'}} fa-fw"></i></button><!--锁、解锁-->
+    </div>
+
+    <!-- 组态编辑键盘 -->
+    <div ng-show="diagram.edit" class="key-wheel right">
+        <div class="key-title">
+            <label class="control-label col-md-4">{{languageJson.ConfigOperate.Distance}}</label><!--距离:-->
+            <div class="col-md-8">
+                <select class="form-control" ng-model="multiplying">
+                    <option value="1"> x 1 </option>
+                    <option value="5"> x 5 </option>
+                    <option value="10"> x 10 </option>
+                    <option value="20"> x 20 </option>
+                    <option value="50"> x 50 </option>
+                    <option value="100"> x 100 </option>
+                </select>
+            </div>
+        </div>
+        <table class="key-table body_transparent">
+            <tr>
+                <td ng-class="wheelMode == 'move'?'select':''" ng-click="moveWheel()">{{languageJson.ConfigOperate.Move}}</td><!--移动-->
+                <td>
+                    <i ng-show="wheelMode != 'stretch'" class="fa fa-arrow-up fa-3x fa-fw" ng-click="wheelArrow('up')"></i>
+                    <span ng-show="wheelMode == 'stretch'" class="fa-stack" ng-click="wheelArrow('up')">
+                        <i class="fa fa-sort-asc fa-3x fa-stack-1x"></i>
+                        <i class="fa fa-window-minimize fa-2x fa-stack-1x"></i>
+                    </span>
+                </td>
+                <td ng-class="wheelMode == 'stretch'?'select':''" ng-click="stretchWheel()">{{languageJson.ConfigOperate.Stretch}}</td><!--拉伸-->
+            </tr>
+            <tr>
+                <td>
+                    <i ng-show="wheelMode != 'stretch'" class="fa fa-arrow-left fa-3x fa-fw" ng-click="wheelArrow('left')"></i>
+                    <span ng-show="wheelMode == 'stretch'" class="fa-stack" ng-click="wheelArrow('left')">
+                        <i class="fa fa-sort-asc fa-rotate-270 fa-3x fa-stack-1x"></i>
+                        <i class="fa fa-window-minimize fa-rotate-270 fa-2x fa-stack-1x"></i>
+                    </span>
+                </td>
+                <td></td>
+                <td>
+                    <i ng-show="wheelMode != 'stretch'" class="fa fa-arrow-right fa-3x fa-fw" ng-click="wheelArrow('right')"></i>
+                    <span ng-show="wheelMode == 'stretch'" class="fa-stack" ng-click="wheelArrow('right')">
+                        <i class="fa fa-sort-asc fa-rotate-90 fa-3x fa-stack-1x"></i>
+                        <i class="fa fa-window-minimize fa-rotate-90 fa-2x fa-stack-1x"></i>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td ng-class="wheelMode == 'select'?'select':''" ng-click="selectWheel()">{{languageJson.ConfigOperate.Select}}</td><!--选择-->
+                <td>
+                    <i ng-show="wheelMode != 'stretch'" class="fa fa-arrow-down fa-3x fa-fw" ng-click="wheelArrow('down')"></i>
+                    <span ng-show="wheelMode == 'stretch'" class="fa-stack" ng-click="wheelArrow('down')">
+                        <i class="fa fa-sort-asc fa-rotate-180 fa-3x fa-stack-1x"></i>
+                        <i class="fa fa-window-minimize fa-rotate-180 fa-2x fa-stack-1x"></i>
+                    </span>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options button").tooltip({html : true });});
+</script>

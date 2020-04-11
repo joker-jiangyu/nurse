@@ -1,0 +1,165 @@
+<div class="modal" tabindex="-1" style="filter: alpha(opacity=80);opacity: 0.8">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <!--<a href="#" class="button pull-right" ng-click="$hide()" style="font-size:24px;"><i class="fa fa-times"></i></a>-->
+                <button type="button" class="close" ng-click="$hide()">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title">{{cabinet.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <div style="height:760px;" style="">
+                    <div class="row">
+                        <div class="col-sm-3" style="padding:1px;">
+                            <div style="display:inline-block;margin:10px;width:276px;padding:2px;
+            height:740px;border:6px solid #006699" class="device-title">
+                                <div ng-repeat="device in cabinet.devices" style="margin-top: {{device.divMarginTop}}px;height:{{device.divHeight}}px;cursor: pointer;"
+                                     class="rackDevice text-center" ng-click="selectDevice(device)"
+                                     ng-class="{'rackDevice-selected': selectedId == '{{device.id}}'}"
+                                     title="{{getTitle(device)}}" ng-mouseenter="mouseEnterDevice()">{{device.name}}</div>
+                            </div><!--   -->
+                        </div>
+                        <div class="col-sm-6" style="padding:1px;">
+                            <div id="div2" class="panel-group over-y" style="max-height: 690px;">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title" style="cursor: pointer;" ng-click="skipDevice(selectedId,deviceBaseTypeId)">{{panelTitle}}{{languageJson.MDCHome.RackBox.Data.Title}}</h5><!--监控数据-->
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">{{languageJson.MDCHome.RackBox.Data.Status}}</th><!--状态-->
+                                                    <th class="text-center">{{languageJson.MDCHome.RackBox.Data.PointName}}</th><!--测点名称-->
+                                                    <th class="text-center">{{languageJson.MDCHome.RackBox.Data.Value}}</th><!--值-->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="activeSignal in deviceActiveSignals">
+                                                    <td>
+										                <span>
+											                <i ng-class="getStatusIconClass(activeSignal.alarmSeverity)"></i>
+										                </span>
+                                                        {{getStatusLabel(activeSignal.alarmSeverity)}}
+                                                    </td>
+                                                    <!--<td><i class="fa fa-bell fa-fw alarmLevel{{activeSignal.alarmSeverity}}"></i></td>-->
+                                                    <td>{{activeSignal.signalName}}</td>
+                                                    <td>{{activeSignal.currentValue}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <a href ng-click="hideDivClick('div1',$event)"><i class="fa fa-chevron-right fa-fw"></i>
+                                            {{languageJson.MDCHome.RackBox.Assets.Title}}
+                                        </a><!--资产信息-->
+                                    </h3>
+                                </div>
+                                <div class="panel-body text-center" id="div1" style="display: none;">
+                                    <!--<textarea type="text" readonly class="form-control ng-pristine ng-untouched ng-valid" ng-model="cabinet.description"></textarea>-->
+                                    <div class="panel panel-default" style="margin-bottom: 0px;">
+                                        <!--<div class="panel-heading">
+                                            <h5 class="panel-title">资产信息</h5>
+                                        </div>-->
+                                        <div class="panel-body text-center" style="height: 374px;overflow-y: auto;">
+                                            <table class="table table-striped table-td">
+                                                <!--<thead>
+                                                    <tr>
+                                                        <th class="text-center" style="background-color: rgba(0, 0, 0, 0.5);">资产属性</th>
+                                                        <th class="text-center" colspan="{{CabinetAsset.length}}" style="background-color: rgba(0, 0, 0, 0.5);">内容</th>
+                                                    </tr>
+                                                </thead>-->
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="asset-head">{{languageJson.MDCHome.RackBox.Assets.Id}}</td><!--资产编号-->
+                                                        <td ng-repeat="item in CabinetAsset">{{item.assetCode}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="asset-head">{{languageJson.MDCHome.RackBox.Assets.Name}}</td><!--资产名称-->
+                                                        <td ng-repeat="item in CabinetAsset">{{item.assetName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="asset-head">{{languageJson.MDCHome.RackBox.Assets.Style}}</td><!--资产型号-->
+                                                        <td ng-repeat="item in CabinetAsset">{{item.assetStyle}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="asset-head">{{languageJson.MDCHome.RackBox.Assets.Vender}}</td><!--生成厂家-->
+                                                        <td ng-repeat="item in CabinetAsset">{{item.vendor}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="asset-head">{{languageJson.MDCHome.RackBox.Assets.Time}}</td><!--投产时间-->
+                                                        <td ng-repeat="item in CabinetAsset">{{item.usedDate}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="asset-head">{{languageJson.MDCHome.RackBox.Assets.Principal}}</td><!--负责人-->
+                                                        <td ng-repeat="item in CabinetAsset">{{item.responsible}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="asset-head">{{languageJson.MDCHome.RackBox.Assets.Status}}</td><!--状态-->
+                                                        <td ng-repeat="item in CabinetAsset">{{item.status}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 " style="padding:0px 15px;">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title">{{languageJson.MDCHome.RackBox.PatedPower}}(KW)</h5><!--额定功率-->
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <div class="panel-body text-center clock" style="font-size: 50px;height:100px;padding:20px;">{{cabinet.ratedPower/1000 | number : 1}}</div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title">{{languageJson.MDCHome.RackBox.Power}}(KW)</h5><!--实时功率-->
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <div class="panel-body text-center clock" style="font-size: 50px;height:100px;padding:20px;">{{cabinet.activePower/1000 | number : 1}}</div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title">{{languageJson.MDCHome.RackBox.HighT}}(℃)</h5><!--高-温度-->
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <div class="panel-body text-center clock" style="font-size: 50px;height:100px;padding:20px;">{{cabinetTopTemperature | number : 1}}</div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title">{{languageJson.MDCHome.RackBox.MediumT}}(℃)</h5><!--中-温度-->
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <div class="panel-body text-center clock" style="font-size: 50px;height:100px;padding:20px;">{{cabinetMiddleTemperature | number : 1}}</div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title">{{languageJson.MDCHome.RackBox.LowT}}(℃)</h5><!--低-温度-->
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <div class="panel-body text-center clock" style="font-size: 50px;height:100px;padding:20px;">{{cabinetBottomTemperature | number : 1}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".device-title .rackDevice").tooltip({html : true });});
+</script>

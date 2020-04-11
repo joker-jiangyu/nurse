@@ -1,0 +1,35 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()">
+                    <span style="color:white;"><i class="fa fa-times"></i></span></button>
+                <h4 class="modal-title">{{languageJson.Configuration.ColorSettingBox.Title}}</h4><!--颜色设置-->
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="overflow: auto;">
+                    <table id="BindMes" class="table table-condensed table-bordered table-striped table-hover">
+                        <tr>
+                            <td align="center" ng-hide="hideRange">{{languageJson.Configuration.ColorSettingBox.Range}}</td>
+                            <td align="center">{{languageJson.Configuration.ColorSettingBox.Color}}</td>
+                            <td align="center">{{languageJson.Configuration.ColorSettingBox.Operation}}</td>
+                        </tr>
+                        <tr ng-repeat="row in ColorSelect">
+                            <td align="center" ng-hide="hideRange">
+                                 [ {{$index == 0 ? '-∞' : ColorSelect[$index-1][0]}} , <input type="text" class="form-control color-section" ng-model="row[0]" Virtual-Key-Board="row[0]"/> )
+                            </td><!--'范围'-->
+                            <td align="center" style="width: 20%;"><input type="color" class="form-control" ng-model="row[1]"/></td><!--'颜色'-->
+                            <td align="center"><button type="button" class="btn btn-danger" ng-click="delColorClick($index)">{{languageJson.Configuration.ColorSettingBox.Delete}}</button></td><!--'操作'  删除-->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="picker"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary left" ng-click="addColorClick()">添加颜色</button>
+                <button type="button" class="btn btn-primary" ng-click="saveColorSelect()">{{languageJson.Configuration.ColorSettingBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.ColorSettingBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

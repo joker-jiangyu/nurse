@@ -1,0 +1,93 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 900px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.Modify.Template}}<!--修改模板信息--></h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.Config.Modify.Information}}<!--模板信息-->
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <br />
+                                            <label class="control-label col-md-2">{{languageJson.Config.Modify.ID}}</label><!--设备模板ID:-->
+                                            <div class="col-md-3">
+                                                <input class="form-control" placeholder="{{languageJson.Config.Modify.ID}}" type="text" ng-model="UpdateTemplate.EquipmentTemplateId" readonly/>
+                                            </div>
+                                            <label class="control-label col-md-2">{{languageJson.Config.Modify.Types}}</label><!--类型:-->
+                                            <div class="col-md-3">
+                                                <select class="form-control" name = "EquipmentCategory" ng-model="UpdateTemplate.EquipmentCategory" >
+                                                    <option value="{{row.ItemId}}" ng-selected="{{row.ItemId==UpdateTemplate.EquipmentCategory}}"
+                                                            ng-repeat="row in Template.EquipmentCategory | filter:Category ">{{row.ItemId}} , {{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input class="form-control" placeholder="{{languageJson.Config.Modify.Filter}}" type="text" ng-model="Category" />
+                                            </div><!--筛选类型-->
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.Modify.Name}}</label><!--名称:-->
+                                            <div class="col-md-3">
+                                                <input class="form-control" placeholder="<!--请输入模板名称-->" type="text" ng-model="UpdateTemplate.EquipmentTemplateName">
+                                            </div>
+                                            <label class="control-label col-md-2" >{{languageJson.Config.Modify.Equipment}}<!--设备基类:--></label>
+                                            <div class="col-md-3">
+                                                <select class="form-control" name = "BaseEquipmentName" ng-model="UpdateTemplate.EquipmentBaseType">
+                                                    <option value="{{row.baseEquipmentId}}" ng-selected="{{row.baseEquipmentId==UpdateTemplate.EquipmentBaseType}}"
+                                                            ng-repeat="row in Template.EquipmentBaseType | filter:EquipmentType">{{row.baseEquipmentId}} , {{row.baseEquipmentName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input class="form-control" placeholder="{{languageJson.Config.Modify.Class}}" type="text" ng-model="EquipmentType" />
+                                            </div><!--筛选基类-->
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.Modify.Manufacturer}}</label><!--厂家:-->
+                                            <div class="col-md-3">
+                                                <input class="form-control"  type="text" ng-model="UpdateTemplate.Vendor"  />
+                                            </div>
+                                           <label class="control-label col-md-2">{{languageJson.Config.Modify.Attributes}}</label><!--属性:-->
+                                            <div class="col-md-3">
+                                                <div class="templateDiv" ng-click="showProperty()">
+                                                    <span class="dropdown-toggle">
+                                                        <input id="Property" ng-model="UpdateTemplate.Property" class="form-control ng-pristine ng-untouched ng-valid"/>
+                                                    </span>
+                                                    <ul id="myProperty" class="templateProperty">
+                                                        <li ng-repeat="item in Template.Property">
+                                                            <label for='{{item.ItemId}}' style='margin-top: 3px;'>
+                                                                <input id='{{item.ItemId}}' type='checkbox' ng-checked='item.isChecked' ng-click='ClickProperty(item.ItemId)'/>
+                                                                {{languageJson.Language == 'English' ? item.ItemAlias : item.ItemValue}}
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.Modify.SoName}}</label><!--SO名称:-->
+                                            <div class="col-md-10">
+                                                <input class="form-control" placeholder="{{languageJson.Config.Modify.SoName}}" type="text" ng-model="UpdateTemplate.SoName" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="SaveEquipmentTemplate()">{{languageJson.Config.Modify.Save}}<!--保存--></button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Modify.Close}}<!--关闭--></button>
+            </div>
+        </div>
+    </div>
+</div>

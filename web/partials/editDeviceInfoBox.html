@@ -1,0 +1,121 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog device-info" style="width: 900px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.DeviceInfo.EditTitle}}</h4><!--修改设备信息-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--设备名称：-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.DeviceName}}</label>
+                                <label class="control-label  col-md-6" style="text-align: left;">{{DeviceInfo.EquipmentName}}</label>
+                            </div>
+                            <!--设备图片：-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.ImagesPath}}</label>
+                                <div class="col-md-6">
+                                    <input type="file" class="form-control" ngfile accept="image/*">
+                                </div>
+                                <div class="col-md-3 topology-img-div">
+                                    <img ng-src="{{DeviceInfo.ImagesPath}}" class="topology-img">
+                                    <div class="topology-expand-div">
+                                        <img ng-src="{{DeviceInfo.ImagesPath}}" title="{{languageJson.Configuration.TopologyControl.SelectPrompt}}" ng-click="showImgFile('DeviceInfo.ImagesPath')"><!--点击选择图片资源-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--序列号：    型号：-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.DeviceSN}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.EquipmentSN" Virtual-Key-Board="DeviceInfo.EquipmentSN">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.Model}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.EquipmentModel" Virtual-Key-Board="DeviceInfo.EquipmentModel">
+                                </div>
+                            </div>
+                            <!--版本号：    数字签名：-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.Version}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.EquipmentVersion" Virtual-Key-Board="DeviceInfo.EquipmentVersion">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.DigitalSignature}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.DigitalSignature" Virtual-Key-Board="DeviceInfo.DigitalSignature">
+                                </div>
+                            </div>
+                            <!--安装日期： 运行时间：  天-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.InstallTime}}</label>
+                                <div class="col-md-4">
+                                    <date-picker id="TimeControl1" date-type="date" date-value="DeviceInfo.InstallTime"></date-picker>
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.UsedDate}}</label>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.UsedDate" Virtual-Key-Board="DeviceInfo.UsedDate">
+                                </div>
+                                <label class="control-label  col-md-1" style="text-align: left;">{{languageJson.DeviceInfo.Days}}</label>
+                            </div>
+                            <!--保固期：    年   维修时间：-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.WarrantyPeriod}}</label>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.WarrantyPeriod" Virtual-Key-Board="DeviceInfo.WarrantyPeriod">
+                                </div>
+                                <label class="control-label  col-md-1" style="text-align: left;">{{languageJson.DeviceInfo.Year}}</label>
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.MaintenanceTime}}</label>
+                                <div class="col-md-4">
+                                    <date-picker id="TimeControl2" date-type="date" date-value="DeviceInfo.MaintenanceTime"></date-picker>
+                                </div>
+                            </div>
+                            <!--补丁名称：   补丁级别：-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.PatchName}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.PatchName" Virtual-Key-Board="DeviceInfo.PatchName">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.PatchVersion}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.PatchVersion" Virtual-Key-Board="DeviceInfo.PatchVersion">
+                                </div>
+                            </div>
+                            <!--配置设置：-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.ConfigSetting}}</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.ConfigSetting" Virtual-Key-Board="DeviceInfo.ConfigSetting">
+                                </div>
+                            </div>
+                            <!--位置：-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.DeviceInfo.Location}}</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="DeviceInfo.Location" Virtual-Key-Board="DeviceInfo.Location">
+                                </div>
+                            </div>
+                        </div>
+                        <!--备注-->
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.DeviceInfo.Comment}}
+                                </div>
+                                <div class="panel-body">
+                                    <textarea class="col-md-12 form-control" ng-model="DeviceInfo.Comment" Virtual-Key-Board="DeviceInfo.Comment"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="modifyDeviceInfoClk()">{{languageJson.DeviceInfo.Modify}}</button><!--修改-->
+            </div>
+        </div>
+    </div>
+</div>

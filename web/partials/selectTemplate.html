@@ -1,0 +1,46 @@
+<div class="modal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Select.Title}}</h4><!--选择设备模板-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" id="mList">
+                                <div class="panel-heading">
+                                    {{languageJson.Select.List.Title}}<!--模板列表-->
+                                </div>
+                                <div class="panel-body">
+                                    <table ng-table="tableParams" show-filter = "true" class="table table-condensed table-bordered table-striped">
+                                        <tr>
+                                            <td data-title="languageJson.Select.List.Choose"></td><!--'选择'-->
+                                            <td data-title="languageJson.Select.List.Number"><input class="form-control" type="text"  ng-model="EquipmentTemplateId" /></td><!--'协议编号'-->
+                                            <td data-title="languageJson.Select.List.Name"><input class="form-control" type="text"  ng-model="EquipmentTemplateName" /></td><!--'协议名称'-->
+                                        </tr>
+                                        <tr ng-repeat="row in equipmentTemplates | filter:{EquipmentTemplateId:EquipmentTemplateId,EquipmentTemplateName:EquipmentTemplateName}">
+
+                                            <td class="center">
+                                                <input type="radio" id="e{{row.EquipmentTemplateId}}" name="selected" ng-click="selectEquipmentTemplateId(row.EquipmentTemplateId)" />
+                                            </td>
+
+                                            <td  align="center"><label for="e{{row.EquipmentTemplateId}}" style="cursor: pointer;">{{row.EquipmentTemplateId}}</label></td>
+                                            <td  align="center"><label for="e{{row.EquipmentTemplateId}}" style="cursor: pointer;">{{row.EquipmentTemplateName}}</label></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="select()">{{languageJson.Select.Confirm}}</button><!--确定-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Select.Cancel}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>

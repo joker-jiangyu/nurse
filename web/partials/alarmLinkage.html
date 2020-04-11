@@ -1,0 +1,53 @@
+<div class="container-fluid" ng-controller="AlarmLinkageCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.Linkage.Configs}}>{{languageJson.Linkage.Linkage}} <!--配置 > 告警联动-->
+                <i class="fa fa-question-circle fw fa-img" ng-click="helpNotesClk('03',1)"></i>
+                <button type="button" class="btn btn-primary right return-btn" onclick="window.location.href='#/setting'"><i class="fa fa-reply"></i> {{languageJson.Login.Return}}</button>
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <spinner show="loading" tip="配置中"></spinner>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="tabs-below">
+                        <p>
+                            <button class="btn btn-default btn-primary" ng-click="addAlarmLinkageClick()">{{languageJson.Linkage.Added}}<!--新增告警联动--></button>
+                            <button class="btn btn-default btn-warning" ng-click="reLoadEquipmentConfigClick()">{{languageJson.Linkage.Config}}<!--配置生效--></button>
+                        </p>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{languageJson.Linkage.Linkages}}<!--告警联动列表-->
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table ng-table="tableParams" class="table table-condensed table-bordered table-striped" style="table-layout: fixed;">
+                                    <tr ng-repeat="row in AlarmLinkages">
+                                        <td data-title="languageJson.Linkage.Name" align="center">{{row.actionName}}</td><!--'告警联动名称'-->
+                                        <td data-title="languageJson.Linkage.Trigger" align="center">{{row.triggerTypeName}}</td><!--'联动触发类型'-->
+                                        <td data-title="languageJson.Linkage.Expression" align="center" style="overflow: hidden;">{{row.startExpression}}</td><!--'触发表达式'-->
+                                        <td data-title="languageJson.Linkage.Sequence" align="center" >{{row.actionList}}</td><!--'命令序列'-->
+                                        <td class="center" data-title="languageJson.Linkage.Operation" align="center"><!--'操作'-->
+                                            <button type="button" class="btn btn-sm btn-primary"  ng-click="updateAlarmLinkageClick(row)">{{languageJson.Linkage.Modify}}<!--修改--></button>
+                                            <button type="button" class="btn btn-sm btn-danger"  ng-click="removeAlarmLinkageClick(row)">{{languageJson.Linkage.Delete}}<!--删除--></button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+

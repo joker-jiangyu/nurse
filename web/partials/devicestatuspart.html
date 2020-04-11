@@ -1,0 +1,31 @@
+<div class="panel panel-primary" dragger resizer>
+    <div class="panel-heading diagram-ele-head" title="{{languageJson.Configuration.EquipmentControl.UpdTitle}}"><!--设备状态控件-->
+
+        <a class="pull-left grahico" setparttop  title="{{languageJson.Configuration.Control.Top}}"><!--置顶-->
+            <i class="fa fa-eject" ></i></a>
+
+        <a class="pull-right grahico" deletepartsetter title="{{languageJson.Configuration.Control.Delete}}"><!--删除-->
+            <i class="fa fa-times" ></i></a>
+
+        <a class="pull-right grahico" devicestatussetter  title="{{languageJson.Configuration.Control.Setter}}"><!--设置-->
+            <i class="fa fa-wrench" ></i></a>
+    </div>
+    <div class="panel-body filled device-status-body">
+        <div  style="background-size:100% 100% !important; height: 100%;" >
+            <table class="filled body_transparent" style="cursor: pointer;" ng-click="skipDevice()">
+                <tr>
+                    <td align="right">
+                        <div class="status-font-chart" style="font-size: 25px;"><i></i></div>
+                    </td>
+                    <td align="center">
+                        <div  class="status-title">
+                            <strong></strong></div>
+                    </td>
+                    <td align="left">
+                        <div class="status-value" style="font-size: 25px;"><i></i></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

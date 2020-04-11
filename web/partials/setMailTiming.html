@@ -1,0 +1,106 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.AlarmNotice.EMail.Mail}}<!--邮箱设置--></h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.AlarmNotice.EMail.Settings}}<!--发件邮箱设置-->
+                                </div><br/>
+                                <div class="form-group">
+                                    <label class="control-label  col-md-3">{{languageJson.AlarmNotice.EMail.Account}}<!--邮件账号:--></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" ng-model="EmailAccount.account" Virtual-Key-Board="EmailAccount.account">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label  col-md-3 tooltip-options">{{languageJson.AlarmNotice.EMail.Password}}<!--密码:-->
+                                        <a  href data-toggle="tooltip"
+                                            title="<h5>免费邮箱，比如QQ邮箱授权码即是密码</h5>">
+                                            <i class="fa fa-question-circle fa-fw pointer "></i>
+                                        </a>
+                                    </label>
+                                    <div class="col-md-8" style="position: relative;">
+                                        <input id="Pwd1" type="password" class="form-control" ng-model="EmailAccount.password" Virtual-Key-Board="EmailAccount.password">
+                                        <input id="Pwd2" type="text" class="form-control" ng-model="EmailAccount.password" Virtual-Key-Board="EmailAccount.password" style="display: none;">
+                                        <i class="fa {{FaEye}} fa-fw fa-2x pointer" style="position: absolute;right: 30px; top: 3px;"
+                                           ng-click="isShowPwd()"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label  col-md-3">{{languageJson.AlarmNotice.EMail.SMTP}}</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" ng-model="EmailAccount.smtpIp" Virtual-Key-Board="EmailAccount.smtpIp" placeholder="推荐输入SMTP的IP">
+                                    </div>
+                                    <label class="control-label  col-md-2">{{languageJson.AlarmNotice.EMail.Port}}<!--端口:--></label>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" ng-model="EmailAccount.smtpPort" Virtual-Key-Board="EmailAccount.smtpPort">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  {{languageJson.Language== 'Chinese'?'col-md-3':'col-md-4'}}">{{languageJson.AlarmNotice.EMail.Type}}<!--邮箱定时类型:--></label>
+                                <div class="{{languageJson.Language== 'Chinese'?'col-md-8':'col-md-7'}}">
+                                    <select class="form-control" ng-model="mailTim.type" ng-change="changeMail(mailTim.type)">
+                                        <option value="all">{{languageJson.AlarmNotice.EMail.Real}}<!--实时--></option>
+                                        <option value="day">{{languageJson.AlarmNotice.EMail.Days}}</option><!--每天-->
+                                        <option value="week">{{languageJson.AlarmNotice.EMail.Weekly}}</option><!--每周-->
+                                        <option value="month">{{languageJson.AlarmNotice.EMail.Monthly}}</option><!--每月-->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-show="mailTim.isTime">
+                            <div class="form-group">
+                                <label class="control-label  {{languageJson.Language== 'Chinese'?'col-md-3':'col-md-4'}}">{{languageJson.AlarmNotice.EMail.Time}}<!--时间:--></label>
+                                <div class="{{languageJson.Language== 'Chinese'?'col-md-8':'col-md-7'}}">
+                                    <table class="body_transparent">
+                                        <tr>
+                                            <td style="width: 100px;" ng-show="mailTim.isMonth">
+                                                <input type="text" class="form-control" style="width: 70px;display: inline;"
+                                                       ng-model="mailTim.day" Virtual-Key-Board="mailTim.day" placeholder="1-31">
+                                                <label style="padding-top: 7px;">{{languageJson.AlarmNotice.EMail.DD}}<!--日--></label>
+                                            </td>
+                                            <td style="width: 100px;" ng-show="mailTim.isWeek">
+                                                <label style="padding-top: 7px;">{{languageJson.AlarmNotice.EMail.Week}}<!--周--></label>
+                                                <input type="text" class="form-control" style="width: 70px;display: inline;"
+                                                       ng-model="mailTim.week" Virtual-Key-Board="mailTim.week" placeholder="1-7">
+                                            </td>
+                                            <td style="width: 100px;">
+                                                <input type="text" class="form-control" style="width: 70px;display: inline;"
+                                                       ng-model="mailTim.hour" Virtual-Key-Board="mailTim.hour" placeholder="0-23">
+                                                <label style="padding-top: 7px;">{{languageJson.AlarmNotice.EMail.Hr}}<!--时--></label>
+                                            </td>
+                                            <td style="width: 100px;">
+                                                <input type="text" class="form-control" style="width: 70px;display: inline;"
+                                                       ng-model="mailTim.minute" Virtual-Key-Board="mailTim.minute"  placeholder="0-59">
+                                                <label style="padding-top: 7px;">{{languageJson.AlarmNotice.EMail.Min}}<!--分--></label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="setMailDict()">{{languageJson.AlarmNotice.EMail.Set}}<!--设置--></button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.AlarmNotice.EMail.Close}}<!--关闭--></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>
+

@@ -1,0 +1,76 @@
+{
+	"edit": false,
+	"page": {
+		"bgImage": ""
+	},
+	"parts": [{
+		"id": "image1",
+		"type": "imagepart",
+		"left": 412.33,
+		"top": 245.82,
+		"width": 182,
+		"height": 305,
+		"zindex": 1,
+		"options": "img/diagram/Ammeter.gif"
+	}, {
+		"id": "signalgroup1",
+		"type": "signalgroup",
+		"left": 119.33,
+		"top": 127.63,
+		"width": 223,
+		"height": 200,
+		"zindex": 1,
+		"binding": "BS:201152001",
+		"options": "Name:市电状态|Background:white_bg"
+	}, {
+		"id": "signalgroup2",
+		"type": "signalgroup",
+		"left": 119.33,
+		"top": 366,
+		"width": 223,
+		"height": 200,
+		"zindex": 1,
+		"binding": "BS:201026001|BS:201028001|BS:201030001",
+		"options": "Name:相电压|Background:white_bg"
+	}, {
+		"id": "signalgroup3",
+		"type": "signalgroup",
+		"left": 119.33,
+		"top": 594.93,
+		"width": 223,
+		"height": 200,
+		"zindex": 1,
+		"binding": "BS:201032001|BS:201033001|BS:201034001",
+		"options": "Name:相电流|Background:white_bg"
+	}, {
+		"id": "signalgroup4",
+		"type": "signalgroup",
+		"left": 671,
+		"top": 594.93,
+		"width": 223,
+		"height": 200,
+		"zindex": 1,
+		"binding": "BS:201035001|BS:201308001",
+		"options": "Name:功率|Background:white_bg"
+	}, {
+		"id": "piechart1",
+		"type": "piechartpart",
+		"left": 671,
+		"top": 349.19,
+		"width": 223,
+		"height": 216.81,
+		"binding": "BS:201037001",
+		"options": "Title:频率|ChartType:gauge|DataType:1|LineColor:[[0.2, \"lightgreen\"],[0.8, \"skyblue\"],[1, \"#ff4500\"]]|Y1Name:频率|Y1Min:0|Y1Max:100|Size:7|Background:white_bg",
+		"zindex": 2
+	}, {
+		"id": "piechart2",
+		"type": "piechartpart",
+		"top": 105.69,
+		"left": 671,
+		"width": 220.33,
+		"height": 221.94,
+		"zindex": 2,
+		"binding": "BS:201036001",
+		"options": "Title:功率因数|ChartType:gauge|DataType:1|LineColor:[[0.2, \"lightgreen\"],[0.8, \"skyblue\"],[1, \"#ff4500\"]]|Y1Name:功率因数|Y1Min:0|Y1Max:100|Size:7|Background:white_bg"
+	}]
+}

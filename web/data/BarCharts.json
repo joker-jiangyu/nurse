@@ -1,0 +1,60 @@
+{
+  "title": {
+    "x": "center",
+    "text": "",
+    "textStyle":{
+      "color":"#FFF"
+    }
+  },
+  "tooltip": {
+    "trigger": "item",
+    "showContent": false
+  },
+  "calculable": true,
+  "grid": {
+    "x": 40,
+    "x2": 20,
+    "y":20,
+    "y2": 50,
+    "borderWidth":0
+  },
+  "xAxis": [
+    {
+      "type": "category",
+      "show": false,
+      "axisLabel" : {
+        "formatter":"",
+        "textStyle":{
+          "color":"#FFF"
+        }
+      },
+      "data": []
+    }
+  ],
+  "yAxis": [
+    {
+      "type": "value",
+      "show": true,
+      "axisLabel" : {
+        "formatter":"",
+        "textStyle":{
+          "color":"#FFF"
+        }
+      },
+      "splitLine":{
+        "show": false
+      }
+    }
+  ],
+  "series": [
+    {
+      "name": "",
+      "type": "bar",
+      "itemStyle": {
+        "normal": {
+        }
+      },
+      "data": []
+    }
+  ]
+}

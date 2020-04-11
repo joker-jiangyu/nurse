@@ -1,0 +1,51 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.LinkControl.AddTitle}}</h4><!--新增链接按扭-->
+            </div>
+            <div class="modal-body center-block div_body">
+                <table class="table">
+                    <tr><td>{{languageJson.Configuration.LinkControl.Id}}</td><!--编号-->
+                        <td colspan="2"><input  class="form-control" disabled ng-model="newpart.id" type="text"></td> </tr>
+                    <tr> <td>{{languageJson.Configuration.LinkControl.Type.Title}}</td><!--链接类型-->
+                        <td colspan="2">
+                            <select class="form-control" ng-model="newpart.target">
+                                <option value="">{{languageJson.Configuration.LinkControl.Type.Current}}</option><!--当前窗口-->
+                                <option value="_blank">{{languageJson.Configuration.LinkControl.Type.New}}</option><!--新窗口-->
+                                <option value="_configure">{{languageJson.Configuration.LinkControl.Type.Configure}}</option><!--组态页面-->
+                                <option value="_procedure">{{languageJson.Configuration.LinkControl.Type.Procedure}}</option><!--调用本地程序-->
+                            </select>
+                        </td>
+                    </tr>
+                    <tr ng-show="newpart.target == '' || newpart.target == '_blank'">
+                        <td>{{languageJson.Configuration.LinkControl.Url}}</td>
+                        <td colspan="2"><input class="form-control" ng-model="newpart.url" type="text" Virtual-Key-Board="newpart.url"></td>
+                    </tr><!--目标地址(url)-->
+                    <tr ng-show="newpart.target == '_configure'"><td>{{languageJson.Configuration.LinkControl.Path}}</td><!--目标页面-->
+                        <td>
+                            <select class="form-control" ng-model="newpart.parent" ng-change="changeParent(newpart.parent)">
+                                <option ng-repeat="row in ConfigureMolds" value="{{row}}">{{row.configName}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" ng-model="newpart.part">
+                                <option ng-repeat="row in ConfigureParts" value="{{row}}">{{row.configName}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!-- 打开本地文件 -->
+                    <tr ng-show="newpart.target == '_procedure'">
+                        <td>{{languageJson.Configuration.LinkControl.Prompt.Notes}}</td><!--操作方法-->
+                        <td colspan="2">{{languageJson.Configuration.LinkControl.Prompt.NoteContent}}</td><!--编辑web/data/myprotocol.reg文件，添加注册表-->
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">{{languageJson.Configuration.LinkControl.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.LinkControl.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

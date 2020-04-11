@@ -1,0 +1,295 @@
+<div class="container-fluid" ng-controller="NodeTempCtrl" style="position: relative;">
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="btn-group diagram">
+            <label class="btn diagram-tab active">
+                {{nodeTempConfig.title}}
+            </label>
+        </div>
+    </div>
+    <div id="node-view">
+        <!-- 温场 -->
+        <div class="node-temp-root">
+            <div class="node-temp-title" ng-show="nodeTempConfig.visibleTemp == 'true'">
+                <table class="body_transparent">
+                    <tr>
+                        <td class="{{item.deviceId == selectDeviceId? 'selected':''}}" ng-repeat="item in nodeTempConfig.configs" ng-click="loadNodeTemp(item.deviceId)">{{item.title}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="node-temp-body">
+                <!-- 温场 -->
+                <div class="body-temperature" style="width: {{tempPic.width}};height: {{tempPic.height}};">
+                    <div class="body-table-temperature" style="width: {{tempPic.width}};height: {{tempPic.height}};top:{{tempPic.top}};left:{{tempPic.left}}">
+                        <table class="body_transparent">
+                            <tr ng-repeat="tr in tempOption.tr">
+                                <td ng-hide="td.check == ''" ng-repeat="td in tr.td" width="{{tdWidth}}" height="{{tdHeight}}"  style="{{td.color}}"><span ng-hide="visibleTemp == false && td.value < nodeTempConfig.visibleValue">{{td.value}}</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- 机柜图 -->
+                <div class="node-temp-img">
+                    <img src="img/diagram/tempbg.png">
+                </div>
+                <!-- 游标 -->
+                <div class="body-caliper left">
+                    <div class="caliper">
+                        <!--温度标尺-->
+                        <h5>{{languageJson.NodeTemperature.Caliper}}</h5>
+                        <div ng-repeat="colorItem in colorDic" class="caliper-color">
+                            <div class="foot_number">{{colorItem.value}}</div>
+                            <div class="font_color" style="background-color:{{colorItem.color}};"></div>
+                        </div>
+                        <!--单位:℃-->
+                        <h5 style="margin-left: 5px;">{{languageJson.NodeTemperature.Unit}}</h5>
+                    </div>
+                    <div class="caliper-visible {{visibleTemp == false ?'filteringHide':'filteringShow'}}" ng-click="visibleTemp = !visibleTemp">
+                        <!--<i class="fa {{visibleTemp == false ? 'fa-toggle-off' : 'fa-toggle-on'}} fa-4x"></i>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 编辑区 -->
+        <div class="node-temp-edit is-show-div" ng-click="nodeTempEditClk()" ng-show="isAdminRole">
+            <!--编辑器-->
+            <div style="{{languageJson.Language == 'Chinese' ? 'height: 65px;' : ''}}">
+                <div class="font-one" style="height: 35px;margin-top: 10px;">{{languageJson.Configuration.Edit}}</div>
+                <i class="fa fa-chevron-left" style="margin: 0px 2px;"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="node-edit" hidden="hidden">
+        <!-- 温场编辑 -->
+        <div class="node-edit-config">
+            <div class="modal-header">
+                <h4 class="modal-title">{{languageJson.NodeTemperature.NodeTempConfig}}</h4><!--温场配置-->
+            </div>
+            <div class="scroll-easy" style="height: calc(100% - 120px);">
+                <form class="form-horizontal">
+                    <div class="panel-body">
+                        <form role="form">
+                            <div class="col-md-12">
+                                <!--标题：-->
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <label class="control-label col-md-3">{{languageJson.NodeTemperature.Title}}</label>
+                                    <div class="col-md-7">
+                                        <input class="form-control" type="text" ng-model="nodeTempConfig.title">
+                                    </div>
+                                </div>
+                                <!--可见阀值：-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{languageJson.NodeTemperature.VisibleValue}}</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="text" ng-model="nodeTempConfig.visibleValue">
+                                    </div>
+                                    <label class="control-label col-md-4" style="text-align:left;">{{languageJson.NodeTemperature.Prompt.Value}}</label><!--小于该值默认隐藏-->
+                                </div>
+                                <!--可见温场：-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{languageJson.NodeTemperature.VisibleTemp}}</label>
+                                    <div class="col-md-3">
+                                        <select class="form-control" ng-model="nodeTempConfig.visibleTemp">
+                                            <option value="true">{{languageJson.NodeTemperature.Show}}</option><!--可见-->
+                                            <option value="false">{{languageJson.NodeTemperature.Hide}}</option><!--隐藏-->
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-md-4" style="text-align:left;">{{languageJson.NodeTemperature.Prompt.Temp}}</label><!--温场栏是否可见-->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-body center-block div_body">
+                        <!--新增温场-->
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="addTemperature()">{{languageJson.NodeTemperature.AddTemp}}</button>
+                        </div>
+
+                        <div class="add-temperature" hidden="hidden">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{languageJson.NodeTemperature.AddTempConfig}}</h4><!--新增温场-->
+                            </div>
+                            <form class="form-horizontal">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <!--标题：-->
+                                            <div class="form-group" style="margin-top: 20px;">
+                                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.Title}}</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="text" ng-model="tempConfig.title">
+                                                </div>
+                                            </div>
+                                            <!--关联设备：-->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.Device}}</label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" ng-model="tempConfig.deviceId" ng-change="changeDevice(tempConfig.deviceId)">
+                                                        <option value="{{item.id}}" ng-repeat="item in devices">{{item.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!--关联JSON：-->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.Json}}</label>
+                                                <div class="col-md-3">
+                                                    <input class="form-control" type="text" ng-model="tempConfig.json" disabled>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <button type="button" class="btn btn-primary" ng-click="choosePointClk()">选择测点</button>
+                                                    <button type="button" class="btn btn-primary" ng-click="locationTempClk()">定位温场</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" ng-click="saveTemperature()">新增</button>
+                                <button type="button" class="btn btn-default" onclick="$('.add-temperature').hide()">{{languageJson.NodeTemperature.Close}}</button><!--关闭-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <table class="table table-condensed table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <td align="center">{{languageJson.NodeTemperature.Titles}}</td><!--标题-->
+                                    <td align="center">{{languageJson.NodeTemperature.Devices}}</td><!--关联设备-->
+                                    <td align="center">{{languageJson.NodeTemperature.TableSizes}}</td><!--表格大小-->
+                                    <td align="center">{{languageJson.NodeTemperature.Jsons}}</td><!--关联JSON-->
+                                    <td align="center">{{languageJson.NodeTemperature.Operate}}</td><!--操作-->
+                                </tr>
+                                </thead>
+                                <tr ng-repeat="row in nodeTempConfig.configs">
+                                    <td align="center">{{row.title}}</td>
+                                    <td align="center">{{row.deviceId}}</td>
+                                    <td align="center">{{row.totalRow}}x{{row.totalCol}}</td>
+                                    <td align="center">{{row.json}}</td>
+                                    <td align="center">
+                                        <button type="button" class="btn btn-sm btn-danger"  ng-click="removeTemperature(nodeTempConfig.configs,row)">{{languageJson.NodeTemperature.Remove}}</button><!--删除-->
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveNodeTemperature()">{{languageJson.NodeTemperature.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" onclick="$('#node-view').show();$('#node-edit').hide();">{{languageJson.NodeTemperature.Close}}</button><!--关闭-->
+            </div>
+        </div>
+        <!-- 温场编辑效果 -->
+        <div class="node-edit-view">
+            <!-- 温场测点 -->
+            <div class="Test-Box-Choose" hidden="hidden">
+                <div class="modal-header">
+                    <h4 class="modal-title">选择温场测点</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="allChoosePoint('check')">全选</button>
+                    <button type="button" class="btn btn-primary" ng-click="allChoosePoint('')">全不选</button>
+                </div>
+                <table class="body_transparent">
+                    <tr>
+                        <td></td>
+                        <td ng-repeat="td in editTempOption.tr[0].td">{{$index + 1}}</td>
+                    </tr>
+                    <tr ng-repeat="tr in editTempOption.tr">
+                        <td>{{$index + 1}}</td>
+                        <td ng-repeat="td in tr.td" class="point {{td.check}}" ng-click="checkPoint(td,$parent.$index,$index)">√</td>
+                    </tr>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="createPointJson()">{{languageJson.NodeTemperature.Save}}</button><!--保存-->
+                </div>
+            </div>
+            <!-- 温场与机柜图 -->
+            <div class="Test-Img-Temp" hidden="hidden">
+                <div class="modal-header">
+                    <h4 class="modal-title">定位机柜图与温场</h4>
+                </div>
+                <!-- 配置机柜图片 -->
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-2 tooltip-options">图片：</label>
+                            <div class="col-md-4">
+                                <input class="btn btn-default" style="width: 100%;" type="file" ngfile accept="image/*"/>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary" ng-click="uploadRackImg()">上传</button>
+                            </div>
+                            <div class="col-md-4 topology-img-div" ng-click="showImgFile()">
+                                <img src="{{editTempOption.img}}" class="topology-img">
+                                <div class="topology-expand-div">
+                                    <img src="{{editTempOption.img}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- 机柜图 与 可拖动的温场 -->
+                <div class="edit-img-temp">
+                    <div class="edit-temp">
+                        <div class="edit-temp-modal am-modal-dialog" draggable></div>
+                    </div>
+                    <div class="edit-img">
+                        <img src="{{editTempOption.img}}">
+                    </div>
+                </div>
+                <!-- 小键盘 -->
+                <div class="edit-view-keyboard">
+                    <div class="key-title right">
+                        <label class="control-label">键盘移动倍率</label>
+                        <div>
+                            <select class="form-control" ng-model="location.multiplying">
+                                <option value="1"> x 1 </option>
+                                <option value="5"> x 5 </option>
+                                <option value="10"> x 10 </option>
+                                <option value="20"> x 20 </option>
+                                <option value="50"> x 50 </option>
+                                <option value="100"> x 100 </option>
+                            </select>
+                        </div>
+                        <div style="margin-left: 30px;">
+                            <p>Top:{{location.offsetTop}}</p>
+                            <p>Left:{{location.offsetLeft}}</p>
+                        </div>
+                        <div class="modal-footer right">
+                            <button type="button" class="btn btn-primary" ng-click="createLocationJson()">{{languageJson.NodeTemperature.Save}}</button><!--保存-->
+                        </div>
+                    </div>
+                    <div class="key-wheel">
+                        <table class="key-table body_transparent">
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <i class="fa fa-arrow-up fa-3x fa-fw" ng-click="wheelArrow('up')"></i>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-arrow-left fa-3x fa-fw" ng-click="wheelArrow('left')"></i>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <i class="fa fa-arrow-right fa-3x fa-fw" ng-click="wheelArrow('right')"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <i class="fa fa-arrow-down fa-3x fa-fw" ng-click="wheelArrow('down')"></i>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

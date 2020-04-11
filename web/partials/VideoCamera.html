@@ -1,0 +1,144 @@
+<div  class="container-fluid" ng-controller="videoCameraCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.Person.Config}} > {{languageJson.Video.Management}}</h1><!--配置>视频管理-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel" style="background-color: transparent;">
+                <div class="panel-body">
+                    <div class="tabs-below">
+                        <p>
+                            <button class="btn btn-default btn-primary" ng-click="addVideoBtn()">{{languageJson.Video.Add}}</button><!--新增视频设备-->
+                            <!--<button class="btn btn-default btn-primary" ng-click="addCameraBtn()">新增监控点</button>-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{languageJson.Video.List}}<!--设备列表-->
+                </div>
+                <div class="panel-body" id="videoCameraList">
+                    <div class="table-responsive" style="font-size: 16px;line-height: 30px;">
+                        <ul style="list-style-type: none;">
+                            <li ng-repeat="item in videoCamera">
+                                <div ng-click="videoClick(item)" class="videoDiv" id="video{{item.EquipmentId}}" style="cursor:pointer"><i class="fa {{item.faStyle}}"></i> {{item.EquipmentName}}</div>
+                                <ul style="list-style-type: none" ng-show="{{item.show}}">
+                                    <li ng-repeat="i in item.Cameras"><div ng-click="cameraClick(i)" class="cameraDiv" id="camera{{i.CameraId}}" style="cursor:pointer"><i class="glyphicon glyphicon-eye-open"></i> {{i.CameraName}}</div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{languageJson.Video.Equipment}}<!--设备详情-->
+                </div>
+                <div class="panel-body" style="font-size: 16px;">
+                    <div id="VideoCamera-video" class="table-responsive collapse in">
+                        <table class="table table-striped table-bordered table-hover">
+                            <caption>{{languageJson.Video.Details}}<!--视频设备详情--></caption>
+                            <tbody>
+                            <tr>
+                                <td align="right"><label for="eId">{{languageJson.Video.ID}}<!--视频设备编号：--></label></td>
+                                <td><input type="text" disabled="disabled" class="form-control" id="eId" ng-model="eId" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><label for="eName">{{languageJson.Video.Name}}<!--视频设备名称：--></label></td>
+                                <td><input type="text" class="form-control" id="eName" ng-model="eName" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><label for="videoType">{{languageJson.Video.Type}}<!--视频设备类型：--></label></td>
+                                <td><select class="form-control" id="videoType" ng-model="videoType" ng-change="changeVideoTypeByEName(videoType)">
+                                    <option value="1">{{languageJson.Video.Camera}}</option><!--IP摄像头-->
+                                    <option value="2">{{languageJson.Video.DVR}}</option><!--硬盘录像机-->
+                                </select></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><label for="ipAddress">{{languageJson.Video.Address}}<!--视频设备地址：--></label></td>
+                                <td><input type="text" class="form-control" id="ipAddress" ng-model="ipAddress" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><label for="ePort">{{languageJson.Video.Port}}<!--视频设备端口号：--></label></td>
+                                <td><input type="text" class="form-control" id="ePort" ng-model="ePort" /></td>
+                                <td></td>
+                            </tr>
+                            <tr ng-show="false">
+                                <td align="right"><label for="eChanNum">视频通道号：</label></td>
+                                <td><input type="text" class="form-control" id="eChanNum" ng-model="eChanNum" /></td>
+                                <td></td>
+                            </tr>
+                            <tr ng-hide="IpOrNvr">
+                                <td align="right"><label for="Number">{{languageJson.Video.Number}}<!--监控点个数：--></label></td>
+                                <td><input type="text" class="form-control" id="Number" ng-model="Number" value="1" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><label for="userName">{{languageJson.Video.UserName}}<!--用户名：--></label></td>
+                                <td><input type="text" class="form-control" id="userName" ng-model="userName" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><label for="userPwd">{{languageJson.Video.Password}}<!--密码：--></label></td>
+                                <td><input type="password" class="form-control" id="userPwd" ng-model="userPwd" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td align="center">
+                                    <button type="buttion" ng-click="updVideoClick()" class="btn btn-default btn-primary">&nbsp;&nbsp;{{languageJson.Video.Modify}}&nbsp;&nbsp;</button><!--修改-->
+                                    <button class="btn btn-default btn-danger" ng-click="delVideoClick()">{{languageJson.Video.Delete}}</button><!--删除-->
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="VideoCamera-camera" class="table-responsive collapse">
+                        <table class="table table-striped table-bordered table-hover">
+                            <caption>{{languageJson.Video.Detail}}<!--监控设备详情--></caption>
+                            <tbody>
+                            <tr>
+                                <td align="right"><label for="cId">{{languageJson.Video.Point}}</label></td>
+                                <td><input type="text" disabled="disabled" class="form-control" id="cId" ng-model="cId" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><label for="cName">{{languageJson.Video.Points}}</label></td>
+                                <td><input type="text" class="form-control" id="cName" ng-model="cName" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><label for="cChanNum">{{languageJson.Video.Channel}}</label></td>
+                                <td><input type="text" class="form-control" id="cChanNum" ng-model="cChanNum" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td align="center">
+                                    <button type="buttion" ng-click="updCameraClick()" class="btn btn-default btn-primary">&nbsp;&nbsp;{{languageJson.Video.Modify}}&nbsp;&nbsp;</button>
+                                    <!--<button ng-hide="updataHide" class="btn btn-default btn-danger" ng-click="delCameraClick()">删除</button>-->
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

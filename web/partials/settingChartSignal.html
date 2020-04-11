@@ -1,0 +1,89 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.MdcSignalRecord.SettingBox.SettingChartSignal}}</h4><!--设置曲线图信号-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <br/>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">{{languageJson.MdcSignalRecord.SettingBox.Titles}}</label><!--标题：-->
+                                            <div class="col-md-8">
+                                                <input class="form-control" type="text" ng-model="ChartSignals.Title" placeholder="{{languageJson.MdcSignalRecord.SettingBox.CanEmpty}}"><!--可为空-->
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group">
+                                            <label class="control-label col-md-3">关联设备：</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" type="text" ng-model="ChartSignals.DeviceId" readonly>
+                                            </div>
+                                        </div>-->
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">{{languageJson.MdcSignalRecord.SettingBox.YName}}</label><!--Y轴名称：-->
+                                            <div class="col-md-8">
+                                                <input class="form-control" type="text" ng-model="ChartSignals.Y1Name" placeholder="{{languageJson.MdcSignalRecord.SettingBox.CanEmpty}}"><!--可为空-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">{{languageJson.MdcSignalRecord.SettingBox.Max}}</label><!--最大值：-->
+                                            <div class="col-md-3">
+                                                <input class="form-control" type="text" ng-model="ChartSignals.Max">
+                                            </div>
+                                            <label class="control-label col-md-3">{{languageJson.MdcSignalRecord.SettingBox.Min}}</label><!--最小值：-->
+                                            <div class="col-md-2">
+                                                <input class="form-control" type="text" ng-model="ChartSignals.Min">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group" >
+                                                <button type="button" class="btn btn-primary" ng-click="addSignalClick()">{{languageJson.MdcSignalRecord.SettingBox.AddSignal}}</button><!--新增信号-->
+                                            </div>
+                                            <div class="form-group">
+                                                <table class="table table-condensed table-bordered table-striped table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <td align="center">{{languageJson.MdcSignalRecord.SettingBox.ShowName}}</td><!--显示名称-->
+                                                        <td align="center">{{languageJson.MdcSignalRecord.SettingBox.DeviceId}}</td><!--设备编号-->
+                                                        <td align="center">{{languageJson.MdcSignalRecord.SettingBox.BaseTypeId}}</td><!--基类编号-->
+                                                        <td align="center">{{languageJson.MdcSignalRecord.SettingBox.Operation}}</td><!--操作-->
+                                                    </tr>
+                                                    </thead>
+                                                    <tr ng-repeat="row in ChartSignals.Series">
+                                                        <td align="center"><input type="text" class="form-control" ng-model="row.Name"/></td>
+                                                        <td align="center">{{row.DeviceId}}</td>
+                                                        <td align="center">{{row.BaseTypeId}}</td>
+                                                        <td align="center">
+                                                            <button type="button" class="btn btn-sm btn-danger"  ng-click="removeSignalClick($index)">{{languageJson.MdcSignalRecord.SettingBox.Delete}}</button><!--删除-->
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveChartSignalClick()">{{languageJson.MdcSignalRecord.SettingBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.MdcSignalRecord.SettingBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.UPositionBox.Title}}</h4><!--位置绑定-->
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <label class="control-label col-md-4 labelCenter text-right">{{languageJson.UPositionBox.Cabinet.Title}}</label><!--机柜选择:-->
+                    <div class="col-md-8">
+                        <select id="portType" class="form-control" name = "portType" ng-model="cab.cabName">
+                            <option value="">{{languageJson.UPositionBox.Cabinet.SelectPrompt}}</option><!-- --请选择机柜-- -->
+                            <option ng-repeat="item in cabinetInfo" value="{{item.cabinetName}}" ng-selected = "{{item.cabinetName == cab.cabName}}">{{item.cabinetName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel panel-default col-md-12">
+                    <div class="panel panel-default col-md-12" style="padding-right: 0px;padding-left: 0px;">
+                        <div class="panel-heading">
+                            <label>{{languageJson.UPositionBox.UPosition}}</label><!--机柜空间-->
+                        </div>
+                        <br/>
+                        <div class="panel-body">
+                            <label class="control-label  col-md-4 labelCenter text-right">{{languageJson.UPositionBox.UStart}}</label><!--开始U位:-->
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="cab.UIndex">
+                            </div>
+                            <div class="col-md-5 labelCenter">{{languageJson.UPositionBox.Ranges}}[0,{{mdcUheight-1}}]</div><!--取值范围：-->
+                        </div>
+                        <div class="panel-body">
+                            <label class="control-label  col-md-4 labelCenter text-right">{{languageJson.UPositionBox.UHeight}}</label><!--设备U高度:-->
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="cab.UHeight" >
+                            </div>
+                            <div class="col-md-5 labelCenter">{{languageJson.UPositionBox.Ranges}}[1,{{mdcUheight}}]</div><!--取值范围：-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="saveBindPosition()">{{languageJson.UPositionBox.Save}}</button><!--保存-->
+                    <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.UPositionBox.Close}}</button><!--关闭-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="container-fluid" ng-controller="hisCardsRecordCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.CardsRecord.Title}}</h1><!--历史 > 门禁刷卡记录-->
+        </div>
+</div>
+    <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-inline">
+                <div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+                    <label class="control-label"><i class="fa fa-calendar"></i> {{languageJson.CardsRecord.StartTime}}</label><!--开始时间-->
+                    <input type="text" class="form-control" ng-model="params.startDate" name="startDate" data-date-format="yyyy/MM/dd" bs-datepicker>
+                </div>
+                <div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+                    <label class="control-label"><i class="fa fa-calendar"></i> {{languageJson.CardsRecord.EndTime}}</label><!--结束时间-->
+                    <input type="text" class="form-control" ng-model="params.endDate" name="endDate" data-date-format="yyyy/MM/dd" bs-datepicker>
+                </div>
+                <button class="btn btn-primary padding-bottom" ng-click="query()" >{{languageJson.CardsRecord.Query}}</button><!--查询-->
+                <button class="btn btn-default padding-bottom pull-right"
+                        ng-click="exportToHtml()">{{languageJson.CardsRecord.Export}}</button><!--导出...-->
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="row dialog_box">
+        <div class="panel-body alarm_table_body">
+            <table class="table table-condensed table-bordered table-striped alarm_table table_body">
+                <thead class="ng-scope">
+                    <tr class="ng-table-sort-header">
+                        <th class="header pointer DoorNo" style="text-align: center;">{{languageJson.CardsRecord.Table.DoorNo}}<i class="fa right" style="line-height: 20px;"></i></th><!--门号-->
+                        <th class="header pointer DoorName" style="text-align: center;">{{languageJson.CardsRecord.Table.DoorName}}<i class="fa right" style="line-height: 20px;"></i></th><!--门名称-->
+                        <th class="header pointer CardCode" style="text-align: center;">{{languageJson.CardsRecord.Table.CardCode}}<i class="fa right" style="line-height: 20px;"></i></th><!--卡号-->
+                        <th class="header pointer CardName" style="text-align: center;">{{languageJson.CardsRecord.Table.CardName}}<i class="fa right" style="line-height: 20px;"></i></th><!--卡名称-->
+                        <th class="header pointer CardUserName" style="text-align: center;">{{languageJson.CardsRecord.Table.Cardholder}}<i class="fa right" style="line-height: 20px;"></i></th><!--持卡人-->
+                        <th class="header pointer ValidName" style="text-align: center;" >{{languageJson.CardsRecord.Table.SwipeCardSign}}<i class="fa right" style="line-height: 20px;"></i></th><!--刷卡标志-->
+                        <th class="header pointer RecordTime" style="text-align: center;" ng-click="SortBy('RecordTime')">{{languageJson.CardsRecord.Table.SwipeCardTime}}<i class="fa right" style="line-height: 20px;"></i></th><!--刷卡时间-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="center"><input type="text" class="form-control" ng-model="filter.DoorNo" placeholder="{{languageJson.CardsRecord.Filter}}"/></td><!--输入筛选关键字-->
+                        <td align="center"><input type="text" class="form-control" ng-model="filter.DoorName" placeholder="{{languageJson.CardsRecord.Filter}}"/></td><!--输入筛选关键字-->
+                        <td align="center"><input type="text" class="form-control" ng-model="filter.CardCode" placeholder="{{languageJson.CardsRecord.Filter}}"/></td><!--输入筛选关键字-->
+                        <td align="center"><input type="text" class="form-control" ng-model="filter.CardName" placeholder="{{languageJson.CardsRecord.Filter}}"/></td><!--输入筛选关键字-->
+                        <td align="center"><input type="text" class="form-control" ng-model="filter.CardUserName" placeholder="{{languageJson.CardsRecord.Filter}}"/></td><!--输入筛选关键字-->
+                        <td ng-show="languageJson.Language == 'Chinese'" align="center"><input type="text" class="form-control" ng-model="filter.ValidName" placeholder="{{languageJson.CardsRecord.Filter}}"/></td><!--输入筛选关键字-->
+                        <td ng-show="languageJson.Language == 'English'" align="center"><input type="text" class="form-control" ng-model="filter.ItemAlias" placeholder="{{languageJson.CardsRecord.Filter}}"/></td><!--输入筛选关键字-->
+                        <td align="center"><!--<input type="text" class="form-control" ng-model="filter.RecordTime" placeholder="输入筛选关键字"/>--></td>
+                    </tr>
+                    <tr ng-repeat="row in tableParams.list">
+                        <td align="center">{{row.DoorNo}}</td>
+                        <td align="center">{{row.DoorName}}</td>
+                        <td align="center">{{row.CardCode}}</td>
+                        <td align="center">{{row.CardName}}</td>
+                        <td align="center">{{row.CardUserName}}</td>
+                        <td align="center">{{languageJson.Language == 'Chinese'?row.ValidName:row.ItemAlias}}</td>
+                        <td align="center">{{row.RecordTime}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 使用方法请参照Directives.js => tablePaging -->
+            <table-Paging table-Param="tableParams" filter-Param="filter"></table-Paging>
+        </div>
+    </div>
+</div>

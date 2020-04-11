@@ -1,0 +1,47 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 720px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Authority.Title}}</h4><!--权限管理-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="margin-bottom: 0px;">
+                                <div class="panel-heading">
+                                    {{languageJson.Authority.Account.Title}}
+                                </div><!--账户列表-->
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="modal-body col-md-12">
+                                            <button type="button" class="btn btn-primary" ng-click="addAccountClk()">{{languageJson.Authority.Account.Add}}</button><!--新增账户-->
+                                            <div class="form-group modal-body" style="padding-bottom: 0px;margin-bottom: 0px;">
+                                                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                                                    <tr ng-repeat="row in Accounts">
+                                                        <td data-title="languageJson.Authority.Nickname.Title" align="center">{{row.userName}}</td><!--'昵称'-->
+                                                        <td data-title="languageJson.Authority.Nickname.UserName" align="center">{{row.logonId}}</td><!--'用户名'-->
+                                                        <td data-title="languageJson.Authority.Nickname.Permission" align="center">{{row.permission}}</td><!--'权限'-->
+                                                        <td class="center" data-title="languageJson.Authority.Nickname.Operation" align="center"><!--'操作'-->
+                                                            <button type="button" class="btn btn-sm btn-primary" ng-click="updAccountClk(row)" ng-show="isShowButton(row)">{{languageJson.Authority.Nickname.Modify}}</button><!--修改信息-->
+                                                            <!--<button type="button" class="btn btn-sm btn-primary" ng-click="changePassword(row.logonId)">修改密码</button>-->
+                                                            <button type="button" class="btn btn-sm btn-danger" ng-show="isShowButton(row)" ng-click="delAccountClk(row.userId)">{{languageJson.Authority.Nickname.Delete}}</button><!--删除-->
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Authority.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

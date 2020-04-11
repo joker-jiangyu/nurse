@@ -1,0 +1,65 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.AlarmNotice.Serial.Port}}<!--串口参数设置--></h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  {{languageJson.Language== 'Chinese'?'col-md-3':'col-md-4'}}" >{{languageJson.AlarmNotice.Serial.Number}}<!--串口号*:--></label>
+                                <div class="{{languageJson.Language== 'Chinese'?'col-md-7':'col-md-8'}}">
+                                    <select class="form-control" ng-model="smsPort.PortNo">
+                                        <option value="COM1">COM1</option>
+                                        <option value="COM2">COM2</option>
+                                        <option value="COM3">COM3</option>
+                                        <option value="COM4">COM4</option>
+                                        <option value="COM5">COM5</option>
+                                        <option value="COM6">COM6</option>
+                                        <option value="COM7">COM7</option>
+                                        <option value="COM8">COM8</option>
+                                        <option value="COM9">COM9</option>
+                                        <option value="COM10">COM10</option>
+                                        <option value="COM20" selected>{{languageJson.AlarmNotice.Serial.Board}}<!--SMS扩展板--></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  {{languageJson.Language== 'Chinese'?'col-md-3':'col-md-4'}}" >{{languageJson.AlarmNotice.Serial.Parameter}}<!--串口参数*:--></label>
+                                <div class="{{languageJson.Language== 'Chinese'?'col-md-7':'col-md-8'}}" >
+                                    <select class="form-control" ng-model="smsPort.BaudRate">
+                                        <option value="9600,n,8,1" selected>9600,n,8,1</option>
+                                        <option value="19200,n,8,1">19200,n,8,1</option>
+                                        <option value="115200,n,8,1">115200,n,8,1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  {{languageJson.Language== 'Chinese'?'col-md-3':'col-md-4'}}">{{languageJson.AlarmNotice.Serial.Type}}<!--SMS类型*:--></label>
+                                <div class="{{languageJson.Language== 'Chinese'?'col-md-7':'col-md-8'}}">
+                                    <select class="form-control" ng-model="smsPort.SmsType">
+                                        <option value="1" selected>1:GSM</option>
+                                        <option value="2">2:CDMA</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="set()">{{languageJson.AlarmNotice.Serial.Setting}}<!--设置--></button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.AlarmNotice.Serial.Close}}<!--关闭--></button>
+            </div>
+        </div>
+    </div>
+</div>
+

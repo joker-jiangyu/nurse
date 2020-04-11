@@ -1,0 +1,64 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" id="ModalDialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header tooltip-options" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.TableControl.AddTitle}}
+                    <a href ><i class="fa fa-question-circle fa-fw pointer " ng-hide="languageJson.Language == 'English'" title="<h5>信号只能是同一个设备的</h5>"></i></a>
+                </h4><!--新增表格控件-->
+            </div>
+
+            <div class="modal-body div_body">
+                <div class="form-group" style="height: 34px;line-height: 34px;">
+                    <label class="control-label col-md-3 text-right">{{languageJson.Configuration.TableControl.Filter}}</label><!--设备帅选:-->
+                    <div class="col-md-8">
+                        <select class="form-control" name = "portType" ng-model="Topology.DeviceId" ng-change="changeDevice(Topology.DeviceId)">
+                            <option value="{{row.equipmentId}}" ng-repeat="row in deviceList track by $index"
+                                    ng-selected="{{row.equipmentId==Topology.DeviceId}}">{{row.configName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="height: 34px;line-height: 34px;">
+                    <label class="control-label col-md-3 text-right">{{languageJson.Configuration.TableControl.Border.Title}}</label><!--表格风格:-->
+                    <div class="col-md-8">
+                        <select class="form-control" name = "portType" ng-model="Topology.Style">
+                            <option value="" selected="selected">{{languageJson.Configuration.TableControl.Border.Blue}}</option><!--蓝色-->
+                            <option value="white_bg" selected="selected">{{languageJson.Configuration.TableControl.Border.White}}</option><!--白色-->
+                            <option value="none-border">{{languageJson.Configuration.TableControl.Border.Rimless}}</option><!--无边框-->
+                        </select>
+                    </div>
+                </div>
+                <div id="NtsOcerflow" class="NtsOcerflow">
+                    <table id="NtsTable" class="nts-table table_body" align="center">
+                        <tr class="nts-held">
+                            <td><input type="text" class="form-control" id="rowTitle1" placeholder="{{languageJson.Configuration.TableControl.ColTitle}}1" Virtual-Key-Board/></td><!--列标题-->
+                            <td><input type="text" class="form-control" id="rowTitle2" placeholder="{{languageJson.Configuration.TableControl.ColTitle}}2" Virtual-Key-Board/></td>
+                            <td><input type="text" class="form-control" id="rowTitle3" placeholder="{{languageJson.Configuration.TableControl.ColTitle}}3" Virtual-Key-Board/></td>
+                            <td><input type="text" class="form-control" id="rowTitle4" placeholder="{{languageJson.Configuration.TableControl.ColTitle}}4" Virtual-Key-Board/></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" id="colTitle2" placeholder="{{languageJson.Configuration.TableControl.RowTitle}}2" Virtual-Key-Board/></td><!--行标题-->
+                            <td><input type="text" class="form-control" id="value2001" ng-click="bindingDlg(2001)" placeholder="{{languageJson.Configuration.TableControl.Value}}2001"/></td><!--值-->
+                            <td><input type="text" class="form-control" id="value2002" ng-click="bindingDlg(2002)" placeholder="{{languageJson.Configuration.TableControl.Value}}2002"/></td>
+                            <td><input type="text" class="form-control" id="value2003" ng-click="bindingDlg(2003)" placeholder="{{languageJson.Configuration.TableControl.Value}}2003"/></td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="padding-top: 10px;">
+                    <button type="button" class="btn btn-primary" ng-click="addCol()">{{languageJson.Configuration.TableControl.AddCol}}</button><!--添加列-->
+                    <button type="button" class="btn btn-primary" ng-click="addRow()">{{languageJson.Configuration.TableControl.AddRow}}</button><!--添加行-->
+                    <button type="button" class="btn btn-danger" ng-click="delCol()">{{languageJson.Configuration.TableControl.DelCol}}</button><!--删除列-->
+                    <button type="button" class="btn btn-danger" ng-click="delRow()">{{languageJson.Configuration.TableControl.DelRow}}</button><!--删除行-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">{{languageJson.Configuration.TableControl.Add}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.TableControl.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options i").tooltip({html : true });});
+</script>

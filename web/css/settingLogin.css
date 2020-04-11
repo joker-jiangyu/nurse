@@ -1,0 +1,9 @@
+.Body-Background{
+ background: url(../img/loginbg.jpg) left top/cover no-repeat !important;
+}
+.login_pannel{
+right: 68%;
+}
+.Login-Background{
+background: url(../img/logininfo.png) no-repeat;
+}

@@ -1,0 +1,330 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog" style="width: 598px;">
+            <div class="modal-header tooltip-options" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.ActiveChartControl.UpdTitle}}</h4><!--修改实时图表控件-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body div_body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <!--图表标题:-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.ChartTitle}}</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" ng-model="PieChart.Title" Virtual-Key-Board="PieChart.Title" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" type="text" /><!--可为空-->
+                                        </div>
+                                    </div>
+                                    <!--数据类型:-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.DataType.Title}}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="PieChart.DataType" ng-change="dataTypeChange(PieChart.DataType)">
+                                                <option value="1">{{languageJson.Configuration.ActiveChartControl.DataType.Signal}}</option><!--实时信号-->
+                                                <option value="2">{{languageJson.Configuration.ActiveChartControl.DataType.Pue}}</option><!--实时PUE-->
+                                                <option value="3">{{languageJson.Configuration.ActiveChartControl.DataType.MdcPower}}</option><!--实时MDC功率-->
+                                                <option value="4">{{languageJson.Configuration.ActiveChartControl.DataType.MdcSpace}}</option><!--实时MDC空间总占比-->
+                                                <option value="5">{{languageJson.Configuration.ActiveChartControl.DataType.ItLoad}}</option><!--实时IT负载-->
+                                                <option value="6">{{languageJson.Configuration.ActiveChartControl.DataType.Expression}}</option><!--表达式-->
+                                                <option value="7">{{languageJson.Configuration.ActiveChartControl.DataType.AvgMaxMin}}</option><!--平均值、最大值、最小值-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--图表类型:-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.ChartType.Title}}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="PieChart.ChartType">
+                                                <option value="line" ng-hide="PieChart.DataType != 1">{{languageJson.Configuration.ActiveChartControl.ChartType.Line}}</option><!--折线图-->
+                                                <option value="bar"  ng-hide="PieChart.DataType != 1">{{languageJson.Configuration.ActiveChartControl.ChartType.Bar}}</option><!--柱状图-->
+                                                <option value="pie"  ng-hide="PieChart.DataType == 2 || PieChart.DataType == 3 || PieChart.DataType == 1 || PieChart.DataType == 7">{{languageJson.Configuration.ActiveChartControl.ChartType.Pie}}</option><!--饼图-->
+                                                <option value="gauge" ng-hide="PieChart.DataType == 4 || PieChart.DataType == 5">{{languageJson.Configuration.ActiveChartControl.ChartType.Gauge}}</option><!--仪表盘-->
+                                                <option value="newGauge" ng-hide="PieChart.DataType == 4 || PieChart.DataType == 5 || PieChart.DataType == 7">{{languageJson.Configuration.ActiveChartControl.ChartType.NewGauge}}</option><!--新仪表盘-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--背景样式：-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.Background.Title}}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="PieChart.Background">
+                                                <option value="">{{languageJson.Configuration.ActiveChartControl.Background.None}}</option><!--无背景-->
+                                                <option value="configure_bg">{{languageJson.Configuration.ActiveChartControl.Background.Blue}}</option><!--蓝色背景-->
+                                                <option value="white_bg">{{languageJson.Configuration.ActiveChartControl.Background.White}}</option><!--白色背景-->
+                                                <option value="red_bg">{{languageJson.Configuration.ActiveChartControl.Background.Red}}</option><!--红色背景-->
+                                                <option value="gray_bg">{{languageJson.Configuration.ActiveChartControl.Background.Gray}}</option><!--灰色背景-->
+                                                <option value="babyBlue_bg">{{languageJson.Configuration.ActiveChartControl.Background.BabyBlue}}</option><!--淡蓝背景-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--<div ng-show="PieChart.ChartType == 'line' || PieChart.ChartType == 'bar'">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 tooltip-options">单双轴
+                                                <a href ><i class="fa fa-question-circle fa-fw pointer " title="<h5>双轴：Y轴两边不同刻度含义，如温度湿度</h5>"></i></a>:
+                                            </label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" name = "portType" ng-model="PieChart.SingleBiaxial">
+                                                    <option value="1" >单轴</option>
+                                                    <option value="2" >双轴</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <!--采集量:-->
+                                    <div class="form-group" ng-show="PieChart.ChartType == 'line'">
+                                        <label class="control-label  col-md-3 tooltip-options">{{languageJson.Configuration.ActiveChartControl.Count}}
+                                            <a  href="#" data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                                title="<h5>采集量:显示指定量的信号值，单位：个</h5>">
+                                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                                            </a>
+                                        </label>
+                                        <div class="col-md-7">
+                                            <input class="form-control" ng-model="PieChart.Size" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" /><!--可为空-->
+                                        </div>
+                                        <div class="col-md-1" style="line-height: 34px;">
+                                            {{languageJson.Configuration.ActiveChartControl.Unit}}
+                                        </div><!--个-->
+                                    </div>
+                                    <!--数据名称:-->
+                                    <div class="form-group" ng-show="PieChart.ChartType == 'pie' || PieChart.ChartType == 'gauge' || PieChart.ChartType == 'newGauge'">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.DataName}}</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" ng-model="PieChart.Y1Name" Virtual-Key-Board="PieChart.Y1Name" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" /><!--可为空-->
+                                        </div>
+                                    </div>
+                                    <div ng-show="PieChart.ChartType == 'gauge' || PieChart.ChartType == 'newGauge'">
+                                        <!--最小值: / 最大值:-->
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.MinVal}}</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control" ng-model="PieChart.Y1Min" Virtual-Key-Board="PieChart.Y1Min" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" /><!--可为空-->
+                                            </div>
+                                            <label class="control-label  col-md-2">{{languageJson.Configuration.ActiveChartControl.MaxVal}}</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control" ng-model="PieChart.Y1Max" Virtual-Key-Board="PieChart.Y1Max" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" /><!--可为空-->
+                                            </div>
+                                        </div>
+                                        <!--线条颜色:-->
+                                        <div class="form-group"  ng-show="PieChart.ChartType == 'gauge'">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.GaugeColor}}</label>
+                                            <div class="col-md-5">
+                                                <input class="form-control" ng-model="PieChart.LineColor" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" /><!--可为空-->
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-primary" ng-click="showColorSelect(PieChart.LineColor)">{{languageJson.Configuration.ActiveChartControl.ColorButton}}</button><!--生成颜色-->
+                                            </div>
+                                        </div>
+                                        <!-- 仪表盘配色: -->
+                                        <div class="form-group" ng-show="PieChart.ChartType == 'newGauge'">
+                                            <label class="control-label col-md-3 tooltip-options">{{languageJson.Configuration.ActiveChartControl.GaugeImages}}</label>
+                                            <div class="col-md-4">
+                                                <select class="form-control" ng-model="PieChart.LineImages">
+                                                    <option value="newGaugeBG1">{{languageJson.Configuration.ActiveChartControl.Images.Image1}}</option><!--黄橙粉-->
+                                                    <option value="newGaugeBG2">{{languageJson.Configuration.ActiveChartControl.Images.Image2}}</option><!--绿黄橙-->
+                                                    <option value="newGaugeBG3">{{languageJson.Configuration.ActiveChartControl.Images.Image3}}</option><!--黄绿蓝-->
+                                                    <option value="newGaugeBG4">{{languageJson.Configuration.ActiveChartControl.Images.Image4}}</option><!--绿橙粉-->
+                                                    <option value="newGaugeBG5">{{languageJson.Configuration.ActiveChartControl.Images.Image5}}</option><!--蓝黄橙-->
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 topology-img-div">
+                                                <img src="/img/diagram/{{PieChart.LineImages}}.png" class="topology-img">
+                                                <div class="topology-expand-div">
+                                                    <img src="/img/diagram/{{PieChart.LineImages}}.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="PieChart.DataType == 1 && PieChart.ChartType != 'pie' && PieChart.ChartType != 'gauge' && PieChart.ChartType != 'newGauge'">
+                                        <!--Y1轴名称:-->
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.Y1.AxisName}}</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" ng-model="PieChart.Y1Name" Virtual-Key-Board="PieChart.Y1Name" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompts}}" /><!--可为空-->
+                                            </div>
+                                        </div>
+                                        <!--Y1最小值: / Y1最大值:-->
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.Y1.MinVal}}</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control" ng-model="PieChart.Y1Min" Virtual-Key-Board="PieChart.Y1Min" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" /><!--可为空-->
+                                            </div>
+                                            <label class="control-label  col-md-2">{{languageJson.Configuration.ActiveChartControl.Y1.MaxVal}}</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control" ng-model="PieChart.Y1Max" Virtual-Key-Board="PieChart.Y1Max" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" /><!--可为空-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Y轴信号:-->
+                                    <div class="form-group" ng-show="PieChart.DataType == 1 || PieChart.DataType == 7">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.Y1.Signal}}</label>
+                                        <div class="col-md-5">
+                                            <input class="form-control" ng-model="PieChart.Y1Signals" type="text" readonly/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="button" class="btn btn-primary"
+                                                    ng-click="showMultiSelect('scope.PieChart.Y1Signals',PieChart.Y1Signals)">{{languageJson.Configuration.ActiveChartControl.SignalButton}}</button><!--绑定信号-->
+                                        </div>
+                                    </div>
+                                    <!--矩形颜色:-->
+                                    <div class="form-group" ng-show="PieChart.DataType == 1 && PieChart.ChartType == 'bar'">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.BarColor}}</label>
+                                        <div class="col-md-5">
+                                            <input class="form-control" ng-model="PieChart.BarColor" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" /><!--可为空-->
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="button" class="btn btn-primary" ng-click="showBarColorSelect(PieChart.BarColor)">{{languageJson.Configuration.ActiveChartControl.ColorButton}}</button><!--生成颜色-->
+                                        </div>
+                                    </div>
+                                    <!--<div ng-show="PieChart.DataType == 1 && PieChart.ChartType != 'pie' && PieChart.ChartType != 'gauge'">
+                                        <div class="form-group" ng-show="PieChart.SingleBiaxial == 2">
+                                            <label class="control-label  col-md-3">Y2轴名称:</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control" ng-model="PieChart.Y2Name" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" />&lt;!&ndash;可为空&ndash;&gt;
+                                            </div>
+                                            <label class="control-label  col-md-2">最大值:</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control" ng-model="PieChart.Y2Max" type="text" placeholder="{{languageJson.Configuration.ActiveChartControl.TitlePrompt}}" />&lt;!&ndash;可为空&ndash;&gt;
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-show="PieChart.SingleBiaxial == 2">
+                                            <label class="control-label  col-md-3">Y2轴信号:</label>
+                                            <div class="col-md-5">
+                                                <input class="form-control" ng-model="PieChart.Y2Signals" type="text" />
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-click="showMultiSelect('scope.PieChart.Y2Signals',PieChart.Y2Signals)">绑定信号</button>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <!-- 其他占比 -->
+                                    <div ng-show="PieChart.DataType == 6">
+                                        <!--设备筛选:-->
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.FilterEquipment}}</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" name = "portType" ng-model="PieChart.EquipmentId" ng-change="changeEquipment(PieChart.EquipmentId)">
+                                                    <option value="{{row.equipmentId}}" ng-repeat="row in PieChart.Equipments"
+                                                            ng-selected="{{row.equipmentId == PieChart.EquipmentId}}">{{row.configName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--信号筛选:-->
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.FilterSignal}}</label>
+                                            <div class="col-md-5">
+                                                <select class="form-control" ng-model="PieChart.SignalId" ng-change="changeSignal()">
+                                                    <option value="{{row.signalId}}" ng-repeat="row in PieChart.Signals | filter:{signalName:filterName}">{{row.signalName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" ng-model="filterName" Virtual-Key-Board="filterName" placeholder="{{languageJson.Configuration.ActiveChartControl.FilterSignal2}}"><!--筛选信号-->
+                                            </div>
+                                        </div>
+                                        <!--当前值:-->
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 tooltip-options">{{languageJson.Configuration.ActiveChartControl.CurrentValue}}</label>
+                                            <div class="col-md-8">
+                                                <textarea type="text" id="Expression1" class="form-control ng-pristine ng-untouched ng-valid" ng-model="PieChart.Expression1" Virtual-Key-Board="PieChart.Expression1" ng-blur="getCursortPosition('Expression1')"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <ul class="ExpressionSymbol right tooltip-options" style="margin:10px 20px 0px 0px;">
+                                                    <li ng-click="ClickSignalsLi('Expression1','(')">(</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1',')')">)</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1','+')">+</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1','-')">-</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1','*')">*</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1','/')" style="margin-right: 10px;">/</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1','pow(,)')" class="powerFun" style="width: 50px;" title="<h5>幂函数</h5>">pow(,)</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1','abs()')" class="absVal" style="width: 50px;" title="<h5>绝对值</h5>">abs()</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1','max(,)')" class="maxVal" style="width: 50px;" title="<h5>最大值</h5>">max(,)</li>
+                                                    <li ng-click="ClickSignalsLi('Expression1','min(,)')" class="minVal" style="width: 50px;" title="<h5>最小值</h5>">min(,)</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!--总值:-->
+                                        <div class="form-group" ng-hide="PieChart.ChartType == 'gauge' || PieChart.ChartType == 'newGauge'">
+                                            <label class="control-label col-md-3 tooltip-options">{{languageJson.Configuration.ActiveChartControl.TotalValue}}
+                                                <a  href="#" data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                                    title="<h5>总值:剩余值等于总值减去当前值</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <textarea type="text" id="Expression2" class="form-control ng-pristine ng-untouched ng-valid" ng-model="PieChart.Expression2" Virtual-Key-Board="PieChart.Expression2" ng-blur="getCursortPosition('Expression2')"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <ul class="ExpressionSymbol right tooltip-options" style="margin:10px 20px 0px 0px;">
+                                                    <li ng-click="ClickSignalsLi('Expression2','(')">(</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2',')')">)</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2','+')">+</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2','-')">-</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2','*')">*</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2','/')" style="margin-right: 10px;">/</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2','pow(,)')" class="powerFun" style="width: 50px;" title="<h5>幂函数</h5>">pow(,)</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2','abs()')" class="absVal" style="width: 50px;" title="<h5>绝对值</h5>">abs()</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2','max(,)')" class="maxVal" style="width: 50px;" title="<h5>最大值</h5>">max(,)</li>
+                                                    <li ng-click="ClickSignalsLi('Expression2','min(,)')" class="minVal" style="width: 50px;" title="<h5>最小值</h5>">min(,)</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!--颜色：-->
+                                        <div class="form-group" ng-show="PieChart.ChartType == 'pie'">
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-3">{{languageJson.Configuration.ActiveChartControl.PieColor}}</label>
+                                                <div class="col-md-3">
+                                                    <input class="form-control" ng-model="PieChart.PieColor" type="color"/>
+                                                </div>
+                                                <label class="control-label  col-md-2">{{languageJson.Configuration.ActiveChartControl.PieValue.Title}}</label><!--值类型：-->
+                                                <div class="col-md-3">
+                                                    <select class="form-control" ng-model="PieChart.PieValueType">
+                                                        <option value="per">{{languageJson.Configuration.ActiveChartControl.PieValue.Per}}</option><!--百分比值-->
+                                                        <option value="val">{{languageJson.Configuration.ActiveChartControl.PieValue.Analog}}</option><!--模拟量-->
+                                                        <option value="sw">{{languageJson.Configuration.ActiveChartControl.PieValue.Switch}}</option><!--开关量-->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--单位：-->
+                                        <div class="form-group" ng-show="PieChart.PieValueType == 'val'">
+                                            <label class="control-label  col-md-3"></label><div class="col-md-3"></div>
+                                            <label class="control-label col-md-2">{{languageJson.Configuration.ActiveChartControl.PieValue.Unit}}</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control" ng-model="PieChart.Unit" Virtual-Key-Board="PieChart.Unit" type="text"/>
+                                            </div>
+                                        </div>
+                                        <!--值： / 含义：-->
+                                        <div class="form-group" ng-show=" PieChart.PieValueType == 'sw'">
+                                            <div class="col-md-9 pie-value-switch">
+                                                <label class="control-label">{{languageJson.Configuration.ActiveChartControl.PieValue.Value}}</label>
+                                                <input class="form-control" ng-model="Meaning.Value" Virtual-Key-Board="Meaning.Value" type="text"/>
+                                                <label class="control-label">{{languageJson.Configuration.ActiveChartControl.PieValue.Meaning}}</label>
+                                                <input class="form-control" ng-model="Meaning.Meaning" Virtual-Key-Board="Meaning.Meaning" type="text"/>
+                                                <button type="button" class="btn btn-primary" ng-click="PieChart.Meaning = addMeaningClick(Meaning.Value,Meaning.Meaning,PieChart.Meaning)">{{languageJson.Configuration.ActiveChartControl.Add}}</button>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="form-control" ng-model="PieChart.Meaning" type="text"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">{{languageJson.Configuration.ActiveChartControl.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.ActiveChartControl.Close}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options li,.tooltip-options a").tooltip({html : true });});
+</script>

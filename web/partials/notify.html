@@ -1,0 +1,60 @@
+<div class="container-fluid" ng-controller="NotifyCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.Person.Config}} > {{languageJson.AlarmNotice.Alarm}}<!--配置 > 告警通知-->
+                <i class="fa fa-question-circle fw fa-img" ng-click="helpNotesClk('04',1)"></i>
+                <button type="button" class="btn btn-primary right return-btn" onclick="window.location.href='#/setting'"><i class="fa fa-reply"></i> {{languageJson.Login.Return}}</button>
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="tabs-below">
+                        <p>
+                            <button class="btn btn-default btn-primary" ng-click="addEventFilter()">{{languageJson.AlarmNotice.SMS}}<!--新增短信过滤器--></button>
+                            <button class="btn btn-default btn-primary" ng-click="addMailFilter()">{{languageJson.AlarmNotice.Mail}}<!--新增邮箱过滤器--></button>
+                            <!--<button class="btn btn-default btn-primary" ng-click="addSLAlarmFilter()">新增声光告警过滤器</button>-->
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-default btn-primary" ng-click="setSMSPort()">{{languageJson.AlarmNotice.Parameter}}<!--串口参数设置--></button>
+                            <button class="btn btn-default btn-primary" ng-click="setMailTiming()">{{languageJson.AlarmNotice.Mails}}<!--邮箱设置--></button>
+                            <button class="btn btn-default btn-primary" ng-click="setNetWorkPhone()">{{languageJson.AlarmNotice.VoIP}}<!--网络电话模块设置--></button>
+                        </p>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{languageJson.AlarmNotice.List}}<!-- 告警通知过滤器列表-->
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                                    <tr ng-repeat="row in eventNotifyRules">
+                                        <!--<td data-title="'过滤器Id'" filter="{NotifyID: 'number'}">{{row.NotifyID}}</td>-->
+                                        <!--<td data-title="'过滤器名称'" filter="{EventFilterName: 'text'}">{{row.EventFilterName}}</td>-->
+                                        <td data-title="languageJson.AlarmNotice.ID" filter="{NotifyID: 'number'}" align="center">{{row.NotifyID}}</td><!--'过滤器Id'-->
+                                        <!--<td data-title="'过滤器名称'" filter="{Description: 'text'}">{{row.Description}}</td>-->
+                                        <td data-title="languageJson.AlarmNotice.Name" filter="{Description: 'text'}" align="center">{{row.Description}}</td><!--'过滤器名称'-->
+                                        <td class="center" data-title="languageJson.AlarmNotice.View" align="center"><!--'查看'-->
+                                            <button type="button" class="btn btn-sm btn-info" ng-click="viewEventFilter(row.NotifyID)">{{languageJson.AlarmNotice.View}}</button>
+                                        </td>
+                                        <td class="center" data-title="languageJson.AlarmNotice.Operation" align="center"><!--'操作'-->
+                                            <button type="button" class="btn btn-sm btn-danger"  ng-click="removeEventFilter(row.NotifyID, row.Description)">{{languageJson.AlarmNotice.Delete}}</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+

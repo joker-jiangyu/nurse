@@ -1,0 +1,56 @@
+{
+	"edit": false,
+	"page": {
+		"bgImage": ""
+	},
+	"parts": [{
+		"id": "image1",
+		"type": "imagepart",
+		"left": 538.67,
+		"top": 166.06,
+		"width": 124.67,
+		"height": 481.53,
+		"zindex": 1,
+		"options": "img/diagram/MDC_AirCondition.png"
+	}, {
+		"id": "signalgroup1",
+		"type": "signalgroup",
+		"left": 225,
+		"top": 164,
+		"width": 223,
+		"height": 200,
+		"zindex": 1,
+		"binding": "BS:702999001|BS:702155001",
+		"options": "Name:设备状态|Background:configure_bg"
+	}, {
+		"id": "signalgroup2",
+		"type": "signalgroup",
+		"left": 227,
+		"top": 447.59,
+		"width": 223,
+		"height": 200,
+		"zindex": 1,
+		"binding": "BS:702330001|BS:702331001",
+		"options": "Name:送风温湿度|Background:configure_bg"
+	}, {
+		"id": "signalgroup3",
+		"type": "signalgroup",
+		"left": 738,
+		"top": 164,
+		"width": 223,
+		"height": 200,
+		"zindex": 1,
+		"binding": "BS:702001001|BS:702003001",
+		"options": "Name:回风温湿度|Background:configure_bg"
+	}, {
+		"id": "signalgroup4",
+		"type": "signalgroup",
+		"left": 738,
+		"top": 447.59,
+		"width": 223,
+		"height": 200,
+		"zindex": 1,
+		"binding": "BS:704216001|BS:705217001",
+		"options": "Name:设定值|Background:configure_bg"
+	}]
+}

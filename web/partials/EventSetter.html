@@ -1,0 +1,128 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 950px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{btnName}} {{languageJson.Config.Details.Detail}}<!--事件详细信息--></h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Details.Numbering}}<!--编号:--></label>
+                                <div class="col-md-4">
+                                    <input readonly type="text" class="form-control" ng-model="Events.EventId">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Details.Signals}}<!--关联信号:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" ng-model="Events.SignalId" ng-change="ChangeRelateEventSignal(Events.SignalId)">
+                                        <option value="{{row.SignalId}}" ng-repeat="row in SignalList"
+                                                ng-selected="{{row.SignalId==Events.SignalId}}">{{row.SignalId}},{{row.SignalName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Details.Names}}<!--名称:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Events.EventName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Details.Category}}<!--类别:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" ng-model="Events.EventCategory">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Event.EventCategory"
+                                                ng-selected="{{row.ItemId==Events.EventCategory}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Details.Start}}<!--开始类型:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" ng-model="Events.StartType">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Event.StartType"
+                                                ng-selected="{{row.ItemId==Events.StartType}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Details.End}}<!--结束类型:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" ng-model="Events.EndType">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Event.EndType"
+                                                ng-selected="{{row.ItemId==Events.EndType}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label col-md-2">{{languageJson.Config.Details.Condition}}<!--条件:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control col-md-4" style="{{languageJson.Language == 'English'?'width:64%;':'width:70%;'}}" ng-model="Events.Meanings">
+                                    <button type="button" class="btn btn-primary" ng-click="BindingCondition(Events)">{{languageJson.Config.Details.Binding}}<!--绑定--></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2 tooltip-options">{{languageJson.Config.Details.Expression}}<!--开始表达式:-->
+                                    <a  href data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                        title="<h5>表达式：通过表达式计算信号最终值，信号编号100103001除于10表达式为：[-1,100103001]/10</h5>">
+                                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                                    </a>
+                                </label>
+                                <div class="col-md-10">
+                                    <textarea id="EventExpression" type="text" class="form-control" ng-model="Events.StartExpression" ng-blur="CheckExpression('EventExpression')"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <ul class="ExpressionSymbol right" style="margin:10px 20px 0px 0px;">
+                                        <li ng-click="ClickEventsLi('AND')" title="并且" style="width: 40px;">AND</li>
+                                        <li ng-click="ClickEventsLi('OR')" title="或者" style="width: 30px;">OR</li>
+                                        <li style="border: 1px solid #fff0;background-color: #fff0;">  </li>
+                                        <li ng-click="ClickEventsLi('(')">(</li>
+                                        <li ng-click="ClickEventsLi(')')">)</li>
+                                        <li ng-click="ClickEventsLi('+')">+</li>
+                                        <li ng-click="ClickEventsLi('-')">-</li>
+                                        <li ng-click="ClickEventsLi('*')">*</li>
+                                        <li ng-click="ClickEventsLi('/')">/</li>
+                                        <li ng-click="ClickEventsLi('==')">==</li>
+                                        <li ng-click="ClickEventsLi('>')">&gt</li>
+                                        <li ng-click="ClickEventsLi('>=')">&gt=</li>
+                                        <li ng-click="ClickEventsLi('<')">&lt</li>
+                                        <li ng-click="ClickEventsLi('<=')">&lt=</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">有效:</label>
+                                <div class="col-md-4 timeGroupCheck">
+                                    <label><input type="checkbox" ng-model="Events.Enable"><i>√</i></label>
+                                </div>
+                                <label class="control-label  col-md-2">可见:</label>
+                                <div class="col-md-4 timeGroupCheck">
+                                    <label><input type="checkbox" ng-model="Events.Visible"><i>√</i></label>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveEvent()">{{btnName}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Details.Close}}<!--关闭--></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

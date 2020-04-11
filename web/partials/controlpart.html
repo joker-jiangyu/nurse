@@ -1,0 +1,30 @@
+﻿﻿<div class="panel panel-primary" dragger resizer>
+    <div class="panel-heading diagram-ele-head" title="{{languageJson.Configuration.RemoteControl.UpdTitle}}"><!--控制控件-->
+        <a class="pull-left grahico" setparttop  title="{{languageJson.Configuration.Control.Top}}"><!--置顶-->
+            <i class="fa fa-eject" ></i></a>
+
+        <a class="pull-right grahico" deletepartsetter title="{{languageJson.Configuration.Control.Delete}}"><!--删除-->
+            <i class="fa fa-times" ></i></a>
+
+        <a class="pull-right grahico" basecontrolsetter  title="{{languageJson.Configuration.Control.Setter}}"><!--设置-->
+            <i class="fa fa-wrench" ></i></a>
+    </div>
+    <div class="panel-body remote-control" ng-click="validateauthority($event);" style="background-size:100% 100% !important; height:calc(100% - 25px); cursor: pointer;">
+        <img styles="width:100%; height:auto;" />
+    </div>
+    <div class="panel-body remote-regulating">
+        <table class="nts-table body_transparent">
+            <tr><td colspan="2" class="control-name"></td></tr>
+            <tr><td colspan="2">
+                <input type="hidden" class="control-index" value="0">
+                <input type="text" class="form-control control-value" Virtual-Key-Board>
+                <input type="text" class="form-control control-meaning" disabled>
+            </td></span></tr>
+            <tr class="adjust">
+                <td><button type="button" class="btn btn-primary" ng-click="MinusValue($event)"><i class="fa fa-arrow-left"></i></button></td>
+                <td><button type="button" class="btn btn-primary" ng-click="PlusValue($event)"><i class="fa fa-arrow-right"></i></button></td>
+            </tr>
+            <tr><td colspan="2"><button type="button" class="btn btn-primary" ng-click="TransparentControl($event)">{{languageJson.InputBox.OK}}</button></td></tr><!--确定-->
+        </table>
+    </div>
+</div>

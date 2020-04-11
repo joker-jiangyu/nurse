@@ -1,0 +1,42 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">仪表控件</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group" style="height:34px;line-height: 34px;">
+                    <label class="control-label  col-md-2">设备帅选:</label>
+                    <div class="col-md-10">
+                        <select class="form-control" name = "portType" ng-model="Topology.DeviceId" ng-change="changeDevice(Topology.DeviceId)">
+                            <option value="{{row.equipmentId}}" ng-repeat="row in deviceList"
+                                    ng-selected="{{row.equipmentId==Topology.DeviceId}}">{{row.configName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>信号量</label>
+                    <div  style="width: 100%; height: 300px; padding:0px 5px 0px 5px; border: 1px solid #CCCCCC; overflow-y: scroll;">
+                        <div class="radio" ng-repeat="item in gauges | filter:{baseTypeName:instrumentpanel}">
+                            <label>
+                                <input type="radio" ng-model="basegauges.optionsGauges"   name="optionsGauges" id="optionsGauges{{$index + 1}}" value="{{item.baseTypeId}}">
+                                {{item.baseTypeName}}
+                            </label>
+                        </div>
+                    </div>
+                    <input class="form-control" ng-model="instrumentpanel" style="width: 100%;display:inline;border: 1px solid #CCCCCC;margin: 10px 0px" type="text" />
+                    <br/>
+                    <label>信号量的最小值：<input type="text" ng-model="basegauges.min" class="form-control" name="min" /></label> --
+                    <label>信号量的最大值：<input type="text" ng-model="basegauges.max" class="form-control" name="max" /></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">保存</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

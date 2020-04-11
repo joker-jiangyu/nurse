@@ -1,0 +1,48 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.LocalImageBox.Title}}</h4><!--本地图片预览-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{languageJson.Configuration.LocalImageBox.ImageType.Title}}</label><!--图片类型:-->
+                                    <div class="col-md-6">
+                                        <select class="form-control" name = "portType" ng-model="imgFiles.catalog"
+                                                ng-change="changeCatalog(imgFiles.catalog)">
+                                            <option value="img/diagram">{{languageJson.Configuration.LocalImageBox.ImageType.Configuration}}</option><!--组态图片-->
+                                            <option value="upload">{{languageJson.Configuration.LocalImageBox.ImageType.Temporary}}</option><!--临时图片-->
+                                            <option value="img/mdc">{{languageJson.Configuration.LocalImageBox.ImageType.Mdc}}</option><!--MDC图片-->
+                                            <option value="img/3d/molds">{{languageJson.Configuration.LocalImageBox.ImageType.Three}}</option><!--3D图片-->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12" >
+                                        <div class="col-md-12 image-preview">
+                                            <div class="image-div" ng-repeat="item in ImageFiles" title="{{item == undefined ? '' : item.file}}" ng-click="clickImage(item.file,$event)">
+                                                <img ng-src="{{item.file}}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="selectImageFile()">{{languageJson.Configuration.LocalImageBox.Choose}}</button><!--选择-->
+                    <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.LocalImageBox.Close}}</button><!--关闭-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

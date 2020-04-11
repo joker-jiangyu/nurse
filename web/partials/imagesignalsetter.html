@@ -1,0 +1,80 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog" style="width: 598px;">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.ImageSignalControl.UpdTitle}}</h4><!--修改环境量控件-->
+            </div>
+            <div class="modal-body center-block div_body">
+
+                <label>{{languageJson.Configuration.ImageSignalControl.ControlType.Title}}</label><!--控件类型-->
+                <select ng-change="parttypechange(updpart.type)" ng-model="updpart.type"  class="form-control">
+                    <option value="infrared">{{languageJson.Configuration.ImageSignalControl.ControlType.Infrared}}</option><!--红外-->
+                    <option value="smoke">{{languageJson.Configuration.ImageSignalControl.ControlType.Smoke}}</option><!--烟感-->
+                    <option value="watermonitor">{{languageJson.Configuration.ImageSignalControl.ControlType.LiquidLeak}}</option><!--水浸-->
+                    <option value="temperature">{{languageJson.Configuration.ImageSignalControl.ControlType.Temperature}}</option><!--温度-->
+                    <option value="humidity">{{languageJson.Configuration.ImageSignalControl.ControlType.Humidity}}</option><!--湿度-->
+                    <option value="door">{{languageJson.Configuration.ImageSignalControl.ControlType.Door}}</option><!--门碰-->
+                    <option value="lamp">{{languageJson.Configuration.ImageSignalControl.ControlType.Lamp}}</option><!--灯-->
+                    <option value="audible">{{languageJson.Configuration.ImageSignalControl.ControlType.Audible}}</option><!--声光-->
+                    <option value="switch">{{languageJson.Configuration.ImageSignalControl.ControlType.Switch}}</option><!--其它开关量-->
+                    <option value="estimate">{{languageJson.Configuration.ImageSignalControl.ControlType.Numerical}}</option><!--其它模拟量-->
+                </select>
+                <br/>
+
+                <table class="table table_body image-signal-table"  style=" width:100%; height:180px;">
+                    <tr>
+                        <td rowspan="4" style="width:32%;" >
+                            <div class="signalimage lead"  style="background-size:100% 100% !important; height:323px;  background-image: url('{{updpart.img}}');">
+                                <img styles="width:100%; height:auto;" />
+                            </div>
+                        </td>
+                        <td style="height:30px;"><label>{{languageJson.Configuration.ImageSignalControl.ControlName}}</label></td><td class="td-content"><input ng-model="updpart.name" Virtual-Key-Board="updpart.name" class="form-control" type="text" /></td><!--绑定名称-->
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-search" style="font-size: 24px;line-height: 54px;float: right;"></i></td>
+                        <td><input class="form-control" ng-model="imageSignal" Virtual-Key-Board="imageSignal" placeholder="{{languageJson.Configuration.ImageSignalControl.FilterPrompt}}" style="width: 100%;display:inline;margin: 10px 0px" type="text" /></td><!--筛选信号-->
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>{{languageJson.Configuration.ImageSignalControl.BindingPrompt}}</label><!--绑定信号-->
+                        </td><td>
+                        <div  style="width: 100%; height: 300px; padding:0px 5px 0px 5px;" class="div_content">
+                            <div class="radio" ng-repeat="item in siglist | filter:{baseTypeName:imageSignal}"><label><input type="radio" ng-model="updpart.radiosig"   name="radiosig" id="optionsRadios{{$index + 1}}" value="{{item.baseTypeId}}-{{item.deviceBaseTypeId}}">{{item.baseTypeName}}</label></div>
+                        </div>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>{{languageJson.Configuration.ImageSignalControl.Background.Title}}</td><!--背景样式-->
+                        <td>
+                            <select class="form-control" ng-model="updpart.background">
+                                <option value="transparency_bg">{{languageJson.Configuration.ImageSignalControl.Background.None}}</option><!--无背景-->
+                                <option value="configure_bg">{{languageJson.Configuration.ImageSignalControl.Background.Blue}}</option><!--蓝色背景-->
+                                <option value="white_bg">{{languageJson.Configuration.ImageSignalControl.Background.White}}</option><!--白色背景-->
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="timeGroupCheck">
+                        <td>{{languageJson.Configuration.ImageSignalControl.ImagePrompt}}
+                            <label>
+                                <input type="checkbox" ng-click="checkedDoor($event,'isImageCheck')" ng-model="isImageCheck">
+                                <i>{{getCheckbox(isImageCheck)}}</i>
+                            </label>
+                        </td><!--图像可见：-->
+                        <td></td>
+                        <td>{{languageJson.Configuration.ImageSignalControl.SignalPrompt}}
+                            <label>
+                                <input type="checkbox" ng-click="checkedDoor($event,'isSignalCheck')" ng-model="isSignalCheck">
+                                <i>{{getCheckbox(isSignalCheck)}}</i>
+                            </label>
+                        </td><!--信号值可见：-->
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveimagesignal()">{{languageJson.Configuration.ImageSignalControl.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.ImageSignalControl.Close}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()">
+                    <span style="color:white;"><i class="fa fa-times"></i></span></button>
+                <h4 class="modal-title">{{languageJson.Configuration.ColorSettingBox.Title}}</h4><!--事件条件设置-->
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="overflow: auto;">
+                    <table id="BindMes" ng-table="tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                        <tr ng-repeat="row in ColorSelect">
+                            <td data-title="languageJson.Configuration.ColorSettingBox.Range" align="center"><input type="text" class="form-control" ng-model="row[0]" Virtual-Key-Board="row[0]"/></td><!--'范围'-->
+                            <td data-title="languageJson.Configuration.ColorSettingBox.Color" align="center"><input type="color" class="form-control" ng-model="row[1]"/></td><!--'颜色'-->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="picker"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveColorSelect()">{{languageJson.Configuration.ColorSettingBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.ColorSettingBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

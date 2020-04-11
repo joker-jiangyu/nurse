@@ -1,0 +1,792 @@
+html{
+    touch-action: none;
+}
+/*  首页 头标题  */
+.dropdown-backdrop{
+    display: none;
+}
+.navbar-static-top ul{
+    position: relative;
+}
+.navbar-static-top ul li.dropdown{
+    height: 103px;
+}
+.navbar-static-top ul li.dropdown a.dropdown-toggle{
+    width: 102px;
+    height: 100%;
+}
+.navbar-static-top ul li.dropdown a.dropdown-toggle.servertime{
+    width: 360px;
+    height: 100%;
+    line-height: 80px;
+}
+.navbar-static-top ul li.dropdown i.fa{
+    /*font-size: 4em;*/
+    line-height: 72px;
+}
+.navbar-static-top ul li.dropdown samp.dropdown-title{
+    display: none;
+}
+.navbar-static-top span.fa-stack{
+    font-size: 2em;
+}
+.navbar-static-top .dropdown-time{
+    font-size: 24px;
+    height: 95px;
+    line-height: 64px;
+    position: absolute;
+    left: -400px;
+}
+.dropdown-toggle.servertime{
+    width: 400px;
+    text-align: left;
+}
+.navbar-static-top .dropdown-title{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 3px;
+    display: block;
+}
+
+.navbar-static-top ul li a.active{
+    background: url(../img/MenuBar/iview_hover_bg.png) right;
+}
+
+#alarmCount{
+    width: 43px;
+    height: 32px;
+    font-size: 20px;
+    line-height: 30px;
+    left: 56px;
+}
+/* 功能悬浮框 */
+/*.dropdown-report ul#nav li a{
+    width: 134px;
+    text-align: center;
+}*/
+.dropdown-report ul.Chinese li a{
+    width: 134px;
+    text-align: center;
+}
+.dropdown-report ul.English li a{
+    width: 196px;
+    text-align: center;
+}
+.fa-stack .fa-stack-2x{
+    color: #0166fe;
+}
+.navbar-top-links .dropdown-menu li{
+    display: inline-block;
+}
+.navbar-top-links .dropdown-menu{
+    width: 552px;
+    border: 1px solid rgba(15, 96, 244, 1);
+    box-shadow: rgba(15, 96, 244, 0.8) 0px 0px 20px;
+    background-color: rgba(22, 32, 56, 0.8);
+}
+.navbar-top-links .dropdown-menu.visitor{
+    width: 414px;
+}
+.navbar-top-links .dropdown-menu.English{
+    width: 610px;
+}
+.navbar-top-links .dropdown-menu.visitor.English{
+    width: 600px;
+}
+.navbar-top-links .divider{
+    width: 100%;
+    background-color: rgba(15, 96, 244, 1);
+}
+
+/* 内容 */
+#page-wrapper{
+    height: calc(100vh - 105px);
+    margin: 0px;
+}
+
+/*  首页 组态列表  */
+.menu_bar,.menu_bar .nav{
+    width: 150px;
+}
+.menu_bar .sidebar-nav{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+}
+.menu_bar .nav .sub-li img{
+    width: 60px;
+    height: 60px;
+}
+/* iView版本隐藏首页组态与图标 */
+.menu_bar .nav .sub-li:first-child{
+    display: none;
+}
+.menu_bar .nav .sub-li a div.div-img{
+    display: none;
+}
+
+.menu_bar .nav .sub-li a{
+    text-align: center;
+    padding: 14px;
+    font-size: 24px;
+}
+.menu_bar .nav .sub-li a div.div-img{
+    width: 100%;
+}
+
+.menu_bar{
+    padding-top: 120px;
+}
+/* 组态下的设备列 */
+.menu_bar .device-li{
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+    margin: 2px 10px;
+}
+.menu_bar .device-ul{
+    background-color: rgba(35, 122, 248, 0.3);
+    padding: 2px;
+}
+.menu_bar .device-li span{
+    font-size: 20px;
+}
+.menu_bar .device-li:hover,
+.menu_bar .device-li.active{
+    background: url(../img/MenuBar/iview_dev_bg.png) right;
+    color: #FFFFFF;
+}
+
+.sidebar ul li a:hover {
+    background: url("../img/MenuBar/hover_bg.png") right;
+    background-size:auto 150px;
+}
+.sidebar ul li a.active{
+    background: url(../img/MenuBar/iview_dev_bg.png) right;
+    background-size: auto 150px;
+}
+
+/* Logo */
+.navbar-header{
+    width: auto;
+    height: 98px;
+}
+.navbar-header .main-logo{
+    width: 100%;
+    margin: 5px 0px 5px 20px;
+    height: 88px;
+    text-align: left;
+}
+.navbar-header .logo{
+    max-height: 88px;
+    max-width: 100%;
+}
+.navbar-header .logotitle{
+    display: inline;
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+/* 边框 */
+.configure_bg{
+    border-radius: 8px;
+    background-image: -moz-linear-gradient( 90deg, rgba(0,64,225,0.2) 0%, rgba(0,64,225,0.8) 100%);
+    background-image: -webkit-linear-gradient( 90deg, rgba(0,64,225,0.2) 0%, rgba(0,64,225,0.8) 100%);
+    background-image: -ms-linear-gradient( 90deg, rgba(0,64,225,0.2) 0%, rgba(0,64,225,0.8) 100%);
+    border: 0px;
+    box-shadow: 0 0 0px;
+}
+
+/* 组态 */
+.diagram-sigimg-img{
+    height:calc(100% - 25px);
+}
+.diagram-sigimg-img-td{
+    width:40%;
+}
+.diagram-sigimg-title-td{
+    font-size: 18px;
+}
+
+.pie-value-switch input{
+    width: 120px;
+    display: inline-block;
+}
+/* 控制-遥调 */
+.nts-table tr td{
+    padding: 2px;
+    width: auto;
+}
+.remote-regulating{
+    height: calc(100% - 25px);
+    font-size: 2vh;
+    background-color: rgba(255, 255, 255, 0);
+}
+.remote-regulating table{
+    height: 100%;
+    width: 100%;
+}
+.remote-regulating table tr td{
+    text-align: center;
+}
+.remote-regulating .adjust button{
+    width: 100%;
+}
+.remote-regulating button{
+    width: 60%;
+}
+.remote-regulating input{
+    width: 60%;
+    margin: 0px auto;
+    text-align: center;
+    background-color: #101e40;
+    border: 0px;
+    box-shadow: rgba(15, 96, 244, 0.8) 0px 0px 0px;
+}
+
+/* 实时告警 */
+.active-alarm-header,.active-alarm-table .ng-table-filters{
+    display: none;
+}
+.active-alarm-filter{
+    font-size: 20px;
+    padding-top: 10px;
+    height: 40px;
+    width: 740px;
+    margin: 0px auto;
+    margin-bottom: 10px;
+}
+.active-alarm-filter span.body{
+    margin: 0px 20px;
+}
+.active-alarm-table{
+    font-size: 18px;
+}
+.active-alarm-table tbody tr td{
+    padding-top: 10px;
+}
+
+/* 历史 */
+.record-title{
+    z-index: 999;
+    width: 610px;
+    height: 44px;
+    border-radius: 25px;
+    margin: 20px auto;
+    display: inline-block;
+}
+.record-title table{
+    width: 100%;
+    background-color: #203882;
+    border-radius: 25px;
+}
+.record-title table tr td{
+    border-radius: 25px;
+    height: 44px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 44px;
+    cursor: pointer;
+}
+.record-title table tr td.selected{
+    background-color: #0166fe;
+}
+.record-title a{
+    color: #ffffff;
+}
+.body_export{
+    display: inline-block;
+    height: 84px;
+    float: right;
+    padding: 26px;
+}
+
+/*滑块*/
+.rangeslider{
+    position: relative;
+}
+.rangeslider, .rangeslider__fill{
+    background: #0166fe;
+    display: block;
+    height: 20px;
+    width: 100%;
+    -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+.rangeslider__fill{
+    background: #f0f0f0;
+    position: absolute;
+    top: 0;
+}
+.rangeslider__handle{
+    background: #0166fe;
+    border: 1px solid #0166fe;
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -10px;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…Igd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g);
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.1)));
+    background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+    background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.range-slider-ul{
+    margin: 10px 0px 0px 0px;
+    border-top: 1px solid;
+}
+.range-slider-ul li{
+    display: inline-block;
+    text-align: center;
+}
+
+/* 组态告警数位置 */
+.diagram-alarmCount,.view-alarmCount{
+    right: 0px;
+}
+
+/* 嵌入模块 */
+html{
+    margin: 0px auto;
+}
+
+#AlarmRoot{
+    height:82.6vh;
+}
+
+/* 超链接组态 返回按钮 */
+#HistoryRoot .history-button{
+    position: absolute;
+    top: 105px;
+    right: 40px;
+    z-index: 999;
+}
+
+/* 内容两边留空 */
+.hide-scroll .container-fluid{
+    padding-right: 50px;
+    padding-left: 23px;
+}
+.container-fluid.device-info{
+    padding-left: 160px;
+}
+
+/* MDC历史数据 */
+#HistoryRoot{
+    height:calc(100% - 82px);
+}
+
+/* 修改字体大小  */
+.table-checkbox tr td input[type=checkbox]{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin: 0px;
+}
+.table-checkbox tr td label,
+.table-checkbox tr th label{
+    vertical-align: middle;
+    font-size: 18px;
+}
+#view-scroll{
+    margin: 8px 0px 0px 8px;
+}
+#view-scroll a{
+    font-size: 22px;
+    line-height: 22px;
+}
+#view-scroll .iView-scroll,
+#root-structure .iView-scroll{
+    display: none;
+}
+label.diagram-tab,label.diagram-tab.active{
+    font-size: 22px;
+    line-height: 22px;
+}
+.nav-tabs > li.tab,.nav-tabs > li.tabs{
+    font-size: 22px;
+    line-height: 22px;
+}
+
+
+/* 信号量组态 */
+.image-signal-table .td-content{
+    width: 280px;
+}
+
+/* 弹出框字体样式 */
+.modal-dialog .modal-header h4{
+    font-size: 24px;
+}
+.modal-dialog .modal-body p{
+    font-size: 20px;
+}
+.modal-dialog button.btn{
+    font-size: 18px;
+}
+.modal-content button.close{
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+}
+
+/* 隐藏弹出框的关闭按钮 */
+.modal-dialog button.btn-default{
+    display: none;
+}
+
+/* 校时弹出框 */
+.form_datetime .input-group-addon{
+    padding: 6px 16px 6px 10px;
+}
+.form_datetime .glyphicon-time{
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+}
+.form_datetime input.time_setting{
+    height: 39px;
+    font-size: 20px;
+    width: 170px;
+}
+.form_datetime input[readonly]{
+    background-color: #ffffff;
+}
+
+/*********** 设置页面 *************/
+.setting-root .page-cut.ng-animate{
+    position: absolute;
+    width: 100%;
+    /*transition: 0.2s ease-out all;*/
+}
+/*   设置主页面 */
+.setting-body.ng-animate{
+    transform: translateX(0%);
+}
+.setting-body.ng-show{
+    transform: translateX(100%);
+}
+.setting-body.ng-hide{
+    transform: translateX(-100%);
+}
+/*   设置子页面 */
+.setting-option.ng-animate{
+    transform: translateX(0%);
+}
+.setting-option.ng-show{
+    transform: translateX(-100%);
+}
+.setting-option.ng-hide{
+    transform: translateX(100%);
+}
+.setting-body{
+    width: 350px;
+    height: calc(100% - 20px);
+    /*border-right: 2px solid #247bf9;*/
+    padding-right: 20px;
+    display: inline-block;
+}
+.setting-body ul li{
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 28px;
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+}
+.setting-body ul li a{
+    display: block;
+    text-align: left;
+    width: 100%;
+}
+.setting-body ul li a i.right-arrows{
+    float: right;
+    line-height: 42px;
+    font-size: 20px;
+    margin-right: 10px;
+    color: #949495;
+}
+/* 设置选中样式 */
+.setting-body ul li a span.fa-stack{
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    float: left;
+    margin-top: 5px;
+}
+.setting-body ul li a span i.fa-stack-1x{
+    font-size: 20px;
+}
+.setting-body ul li a span i.fa-stack-2x{
+    font-size: 36px;
+}
+.setting-body ul li a samp.dropdown-title{
+    font-size: 26px;
+    margin-left: 10px;
+}
+.setting-body ul li.active{
+    background-color: #247bf9;
+}
+.setting-body ul li.active a,
+.setting-body ul li.active a:hover,
+.setting-body ul li.active a:active{
+    color: #FFFFFF;
+}
+.setting-body ul li.active i.right-arrows{
+    color: #FFFFFF;
+}
+.setting-body ul li.active i.fa-stack-2x {
+    color: #fff;
+}
+.setting-body ul li.active i.fa-inverse {
+    color: #0166fe;
+}
+.setting-option{
+    width: calc(100% - 350px);
+    height: calc(100% - 20px);
+    display: inline-block;
+    float: right;
+    padding-left: 20px;
+}
+.setting-option .modal-content{
+    border-radius: 0px;
+    border: 0px;
+    box-shadow: 0px 0px 0px 0px;
+    background-color: transparent;
+}
+.setting-option .modal-header{
+    text-align: center;
+    padding-left: 15px;
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+    border-radius: 0px;
+}
+.setting-option .modal-header h4{
+    font-size: 30px;
+}
+.setting-option .modal-header button.close{
+    float: left;
+    background-color: transparent;
+}
+.setting-option .modal-content button.close{
+    font-size: 40px;
+}
+.setting-option .modal-content button.close i{
+    color: #464952;
+}
+.setting-option .modal-content .model-body-footer{
+    width: 100%;
+    margin: 20px auto 0px;
+    padding-top: 30px;
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+}
+.setting-option table tr td{
+    font-size: 24px;
+}
+.setting-option .btn{
+    font-size: 20px;
+    margin: 1px 0px;
+}
+.setting-option .glyphicon-time{
+    font-size: 22px;
+}
+.setting-option input.form-control{
+    font-size: 22px;
+}
+.threshold-setting .table > thead > tr > td,
+.threshold-setting .table > tbody > tr > td{
+    padding: 8px;
+}
+.setting-option .body-head{
+    width: 100%;
+    height: 48px;
+}
+.setting-option .body-head ul{
+    width: calc(100% - 48px);
+    height: 100%;
+}
+.setting-option .body-head ul li{
+    float: left;
+    background-color: #F5F6FA;
+    border: 2px solid rgb(222, 226, 246);
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+    font-size: 20px;
+    padding: 8px 16px;
+    margin: 0px 2px;
+    color: #464952;
+}
+.setting-option .body-head ul li.active{
+    background-color: #ffffff;
+    border: 2px solid rgb(222, 226, 246);
+    color: #237AF8;
+}
+.scroll-easy{
+    overflow-y: auto;
+}
+.setting-option table tr td input{
+    width: 250px;
+}
+.setting-option .modal-body .date{
+    width: 500px;
+    margin: 0px auto;
+}
+.setting-option .modal-body .date input{
+    width: 160px;
+    height: 45px;
+    margin-right: 15px;
+    background-color: #f5f7fc;
+    font-size: 22px;
+}
+.dropdown-report ul.Chinese li a{
+    width: 100%;
+    text-align: left;
+}
+.home-setting .modal-body table{
+    width: 100%;
+    border-top: 10px solid #030f45;
+    border-left: 10px solid #030f45;
+}
+.home-setting .modal-body table tr td{
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border-right: 10px solid #030f45;
+    border-bottom: 10px solid #030f45;
+}
+.home-setting .modal-body>div{
+    margin: 10px;
+}
+.home-setting .modal-body table tr td samp.dropdown-title{
+    display: block;
+}
+
+/* 历史告警 */
+.active-alarm-filter button span{
+    font-size: 18px;
+}
+.alarm-remark{
+    font-size: 20px;
+    border-radius:0px;
+}
+
+/*iView版 兼容组态范围*/
+.iview-canvas{
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    -ms-pointer-events: none;
+    -o-pointer-events: none;
+    pointer-events: none;
+}
+.iview-canvas .canvas-body{
+    height: 100%;
+    margin: 0px auto;
+
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    -ms-pointer-events: none;
+    -o-pointer-events: none;
+    pointer-events: none;
+}
+.iview-canvas .canvas-body .canvas-config{
+    height: 100%;
+    border: 5px solid #0F86D6;
+    margin-left: 150px;
+}
+
+/* 实时告警页面 */
+.alarm-button{
+    height: 40px;
+    float: right;
+}
+
+/* 信号量组态 */
+.signal_title label.groupname,
+.configure_bg .signal_title,
+.white_bg .signal_title{
+    font-size: 20px;
+    font-weight: 100;
+}
+.signal-body-table table tbody tr td,
+.signal-body-table table tbody tr td label{
+    font-size: 18px;
+    font-weight: 100;
+}
+
+/* 修改所有iView的字体大小 */
+.form-control{
+    padding: 2px 12px;
+    font-size: 20px;
+    height: 39px;
+}
+.table,
+.table thead tr td,
+.table tbody tr td{
+    font-size: 20px;
+}
+.device_info_btn{
+    font-size: 20px;
+    width: 120px;
+    height: 30px;
+    line-height: 24px;
+    background-color: #0084D7;
+}
+.fullscreen>a{
+    width: 30px;
+    height: 30px;
+}
+h5,
+.panel-heading,
+.btn,
+.nav.nav-tabs,
+.fullscreen .glyphicon{
+    font-size: 20px;
+}
+label,
+h5 small,
+.btn.btn-sm{
+    font-size: 18px;
+}
+.center-config{
+    font-size: 18px;
+}
+input[type="radio"],
+.center-config input[type="checkbox"]{
+    height: 20px;
+    width: 20px;
+}
+
+/* 显示返回按钮 */
+button.return-btn{
+    display: block;
+}
+
+/* 放大弹出框的默认宽度 */
+.modal-dialog{
+    width: 700px;
+}
+
+/* 放大复选框 */
+input[type="radio"],
+input[type="checkbox"]{
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}

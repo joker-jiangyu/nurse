@@ -1,0 +1,46 @@
+﻿<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.RemoteControl.NeedPasswordBox.Title}}</h4><!--控制权限验证-->
+            </div>
+            <div class="modal-body">
+                <div class="modal-body center-block">
+                    <table class="table">
+                        <!-- <tr> <td>用户名</td><td><input class="form-control" ng-model="controlinfo.username" placeholder="请输入用户名"  type="text"></td> </tr>-->
+                        <tr ng-show="controlinfo.isPwd">
+                            <td ng-show="{{controlinfo.pwdType != 'LoginPassword' && controlinfo.pwdType != 'SharePassword'}}">{{languageJson.Configuration.RemoteControl.NeedPasswordBox.Password}}</td>
+                            <td ng-show="{{controlinfo.pwdType == 'LoginPassword'}}">{{languageJson.Configuration.RemoteControl.NeedPasswordBox.LoginPassword}}</td>
+                            <td ng-show="{{controlinfo.pwdType == 'SharePassword'}}">{{languageJson.Configuration.RemoteControl.NeedPasswordBox.SharePassword}}</td>
+                            <td><input class="form-control" ng-model="controlinfo.userpwd" placeholder="{{languageJson.Configuration.RemoteControl.NeedPasswordBox.PromptPwd}}" type="password" ng-keydown="keyDownControl($event)" Virtual-Key-Board="controlinfo.userpwd"> </td>
+                        </tr><!--密 码  |  请输入密码-->
+                        <!--<tr ng-show="controlinfo.isShow"> <td>命  令</td><td>
+                            <select ng-model="controlinfo.optionType" class="form-control">
+                                <option ng-repeat="item in controlinfo.types" value="{{item.ParameterValue}}">{{item.Meanings}}</option>
+                            </select>
+                            </td>
+                        </tr>-->
+                        <tr ng-hide="controlinfo.isShow">
+                            <td><label for="controlAmount">{{languageJson.Configuration.RemoteControl.NeedPasswordBox.Value}}</label></td><!--遥控值-->
+                            <td><input type="text" id="controlAmount" ng-model="controlinfo.optionType" ng-change="changeTest(controlinfo.optionType)"
+                                           class="form-control" Virtual-Key-Board="controlinfo.optionType"></td>
+                        </tr>
+                        <tr ng-hide="controlinfo.isShow">
+                            <td colspan="2" align="center">
+                                <span>{{controlinfo.min}}</span>
+                                <input type="range" name="points" id="controlPoints" ng-model="controlinfo.optionValue" ng-change="changeValue(controlinfo.optionValue)"
+                                       style="display:inline;width: 80%;margin: 0px 5px;" min="{{controlinfo.min}}" max="{{controlinfo.max}}">
+                                <span>{{controlinfo.max}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="sendcontrol();" class="btn btn-primary">{{languageJson.Configuration.RemoteControl.NeedPasswordBox.Send}}</button><!--发送-->
+                    <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.RemoteControl.NeedPasswordBox.Close}}</button><!--关闭-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Header.Advanced.Polling.Title}}</h4><!--巡检-->
+            </div>
+            <div class="modal-body center-block">
+                <div class="input-group date form_datetime col-md-10 col-md-offset-1" data-date="" ng-click="click()"
+                     data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd hh:ii:ss">
+                    <!--是否巡检:-->
+                    <label class="tooltip-options">{{languageJson.Header.Advanced.Polling.InspectPrompt}}
+                        <!--巡检：根据左边设备栏循环切换页面-->
+                        <a id="Inspect-Hint" href data-toggle="tooltip"
+                            title="<h5></h5>">
+                            <i class="fa fa-question-circle fa-fw pointer "></i>
+                        </a>
+                    </label>
+                    <div class="timeGroupCheck" style="display: inline;">
+                        <label class="dropdown-toggle" style="padding-right: 20px;">
+                            <input type="checkbox"  ng-click="clickPolling()" ng-model="PollingIsChecked" style="width: 17px;height:17px;">
+                            <i> {{getCheckbox(PollingIsChecked)}} </i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Header.Advanced.Polling.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

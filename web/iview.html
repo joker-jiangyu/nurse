@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ch" ng-app="nurseApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GoodTime Ltd Co.">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="icon" href="favicon.ico" type="img/x-ico" />
+    <title></title>
+    <!-- basic css -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- component css -->
+    <link href="css/angular-motion.min.css" rel="stylesheet">
+    <link href="css/ng-table.min.css" rel="stylesheet">
+    <link href="css/isteven-multi-select.css" rel="stylesheet">
+    <!-- self css -->
+    <link href="css/site.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/camera.css" rel="stylesheet">
+    <link href="css/colpick.css" rel="stylesheet">
+    <!-- date css -->
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <!-- 提示框 CSS -->
+    <link href="../css/spop.min.css" rel="stylesheet">
+    <!-- versions 2.0.0 CSS -->
+    <link href="css/versions2.css" rel="stylesheet" type="text/css">
+    <!-- IView css -->
+    <link href="css/iview.css" rel="stylesheet" type="text/css">
+    <!-- Virtual Key Board CSS -->
+    <link rel="stylesheet" href="css/mathquill.css">
+    <link rel="stylesheet" href="css/keyboard.css">
+    <!-- Dropdown 简单多选下拉框 -->
+    <link href="css/jquery.dropdown.css" rel="stylesheet" type="text/css">
+
+    <!-- Percent css -->
+    <link href="css/percent.css" rel="stylesheet" type="text/css">
+    <!-- 风格 CSS -->
+    <link id="StyleLink" href="" rel="stylesheet" type="text/css">
+</head>
+<body ng-controller="systemSettingCtrl" class="body_bg">
+<!-- 主要内容 -->
+<div id="wrapper" hidden="hidden">
+    <!-- 左边组态栏 -->
+    <div class="sidebar menu_bar iview-sidebar" role="navigation" ng-controller="sidebarCtrl" ng-show="showSidebar">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="sub-li" ng-repeat="item in DeviceSidebar">
+                    <a href="{{item.configUrl}}" ng-click="loadDeviceChild($event,item.parts,$index)" class="{{getActive('parent',$index)}}">
+                        <div class='div-img'>
+                            <i class='fa {{item.fontChart}} fa-3x fa-fw'></i>
+                        </div>
+                        {{item.configName}}
+                    </a>
+                    <!--<span class="ng-binding diagram-alarmCount"></span>-->
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- JQuery Speech -->
+    <div id="bdtts_div_id">
+        <audio id="tts_autio_id" autoplay="autoplay">
+            <source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=4&text=" type="audio/mpeg">
+            <embed id="tts_embed_id" height="0" width="0" src="">
+        </audio>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <span class="main-logo">
+                <a onclick="location.reload();" style="cursor: pointer;"><!--href="iview.html#/adevice/8890/adiagram" -->
+                    <img class="logo" /><!-- 规定logo的尺寸  最大为125px*125px  -->
+                    <h4 class="logotitle"></h4>
+                </a>
+            </span>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right" ng-controller="userCtrl">
+            <!-- 时间 -->
+            <li class="dropdown dropdown-time">
+                <a class="dropdown-toggle servertime" style="background: url();"><!--href="#/timeSetting" data-toggle="dropdown"  -->
+                    <servertime></servertime>
+                </a>
+            </li>
+            <!-- 首页 -->
+            <li class="dropdown top-title">
+                <a class="dropdown-toggle {{PathType == 'home' ? 'active' : ''}}" ng-click="topFunClk('home')">
+                    <i class="fa fa-home fa-4x fa-fw" style="font-size: 64px;line-height: 64px;width: 64px;"></i>
+                    <samp class="dropdown-title">首页</samp>
+                </a>
+            </li>
+            <!-- 设备 -->
+            <li class="dropdown top-title">
+                <a class="dropdown-toggle {{PathType == 'device' ? 'active' : ''}}" ng-click="topFunClk('device')">
+                    <i class="fa fa-tasks fa-4x fa-fw"></i>
+                    <samp class="dropdown-title">设备</samp>
+                </a>
+            </li>
+            <!-- 告警 -->
+            <li class="dropdown top-title" ng-show="isShowFeature('Alarm')">
+                <a class="dropdown-toggle {{PathType == 'alarm' ? 'active' : ''}}"  ng-click="topFunClk('alarm')">
+                    <i class="fa fa-bell fa-4x fa-fw"></i> <samp class="dropdown-title">{{languageJson.Header.Alarm}}</samp>
+                    <div id = "alarmCount">{{alarmCount}}</div>
+                </a><!-- data-toggle="dropdown" -->
+            </li>
+            <!-- 历史 -->
+            <li class="dropdown top-title" ng-show="isShowFeature('History')">
+                <a class="dropdown-toggle {{PathType == 'alarmrecord' ? 'active' : ''}}" ng-click="topFunClk('alarmrecord')">
+                    <i class="fa fa-calendar fa-4x fa-fw"></i> <samp class="dropdown-title">{{languageJson.Header.History.Title}}</samp>
+                </a>
+            </li>
+            <!-- 图表 -->
+            <!--<li class="dropdown top-title" ng-show="isShowFeature('KPI')">
+                <a class="dropdown-toggle {{PathType == 'pki' ? 'active' : ''}}" ng-click="topFunClk('pki')">
+                    <i class="fa fa-pie-chart fa-4x fa-fw"></i> <samp class="dropdown-title">{{languageJson.Header.Chart.Title}}</samp> </i>
+                </a>
+            </li>-->
+            <!-- 配置 -->
+            <li class="dropdown top-title">
+                <!--bs-dropdown="dropdown"-->
+                <a class="dropdown-toggle {{PathType == 'setting' ? 'active' : ''}}" ng-click="topFunClk('setting')">
+                    <i class="fa fa-cog fa-4x fa-fw"></i> <samp class="dropdown-title">{{languageJson.Header.Config.Title}}</samp> </i>
+                </a>
+                <!-- 管理员 配置选项 -->
+                <!--ng-show="isAdminRole"-->
+                <div hidden="hidden" class="dropdown-menu dropdown-report {{languageJson.Language}}">
+                    <iframe frameborder="0" style="position:absolute; filter:alpha(opacity=0);width:100%;height:100%;z-index:1;"></iframe>
+                    <ul style="z-index:1000;position:relative; padding-left:1px;" id="nav" class="{{languageJson.Language}}">
+                        <li><a href="#/config">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Config.Config}} </samp></a>
+                        </li><!-- 配置管理 -->
+                        <li ng-show="isShowFeature('Mdc')">
+                            <a href ng-click="showConfigMdc()">
+                                <span class="fa-stack fa-lg">
+                                  <i class="fa fa-circle fa-stack-2x"></i>
+                                  <i class="fa fa-th-list fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <samp class="dropdown-title">{{languageJson.Header.Config.MDC}} </samp>
+                            </a>
+                        </li><!-- MDC配置 -->
+                        <li >
+                            <a href="#/employee">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Config.Employee}} </samp></a>
+                        </li><!-- 人员管理 -->
+                        <li><a href="#/protocol">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-cogs fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Config.Protocols}} </samp></a>
+                        </li><!-- 协议管理 -->
+                        <li><a href="#/otherModule">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-cog fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Config.OtherModule}} </samp></a>
+                        </li><!-- 接口管理 -->
+                        <li><a href="#/notify">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-bullhorn fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Config.AlarmNotice}} </samp></a>
+                        </li><!-- 告警通知 -->
+                        <li><a href="#/alarmLinkage">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Config.AlarmLinkage}} </samp> </a>
+                        </li><!-- 告警联动 -->
+                        <li class="divider"></li>
+                        <li><a href ng-click="configureMold()">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-bars fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Advanced.Configure}} </samp></a>
+                        </li><!-- 组态配置 -->
+                        <li><a href ng-click="historyDataClearClick()">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-history fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Advanced.Data}} </samp></a>
+                        </li><!-- 数据管理 -->
+                        <li><a href ng-click="ipSettingClick()">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Advanced.Ip.Title}}</samp></a>
+                        </li><!-- IP设置 -->
+                        <li><a href ng-click="systemSettingClick()">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-power-off fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Advanced.System.Title}}</samp></a>
+                        </li><!-- 系统操作 -->
+                        <li ng-click="permissionManage()"><a style="cursor:pointer;">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-unlock-alt fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.User.Authority}} </samp></a>
+                        </li><!-- 权限管理 -->
+                        <li class="divider"></li>
+                        <li ng-click="changeHome()"><a style="cursor:pointer;">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-home fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.User.Interface.Title}}</samp></a>
+                        </li><!-- 界面设置 -->
+                        <li ng-click="changePassword()"><a style="cursor:pointer;">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-key fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.User.Password.Title}}</samp></a>
+                        </li><!-- 密码修改 -->
+                        <li ng-click="showAbout()"><a style="cursor:pointer;">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.User.About}}</samp> </a>
+                        </li><!-- 关于 -->
+                        <li ng-show="isNeedLogin"><a href="#" ng-click="exit()">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.User.Exit}}</samp></a>
+                        </li><!-- 退出 -->
+                    </ul>
+                </div>
+                <!-- 游客 配置选项 -->
+                <!-- ng-show="!isAdminRole"-->
+                <div hidden="hidden" class="dropdown-menu dropdown-report visitor {{languageJson.Language}}">
+                    <iframe frameborder="0" style="position:absolute; filter:alpha(opacity=0);width:100%;height:100%;z-index:1;"></iframe>
+                    <ul style="z-index:1000;position:relative; padding-left:1px;" class="{{languageJson.Language}}">
+                        <li><a href ng-click="ipSettingClick()">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Advanced.Ip.Title}}</samp></a>
+                        </li><!-- IP设置 -->
+                        <li ng-click="changePassword()"><a style="cursor:pointer;">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-key fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.User.Password.Title}}</samp></a>
+                        </li><!-- 密码修改 -->
+                        <li><a href ng-click="systemSettingClick()">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-power-off fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.Advanced.System.Title}}</samp></a>
+                        </li><!-- 系统操作 -->
+                        <li class="divider"></li>
+                        <li ng-click="showAbout()"><a style="cursor:pointer;">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.User.About}}</samp> </a>
+                        </li><!-- 关于 -->
+                        <li><a></a></li>
+                        <li ng-show="isNeedLogin"><a href="#" ng-click="exit()">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <samp class="dropdown-title">{{languageJson.Header.User.Exit}}</samp></a>
+                        </li><!-- 退出 -->
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="page-wrapper" ui-view="container" class="hide-scroll"></div>
+
+    <div class="fullscreen" Full-Screen ng-show="isShowFullScreen()">
+        <a title="全屏,按ESC退出."><i class="glyphicon glyphicon-fullscreen" ></i></a>
+    </div><!--ng-click="FullScreen()"-->
+
+    <div id="pop" style="display:none;">
+        <div id="popHead">
+            <a id="popClose" title="关闭">关闭</a>
+            <h2>标题</h2>
+        </div>
+        <div id="popContent">
+            <dl>
+                <dt id="popIntro"><a>这里是内容简介</a></dt>
+                <dd id="popTime">这里是时间</dd>
+            </dl>
+            <p id="popMore"><a>查看所有告警 »</a></p>
+        </div>
+    </div>
+    <!---bootsrtap alert--->
+    <div role="alert" class="alert alert-dismissible alert-{{alert.type}}" style="{{alert.width}}" ng-repeat="alert in alerts">
+        <button aria-label="Close" data-dismiss="alert" ng-click="alert.close()" class="close" type="button"><span aria-hidden="true">×</span></button>
+        <span ng-bind="alert.msg"></span>
+    </div>
+    <!-- /.navbar-static-side -->
+
+    <!-- Alarm Broadcast -->
+    <audio id="abMusic">
+        <source src="" type="audio/mp3">
+    </audio>
+
+    <!-- License Info -->
+    <div ng-controller="LoginCtrl">
+        <div class="license_div"><a href id="btnLicense" hidden="hidden" ng-click="showLicenseBox()">试用期还剩 <span></span> 天，点击注册！</a></div>
+    </div>
+
+    <!-- Return Button -->
+    <div id="return-button" class="iview" hidden="hidden">
+        <button ng-click="ReturnButton()" class="btn btn-primary">{{languageJson.Login.Return}}</button><!--返回-->
+    </div>
+
+    <!-- iView版 兼容组态范围 -->
+    <div class="iview-canvas" hidden="hidden">
+        <div class="canvas-body">
+            <div class="canvas-config"></div>
+        </div>
+    </div>
+
+    <!-- framework js lib -->
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/underscore.js"></script>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-animate.js"></script>
+    <script src="js/lib/angular-sanitize.min.js"></script>
+    <script src="js/lib/angular-ui-router.min.js"></script>
+    <!--<script src="js/lib/angular-loader.js"></script>-->
+    <!--<script src="js/lib/angular-locale_zh-cn.js"></script>-->
+
+    <script src="js/lib/3d/raphael-min.js"></script>
+    <script src="js/lib/3d/three.min.js"></script>
+    <script src="js/lib/3d/Detector.js"></script>
+    <script src="js/lib/3d/Projector.js"></script>
+    <script src="js/lib/3d/CanvasRenderer.js"></script>
+    <script src="js/lib/3d/OrbitControls.js"></script>
+    <script src="js/lib/3d/stats.min.js"></script>
+    <script src="js/lib/3d/Tween.js"></script>
+
+    <!-- components js lib -->
+    <script src="js/lib/angular-strap.min.js"></script>
+    <script src="js/lib/angular-strap.tpl.min.js"></script>
+    <script src="js/lib/highcharts.js"></script>
+    <script src="js/lib/echarts-all.js"></script>
+    <script src="js/lib/echarts-macarons.js"></script>
+
+    <script src="js/lib/jquery.popnotification.js"></script>
+    <script src="js/lib/ng-table.min.js"></script>
+    <script src="js/lib/ng-csv.min.js"></script>
+    <script src="js/lib/isteven-multi-select.js"></script>
+    <!--<script src="js/lib/hkvideoctrl.js"></script>-->
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/d3.js"></script>
+    <!-- 萤石云直播-->
+    <script src="js/lib/ckplayer/ezuikit.js"></script>
+    <!-- self code here -->
+    <script src="js/init.js"></script>
+    <script src="js/iview.app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/bench.js"></script>
+    <script src="js/arena.js"></script>
+    <script src="js/molds.js"></script>
+    <script src="js/ThermalMap.js"></script>
+    <!-- date js -->
+    <script src="../js/lib/bootstrap-datetimepicker.min.js"></script>
+    <!-- JQuery Speech -->
+    <script src="../js/lib/jQuery.speech.min.js"></script>
+    <!-- colpick jQuery Color -->
+    <script src="../js/lib/colpick.js"></script>
+    <!-- Web Video Kit v3.0 -->
+    <script src="../js/lib/webVideoCtrl.js"></script>
+    <!-- Virtual Key Board JQuery -->
+    <script src="js/lib/jquery.slimscroll.min.js"></script>
+    <script src="js/lib/chinese-pynsimpl.js"></script>
+    <script src="js/lib/mathquill.min.js"></script>
+    <!-- 滑块 JS -->
+    <script src="../js/lib/rangeslider.min.js"></script>
+    <!-- Dropdown 简单多选下拉框 -->
+    <script src="../js/lib/dropdown/jquery.dropdown.js"></script>
+    <script src="../js/lib/dropdown/mock.js"></script>
+
+    <!-- Lary 3D MDC -->
+    <script src="../js/lib/lary/babylon.js"></script>
+    <script src="../js/lib/lary/babylonjs.loaders.min.js"></script>
+    <script src="../js/lib/lary/babylon.gui.min.js"></script>
+    <script src="../js/lib/lary/lary.js"></script>
+    <!--<script src="../js/lib/lary/main.js"></script>-->
+
+    <!-- Circle 圆环进度条 -->
+    <script src="../js/lib/circle.process.js"></script>
+    <!-- 触屏时间控件 -->
+    <script src="../js/lib/datePicker.js"></script>
+    <!-- 提示框 -->
+    <script src="../js/lib/spop.min.js"></script>
+</div>
+
+<!-- 加载图 -->
+<div Page-Load class='page-load'>
+    <div class='background'>
+        <div class="loading-bg">
+            <img src='img/loading.gif' class='loading'>
+            <span>Loading...</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

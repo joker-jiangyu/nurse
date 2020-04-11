@@ -1,0 +1,131 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.CardBox.Title}}</h4><!--修改卡-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.CardBox.Info}}
+                                </div><!--卡信息-->
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <br/>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.CardBox.CardCode}}</label><!--卡号:-->
+                                            <div class="col-md-3">
+                                                <input class="form-control" placeholder="请输入卡号" type="text" ng-model="CardManage.updCard.cardCode" ng-change="cardCodeChange()" disabled/>
+                                            </div>
+                                            <label class="control-label col-md-3 tooltip-options">{{languageJson.CardBox.CodeType}}
+                                                <a href data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                                   title="<h5>卡号类型：ID卡，下发授权命令；其他不下发授权命令。</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </label><!--卡号类型-->
+                                            <div class="col-md-4">
+                                                <select class="form-control" name = "userId" ng-model="CardManage.updCard.cardType">
+                                                    <option value="{{row.ItemId}}" ng-repeat="row in CardTypes"
+                                                            ng-selected="row.ItemId == CardManage.updCard.cardType">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.CardBox.CardName}}</label><!--卡名称:-->
+                                            <div class="col-md-10">
+                                                <input class="form-control" placeholder="请输入卡名称" type="text" ng-model="CardManage.updCard.cardName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.CardBox.Cardholder}}</label><!--持卡人:-->
+                                            <div class="col-md-3">
+                                                <select class="form-control" name = "userId" ng-model="CardManage.updCard.userId">
+                                                    <option value="{{row.EmployeeId}}" ng-selected="{{row.EmployeeId==CardManage.updCard.userId}}"
+                                                            ng-repeat="row in CardManage.addCard.employee">{{row.EmployeeName}}</option>
+                                                </select>
+                                            </div>
+                                            <label class="control-label col-md-3">{{languageJson.CardBox.CardType}}</label><!--卡类型:-->
+                                            <div class="col-md-4">
+                                                <select class="form-control" name = "cardCategory" ng-model="CardManage.updCard.cardCategory">
+                                                    <option value="{{row.ItemId}}" ng-selected="{{row.ItemId==CardManage.updCard.cardCategory}}"
+                                                            ng-repeat="row in CardManage.addCard.cardDataItem.CardCategory">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 0px;">
+                                            <label class="control-label col-md-2">{{languageJson.CardBox.Door}}</label><!--门禁设备:-->
+                                            <div class="col-md-10">
+                                                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped tbody-overflow" style="background-color: rgba(0,0,0,0.5);">
+                                                    <thead class="ng-scope">
+                                                    <tr class="ng-table-sort-header">
+                                                        <th class="tbody-td10">{{languageJson.CardBox.Select}}</th><!--选择-->
+                                                        <th class="tbody-td13">{{languageJson.CardBox.DoorName}}</th><!--门名称-->
+                                                        <th class="tbody-td14">{{languageJson.CardBox.TimeGroup}}</th><!--时段限制-->
+                                                        <th class="tbody-td14  tooltip-options">{{languageJson.CardBox.Pwd}}
+                                                            <a  href data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                                                title="<h5>开门密码：0000为不需要密码，添加密码后，刷卡后需要输入密码才会开门。</h5>">
+                                                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                            </a>
+                                                        </th><!--刷卡开门密码-->
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="row in DoorManage.doorList">
+                                                        <td class="tbody-td10" align="center">
+                                                            <input type="checkbox" ng-model="row.isCheck"
+                                                                   ng-checked="{{row.isCheck}}" />
+                                                        </td>
+                                                        <td class="tbody-td13" align="center">{{row.doorName}}</td>
+                                                        <td class="tbody-td14" align="center">
+                                                            <select class="form-control" name = "portType" ng-model="row.timeGroupId">
+                                                                <option value="{{item.timeGroupId}}" ng-repeat="item in DoorCardManage.addDoorCard.TimeGroup"
+                                                                        ng-selected="{{item.timeGroupId == row.timeGroupId}}">{{item.timeGroupName}}</option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="tbody-td14" align="center">
+                                                            <input type="text" class="form-control" ng-model="row.password" name="endDate" placeholder="{{languageJson.CardBox.NotPwd}}">
+                                                        </td><!--默认不用密码-->
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.CardBox.StartTime}}</label><!--开始时间:-->
+                                            <div class="col-md-3">
+                                                <input class="form-control" type="text" ng-model="CardManage.updCard.startTime" disabled/>
+                                            </div>
+                                            <label class="control-label col-md-3">{{languageJson.CardBox.EndTime}}</label><!--结束时间:-->
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" ng-model="CardManage.updCard.endTime" name="endDate" data-date-format="yyyy-MM-dd" bs-datepicker>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.CardBox.Note}}</label><!--描述:-->
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" ng-model="CardManage.updCard.description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="updateCard()">{{languageJson.CardBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.CardBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

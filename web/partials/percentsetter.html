@@ -1,0 +1,146 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.PercentControl.UpdTitle}}</h4><!--修改仪表联控-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Configuration.PercentControl.Title}}</label><!--标题：-->
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" ng-model="addPercent.title" Virtual-Key-Board="addPercent.title">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading tooltip-options">
+                                    {{languageJson.Configuration.PercentControl.Expression}}
+                                    <a  href="#" data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                        title="<h5>表达式：通过表达式计算信号最终值，运算表达式放到函数中，字符串放到函数外，设备编号100000001的信号编号100103001除于10表达式为：[100000001-100103001]/10</h5>">
+                                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                                    </a>
+                                </div><!--表达式-->
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.Configuration.PercentControl.Devices}}</label><!--设备：-->
+                                                <div class="col-md-3">
+                                                    <select class="form-control" ng-model="addPercent.devicesId" ng-change="changeDevice(addPercent.devicesId)">
+                                                        <option value="{{row.id}}" ng-repeat="row in addPercent.Devices"> {{row.name}} </option>
+                                                    </select>
+                                                </div>
+                                                <label class="control-label  col-md-2">{{languageJson.Configuration.PercentControl.Signal}}</label><!--信号：-->
+                                                <div class="col-md-3">
+                                                    <select class="form-control" ng-model="addPercent.signalId" ng-change="changeSignal('startExpression',addPercent.signalId)">
+                                                        <option value="{{row.signalId}}" ng-repeat="row in addPercent.Signals | filter:{signalName:filterName}"> {{row.signalName}} </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" ng-model="filterName" Virtual-Key-Board="filterName" placeholder="{{languageJson.Configuration.PercentControl.FilterSignal}}"><!--筛选列表-->
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="width: 98%;margin: 0px auto;">
+                                                <textarea type="text" id="startExpression" class="form-control ng-pristine ng-untouched ng-valid" ng-model="addPercent.startExpression" Virtual-Key-Board="addPercent.startExpression" ng-blur="CheckExpression('startExpression')"></textarea>
+                                            </div>
+                                            <br/>
+                                            <div class="form-group">
+                                                <ul class="ExpressionSymbol right">
+                                                    <li ng-click="ClickLi('startExpression','(')">(</li>
+                                                    <li ng-click="ClickLi('startExpression',')')">)</li>
+                                                    <li ng-click="ClickLi('startExpression','+')">+</li>
+                                                    <li ng-click="ClickLi('startExpression','-')">-</li>
+                                                    <li ng-click="ClickLi('startExpression','*')">*</li>
+                                                    <li ng-click="ClickLi('startExpression','/')">/</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Configuration.PercentControl.Unit}}</label><!--单位：-->
+                                            <div class="col-md-2">
+                                                <input type="text" class="form-control" ng-model="addPercent.unit" Virtual-Key-Board="addPercent.unit">
+                                            </div>
+                                            <div class="col-md-8" style="margin: 5px 0px;">
+                                                <ul class="ExpressionSymbol">
+                                                    <li ng-click="addPercent.unit = '℃'">℃</li>
+                                                    <li ng-click="addPercent.unit = '%RH'">%RH</li>
+                                                    <li ng-click="addPercent.unit = 'V'">V</li>
+                                                    <li ng-click="addPercent.unit = 'A'">A</li>
+                                                    <li ng-click="addPercent.unit = 'W'">W</li>
+                                                    <li ng-click="addPercent.unit = 'Ω'">Ω</li>
+                                                    <li ng-click="addPercent.unit = 'μF'">μF</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.Configuration.PercentControl.RatioQueue}}
+                                </div><!--占比队列-->
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12" style="margin: 10px 0px;">
+                                            <label class="control-label  col-md-2">{{languageJson.Configuration.PercentControl.Equal}}</label><!--等份：-->
+                                            <div class="col-md-2">
+                                                <select class="form-control" ng-model="addPercent.equal" >
+                                                    <option value="2"> 2 </option>
+                                                    <option value="3"> 3 </option>
+                                                    <option value="4"> 4 </option>
+                                                    <option value="5"> 5 </option>
+                                                    <option value="6"> 6 </option>
+                                                    <option value="7"> 7 </option>
+                                                    <option value="8" ng-selected="addPercent.equal == 8"> 8 </option>
+                                                    <option value="9"> 9 </option>
+                                                    <option value="10"> 10 </option>
+                                                </select>
+                                            </div>
+                                            <button type="button" class="btn btn-primary right" ng-click="addPercentRatioClick()">{{languageJson.Configuration.PercentControl.AddRatio}}</button><!--新增占比-->
+                                        </div>
+                                        <div class="col-md-12" style="height: 135px;overflow:auto;">
+                                            <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                                                <tr ng-repeat="row in addPercent.percents">
+                                                    <td data-title="languageJson.Configuration.PercentControl.Ratio" align="center">{{row.percent}} %</td><!--'占比'-->
+                                                    <td data-title="languageJson.Configuration.PercentControl.Color" align="center"><input  class="form-control" type="color" ng-model="row.color" disabled="disabled"/></td><!--'颜色'-->
+                                                    <td data-title="languageJson.Configuration.PercentControl.Section" align="center">{{row.section}}</td><!--'区间'-->
+                                                    <td data-title="languageJson.Configuration.PercentControl.ControlSize" align="center">{{row.size}}</td><!--'控制数'-->
+                                                    <td class="center" data-title="languageJson.Configuration.PercentControl.Operation" align="center">
+                                                        <button type="button" class="btn btn-sm btn-danger"  ng-click="deleteClick($index)">{{languageJson.Configuration.PercentControl.Delete}}</button><!--删除-->
+                                                    </td><!--'操作'-->
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="addAlarmLinkage()">{{languageJson.Configuration.PercentControl.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.PercentControl.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

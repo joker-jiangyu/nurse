@@ -1,0 +1,71 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog" id="hrPieChartId" style="width: 598px;">
+            <div class="modal-header tooltip-options" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.SignalSettingBox.Title}}</h4><!--选择信号集合-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body div_body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">{{languageJson.Configuration.SignalSettingBox.FilterEquipment}}</label><!--设备帅选:-->
+                                        <div class="col-md-8">
+                                            <select class="form-control" name = "portType" ng-model="Topology.DeviceId" ng-change="changeDevice(Topology.DeviceId)">
+                                                <option value="{{row.equipmentId}}" ng-repeat="row in deviceList track by $index"
+                                                        ng-selected="{{row.equipmentId==Topology.DeviceId}}">{{row.configName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div style="display:block;overflow:auto;margin-left:auto;margin-right:auto;width:550px;">
+                                            <div style="float:left;width: 100%;">
+                                                <i class="fa fa-search" style="font-size: 24px;"></i>
+                                                <input class="form-control" ng-model="signalValue" Virtual-Key-Board="signalValue" placeholder="{{languageJson.Configuration.SignalSettingBox.FilterSignal}}" style="width: 190px;display:inline;border: 1px solid #025aff;margin: 10px 0px" type="text" /><!--筛选信号-->
+                                            </div>
+                                            <div style="float:left;">
+                                                <label class="control-label" style="display:block;">{{languageJson.Configuration.SignalSettingBox.Optional}}
+                                                    ({{ bind.siglist.length }})</label>
+                                                <select id="multiSelectAvailable" class="form-control" ng-model="selected.available" multiple
+                                                        style="height:auto;line-height:30px;border:1px solid #025aff;width:220px; vertical-align:middle;min-height:180px;border-radius: 0px;">
+                                                    <option value="{{row}}" ng-repeat="row in bind.siglist | filter:{baseTypeName:signalValue}" >{{row.baseTypeName}}</option>
+                                                </select>
+                                            </div><!--可选-->
+                                            <div style="float:left;margin:20px;">
+                                                <button class="btn btn-default" style="display:block;margin:30px 10px;"  ng-click="addMulti()" title="Add selected"
+                                                        ng-disabled="selected.available.length == 0">
+                                                    <i class="fa fa-arrow-right"></i>
+                                                </button>
+                                                <button class="btn btn-default" style="display:block;margin:30px 10px;" ng-click="removeMulti()" title="Remove selected"
+                                                        ng-disabled="selected.current.length == 0">
+                                                    <i class="fa fa-arrow-left"></i>
+                                                </button>
+                                            </div>
+                                            <div style="float:left;">
+                                                <label class="control-label"  style="display:block;">{{languageJson.Configuration.SignalSettingBox.Selected}}
+                                                    ({{ bind.selectedsigs.length }})</label>
+                                                <select id="currentRoles" class="form-control" ng-model="selected.current" multiple
+                                                        style="height:auto;line-height:30px;border:1px solid #025aff;width:220px;vertical-align:middle;min-height:180px;border-radius: 0px;">
+                                                    <option value="{{row}}" ng-repeat="row in bind.selectedsigs" >{{row.deviceBaseName}}-{{row.baseTypeName}}</option>
+                                                </select>
+                                            </div><!--已选-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveMultiSelect(Topology.DeviceId,obj)">{{languageJson.Configuration.SignalSettingBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.SignalSettingBox.Close}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options i").tooltip({html : true });});
+</script>

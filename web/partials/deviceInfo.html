@@ -1,0 +1,146 @@
+<div class="container-fluid Stick-Click device-info" ng-controller="deviceInfoCtrl" id="rollBtn_top">
+	<!-- 设备列表 -->
+	<div class="visible-device-list" ng-show="visibleDeviceView" style="{{isShowView == true ? 'overflow: hidden;': 'overflow: ;'}}">
+		<div class="view-show-hide" ng-click="showViewClick()">
+			<i class="fa {{isShowView == true ?'fa-angle-double-down':'fa-angle-double-up '}}"></i>
+		</div>
+		<div class="btn-group diagram view-device" ng-model="selectedDeviceId" bs-radio-group>
+			<label ng-repeat="dev in deviceList" class="btn diagram-tab" ng-click="changeDevice(dev.equipmentId)" style="overflow: hidden;">
+				<input type="radio"  value="{{dev.equipmentId}}">{{dev.configName}}
+			</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header" >{{device.name}}<small> {{languageJson.RoomHome.AlarmTitle.EquipmentDetails}}</small><!--设备详情-->
+			<div class="pull-right" style="line-height:40px;">
+				<div ng-class="device.colorClass()">
+					<span>
+						<i ng-class="device.iconClass()"> </i>
+						<i class="fa"> </i>
+					</span>
+					<span>
+						<h5 class="pull-right">  {{device.info}}</h5>
+					</span>
+				</div>
+			</div>
+			</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	<div class="row">
+        <!-- Return To Page -->
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="tabs-below">
+                        <p>
+							<button class="btn btn-default btn-primary right" ng-click="pushBut()"><i class="fa fa-reply" ></i> {{languageJson.RoomHome.AlarmTitle.Return}}</button><!--返回-->
+                        </p>
+                    </div>
+                </div>
+				<div class="panel-heading">
+					<i class="fa fa-list-alt fa-fw"> </i> {{languageJson.RoomHome.AlarmTitle.DataTable.Title}}
+				</div><!--实时数据-->
+				<!-- /.panel-heading -->
+				<div class="panel-body" >
+					<div class="table-responsive">
+						<div class="col-lg-12" style="margin: 5px 0px;">
+							<div class="col-lg-12">
+								<input type="text" class="form-control" ng-model="SignalName" placeholder="{{languageJson.RoomHome.AlarmTitle.DataTable.FilterSignal}}" Virtual-Key-Board="SignalName"/>
+							</div>
+						</div>
+
+						<table class="table table-condensed table-striped" Table-Fixed-Header="tableFixedHeader">
+							<thead>
+								<tr>
+									<th width="10%">{{languageJson.RoomHome.AlarmTitle.DataTable.Status}}</th><!--状态-->
+									<!--<th>{{languageJson.RoomHome.AlarmTitle.DataTable.Type}}</th>--><!--类型-->
+									<th>{{languageJson.RoomHome.AlarmTitle.DataTable.Signal}}</th><!--信号-->
+									<th>{{languageJson.RoomHome.AlarmTitle.DataTable.Value}}</th><!--值-->
+									<th width="20%">{{languageJson.RoomHome.AlarmTitle.DataTable.Time}}</th><!--时间-->
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="sig in sigs | filter:{signalName:SignalName}">
+									<td ng-class = "getStatusTextClass('col-md-1', sig.alarmSeverity)" >
+										<span>
+											<i ng-class="getStatusIconClass(sig.alarmSeverity)"></i>
+										</span>
+										{{getStatusLabel(sig.alarmSeverity)}}
+									</td>
+									<!--<td class = "col-md-3">{{sig.baseTypeName}}</td>-->
+									<td class = "col-md-3">{{sig.signalName}}</td>
+									<td class = "col-md-3">{{sig.currentValue}}</td>
+									<td class = "col-md-2">{{sig.updateTime}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- /.panel-body -->
+			</div>
+		</div>
+	</div>
+	
+	<div class="row"  id="rollAlarm_top">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bell fa-fw"> </i> {{languageJson.RoomHome.AlarmTitle.EquipmetnAlarm.Title}}
+				</div><!--设备告警-->
+				<!-- /.panel-heading -->
+				<div class="panel-body" >
+					<div class="table-responsive">
+						<table class="table table-condensed table-striped">
+							<thead>
+								<tr>
+									<th class="text-center">{{languageJson.RoomHome.AlarmTitle.EquipmetnAlarm.Alarm}}</th><!--告警-->
+									<th  ng-show="isAdminRole">{{languageJson.RoomHome.AlarmTitle.EquipmetnAlarm.Operation}}</th><!--操作-->
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="alarm in alarms">
+									<td class="col-md-11">
+										<div>
+										<span>
+											<span>
+												<i class="fa fa-bell fa-fw alarmLevel{{alarm.alarmLevel}}">
+												</i>
+											</span> {{alarm.alarmContent}}
+											<span class="text-muted small">
+												<em> {{ alarm.startTime }}</em>
+											</span>
+										</span>
+										</div>
+									</td>
+									<td class="col-md-1" ng-show="isAdminRole">
+										<button type="button" style="border:0px;"
+												class="btn btn-default text-center"
+												ng-click="beginEndAlarm(alarm.uniqueId)">
+											<i class="fa fa-check"></i>
+										</button>										
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- /.panel-body --><!--回到顶部-->
+				<div align="right" id = "rollBtn" Stick-Click="'#rollBtn_top'" title = "{{languageJson.RoomHome.AlarmTitle.DataTable.Top}}" style="display: block">
+                    <span class="fa fa-arrow-circle-up" style = "font-size: 50px"></span>
+                </div>
+				<!-- 设备信息 -->
+				<div align="right" id = "rollInfo" title = "{{languageJson.RoomHome.AlarmTitle.DataTable.Info}}" style="display: block" ng-click="showDeviceInfoClick()">
+					<span class="fa fa-info-circle" style = "font-size: 50px"></span>
+				</div>
+                <!--跳到告警-->
+                <div align="right" id = "rollAlarm" Stick-Click="'#rollAlarm_top'" title = "{{languageJson.RoomHome.AlarmTitle.DataTable.Bottom}}" style="display: block">
+                    <span class="fa fa-arrow-circle-down" style = "font-size: 50px"></span>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>

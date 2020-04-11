@@ -1,0 +1,188 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 1000px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{TitleName}} {{languageJson.MDC.Micromodules.Defining}}<!--定义微模块--></h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <br/>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.MDC.Micromodules.Type}}<!--机柜类型:--></label>
+                                            <div class="col-md-3">
+                                                <select class="form-control" ng-model="cabinet.cabinetType" ng-change="changeType(cabinet.cabinetType)">
+                                                    <option ng-repeat="item in cabinetTypeDataItem" value="{{item.ItemAlias}}"
+                                                            ng-selected="item.ItemAlias == cabinet.cabinetType"> {{languageJson.Language == 'English' ? item.ItemAlias : item.ItemValue}} </option>
+                                                </select>
+                                            </div>
+                                            <label class="control-label  col-md-3">{{languageJson.MDC.Micromodules.Name}}<!--机柜名称:--></label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" ng-model="cabinet.name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.MDC.Micromodules.Voltage}}<!--额定电压:--></label>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control col-md-3" style="width: 85%;" ng-model="cabinet.ratedVoltage">
+                                                <label style="margin-top: 7px;margin-left: 10px;">V</label>
+                                            </div>
+                                            <!--<label class="col-md-1 control-label" style="text-align: left;">V</label>-->
+                                            <label class="control-label col-md-3">{{languageJson.MDC.Micromodules.Current}}<!--额定电流:--></label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control col-md-4" style="width: 85%;" ng-model="cabinet.ratedCurrent">
+                                                <label style="margin-top: 7px;margin-left: 10px;">A</label>
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group">
+                                            <label class="control-label  col-md-2">资产管理:</label>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-primary" ng-click="showAssetClick()">配置资产信息</button>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default col-md-7" style="padding: 0px;">
+                                <div class="panel-heading cabinet_title_color">
+                                    <a href ng-click="hideDivClick('div1',$event)"><i class="fa fa-chevron-down fa-fw"></i>
+                                        {{languageJson.MDC.Micromodules.Power}}<!--机柜配电-->
+                                    </a>
+                                </div>
+                                <div class="panel-body" id="div1" style="margin-top: 32px;">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <table class="table table-condensed table-bordered table-striped">
+                                                <thead>
+                                                <tr class="ng-table-sort-header">
+                                                    <th style="width: 70px;"></th>
+                                                    <th style="text-align: center;">{{languageJson.MDC.Micromodules.A}}<!--A相--></th>
+                                                    <th style="text-align: center;">{{languageJson.MDC.Micromodules.B}}<!--B相--></th>
+                                                    <th style="text-align: center;">{{languageJson.MDC.Micromodules.C}}<!--C相--></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td align="center">{{languageJson.MDC.Micromodules.V}}<!--电压--></td>
+                                                    <td align="center"><input type="text" class="form-control" ng-model="cabinet.phaseAVoltage"
+                                                                              ng-click="bindDevice(languageJson.MDC.Micromodules.AVoltage,'','phaseAVoltage',cabinet.phaseAVoltage)"/></td><!--'A相电压'-->
+                                                    <td align="center"><input type="text" class="form-control" ng-model="cabinet.phaseBVoltage"
+                                                                              ng-click="bindDevice(languageJson.MDC.Micromodules.BVoltage,'','phaseBVoltage',cabinet.phaseBVoltage)"/></td><!--'B相电压'-->
+                                                    <td align="center"><input type="text" class="form-control" ng-model="cabinet.phaseCVoltage"
+                                                                              ng-click="bindDevice(languageJson.MDC.Micromodules.CVoltage,'','phaseCVoltage',cabinet.phaseCVoltage)"/></td><!--'C相电压'-->
+                                                </tr>
+                                                <tr>
+                                                    <td align="center">{{languageJson.MDC.Micromodules.I}}<!--电流--></td>
+                                                    <td align="center"><input type="text" class="form-control" ng-model="cabinet.phaseACurrent"
+                                                                              ng-click="bindDevice(languageJson.MDC.Micromodules.ACurrent,'','phaseACurrent',cabinet.phaseACurrent)"/></td><!--'A相电流'-->
+                                                    <td align="center"><input type="text" class="form-control" ng-model="cabinet.phaseBCurrent"
+                                                                              ng-click="bindDevice(languageJson.MDC.Micromodules.BCurrent,'','phaseBCurrent',cabinet.phaseBCurrent)"/></td><!--'B相电流'-->
+                                                    <td align="center"><input type="text" class="form-control" ng-model="cabinet.phaseCCurrent"
+                                                                              ng-click="bindDevice(languageJson.MDC.Micromodules.CCurrent,'','phaseCCurrent',cabinet.phaseCCurrent)"/></td><!--'C相电流'-->
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" style="float: right;width: 400px; padding: 0 15px;padding: 0px;">
+                                <div class="panel-heading cabinet_title_color">
+                                    <a href ng-click="hideDivClick('div2',$event)"><i class="fa fa-chevron-down fa-fw"></i>
+                                        {{languageJson.MDC.Micromodules.Equipment}}<!--机柜温度设备-->
+                                    </a>
+                                </div>
+                                <div class="panel-body" id="div2">
+                                    <label class="control-label col-md-3" style="margin-top: 85px;">{{languageJson.MDC.Micromodules.Signal}}<!--温度信号:--></label>
+                                    <div class="col-md-9">
+                                        <table  ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                            <thead>
+                                            <tr class="ng-table-sort-header">
+                                                <th style="width: 50px;">{{languageJson.MDC.Micromodules.Location}}<!--位置--></th>
+                                                <th>{{languageJson.MDC.Micromodules.Device}}<!--设备信号--></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td align="center">{{languageJson.MDC.Micromodules.On}}<!--上--></td>
+                                                <td align="center"><input type="text" class="form-control" ng-model="cabinet.thermalSensors3"
+                                                                          ng-click="bindDevice(languageJson.MDC.Micromodules.Top,'1006|1004','thermalSensors3',cabinet.thermalSensors3)"/></td><!--顶部温度-->
+                                            </tr>
+                                            <tr>
+                                                <td align="center">{{languageJson.MDC.Micromodules.Medium}}<!--中--></td>
+                                                <td align="center"><input type="text" class="form-control" ng-model="cabinet.thermalSensors2"
+                                                                          ng-click="bindDevice(languageJson.MDC.Micromodules.Middle,'1006|1004','thermalSensors2',cabinet.thermalSensors2)"/></td><!--中部温度-->
+                                            </tr>
+                                            <tr>
+                                                <td align="center">{{languageJson.MDC.Micromodules.Under}}<!--下--></td>
+                                                <td align="center"><input type="text" class="form-control" ng-model="cabinet.thermalSensors1"
+                                                                          ng-click="bindDevice(languageJson.MDC.Micromodules.Bottom,'1006|1004','thermalSensors1',cabinet.thermalSensors1)"/></td><!--底部温度-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default col-md-7" style="padding: 0px;">
+                                <div class="panel-heading  cabinet_title_color" style="height: 54px;line-height: 35px;">
+                                    <label>
+                                        <a href ng-click="hideDivClick('div3',$event)"><i class="fa fa-chevron-down fa-fw"></i>
+                                            {{languageJson.MDC.Micromodules.Equipments}}<!--机柜设备-->
+                                        </a>
+                                    </label>
+                                    <label style="float: right;margin-right: 10px;">
+                                        <button type="button" class="btn btn-primary" ng-click="addDeviceClick()">{{languageJson.MDC.Micromodules.Add}}<!--新增设备--></button>
+                                    </label>
+                                </div>
+                                <div class="panel-body" id="div3">
+                                    <table  ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                        <tr ng-repeat="row in cabinet.equipment">
+                                            <td data-title="languageJson.MDC.Micromodules.Locations" filter="{EquipmentId: 'number'}" align="center">{{row.space}}</td><!--'位置(单位:U)'-->
+                                            <td data-title="languageJson.MDC.Micromodules.Names" filter="{EquipmentName: 'text'}" align="center">{{row.name}}</td><!--'设备名称'-->
+                                            <td class="center" data-title="languageJson.MDC.Micromodules.Operation" align="center"><!--'操作'-->
+                                                <button type="button" class="btn btn-sm btn-danger"  ng-click="removeCabinetDeviceClick(row)">{{languageJson.MDC.Micromodules.Delete}}<!--删除--></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" style="float: right;width: 400px; padding: 0 15px;padding: 0px;">
+                                <div class="panel-heading  cabinet_title_color" style="height: 54px;line-height: 35px;">
+                                    <label>
+                                        <a href ng-click="hideDivClick('div4',$event)"><i class="fa fa-chevron-down fa-fw"></i>
+                                            {{languageJson.MDC.Micromodules.Other}}<!--其他告警-->
+                                        </a>
+                                    </label>
+                                    <label style="float: right;margin-right: 10px;">
+                                        <button type="button" class="btn btn-primary" ng-click="addAlarmClick()">{{languageJson.MDC.Micromodules.Adds}}<!--新增告警--></button>
+                                    </label>
+                                </div>
+                                <div class="panel-body" id="div4">
+                                    <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                        <tr ng-repeat="row in cabinet.otherEvent">
+                                            <td data-title="languageJson.MDC.Micromodules.Names" align="center">{{row.deviceName}}</td><!--'设备名称'-->
+                                            <td data-title="languageJson.MDC.Micromodules.Alarm" align="center">{{row.signalName}}</td><!--'告警名称'-->
+                                            <td class="center" data-title="languageJson.MDC.Micromodules.Operation" align="center"><!--'操作'-->
+                                                <button type="button" class="btn btn-sm btn-danger"  ng-click="removeOtherEventClick(row)">{{languageJson.MDC.Micromodules.Delete}}<!--删除--></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="addConfigMdcClick()">{{languageJson.MDC.Micromodules.Save}}<!--保存--></button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.MDC.Micromodules.Close}}<!--关闭--></button>
+            </div>
+        </div>
+    </div>
+</div>

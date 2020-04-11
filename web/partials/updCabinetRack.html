@@ -1,0 +1,117 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.AssetRackBox.UpdTitle}}</h4><!--修改资产机架-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.AssetRackBox.Cabinet}}</label><!--关联机柜:-->
+                                            <div class="col-md-10">
+                                                <select class="form-control" name = "portType" ng-model="newRack.CabinetId">
+                                                    <option value="{{row.CabinetId}}" ng-repeat="row in cabinets" ng-selected="newRack.CabinetId == row.CabinetId">{{row.CabinetName}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading tooltip-options">
+                                    {{languageJson.AssetRackBox.RackInfo}}
+                                </div><!--机柜信息-->
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.AssetRackBox.RackIP}}</label><!--机柜IP:-->
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" ng-model="newRack.RackIP" placeholder="{{languageJson.AssetRackBox.InputPrompt}}"><!--可为空-->
+                                                </div>
+                                                <label class="control-label  col-md-2">{{languageJson.AssetRackBox.RackPort}}</label><!--机柜端口:-->
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" ng-model="newRack.RackPort" placeholder="{{languageJson.AssetRackBox.InputPrompt}}"><!--可为空-->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.AssetRackBox.Mask}}</label><!--子网掩码:-->
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" ng-model="newRack.RackMask" placeholder="{{languageJson.AssetRackBox.InputPrompt}}"><!--可为空-->
+                                                </div>
+                                                <label class="control-label  col-md-2">{{languageJson.AssetRackBox.Gateway}}</label><!--默认网关:-->
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" ng-model="newRack.RackGateway" placeholder="{{languageJson.AssetRackBox.InputPrompt}}"><!--可为空-->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.AssetRackBox.DeviceId}}</label><!--设备编号:-->
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" ng-model="newRack.DeviceId" placeholder="{{languageJson.AssetRackBox.InputPrompt}}"><!--可为空-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading tooltip-options">
+                                    {{languageJson.AssetRackBox.ServerInfo}}
+                                </div><!--服务器信息-->
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.AssetRackBox.ServerIP}}</label><!--服务器IP:-->
+                                                <div class="col-md-4">
+                                                    <select class="form-control" name = "portType" ng-model="newRack.ServerIP">
+                                                        <option value="{{row.IP}}" ng-repeat="row in ipAddress" ng-selected="row.IP == newRack.ServerIP">{{row.IP}}</option>
+                                                    </select>
+                                                </div>
+                                                <label class="control-label  col-md-3">{{languageJson.AssetRackBox.ServerPort}}</label><!--服务器端口:-->
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" ng-model="newRack.ServerPort">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="control-label  col-md-2">{{languageJson.AssetRackBox.Monitor}}</label><!--是否监控:-->
+                                    <div class="col-md-4 timeGroupCheck" style="margin-top: 7px;">
+                                        <label>
+                                            <input type="checkbox" ng-click="checkClick(newRack.Monitoring)" ng-checked="{{newRack.Monitoring}}">
+                                            <i style="width: 25px;height: 25px;line-height: 23px;">{{getCheckbox(newRack.Monitoring)}}</i>
+                                        </label>
+                                    </div>
+                                    <label class="control-label  col-md-2">{{languageJson.AssetRackBox.Date}}</label><!--时间:-->
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control ng-pristine ng-valid ng-touched" ng-model="newRack.UsedDate" data-date-format="yyyy-MM-dd" bs-datepicker="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning left" ng-click="forcedEndAlarm(newRack.CabinetId)">{{languageJson.AssetRackBox.Forced}}</button><!--强制结束告警-->
+                <button type="button" class="btn btn-primary" ng-click="saveCabinetRack()">{{languageJson.AssetRackBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.AssetRackBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

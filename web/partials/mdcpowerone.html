@@ -1,0 +1,42 @@
+<div class="container-fluid" ng-controller="MDCPowerCtrl">
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="btn-group diagram" ng-model="select.selectedMdcId" bs-radio-group>
+            <label ng-repeat="dev in mdcNames" class="btn diagram-tab" ng-click="changeDevice('mdcpower',dev.id)">
+                <input type="radio"  value="{{dev.id}}">{{dev.name}}
+            </label>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div id="mdcPower">
+        <div class="Power-Cabinet" ng-mouseenter="cabinetMouseenter()" ng-mouseleave="cabinetMouseleave()">
+            <table style="margin: 10vh auto;{{MdcWidth}}">
+                <tr id="mdc-power-tr2" class="device"></tr>
+            </table>
+        </div>
+        <div class="Power-Charts">
+            <div class="mPue">
+                <div class="title">mPUE</div>
+                <div class="body">{{MDCPower.mPueData}}</div>
+                <div id="mPue"></div>
+            </div>
+            <div class="itLoad">
+                <div class="title">IT负载</div>
+                <div class="body-left">IT负载 {{MDCPower.eLoad}}%</div>
+                <div id="itLoad"></div>
+                <div class="body-right">其他耗能 {{MDCPower.otherLoad}}%</div>
+            </div>
+            <div class="totalPower">
+                <div class="title">总用电量/功率</div>
+                <div class="body">
+                    <p>总用电量</p>
+                    <input type="text" ng-model="MDCPower.totalElectricity" readonly />
+                    <p>kWh</p>
+                </div>
+                <div id="totalPower"></div>
+            </div>
+        </div>
+    </div>
+    <div class="fullscreen">
+        <a title="全屏,按ESC退出." ng-click="FullScreen()"><i class="glyphicon glyphicon-fullscreen" ></i></a>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 520px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{ClearTask.title}} {{languageJson.MissionName.Title}}</h4><!--任务-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="modal-body col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label  {{languageJson.Language =='English'?'col-md-4':'col-md-3'}}">{{languageJson.MissionName.Mission.Title}}</label><!--任务名称:-->
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" ng-model="ClearTask.name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group tooltip-options">
+                                            <label class="control-label  {{languageJson.Language =='English'?'col-md-4':'col-md-3'}}">{{languageJson.MissionName.Mission.Clean}}<!--清理对象:-->
+                                                <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                    title="<h5>清理对象:数据库的表名，多个表用[1-12]表示</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </label>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" ng-model="ClearTask.clearObject">
+                                            </div>
+                                        </div>
+                                        <div class="form-group tooltip-options">
+                                            <label class="control-label {{languageJson.Language=='English'?'col-md-4':'col-md-3'}}">{{languageJson.MissionName.Mission.Task}}<!--任务延时:-->
+                                                <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                    title="<h5>任务延时:为了不让定时任务都挤在一块，延时需不同</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" ng-model="ClearTask.delay">
+                                            </div>
+                                            <div class="col-md-3" style="line-height: 34px;">
+                                                {{languageJson.MissionName.Mission.Second}}<!--(单位: 秒)-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  {{languageJson.Language=='English'?'col-md-4':'col-md-3'}}">{{languageJson.MissionName.Mission.Timing}}</label><!--定时周期:-->
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" ng-model="ClearTask.period">
+                                            </div>
+                                            <div class="col-md-3" style="line-height: 34px;">
+                                                {{languageJson.MissionName.Mission.Second}}<!--(单位: 秒)-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  {{languageJson.Language=='English'?'col-md-4':'col-md-3'}}">{{languageJson.MissionName.Mission.Storage}}</label><!--存储天数:-->
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" ng-model="ClearTask.storageDays">
+                                            </div>
+                                            <div class="col-md-3" style="line-height: 34px;">
+                                                {{languageJson.MissionName.Mission.Day}}<!--(单位: 天)-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group  tooltip-options">
+                                            <label class="control-label  {{languageJson.Language=='English'?'col-md-4':'col-md-3'}}">{{languageJson.MissionName.Mission.Column}}<!--关联列名:-->
+                                                <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                    title="<h5>关联列名:数据库条件判断时间的列的列名</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </label>
+                                            <div class="col-md-7">
+                                                <input type="text" class="form-control" ng-model="ClearTask.storageCols">
+                                            </div>
+                                        </div>
+                                        <div class="form-group tooltip-options">
+                                            <label class="control-label  {{languageJson.Language=='English'?'col-md-4':'col-md-3'}}">{{languageJson.MissionName.Mission.Status}}<!--任务状态:-->
+                                                <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                    title="<h5>任务状态:启动，定时清理数据；<br/>关闭，不清除数据，但是磁盘达到80%以上则会强制清理</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </label>
+                                            <div class="col-md-7">
+                                                <select class="form-control" name = "portType" ng-model="ClearTask.status">
+                                                    <option value="0" ng-selected="ClearTask.status == '0'">{{languageJson.MissionName.Mission.Close}}</option><!--关闭-->
+                                                    <option value="1" ng-selected="ClearTask.status == '1'">{{languageJson.MissionName.Mission.Start}}</option><!--启动-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveClearTaskClk()">{{ClearTask.title}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.MissionName.Mission.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

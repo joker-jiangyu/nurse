@@ -1,0 +1,130 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 820px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.MDC.Definin}}<!--定义微模块--></h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <br/>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.MDC.Micromodule}}<!--微模块类型:--></label>
+                                            <div class="col-md-3">
+                                                <select class="form-control" name = "portType" ng-model="configMdc.type" ng-change="click()">
+                                                    <option value="{{row.ItemId}}" ng-repeat="row in MdcTypes" ng-hide="{{row.ItemId == 0}}" ng-selected="row.ItemId == configMdc.type">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.MDC.Number}}<!--机柜总数:--></label>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" ng-model="configMdc.cabinetNumber" ng-change="click()">
+                                            </div>
+                                            <label class="control-label  col-md-3">{{languageJson.MDC.U}}<!--机柜U高:--></label>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" ng-model="configMdc.cabinetUHeight" ng-change="click()">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.MDC.Name}}<!--MDC名称:--></label>
+                                            <div class="col-md-3">
+                                                <input class="form-control" type="text" ng-model="configMdc.name" ng-change="click()">
+                                            </div>
+                                            <label class="control-label  col-md-3">{{languageJson.MDC.Energy}}<!--能耗信号量:--></label>
+                                            <div class="col-md-4">
+                                                <input class="form-control" id="PwrCon" type="text" ng-model="configMdc.powerConsumption"
+                                                       ng-click="bindDevice(languageJson.MDC.EnergyPrompt,'','PwrCon',configMdc.powerConsumption)"><!--能耗信号量-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.MDC.Total}}<!--总用电监控-->
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group" ng-init="configMdc.line=1">
+                                                <label class="control-label col-md-2">{{languageJson.MDC.Main}}<!--主电路数:--></label>
+                                                <div class="col-md-3">
+                                                    <select id="portType" class="form-control" name = "portType" ng-model="configMdc.lineNumber">
+                                                        <option value="1" ng-selected="configMdc.lineNumber==1"> {{languageJson.MDC.Mains}} </option><!--一路-->
+                                                        <option value="2" ng-selected="configMdc.lineNumber==2"> {{languageJson.MDC.Second}}</option><!--两路-->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                                                    <thead>
+                                                    <tr class="ng-table-sort-header">
+                                                        <th style="width: 100px;"></th>
+                                                        <th>{{languageJson.MDC.A}}</th><!--A相-->
+                                                        <th>{{languageJson.MDC.Bs}}</th><!--B相-->
+                                                        <th>{{languageJson.MDC.C}}</th><!--C相-->
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td align="center">{{languageJson.MDC.Voltage}}</td><!--第一路电压-->
+                                                        <td align="center"><input type="text" id="Line1PhaseAV" class="form-control" ng-model="configMdc.line1PhaseAVoltage"
+                                                                                  ng-click="bindDevice(languageJson.MDC.FirstAVoltage,'','Line1PhaseAV',configMdc.line1PhaseAVoltage)"/></td><!--'一路A相电压'-->
+                                                        <td align="center"><input type="text" id="Line1PhaseBV" class="form-control" ng-model="configMdc.line1PhaseBVoltage"
+                                                                                  ng-click="bindDevice(languageJson.MDC.FirstBVoltage,'','Line1PhaseBV',configMdc.line1PhaseBVoltage)"/></td><!--'一路B相电压'-->
+                                                        <td align="center"><input type="text" id="Line1PhaseCV" class="form-control" ng-model="configMdc.line1PhaseCVoltage"
+                                                                                  ng-click="bindDevice(languageJson.MDC.FirstCVoltage,'','Line1PhaseCV',configMdc.line1PhaseCVoltage)"/></td><!--'一路C相电压'-->
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center">{{languageJson.MDC.Current}}</td><!--第一路电流-->
+                                                        <td align="center"><input type="text" id="Line1PhaseAC" class="form-control" ng-model="configMdc.line1PhaseACurrent"
+                                                                                  ng-click="bindDevice(languageJson.MDC.FirstACurrent,'','Line1PhaseAC',configMdc.line1PhaseACurrent)"/></td><!--'一路A相电流'-->
+                                                        <td align="center"><input type="text" id="Line1PhaseBC" class="form-control" ng-model="configMdc.line1PhaseBCurrent"
+                                                                                  ng-click="bindDevice(languageJson.MDC.FirstBCurrent,'','Line1PhaseBC',configMdc.line1PhaseBCurrent)"/></td><!--'一路B相电流'-->
+                                                        <td align="center"><input type="text" id="Line1PhaseCC" class="form-control" ng-model="configMdc.line1PhaseCCurrent"
+                                                                                  ng-click="bindDevice(languageJson.MDC.FirstCCurrent,'','Line1PhaseCC',configMdc.line1PhaseCCurrent)"/></td><!--'一路C相电流'-->
+                                                    </tr>
+                                                    <tr ng-show="configMdc.lineNumber==2">
+                                                        <td align="center">{{languageJson.MDC.Voltages}}</td><!-- 第二路电压 -->
+                                                        <td align="center"><input type="text" id="Line2PhaseAV" class="form-control" ng-model="configMdc.line2PhaseAVoltage"
+                                                                                  ng-click="bindDevice(languageJson.MDC.SecondAVoltage,'','Line2PhaseAV',configMdc.line2PhaseAVoltage)"/></td><!--'二路A相电压'-->
+                                                        <td align="center"><input type="text" id="Line2PhaseBV" class="form-control" ng-model="configMdc.line2PhaseBVoltage"
+                                                                                  ng-click="bindDevice(languageJson.MDC.SecondBVoltage,'','Line2PhaseBV',configMdc.line2PhaseBVoltage)"/></td><!--'二路B相电压'-->
+                                                        <td align="center"><input type="text" id="Line2PhaseCV" class="form-control" ng-model="configMdc.line2PhaseCVoltage"
+                                                                                  ng-click="bindDevice(languageJson.MDC.SecondCVoltage,'','Line2PhaseCV',configMdc.line2PhaseCVoltage)"/></td><!--'二路C相电压'-->
+                                                    </tr>
+                                                    <tr ng-show="configMdc.lineNumber==2">
+                                                        <td align="center">{{languageJson.MDC.Currents}}</td><!--第二路电流-->
+                                                        <td align="center"><input type="text" id="Line2PhaseAC" class="form-control" ng-model="configMdc.line2PhaseACurrent"
+                                                                                  ng-click="bindDevice(languageJson.MDC.SecondACurrent,'','Line2PhaseAC',configMdc.line2PhaseACurrent)"/></td><!--'二路A相电流'-->
+                                                        <td align="center"><input type="text" id="Line2PhaseBC" class="form-control" ng-model="configMdc.line2PhaseBCurrent"
+                                                                                  ng-click="bindDevice(languageJson.MDC.SecondBCurrent,'','Line2PhaseBC',configMdc.line2PhaseBCurrent)"/></td><!--'二路B相电流'-->
+                                                        <td align="center"><input type="text" id="Line2PhaseCC" class="form-control" ng-model="configMdc.line2PhaseCCurrent"
+                                                                                  ng-click="bindDevice(languageJson.MDC.SecondCCurrent,'','Line2PhaseCC',configMdc.line2PhaseCCurrent)"/></td><!--'二路C相电流'-->
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveConfigMdcClick()">{{configMdc.clickName}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.MDC.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

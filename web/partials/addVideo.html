@@ -1,0 +1,92 @@
+<!-- video -->
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title" id="myVideoModalLabel">
+                    {{languageJson.MDC.Equipment.Title}}<!--视频设备-->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered table-hover">
+                    <tbody>
+                    <!--<tr>
+                        <td align="right">打开方式：</td>
+                        <td>
+                            <select class="form-control" ng-model="video.openType" ng-change="changeAisleTableType(video.openType)">
+                                <option value="rtspVideo">支持Chrome的视频监控</option>
+                                <option value="video">支持IE的视频监控</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>-->
+                    <tr ng-show="video.openType == 'rtspVideo'">
+                        <td align="right">{{languageJson.MDC.Equipment.Camera}}</td><!--摄像机名称：-->
+                        <td><input type="text" class="form-control" ng-model="video.VideoName"/></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-show="video.openType == 'rtspVideo'">
+                        <td align="right">{{languageJson.MDC.Equipment.RTMP}}</td><!--RTMP播放地址：-->
+                        <td><input type="text" class="form-control" ng-model="video.Path"/></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-show="video.openType == 'video'">
+                        <td align="right"><label for="vName">{{languageJson.MDC.Equipment.Name.Title}}</label></td><!--视频设备名称：-->
+                        <td><input type="text" class="form-control" id="vName" ng-model="video.eName" placeholder="{{languageJson.MDC.Equipment.Please.Name}}" ng-click="clickInput($event)"/></td><!--请输入名称-->
+                        <td></td>
+                    </tr>
+                    <tr ng-show="video.openType == 'video'">
+                        <td align="right"><label for="vVideoType">{{languageJson.MDC.Equipment.Name.Type}}</label></td><!--视频设备类型：-->
+                        <td><select class="form-control" id="vVideoType" ng-model="video.videoType" ng-change="changeVideoTypeByVideoName(video.videoType)">
+                            <option value="1">{{languageJson.MDC.Equipment.Name.IP}}</option><!--IP摄像头-->
+                            <option value="2">{{languageJson.MDC.Equipment.Name.DVR}}</option><!--硬盘录像机-->
+                        </select></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-show="video.openType == 'video'">
+                        <td align="right"><label for="vIpAddress">{{languageJson.MDC.Equipment.Name.Address}}</label></td><!--视频设备地址：-->
+                        <td><input type="text" class="form-control" id="vIpAddress" ng-model="video.ipAddress" placeholder="{{languageJson.MDC.Equipment.Please.Address}}" ng-click="clickInput($event)"/></td><!--请输入地址-->
+                        <td></td>
+                    </tr>
+                    <tr ng-show="video.openType == 'video'">
+                        <td align="right"><label for="vPort">{{languageJson.MDC.Equipment.Name.Port}}</label></td><!--视频设备端口号：-->
+                        <td><input type="text" class="form-control" id="vPort" ng-model="video.ePort" placeholder="{{languageJson.MDC.Equipment.Please.Number}}" ng-click="clickInput($event)"/></td><!--请输入端口号-->
+                        <td></td>
+                    </tr>
+                    <tr ng-show="showChanNum && video.openType == 'video'" id="Video_ChanNum">
+                        <td align="right"><label for="vChanNum">{{languageJson.MDC.Equipment.Name.Channel}}</label></td><!--视频通道号：-->
+                        <td><input type="text" class="form-control" id="vChanNum" ng-model="video.eChanNum" placeholder="{{languageJson.MDC.Equipment.Please.Channel}}" value="1" /></td><!--请输入通道号-->
+                        <td></td>
+                    </tr>
+                    <tr ng-show="false">
+                        <td align="right"><label for="Number">{{languageJson.MDC.Equipment.Name.Number}}</label></td><!--监控点个数：-->
+                        <td><input type="text" class="form-control" id="Number" ng-model="video.Number" placeholder="{{languageJson.MDC.Equipment.Please.Channel}}" value="1" /></td><!--请输入通道号-->
+                        <td></td>
+                    </tr>
+                    <tr ng-show="video.openType == 'video'">
+                        <td align="right"><label for="vUserName">{{languageJson.MDC.Equipment.Name.Username}}</label></td><!--用户名：-->
+                        <td><input type="text" class="form-control" id="vUserName" ng-model="video.userName" placeholder="{{languageJson.MDC.Equipment.Please.Names}}" ng-click="clickInput($event)"/></td><!--请输入用户名-->
+                        <td></td>
+                    </tr>
+                    <tr ng-show="video.openType == 'video'">
+                        <td align="right"><label for="vUserPwd">{{languageJson.MDC.Equipment.Name.Password}}</label></td><!--密码：-->
+                        <td><input type="password" class="form-control" id="vUserPwd" ng-model="video.userPwd" placeholder="{{languageJson.MDC.Equipment.Please.Password}}" ng-click="clickInput($event)"/></td><!--请输入密码-->
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default left" ng-click="showAisleDevice(AisleTable.TableId,AisleTable.Type)">
+                    {{languageJson.MDC.Equipment.Change}}&lt;!&ndash;更改设备类型&ndash;&gt;
+                </button>-->
+                <button type="button" class="btn btn-warning"
+                        ng-click="deleteAisleTable()">{{languageJson.MDC.Equipment.Delete}}</button><!--删除绑定-->
+                <button type="button" class="btn btn-primary" ng-click="saveAisleTable()">
+                    {{languageJson.MDC.Equipment.Submit}}<!--提交更改-->
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

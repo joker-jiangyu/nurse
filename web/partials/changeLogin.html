@@ -1,0 +1,40 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="margin-top: 300px">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title"> 登录界面配置</h4><!--界面设置-->
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3">登录页背景图</label>
+                    <div class="col-md-7">
+                        <input type="file" class="btn btn-default"  ngfile ng-model="login.pageBack"  accept="image/*">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-3">登录框背景图</label>
+                    <div class="col-md-7">
+                        <input type="file" class="btn btn-default"  ngfile2 ng-model="login.modalBack" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-group" ng-init="configMdc.line=1">
+                    <label class="control-label col-md-3">登录框位置<!--主电路数:--></label>
+                    <div class="col-md-6">
+                        <select id="portType" class="form-control" name = "portType" ng-model="login.modalPosition">
+                            <option value="68%" ng-selected="configMdc.lineNumber==1"> 左边 </option><!--一路-->
+                            <option value="39%" ng-selected="configMdc.lineNumber==2"> 中间</option><!--两路-->
+                            <option value="25%" ng-selected="configMdc.lineNumber==3"> 右边</option><!--两路-->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="updateLogin()" id = "updateLogin">{{languageJson.Header.User.Interface.Modify}}</button><!--更改-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Header.User.Interface.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

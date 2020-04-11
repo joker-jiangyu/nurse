@@ -1,0 +1,130 @@
+<div class="modal" tabindex="-1" style="filter: alpha(opacity=80);opacity: 0.8">
+    <div class="modal-dialog" style="width: 920px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <!--<a href="#" class="button pull-right" ng-click="$hide()" style="font-size:24px;"><i class="fa fa-times"></i></a>-->
+                <button type="button" class="close" ng-click="$hide()">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title">{{rackTitle}}{{languageJson.AssetRackDevice.Title}}</h4><!--机架设备资产-->
+            </div>
+            <div class="modal-body">
+                <div style="height:760px;" style="">
+                    <div class="row">
+                        <div class="col-sm-4" style="padding:1px;">
+                            <div style="display:inline-block;margin:10px;width:276px;padding:2px;height:740px;border:6px solid #006699" class="device-title">
+                                <div ng-repeat="device in cabinet.devices" style="margin-top: {{device.divMarginTop}}px;height:{{device.divHeight}}px;cursor: pointer;"
+                                     class="rackDevice text-center {{device.status == '0'?'rackDevice-out':''}}" ng-click="selectAssets(device)"
+                                     ng-class="{'rackDevice-selected': selectAssetsId == device.assetsId}"
+                                     title="{{getTitle(device)}}" ng-mouseenter="mouseEnterDevice()">{{device.assetsName}}</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8" style="padding:1px;">
+                            <div class="panel-group panel-default" style="margin-top: 10px;">
+                                <div class="panel panel-default" style="border-radius: 20px;">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title" style="cursor: pointer;">{{panelTitle}}{{languageJson.AssetRackDevice.AssetInfo}}</h5><!--资产信息-->
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="modal-body">
+                                            <div class="col-md-12 rack-assets-info">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">{{languageJson.AssetRackDevice.AssetCode}}</label><!--资产编码:-->
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" ng-model="newAssets.assetsCode" disabled="disabled">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">{{languageJson.AssetRackDevice.AssetName}}</label><!--资产名称:-->
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" ng-model="newAssets.assetsName">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label  col-md-4">{{languageJson.AssetRackDevice.AssetStyle}}</label><!--资产类型:-->
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" ng-model="newAssets.assetStyle" disabled="disabled">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label  col-md-4">{{languageJson.AssetRackDevice.Device}}</label><!--关联设备:-->
+                                                    <div class="col-md-8">
+                                                        <select class="form-control" name = "portType" ng-model="newAssets.equipmentId" ng-change="changeDevice(newAssets.equipmentId)">
+                                                            <option value="{{row.id}}" ng-repeat="row in devices"
+                                                                    ng-selected="newAssets.equipmentId == row.id">{{row.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label  col-md-4">{{languageJson.AssetRackDevice.UsedDate}}</label><!--使用时间:-->
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" ng-model="newAssets.usedDate" name="startDate" data-date-format="yyyy-MM-dd" bs-datepicker="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label  col-md-4">{{languageJson.AssetRackDevice.StartU}}</label><!--开始U位:-->
+                                                    <div class="col-md-2">
+                                                        <input type="text" class="form-control" ng-model="newAssets.uIndex" disabled="disabled">
+                                                    </div>
+                                                    <label class="control-label  col-md-4">{{languageJson.AssetRackDevice.UHeight}}</label><!--U高:-->
+                                                    <div class="col-md-2">
+                                                        <input type="text" class="form-control" ng-model="newAssets.uHeight" disabled="disabled">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label  col-md-4">{{languageJson.AssetRackDevice.Status}}</label><!--状态:-->
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" ng-model="newAssets.statusMeaning" disabled="disabled">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label  col-md-4">{{languageJson.AssetRackDevice.Remark}}</label><!--备注:-->
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" ng-model="newAssets.description">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" ng-click="saveAssetsManagerClick(newAssets)">{{languageJson.AssetRackDevice.Modify}}</button><!--修改-->
+                                                <button type="button" class="btn btn-danger"  ng-click="delAssetsManagerClick(newAssets.cabinetId,newAssets.uIndex,newAssets.uHeight)">{{languageJson.AssetRackDevice.Demolition}}</button><!--下架-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <a href style="color: #fff;">
+                                            {{languageJson.AssetRackDevice.RackInfo}}
+                                        </a><!--机架信息-->
+                                    </h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    <div class="panel panel-default" style="margin-bottom: 0px;">
+                                        <div class="panel-body text-center">
+                                            <table class="table table-striped table-td">
+                                                <tr>
+                                                    <td style="background-color: rgba(0, 0, 0, 0.5);">{{languageJson.AssetRackDevice.RackStatus}}</td><!--机架状态:-->
+                                                    <td>{{currRack.statusMeaning}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="background-color: rgba(0, 0, 0, 0.5);">{{languageJson.AssetRackDevice.Remaining}}</td><!--剩余U位:-->
+                                                    <td>{{currRack.surplusSpace}} U</td>
+                                                </tr>
+                                            </table>
+                                            <button type="button" class="btn btn-warning left" style="margin: 0px 20px 20px 20px;" ng-click="forcedEndAlarm(newAssets.cabinetId)">{{languageJson.AssetRackDevice.Forced}}</button><!--强制结束告警-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".device-title .rackDevice").tooltip({html : true });});
+</script>

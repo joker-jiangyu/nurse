@@ -1,0 +1,16 @@
+<div id="root-structure" ng-controller="structureCtrl">
+    <div class="diagram ng-pristine ng-untouched ng-valid" style="margin: 8px">
+        <!--首页  href="#/astructure/1004" -->
+        <a id="view-home" ng-click="homePageClk()" class="btn diagram-tab ng-binding ng-scope active"
+           style="{{languageJson.Language == 'English'?'width: auto;':''}}">
+            {{languageJson.RoomHome.RoomTitle}}
+        </a>
+        <!--告警总览表-->
+        <a href="#/"  class="btn diagram-tab"
+           style="{{languageJson.Language == 'English'?'width: auto;':''}}">
+            {{languageJson.RoomHome.AlarmTitle.Title}}
+        </a>
+    </div>
+
+
+</div>

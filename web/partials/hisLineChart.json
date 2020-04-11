@@ -1,0 +1,45 @@
+{
+  "credits": {
+    "enabled": false
+  },
+  "global": { 
+        "useUTC": false
+  },
+  "chart": {
+    "type": "spline",
+    "zoomType": "x"
+  },
+  "title": {
+    "text": "历史数据曲线",
+    "textStyle":{
+      "color":"#ffffff"
+    }
+  },
+  "legend": {
+    "itemStyle": {
+      "color" : "#fff"
+    }
+  },
+  "xAxis": {
+    "type": "datetime",
+    "labels": {
+      "format": "{value:%m-%d %H:%M}"
+    },
+    "title": {
+      "text": "<b>采集时间</b>"
+    }
+  },
+  "yAxis": {
+    "title": {
+      "text": "<b>数值</b>"
+    }
+  },
+  "plotOptions": {
+    "spline": {
+      "marker": {
+        "enabled": true
+      }
+    }
+  },
+  "series": []
+}

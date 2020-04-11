@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<KPIBags>
+	<KPIBag ID="Label1" BagType="Label" Text="设备及资产分布" Tag=""/>
+	
+	<KPIBag ID="AnalysisChart1" BagType="Chart" SourceType="SQLStr" QueryString="SELECT C.BaseEquipmentName,COUNT(C.BaseEquipmentId) FROM TBL_Equipment A LEFT JOIN TBL_EquipmentTemplate B ON A.EquipmentTemplateId = B.EquipmentTemplateId LEFT JOIN TBL_EquipmentBaseType C ON B.EquipmentBaseType = C.BaseEquipmentId GROUP BY C.BaseEquipmentId;" Text="设备分布(按设备种类)"  Tag="ChartType=Bar&amp;YTitle=设备名(个数)&amp;XTitle=设备种类"/>
+	
+	<KPIBag ID="AnalysisChart3" BagType="Chart" SourceType="SQLStr" QueryString="SELECT AssetType,COUNT(AssetType) FROM TBL_Assetsmanager GROUP BY AssetType;" Text="资产分类统计"  Tag="ChartType=Bar&amp;YTitle=资产名(个数)&amp;XTitle=资产类别"/>
+	
+	<KPIBag ID="AnalysisModel1" BagType="Chart" SourceType="SQLStr" QueryString="SELECT AssetsName,AssetType FROM TBL_AssetsManager ORDER BY AssetType,AssetsId;" Text="资产清单"  Tag="ChartType=Table&amp;Th1=资产名&amp;Th2=资产类别"/>
+</KPIBags>

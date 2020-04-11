@@ -1,0 +1,86 @@
+{
+    "color":["#ccc", "#126DC6"],
+    "title" : {
+        "text": "",
+        "x": "center",
+        "y": "bottom",
+        "textStyle":{
+            "fontSize":30,
+            "color": "#ccc"
+        }
+    },
+    "toolbox": {
+        "show" : false,
+        "feature" : {
+            "magicType" : {
+                "show": true,
+                "type": ["pie", "funnel"]
+            },
+            "restore" : {"show": true}
+        }
+    },
+    "series" : [
+        {
+            "type" : "pie",
+            "center" : ["50%", "45%"],
+            "radius" : [110, "55%"],
+            "x": "0%",
+            "itemStyle" :  {
+                "normal" : {
+                    "label" : {
+                        "formatter" : "",
+                        "textStyle": {
+                            "baseline" : "middle",
+                            "fontSize":40
+                        }
+                    }
+                }
+            },
+            "data" : [
+                {
+                    "name":"未使用",
+                    "value":46,
+                    "itemStyle" : {
+                        "normal" : {
+                            "label" : {
+                                "show" : true,
+                                "position" : "center",
+                                "textStyle": {
+                                    "color": "#FDFBFD",
+                                    "baseline" : "top"
+                                }
+                            },
+                            "labelLine" : {
+                                "show" : false
+                            }
+                        },
+                        "emphasis": {
+                            "color": "rgba(0,0,0,0)"
+                        }
+                    }
+                },
+                {
+                    "name":"已使用",
+                    "value":154,
+                    "itemStyle" : {
+                        "normal" : {
+                            "label" : {
+                                "show" : true,
+                                "position" : "center",
+                                "formatter" : "{b}",
+                                "textStyle": {
+                                    "baseline" : "bottom",
+                                    "fontSize":20,
+                                    "color": "#FDFBFD"
+                                }
+                            },
+                            "labelLine" : {
+                                "show" : false
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

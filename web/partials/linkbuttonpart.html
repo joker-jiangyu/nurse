@@ -1,0 +1,17 @@
+<div class="panel panel-primary" dragger resizer>
+    <div class="panel-heading diagram-ele-head" title="{{languageJson.Configuration.LinkControl.UpdTitle}}" ><!--链接控件-->
+
+        <a class="pull-left grahico" setparttop  title="{{languageJson.Configuration.Control.Top}}"><!--置顶-->
+            <i class="fa fa-eject" ></i></a>
+
+        <a class="pull-right grahico" deletepartsetter title="{{languageJson.Configuration.Control.Delete}}"><!--删除-->
+            <i class="fa fa-times" ></i></a>
+
+        <a class="pull-right grahico" linkbuttonsetter  title="{{languageJson.Configuration.Control.Setter}}" ><!--设置-->
+            <i class="fa fa-wrench" ></i></a>
+    </div>
+    <div class="panel-body filled" style=" height:calc(100% - 19px);background:#fff; opacity:0.1;cursor: pointer;" ng-click="showModalBox()">
+        <a class="linkbutton filled"  href="{{url}}" target="{{target}}" style="display: block; "></a>
+        <a class="procedure filled" style="display: none;"/>
+    </div>
+</div>

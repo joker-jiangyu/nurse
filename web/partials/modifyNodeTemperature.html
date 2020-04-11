@@ -1,0 +1,76 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.NodeTemperature.NodeTempConfig}}</h4><!--温场配置-->
+            </div>
+            <form class="form-horizontal">
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="col-md-12">
+                            <!--标题：-->
+                            <div class="form-group" style="margin-top: 20px;">
+                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.Title}}</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" ng-model="nodeTempConfig.title">
+                                </div>
+                            </div>
+                            <!--可见阀值：-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.VisibleValue}}</label>
+                                <div class="col-md-3">
+                                    <input class="form-control" type="text" ng-model="nodeTempConfig.visibleValue">
+                                </div>
+                                <label class="control-label col-md-4" style="text-align:left;">{{languageJson.NodeTemperature.Prompt.Value}}</label><!--小于该值默认隐藏-->
+                            </div>
+                            <!--可见温场：-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.VisibleTemp}}</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-model="nodeTempConfig.visibleTemp">
+                                        <option value="true">{{languageJson.NodeTemperature.Show}}</option><!--可见-->
+                                        <option value="false">{{languageJson.NodeTemperature.Hide}}</option><!--隐藏-->
+                                    </select>
+                                </div>
+                                <label class="control-label col-md-4" style="text-align:left;">{{languageJson.NodeTemperature.Prompt.Temp}}</label><!--温场栏是否可见-->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-body center-block div_body">
+                    <!--新增温场-->
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" ng-click="addTemperature()">{{languageJson.NodeTemperature.AddTemp}}</button>
+                    </div>
+                    <div class="form-group">
+                        <table class="table table-condensed table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <td align="center">{{languageJson.NodeTemperature.Titles}}</td><!--标题-->
+                                <td align="center">{{languageJson.NodeTemperature.Devices}}</td><!--关联设备-->
+                                <td align="center">{{languageJson.NodeTemperature.TableSizes}}</td><!--表格大小-->
+                                <td align="center">{{languageJson.NodeTemperature.Jsons}}</td><!--关联JSON-->
+                                <td align="center">{{languageJson.NodeTemperature.Operate}}</td><!--操作-->
+                            </tr>
+                            </thead>
+                            <tr ng-repeat="row in nodeTempConfig.configs">
+                                <td align="center">{{row.title}}</td>
+                                <td align="center">{{row.deviceId}}</td>
+                                <td align="center">{{row.totalRow}}x{{row.totalCol}}</td>
+                                <td align="center">{{row.json}}</td>
+                                <td align="center">
+                                    <button type="button" class="btn btn-sm btn-danger"  ng-click="removeTemperature(nodeTempConfig.configs,row)">{{languageJson.NodeTemperature.Remove}}</button><!--删除-->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveNodeTemperature()">{{languageJson.NodeTemperature.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.NodeTemperature.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

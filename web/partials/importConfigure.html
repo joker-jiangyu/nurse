@@ -1,0 +1,109 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 900px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title"> {{languageJson.ImportConfigure.Title}} </h4><!--上传组态-->
+            </div>
+
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.ImportConfigure.Select}}</label><!--选择组态包:-->
+                                <div class="col-md-6">
+                                    <input class="btn btn-default" ngfile type="file" accept=".zip"/>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-primary" ng-click="uploadClk()">{{languageJson.ImportConfigure.Import}}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 scroll-easy" ng-show="showConfigureTable" style="max-height: 500px;">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th width="20%" style="text-align: center;">{{languageJson.ImportConfigure.FieldName}}</th><!--字段名称-->
+                                    <th width="30%" style="text-align: center;">{{languageJson.ImportConfigure.ImportInfo}}</th><!--上传组态信息-->
+                                    <th width="10%"></th>
+                                    <th width="40%" style="text-align: center;">{{languageJson.ImportConfigure.CurrentInfo}}</th><!--当前设备信息-->
+                                </tr>
+                                </thead>
+                                <tbody class="config-info">
+                                <tr class="config-main">
+                                    <td width="20%">
+                                        <div class="field-title">
+                                            <div class="odd">{{languageJson.ImportConfigure.DeviceName}}</div><!--设备名称：-->
+                                            <div class="even">{{languageJson.ImportConfigure.ParentId}}</div><!--父级编号：-->
+                                            <div class="odd">{{languageJson.ImportConfigure.Url}}</div><!--组态链接：-->
+                                        </div>
+                                    </td>
+                                    <td width="30%">
+                                        <div class="field-body">
+                                            <div class="odd">
+                                                <select class="form-control" ng-model="CCfg" ng-change="CurrentCfg = changeConfigureCfg(CCfg)">
+                                                    <option ng-repeat="cfg in ConfigureCfg" value="{{cfg}}" ng-selected="{{cfg.DeviceId == CurrentCfg.DeviceId}}">{{cfg.DeviceName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="even">{{CurrentCfg.ParentId}}</div>
+                                            <div class="odd">{{CurrentCfg.Url}}</div>
+                                        </div>
+                                    </td>
+                                    <td width="10%" class="field-interval"><i class="fa fa-arrow-right"></i></td>
+                                    <td width="40%">
+                                        <div class="field-select">
+                                            <div class="col-md-12 odd select-path" style="text-align: center;line-height: 39px;">
+                                                <select class="form-control" ng-model="CurrentCfg.NewDeviceId" ng-change="CurrentCfg = changeAllConfigureDevice(CurrentCfg,CurrentCfg.NewDeviceId)">
+                                                    <option value="">{{languageJson.ImportConfigure.NULL}}</option><!--空-->
+                                                    <option ng-repeat="row in ConfigureMold.Equipments" value="{{row.EquipmentId}}">{{row.EquipmentName}}</option>
+                                                </select>
+                                                <input type="text" class="form-control" ng-model="CurrentCfg.NewDeviceId" Virtual-Key-Board="CurrentCfg.NewUrl">
+                                            </div>
+                                            <div class="col-md-12 even select-path">
+                                                <select class="form-control" ng-model="CurrentCfg.NewParentId">
+                                                    <option ng-repeat="row in CurrentCfg.NewParents" value="{{row.ParentId}}" ng-selected="{{row.ParentId == CurrentCfg.NewParentId}}">{{row.ParentName}}</option>
+                                                </select>
+                                                <input type="text" class="form-control" ng-model="CurrentCfg.NewParentId" Virtual-Key-Board="CurrentCfg.NewUrl">
+                                            </div>
+                                            <div class="col-md-12 odd select-path">
+                                                <select class="form-control" ng-model="ConfigureType" ng-change="CurrentCfg.NewUrl = changeConfigureType(CurrentCfg.NewUrl,ConfigureType)">
+                                                    <option value="">{{languageJson.ImportConfigure.NULL}}</option><!--空-->
+                                                    <option value="adevice">{{languageJson.ImportConfigure.ConfigureHome}}</option><!--组态首页-->
+                                                    <option value="device">{{languageJson.ImportConfigure.Configure}}</option><!--组态-->
+                                                    <option value="astructure">{{languageJson.ImportConfigure.NoConfigureHome}}</option><!--非组态首页-->
+                                                    <option value="structure">{{languageJson.ImportConfigure.NoConfigure}}</option><!--非组态-->
+                                                </select>
+                                                <input type="text" class="form-control" ng-model="CurrentCfg.NewUrl" Virtual-Key-Board="CurrentCfg.NewUrl">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="config-minor" ng-show="CurrentCfg.OtherDevice.length > 0">
+                                    <td width="20%" class="minor-title">{{languageJson.ImportConfigure.OtherDevice}}</td><!--其他设备：-->
+                                    <td width="30%" class="minor-body">
+                                        <div ng-repeat="other in CurrentCfg.OtherDevice">{{other.DeviceName}}</div>
+                                    </td>
+                                    <td width="10%" class="minor-interval"><i class="fa fa-arrow-right"></i></td>
+                                    <td width="40%" class="minor-select">
+                                        <div ng-repeat="other in CurrentCfg.NewOtherDevice" class="col-md-12">
+                                            <select class="form-control" ng-model="other.DeviceId">
+                                                <option value="">{{other.DeviceId}}</option>
+                                                <option ng-repeat="row in ConfigureMold.Equipments" value="{{row.EquipmentId}}">{{row.EquipmentName}} - {{row.EquipmentId}}</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="submitConfigure()">{{languageJson.ImportConfigure.Submit}}</button><!--提交-->
+            </div>
+        </div>
+    </div>
+</div>

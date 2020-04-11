@@ -1,0 +1,18 @@
+<div class="panel panel-primary" dragger resizer>
+    <div class="panel-heading diagram-ele-head" title="{{languageJson.Configuration.HistoryChartControl.UpdTitle}}">
+
+        <a class="pull-left grahico" setparttop  title="{{languageJson.Configuration.Control.Top}}"><!--置顶-->
+            <i class="fa fa-eject" ></i></a>
+
+        <a class="pull-right grahico" deletepartsetter title="{{languageJson.Configuration.Control.Delete}}"><!--删除-->
+            <i class="fa fa-times" ></i></a>
+
+        <a class="pull-right grahico" basehspiechartsetter title="{{languageJson.Configuration.Control.Setter}}"><!--设置-->
+            <i class="fa fa-wrench" ></i></a>
+    </div>
+    <div class="panel-body chart-body">
+        <div style="border-bottom: 1px solid rgba(243, 240, 240, 0.5);font-size: 20px;padding-left: 15px;" class="isShow"><label class="title">Title</label></div>
+        <div class="pieChart" style="width: 100%; height:  calc(100% - 30px);"></div>
+        <div class="isShow"><i class="fa fa-download" style="position: absolute;top: 27px;right: 10px;cursor: pointer;font-size: 20px;" ng-click="clickHsExport($event)" title="{{languageJson.Configuration.HistoryChartControl.Export}}"></i></div><!--导出Excel-->
+    </div>
+</div>

@@ -1,0 +1,87 @@
+{
+  "img":"img/diagram/tempbg.png",
+  "top":0,
+  "left":120,
+  "tr": [{
+    "td": [
+      {"baseTypeId": 1004001002,"check":"check"},
+      {"baseTypeId": 1004001003,"check":"check"},
+      {"baseTypeId": 1004001004,"check":"check"},
+      {"baseTypeId": 1004001005,"check":"check"},
+      {"baseTypeId": 1004001006,"check":"check"},
+      {"baseTypeId": 1004001007,"check":"check"},
+      {"baseTypeId": 1004001008,"check":"check"},
+      {"baseTypeId": 1004001009,"check":"check"}
+    ]},{
+    "td": [
+      {"baseTypeId": 1004001010,"check":"check"},
+      {"baseTypeId": 1004001011,"check":"check"},
+      {"baseTypeId": 1004001012,"check":"check"},
+      {"baseTypeId": 1004001013,"check":"check"},
+      {"baseTypeId": 1004001014,"check":"check"},
+      {"baseTypeId": 1004001015,"check":"check"},
+      {"baseTypeId": 1004001016,"check":"check"},
+      {"baseTypeId": 1004001017,"check":"check"}
+    ]},{
+    "td": [
+      {"baseTypeId": 1004001018,"check":"check"},
+      {"baseTypeId": 1004001019,"check":"check"},
+      {"baseTypeId": 1004001020,"check":"check"},
+      {"baseTypeId": 1004001021,"check":"check"},
+      {"baseTypeId": 1004001022,"check":"check"},
+      {"baseTypeId": 1004001023,"check":"check"},
+      {"baseTypeId": 1004001024,"check":"check"},
+      {"baseTypeId": 1004001025,"check":"check"}
+    ]},{
+    "td": [
+      {"baseTypeId": 1004001026,"check":"check"},
+      {"baseTypeId": 1004001027,"check":"check"},
+      {"baseTypeId": 1004001028,"check":"check"},
+      {"baseTypeId": 1004001029,"check":"check"},
+      {"baseTypeId": 1004001030,"check":"check"},
+      {"baseTypeId": 1004001031,"check":"check"},
+      {"baseTypeId": 1004001032,"check":"check"},
+      {"baseTypeId": 1004001033,"check":"check"}
+    ]},{
+    "td": [
+      {"baseTypeId": 1004001034,"check":"check"},
+      {"baseTypeId": 1004001035,"check":"check"},
+      {"baseTypeId": 1004001036,"check":"check"},
+      {"baseTypeId": 1004001037,"check":"check"},
+      {"baseTypeId": 1004001038,"check":"check"},
+      {"baseTypeId": 1004001039,"check":"check"},
+      {"baseTypeId": 1004001040,"check":"check"},
+      {"baseTypeId": 1004001041,"check":"check"}
+    ]},{
+    "td": [
+      {"baseTypeId": 1004001042,"check":"check"},
+      {"baseTypeId": 1004001043,"check":"check"},
+      {"baseTypeId": 1004001044,"check":"check"},
+      {"baseTypeId": 1004001045,"check":"check"},
+      {"baseTypeId": 1004001046,"check":"check"},
+      {"baseTypeId": 1004001047,"check":"check"},
+      {"baseTypeId": 1004001048,"check":"check"},
+      {"baseTypeId": 1004001049,"check":"check"}
+    ]},{
+    "td": [
+      {"baseTypeId": 1004001050,"check":"check"},
+      {"baseTypeId": 1004001051,"check":"check"},
+      {"baseTypeId": 1004001052,"check":"check"},
+      {"baseTypeId": 1004001053,"check":"check"},
+      {"baseTypeId": 1004001054,"check":"check"},
+      {"baseTypeId": 1004001055,"check":"check"},
+      {"baseTypeId": 1004001056,"check":"check"},
+      {"baseTypeId": 1004001057,"check":"check"}
+    ]},{
+    "td": [
+      {"baseTypeId": 1004001058,"check":"check"},
+      {"baseTypeId": 1004001059,"check":"check"},
+      {"baseTypeId": 1004001060,"check":"check"},
+      {"baseTypeId": 1004001061,"check":"check"},
+      {"baseTypeId": 1004001062,"check":"check"},
+      {"baseTypeId": 1004001063,"check":"check"},
+      {"baseTypeId": 1004001064,"check":"check"},
+      {"baseTypeId": 1004001065,"check":"check"}
+    ]}
+  ]
+}

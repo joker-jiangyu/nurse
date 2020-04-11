@@ -1,0 +1,64 @@
+{
+    "title" : {
+        "text": "",
+        "x":"center",
+        "textStyle":{
+            "color":"#FFF"
+        }
+    },
+    "tooltip" : {
+        "formatter": "{a} <br/>{b}"
+    },
+    "series": [{
+        "name": "",
+        "type": "gauge",
+        "startAngle": 180,
+        "endAngle": 0,
+        "min":0,
+        "max":100,
+        "center": ["50%", "80%"],
+        "radius": 180,
+        "axisLine": {
+            "lineStyle": {
+                "width": 30,
+                "color": [[0.2,"#59cd82"],[0.8,"#f7e140"],[1,"#f44b36"]]
+            }
+        },
+        "axisTick": {
+            "show": false
+        },
+        "axisLabel": {
+            "show": true,
+            "textStyle":{
+                "fontSize":20,
+                "color":"auto"
+            },
+            "formatter":""
+        },
+        "splitLine": {
+            "show": false
+        },
+        "pointer": {
+            "width": 12,
+            "length": "90%",
+            "color": "auto"
+        },
+        "title": {
+            "show": true,
+            "offsetCenter": [0, "15%"],
+            "textStyle": {
+                "color": "auto",
+                "fontSize": 20,
+                "fontFamily": "微软雅黑",
+                "fontWeight": "bold"
+            }
+        },
+        "detail": {
+            "show": false
+        },
+        "data": [{
+            "value": 20,
+            "name": ""
+        }]
+    }]
+}

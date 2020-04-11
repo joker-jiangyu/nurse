@@ -1,0 +1,118 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 720px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.BindTableBox.Title}}</h4><!--绑定表格信号-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.BindTableBox.Name}}</label><!--标题:-->
+                                            <div class="col-md-9">
+                                                <input class="form-control" type="text" ng-model="choiceTable.title">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.BindTableBox.Style.Title}}</label><!--边框风格:-->
+                                            <div class="col-md-3">
+                                                <select class="form-control" name = "portType" ng-model="choiceTable.style">
+                                                    <option value="" >{{languageJson.BindTableBox.Style.None}}</option><!--无-->
+                                                    <option value="default" >{{languageJson.BindTableBox.Style.Blue}}</option><!--默认-->
+                                                    <option value="default-base" >{{languageJson.BindTableBox.Style.BlueBottom}}</option><!--默认底边-->
+                                                    <option value="orange" >{{languageJson.BindTableBox.Style.Orange}}</option><!--橙边框-->
+                                                    <option value="orange-base" >{{languageJson.BindTableBox.Style.OrangeBottom}}</option><!--橙底边-->
+                                                    <option value="red" >{{languageJson.BindTableBox.Style.Red}}</option><!--红边框-->
+                                                    <option value="red-base" >{{languageJson.BindTableBox.Style.RedBottom}}</option><!--红底边-->
+                                                    <option value="white" >{{languageJson.BindTableBox.Style.White}}</option><!--白边框-->
+                                                    <option value="white-base" >{{languageJson.BindTableBox.Style.WhiteBottom}}</option><!--白底边-->
+                                                </select>
+                                            </div>
+                                            <label class="control-label  col-md-2">{{languageJson.BindTableBox.Background}}</label><!--背景颜色:-->
+                                            <div class="col-md-3">
+                                                <input type="color" class="form-control" ng-model="choiceTable.backColor" >
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type="button" class="btn btn-sm btn-primary" ng-click="choiceTable.backColor = ''">{{languageJson.BindTableBox.Reset}}</button><!--重置-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.BindTableBox.FontSize}}</label><!--字体大小:-->
+                                            <div class="col-md-3">
+                                                <input class="form-control" type="text" ng-model="choiceTable.fontSize">
+                                            </div>
+                                            <label class="control-label  col-md-2">{{languageJson.BindTableBox.FontColor}}</label><!--字体颜色:-->
+                                            <div class="col-md-4">
+                                                <input class="form-control" id="PwrCon" type="color" ng-model="choiceTable.fontColor">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.BindTableBox.FontWeight.Title}}</label><!--加粗:-->
+                                            <div class="col-md-3">
+                                                <select class="form-control" name = "portType" ng-model="choiceTable.fontWeight">
+                                                    <option value="normal" >{{languageJson.BindTableBox.FontWeight.Normal}}</option><!--普通-->
+                                                    <option value="bold" >{{languageJson.BindTableBox.FontWeight.Bold}}</option><!--加粗-->
+                                                </select>
+                                            </div>
+                                            <label class="control-label  col-md-2">{{languageJson.BindTableBox.TextAlign.Title}}</label><!--对齐:-->
+                                            <div class="col-md-4">
+                                                <select class="form-control" name = "portType" ng-model="choiceTable.textAlign">
+                                                    <option value="center" >{{languageJson.BindTableBox.TextAlign.Center}}</option><!--居中-->
+                                                    <option value="left" >{{languageJson.BindTableBox.TextAlign.Left}}</option><!--左对齐-->
+                                                    <option value="right" >{{languageJson.BindTableBox.TextAlign.Right}}</option><!--右对齐-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading tooltip-options">
+                                    {{languageJson.BindTableBox.SignalContent}}
+                                    <a href ><i class="fa fa-question-circle fa-fw pointer " ng-hide="languageJson.Language == 'English'" title="<h5>先点击 '编辑标题行' 添加标题，然后重复点击 '添加一行信号' 绑定信号</h5>"></i></a>
+                                </div><!--信号内容-->
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div style="width: 100%;max-height: 200px;overflow: auto;">
+                                                    <table class="table table-condensed table-bordered table-striped">
+                                                        <tr ng-repeat="tr in choiceTable.table.tr" ng-init="tr.index = $index">
+                                                            <td>{{tr.index + 1}}</td>
+                                                            <td ng-repeat="td in tr.td" ng-init="td.index = $index" style="min-width: 202px;">
+                                                                <input type="text" class="form-control" ng-model="td.value" ng-click="inputSignalClick(tr,td)"/>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-sm btn-danger" ng-click="delColsClick(tr)">{{languageJson.BindTableBox.Delete}}</button><!--删除整行-->
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <button type="button" class="btn btn-primary" ng-click="updRowNumberClick()">{{languageJson.BindTableBox.EditLine}}</button><!--1.编辑标题行-->
+                                                <button type="button" class="btn btn-primary" ng-click="addColsClick(choiceTable)">{{languageJson.BindTableBox.AddLine}}</button><!--2.添加一行信号-->
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveBindingSignal()">{{languageJson.BindTableBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.BindTableBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script ng-hide="true">
+    $(function () { $(".tooltip-options i").tooltip({html : true });});
+</script>

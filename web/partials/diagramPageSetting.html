@@ -1,0 +1,28 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content am-modal-dialog">
+      <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+        <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+        <h4 class="modal-title">{{languageJson.Configuration.Page.Title}}</h4><!--组态页面设置-->
+      </div>
+      <div class="modal-body div_body">
+        <h4>{{languageJson.Configuration.Page.CurrBackImg}}</h4><!--当前使用的背景图-->
+      <pre>{{diagram.page.bgImage}}</pre>
+      <div class="modal-body div_body" style="padding: 5px 42px;">
+        <h4>{{languageJson.Configuration.ImageControl.AddControl.UploadPrompt}}</h4><!--选择上传的图片-->
+        <input class="btn btn-default input-inline" accept="image/*" ngfile type="file"/>
+        <a class="btn btn-primary" ng-click = "upload()"><i class="fa fa-upload"> {{languageJson.Configuration.Page.Upload}}</i></a><!--上传-->
+      </div>
+      <div class="modal-body div_body" style="padding: 5px 42px;">
+        <h4>{{languageJson.Configuration.ImageControl.AddControl.LocalPrompt}}</h4><!--选择资源的图片-->
+        <input class="form-control col-md-3 input-inline" style="width: 306px;" type="text"
+               ng-model="imgFilePath" readonly ng-click="showImgFile()" placeholder="{{languageJson.Configuration.ImageControl.AddControl.ClickPrompt}}"/><!--点击选择图片-->
+        <a class="btn btn-primary" ng-click = "replace()"><i class="fa fa-upload"> {{languageJson.Configuration.Page.Replace}}</i></a><!--替换-->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.Page.Close}}</button><!--关闭-->
+    </div>
+  </div>
+</div>
+</div>

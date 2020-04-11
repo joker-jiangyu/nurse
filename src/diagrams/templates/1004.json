@@ -1,0 +1,86 @@
+{
+    "edit": false,
+    "page": {
+        "bgImage": "img/diagram/environment.jpg"
+    },
+    "parts": [
+        {
+            "id": "watermonitor1",
+            "type": "imagesignalpart",
+            "left": 39,
+            "top": 527,
+            "width": 155,
+            "height": 136,
+			"zindex":1,
+            "binding": "BS:1004005001|DI:755000002",
+            "options": "Name:水浸1#|Img:img/diagram/WaterMonitor.png|Background:configure_bg"
+        },
+        {
+            "id": "temperature1",
+            "type": "imagesignalpart",
+            "left": 101,
+            "top": 323,
+            "width": 155,
+            "height": 136,
+			"zindex":1,
+            "binding": "BS:1004001001|DI:755000002",
+            "options": "Name:温度1#|Img:img/diagram/temperature.png|Background:configure_bg"
+        },
+        {
+            "id": "humidity1",
+            "type": "imagesignalpart",
+            "left": 134,
+            "top": 117,
+            "width": 155,
+            "height": 136,
+			"zindex":1,
+            "binding": "BS:1004003001|DI:755000002",
+            "options": "Name:湿度1#|Img:img/diagram/Thermometer_Blue.png|Background:configure_bg"
+        },
+        {
+            "id": "door1",
+            "type": "imagesignalpart",
+            "left": 744,
+            "top": 108,
+            "width": 155,
+            "height": 136,
+			"zindex":1,
+            "binding": "BS:1004007001|DI:755000002",
+            "options": "Name:门禁1#|Img:img/diagram/DoorAlarm.png|Background:configure_bg"
+        },
+        {
+            "id": "infrared1",
+            "type": "imagesignalpart",
+            "left": 830,
+            "top": 308,
+            "width": 155,
+            "height": 136,
+			"zindex":1,
+            "binding": "BS:1004008001|DI:755000002",
+            "options": "Name:红外1#|Img:img/diagram/InfraredDetector_Alarm.png|Background:configure_bg"
+        },
+        {
+            "id": "smoke1",
+            "type": "imagesignalpart",
+            "left": 901,
+            "top": 521,
+            "width": 155,
+            "height": 136,
+			"zindex":1,
+            "binding": "BS:1004006001|DI:755000002",
+            "options": "Name:烟感1#|Img:img/diagram/Fog_inductor.png|Background:configure_bg"
+        },
+        {
+            "id": "linkbutton1",
+            "type": "linkbuttonpart",
+            "left": 100,
+            "top": 100,
+            "width": 155,
+            "height": 155,
+			"zindex":2,
+            "binding": "BS:1004006001",
+            "options": "Url:/index.html#/viewer3d|Target:_blank"
+        }
+		
+    ]
+}

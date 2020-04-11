@@ -1,0 +1,44 @@
+<div class="container-fluid" ng-controller="MDCAlarmCtrl">
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="btn-group diagram" ng-model="select.selectedMdcId" bs-radio-group>
+            <label ng-repeat="dev in mdcNames" class="btn diagram-tab" ng-click="changeDevice('2D',dev.id)">
+                <input type="radio"  value="{{dev.id}}">{{dev.name}}
+            </label>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <div id="AlarmRoot">
+        <div class="root-cheek">
+            <!-- 告警图表 -->
+            <div id="mdcAlarmTable" class="alarm-chart normal" ng-click="alarmTable()"><div></div></div>
+            <div id="mdcFiltering" class="filtering filteringShow" ng-click="filtering()"></div>
+            <div class="water">
+                <div id="waterA" hidden class="button position1 {{sc('waterA')}}" style="top:25vh;" ng-click="clk('waterA')"></div>
+            </div>
+            <!-- 机柜 -->
+            <div id="MdcCabinet" style="margin-top:29vh;">
+                <div class="cabinet-box" ng-mouseenter="cabinetMouseenter()" ng-mouseleave="cabinetMouseleave()">
+                    <div class="cabinet">
+                        <table style="margin: 0px auto;width:{{MdcWidth}}%">
+                            <tr>
+                                <td colspan="16">
+                                    <div id="skyFalling" class="corridor {{sc('skyFalling')}}" style="height: 0px;">
+                                        <div id="camera4" class="camera camera4" ng-click="optionCamera('4')" style="top:-15vh;left:{{MdcWidth/100*35.5}}vw;"></div>
+                                        <div id="smoke2" hidden class="smoke smoke2 {{sc('smoke2')}}" ng-click="clk('smoke2')" style="top: 17vh;right:12vw;"></div>
+                                        <div id="infrared1" hidden class="infrared infrared1 {{sc('infrared1')}}" ng-click="clk('infrared1')" style="top: 17vh;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="mdc-alarm-tr2" class="device"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fullscreen">
+        <a title="全屏,按ESC退出." ng-click="FullScreen()"><i class="glyphicon glyphicon-fullscreen" ></i></a>
+    </div>
+</div>

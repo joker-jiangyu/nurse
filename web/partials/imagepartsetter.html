@@ -1,0 +1,28 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.ImageControl.UpdControl.Title}}</h4><!--图片设置-->
+            </div>
+            <div class="modal-bod div_body" style="height: 250px;padding: 10px 42px;">
+                <h4>{{languageJson.Configuration.ImageControl.UpdControl.CurrentImage}}</h4><!--当前使用的图片-->
+                <pre>{{imagepart}}</pre>
+                <p></p>
+                <h4>{{languageJson.Configuration.ImageControl.UpdControl.UploadPrompt}}</h4><!--替换为新的上传图片-->
+                <input class="btn btn-default col-md-3" ngfile style="width: 300px;margin-right: 10px" type="file" accept="image/*"/>
+                <a class="btn btn-primary" ng-click = "upload()"><i class="fa fa-upload"> {{languageJson.Configuration.ImageControl.Modify}}</i></a><span class="tips" style="color: red;"></span><!--修改-->
+                <p></p>
+                <h4>{{languageJson.Configuration.ImageControl.UpdControl.LocalPrompt}}</h4><!--替换为新的资源图片-->
+                <input class="form-control col-md-3" style="width: 300px;margin-right: 10px" type="text"
+                       ng-model="imgFilePath" readonly ng-click="showImgFile()" placeholder="{{languageJson.Configuration.ImageControl.AddControl.ClickPrompt}}"/><!--点击选择图片-->
+                <button type="button" class="btn btn-primary" ng-click="uploadImgFile()">{{languageJson.Configuration.ImageControl.Modify}}</button><!--修改-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.ImageControl.Close}}</button><!--关闭-->
+            </div>
+        </div>
+
+        <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+    </div>
+</div>

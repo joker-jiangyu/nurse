@@ -1,0 +1,17 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-right" style="">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.MdcSignalRecord.DeviceBox.Title}}</h4>
+            </div>
+            <div class="modal-body center-block div_body">
+                <ul class="cabinet_list">
+                    <li class="cabinet_name" ng-click="showDeviceRecord(cabinetInfo.devices,true,cabinetInfo.type)"><i class="fa fa-cubes fa-fw"></i>{{cabinetInfo.name}}</li>
+                    <li class="cabinet_device" ng-repeat="row in cabinetInfo.devices"
+                        ng-click="showDeviceRecord(row,false,cabinetInfo.type)"><i class="fa fa-hdd-o fa-fw"></i>{{row.name}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

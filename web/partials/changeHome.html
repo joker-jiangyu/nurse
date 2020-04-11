@@ -1,0 +1,58 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title"> {{languageJson.Header.User.Interface.Title}}</h4><!--界面设置-->
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>{{languageJson.Header.User.Interface.TitlePrompt}}</label><!--设置新标题-->
+                    <input type="text" class="form-control" ng-model="user.title" Virtual-Key-Board="user.title">
+                </div>
+                <label>{{languageJson.Header.User.Interface.LogoPrompt}}</label><!--设置新logo-->
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        <input type="file" class="btn btn-default"  ngfile ng-model="user.logo" name = "user.logo" accept="image/*">
+                    </div>
+                    <div class="col-md-5" style="line-height: 32px;">
+                        <label>{{languageJson.Header.User.Interface.LogoHint}}</label><!--上传大小不能超过500K-->
+                    </div>
+                    <!--建议尺寸：250 x 120/100 x 120/250 x 250-->
+                    <label style="margin: 10px 20px 0px;">{{languageJson.Header.User.Interface.SizeHint}}</label>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>{{languageJson.Header.User.Interface.QRCodeTitle}}</label><!--二维码提示语-->
+                    <input type="text" class="form-control" ng-model="QRCode.title" Virtual-Key-Board="QRCode.title">
+                </div>
+                <div class="form-group row">
+                    <label style="width: 100%;margin-left: 15px;">{{languageJson.Header.User.Interface.QRCode}}</label><!--二维码-->
+                    <div class="col-md-7">
+                        <input type="file" class="btn btn-default form-control" style="height: 39px;"  ngfile2 ng-model="QRCode.image" accept="image/*">
+                    </div>
+                    <div class="col-md-4 topology-img-div">
+                        <img ng-src="{{QRCode == undefined ? '' : QRCode.image}}" class="topology-img">
+                        <div style="background-color: #033085;">
+                            <img ng-src="{{QRCode == undefined ? '' : QRCode.image}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4" style="line-height: 32px;">
+                        <button type="button" class="btn btn-default" ng-click="ResetQRCode()">{{languageJson.Header.User.Interface.ResetQRCode}}</button><!--重置二维码-->
+                    </div>
+                    <div class="col-md-4" style="line-height: 32px;">
+                        <label>{{languageJson.Header.User.Interface.LogoHint}}</label><!--上传大小不能超过500K-->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="updateHome()" id = "updateHome">{{languageJson.Header.User.Interface.Modify}}</button><!--更改-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Header.User.Interface.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

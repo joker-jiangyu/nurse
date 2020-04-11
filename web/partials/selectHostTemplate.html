@@ -1,0 +1,42 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.AddHost.Title}}</h4><!--存在多个自诊断设备模板，请选择具体自诊断设备模板-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.Config.AddHost.TempList}}
+                                </div><!--模板列表-->
+                                <div class="panel-body">
+                                    <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                                        <tr ng-repeat="row in hostEquipmentTemplates">
+
+                                            <td align="center" data-title="languageJson.Config.AddHost.Check">
+                                                <input type="radio" id="e{{row.EquipmentTemplateId}}" name="selected" ng-click="selectHostEquipmentTemplateId(row.EquipmentTemplateId)" />
+                                            </td><!--'选择'-->
+                                            <td data-title="languageJson.Config.AddHost.No" filter="{EquipmentTemplateId: 'number'}" align="center">
+                                                <label for="e{{row.EquipmentTemplateId}}" style="cursor: pointer;">{{row.EquipmentTemplateId}}</label></td><!--'协议编号'-->
+                                            <td data-title="languageJson.Config.AddHost.Name" filter="{EquipmentTemplateName: 'text'}" align="center">
+                                                <label for="e{{row.EquipmentTemplateId}}" style="cursor: pointer;">{{row.EquipmentTemplateName}}</label></td><!--'协议名称'-->
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="selectHost()">{{languageJson.Config.AddHost.OK}}</button><!--确定-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.AddHost.Close}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>

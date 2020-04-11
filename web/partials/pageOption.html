@@ -1,0 +1,35 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content am-modal-dialog">
+      <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+        <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+        <h4 class="modal-title">{{languageJson.Room.Picture.Title}}</h4><!--画面设置-->
+      </div>
+      <div class="modal-body">
+        <div class="form-group" >
+          <h4>{{languageJson.Room.Picture.Current}}</h4><!--当前背景图-->
+          <pre>{{m.img}}</pre>
+          <p></p>
+          <h4>{{languageJson.Room.Picture.Title}}</h4><!--替换背景图{{languageJson.Room.Picture.Title}}-->
+          <input class="btn btn-default" ngfile type="file"/>
+          <br/>
+          <a class="btn btn-primary" ng-click = "upload()"><i class="fa fa-upload">{{languageJson.Room.Picture.Upload}}</i></a><!--上传-->
+        </div>
+        <div class="form-group" >
+          <label>{{languageJson.Room.Picture.Fence}}</label><!--围墙设置-->
+          <select class="form-control" ng-change="change()"
+                  ng-options="mold.title for mold in molds track by mold.id"
+                  ng-model="m.mold" ng-disabled="floorDisable">
+            <!--<option value="">无</option>-->
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                ng-click="ok()">{{languageJson.Room.Picture.Determine}}</button><!--确定-->
+        <!--<button type="button" class="btn btn-default" ng-click="cancel()">取消</button>-->
+      </div>
+    </div>
+  </div>
+</div>

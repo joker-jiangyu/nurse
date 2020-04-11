@@ -1,0 +1,30 @@
+<div class="panel panel-primary" dragger resizer>
+    <div class="panel-heading diagram-ele-head" title="{{languageJson.Configuration.VirtualControl.UpdTitle}}"><!--虚拟信号控件-->
+
+        <a class="pull-left grahico" setparttop  title="{{languageJson.Configuration.Control.Top}}"><!--置顶-->
+            <i class="fa fa-eject" ></i></a>
+
+        <a class="pull-right grahico" deletepartsetter title="{{languageJson.Configuration.Control.Delete}}"><!--删除-->
+            <i class="fa fa-times" ></i></a>
+
+        <a class="pull-right grahico" virtualsignalsetter  title="{{languageJson.Configuration.Control.Setter}}"><!--设置-->
+            <i class="fa fa-wrench" ></i></a>
+    </div>
+    <div class="panel-body filled virtual-signal-body" style="height: calc(100% - 19px);">
+        <div  style="background-size:100% 100% !important; height: 100%; border-radius: 10px;" >
+            <table class="filled bg-transparent">
+                <tr>
+                    <td valign="bottom">
+                        <div  class="diagram-sigimg-title">
+                            <strong></strong></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <div class="diagram-sigimg-value" style="width: 80%;"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

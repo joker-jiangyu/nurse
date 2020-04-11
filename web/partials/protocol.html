@@ -1,0 +1,54 @@
+<div class="container-fluid" ng-controller="ProtocolCtrl">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--配置>协议管理-->
+                <h1 class="page-header">{{languageJson.Person.Config}} > {{languageJson.Agreement.Management}}
+                    <i class="fa fa-question-circle fw fa-img" ng-click="helpNotesClk('01',1)"></i>
+                    <button type="button" class="btn btn-primary right return-btn" onclick="window.location.href='#/setting'"><i class="fa fa-reply"></i> {{languageJson.Login.Return}}</button>
+                </h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+        <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="tabs-below">
+                        <p>
+                            <button class="btn btn-default btn-primary" ng-click="addProtocol()">{{languageJson.Agreement.Add}}</button>
+                        </p>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{languageJson.Agreement.List}}
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table ng-table="tableParams" class="table table-condensed table-bordered table-striped">
+                                    <tr ng-repeat="row in paginationPro.equipmentTemplates">
+                                        <td data-title="languageJson.Agreement.ID" filter="{EquipmentTemplateId: 'number'}" align="center">{{row.EquipmentTemplateId}}</td>
+                                        <td data-title="languageJson.Agreement.Name" filter="{EquipmentTemplateName: 'text'}" align="center">{{row.EquipmentTemplateName}}</td>
+                                        <!--<td class="center" data-title="'查看'">
+                                            <button type="button" class="btn btn-sm btn-info" ng-click="viewProtocol(row.EquipmentTemplateId)">查看</button>
+                                        </td>-->
+                                        <td class="center" data-title="languageJson.Agreement.Operation" align="center">
+                                            <button type="button" class="btn btn-sm btn-danger"  ng-click="removeProtocol(row.EquipmentTemplateId, row.EquipmentTemplateName)">{{languageJson.Agreement.Delete}}</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <tm-protocol-pagination pro="paginationPro"></tm-protocol-pagination>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>

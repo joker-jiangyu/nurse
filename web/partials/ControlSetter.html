@@ -1,0 +1,151 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 950px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{btnName}} {{languageJson.Config.Con.Details}}</h4><!--控制详细信息-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Numbering}}<!--编号:--></label>
+                                <div class="col-md-4">
+                                    <input readonly type="text" class="form-control" ng-model="Controls.ControlId">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Name}}<!--名称:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Controls.ControlName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Signal}}<!--关联信号:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" ng-model="Controls.SignalId" ng-change="ChangeRelateControlSignal(Controls.SignalId)">
+                                        <option value="{{row.SignalId}}" ng-repeat="row in SignalList"
+                                                ng-selected="{{row.SignalId==Controls.SignalId}}">{{row.SignalName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Base}}<!--基类控制:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control col-md-4" style="{{languageJson.Language == 'English'?'width:64%;':'width:70%;'}}" ng-model="Controls.BaseTypeId" readonly>
+                                    <button type="button" class="btn btn-primary" ng-click="ControlBaseTypeId()">{{languageJson.Config.Con.Binding}}<!--绑定--></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Command}}<!--命令种类:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Controls.ControlCategory">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Control.ControlCategory"
+                                                ng-selected="{{row.ItemId==Controls.ControlCategory}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Importance}}<!--重要度:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Controls.ControlSeverity">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Control.ControlSeverity"
+                                                ng-selected="{{row.ItemId==Controls.ControlSeverity}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Timeout}}<!--超时(秒):--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Controls.TimeOut">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Retry}}<!--重试:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Controls.Retry">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Control}}<!--控件分类:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Controls.ControlType">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Control.ControlType"
+                                                ng-selected="{{row.ItemId==Controls.ControlType}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Data}}<!--数据类型:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Controls.DataType">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Control.DataType"
+                                                ng-selected="{{row.ItemId==Controls.DataType}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.String}}<!--命令字符串:--></label>
+                                <div class="col-md-10">
+                                    <textarea type="text" class="form-control" ng-model="Controls.CmdToken"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Con.Type}}<!--命令类型:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Controls.CommandType">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Control.CommandType"
+                                                ng-selected="{{row.ItemId==Controls.CommandType}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div ng-hide="Controls.CommandType != 1">
+                                    <label class="control-label col-md-1">{{languageJson.Config.Con.Upper}}<!--上限:--></label>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" ng-model="Controls.MaxValue">
+                                    </div>
+                                    <label class="control-label col-md-1">{{languageJson.Config.Con.Lower}}<!--下限:--></label>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" ng-model="Controls.MinValue">
+                                    </div>
+                                </div>
+                                <div ng-hide="Controls.CommandType != 2">
+                                    <label class="control-label col-md-2">{{languageJson.Config.Con.Meaning}}<!--含义:--></label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control col-md-4" style="{{languageJson.Language == 'English'?'width:64%;':'width:70%;'}}" ng-model="Controls.Meanings">
+                                        <button type="button" class="btn btn-primary" ng-click="BindingMeanings('Control',Controls)">{{languageJson.Config.Con.Binding}}<!--绑定--></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">有效:</label>
+                                <div class="col-md-4 timeGroupCheck">
+                                    <label><input type="checkbox" ng-model="Controls.Enable"><i>√</i></label>
+                                </div>
+                                <label class="control-label  col-md-2">可见:</label>
+                                <div class="col-md-4 timeGroupCheck">
+                                    <label><input type="checkbox" ng-model="Controls.Visible"><i>√</i></label>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveControl()">{{btnName}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Con.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.DoorBox.Title}}</h4><!--门信息修改-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.DoorBox.Info}}
+                                </div><!--门参数-->
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-group"></div>
+                                            <label class="control-label  col-md-2">{{languageJson.DoorBox.DoorName}}</label><!--门禁名称:-->
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="doorName" ng-model="DoorManage.door.doorName">
+                                            </div>
+                                            <label class="control-label  col-md-2">{{languageJson.DoorBox.DoorNo}}</label><!--门号:-->
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="doorNo" ng-model="DoorManage.door.doorNo">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.DoorBox.Pwd}}</label><!--门密码:-->
+                                            <div class="col-md-3">
+                                                <input id="password" class="form-control" placeholder="{{languageJson.DoorBox.EnterPwd}}" name = "password" type="password" ng-model="DoorManage.door.password"/><!--请输入数字密码-->
+                                            </div>
+                                            <label class="control-label  col-md-3">{{languageJson.DoorBox.Pwds}}</label><!--门密码确定:-->
+                                            <div class="col-md-4">
+                                                <input id="passwords" class="form-control" placeholder="{{languageJson.DoorBox.EnterPwd}}" name="passwords" type="password" ng-model="DoorManage.door.passwords"><!--请确定密码-->
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group">
+                                            <label class="control-label  col-md-2">门延时时间:</label>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" id="openDelay" placeholder="(0-255)单位:0.1s" ng-model="DoorManage.door.openDelay">
+                                            </div>
+                                            <label class="control-label col-md-1">(0.1s)</label>
+                                            <label class="control-label  col-md-2">红外设置:</label>
+                                            <div class="col-md-4">
+                                                <select class="form-control"  ng-model="DoorManage.door.infrared">
+                                                    <option value="{{row.ItemId}}" ng-repeat="row in ItemInfrareds"
+                                                            ng-selected="{{row.ItemId==DoorManage.door.infrared}}">{{row.ItemValue}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>-->
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.DoorBox.ControlType}}</label><!--门控制类型:-->
+                                            <div class="col-md-3">
+                                                <select class="form-control"  ng-model="DoorManage.door.doorControlId">
+                                                    <option value="{{row.DoorControlId}}" ng-repeat="row in DoorControls"
+                                                            ng-selected="{{row.DoorControlId==DoorManage.door.doorControlId}}">{{row.DoorType}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.DoorBox.Address}}</label><!--门安装地址:-->
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" id="address" ng-model="DoorManage.door.address">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveDoorManageClick()">{{languageJson.DoorBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.DoorBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

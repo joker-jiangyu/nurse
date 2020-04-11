@@ -1,0 +1,94 @@
+<nurse.entity.conf.MainConfig>
+  <versions>3.3.3</versions>
+  <loginUserName>admin</loginUserName>
+  <loginPassword></loginPassword><!-- 密码正确免登陆，否则需要登录 -->
+  <userTitle>机房监控系统</userTitle>
+  <userLogo>img/logo.png</userLogo>
+  <QRCodeTitle></QRCodeTitle><!-- 二维码提示语 -->
+  <QRCodeImage></QRCodeImage><!-- 二维码 -->
+  <mySql>jdbc:mysql://127.0.0.1:3306/nurse?useUnicode=true&amp;autoReconnect=true&amp;characterEncoding=UTF-8|root|GoodTime142536</mySql>
+  <listenIp>0.0.0.0</listenIp><!-- 不为空，指定Nurse服务IP -->
+  <listenPort>8000</listenPort>
+  <realDataFromDB>false</realDataFromDB><!-- true:向数据库获取信号数据，并向数据库的订阅表添加一条数据 -->
+  <loginPage>IView</loginPage><!-- 登录后的页面   Room(小机房)/2D(2D微模块)/3D(3D微模块)/IView(触摸屏) -->
+  <loginHome></loginHome><!-- 不为空，登陆后跳转指定首页 -->
+  <emailNick>Nurse管理员</emailNick><!-- 邮件发件人名称 -->
+  <emailSubject>Nurse告警</emailSubject><!-- 邮件标题 -->
+  <emailJetLag>-8</emailJetLag><!-- 邮件发送时间时差 -->
+  <showBaseType>true</showBaseType><!-- 是否根据基类编号显示信号 true/false -->
+  <cacheDays>30</cacheDays><!-- 定时缓存 cacheTime天 的历史信号 -->
+  <language>Chinese</language> <!-- 语言 Chinese/English -->
+  <systemStyle>White</systemStyle> <!-- 风格 Blue/White -->
+  <udpMonitorIp>127.0.0.1</udpMonitorIp><!-- UDP监听IP -->
+  <logoutTime></logoutTime>  <!-- 登入超时 单位:分钟  超时不移动鼠标自动退出登录 -->
+	<!-- 功能栏是否显示 -->
+  <features>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>3D</name><!-- 小机房3D -->
+  		<isShow>false</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>Alarm</name><!-- 告警栏 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>History</name><!-- 历史栏 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>UserOper</name><!-- 历史的用户操作记录 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>KPI</name><!-- 图表栏 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>Video</name><!-- 视频栏 & 配置的视频管理 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>Door</name><!-- 配置的门禁管理 & 历史的刷卡记录 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>Assets</name><!-- 资产管理 -->
+  		<isShow>false</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>AssetsRack</name><!-- 资产机架管理 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+	  <nurse.entity.conf.FeatureConfig>
+		  <name>Mdc</name><!-- 微模块 -->
+		  <isShow>true</isShow>
+	  </nurse.entity.conf.FeatureConfig>
+  	<!-- MDCXX表示微模块系统概况的四个模块 -->
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>MDCSecurity</name><!-- 安全监控 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>MDCPower</name><!-- 能耗分布 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>MDCTemp</name><!-- 温度分布 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>MDCSpace</name><!-- 空间管理 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+  	<!-- 告警提示  在线告警:true；离线告警:false -->
+  	<nurse.entity.conf.FeatureConfig>
+  		<name>WarningTone</name><!-- true：语音播报；false：语音提示 -->
+  		<isShow>true</isShow>
+  	</nurse.entity.conf.FeatureConfig>
+	<!-- 组态列与组态页告警数提示 -->
+	<nurse.entity.conf.FeatureConfig>
+		<name>PageAlarmHint</name><!-- 组态页告警数提示 -->
+		<isShow>true</isShow>
+	</nurse.entity.conf.FeatureConfig>
+  </features>
+</nurse.entity.conf.MainConfig>

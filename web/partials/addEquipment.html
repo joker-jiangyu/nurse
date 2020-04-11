@@ -1,0 +1,87 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.Equipment.Hand}}</h4><!-- 增加设备 -->
+            </div>
+            <form class="form-horizontal">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label  col-md-3">{{languageJson.Config.Equipment.Agreement}}</label><!-- 协议文件: -->
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" placeholder="" readonly="readonly" ng-model="equipmentTemplate.EquipmentTemplateName">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary" ng-click="selectTemplateClick()">{{languageJson.Config.Equipment.Choose}}</button><!-- 选择 -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label  col-md-3">{{languageJson.Config.Equipment.Name}}</label><!--设备名称:-->
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" placeholder="" ng-model="equipment.EquipmentName" Virtual-Key-Board="equipment.EquipmentName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {{languageJson.Config.Equipment.Setting}}
+                            </div><!--端口设置-->
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <br/>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.Config.Equipment.Port}}</label><!--端口号:-->
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" id="port" placeholder="" ng-model="port.PortNo" Virtual-Key-Board="port.PortNo">
+                                            </div>
+                                            <label class="control-label  col-md-3 tooltip-options">{{languageJson.Config.Equipment.Type}}
+                                                <a href ><i class="fa fa-question-circle fa-fw pointer " ng-hide="languageJson.Language == 'English'"
+                                                            title="<h5>串口:普通串口形式.<br/>SNMP口:标准南向SNMP协议.<br/>虚拟网口:通讯参数为虚假参数.<br/>网口:普通网口形式.<br/>简单逻辑口:IT服务器专用.</h5>"></i></a>:
+                                            </label><!--端口类型-->
+                                            <div class="col-md-4">
+                                                <select id="portType" class="form-control" name = "portType" ng-model="port.PortTypeVar" ng-change="portTypeChange(port.PortTypeVar.PortTypeId)" ng-options="portTypes.PortTypeValue for portTypes in portTypes">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2 address-text">{{languageJson.Config.Equipment.Address}}</label><!--地址:-->
+                                            <div class="col-md-3">
+                                                <input id="address" class="form-control address-input" name="address" type="text" ng-model="samplerUnit.Address" Virtual-Key-Board="samplerUnit.Address">
+                                            </div>
+                                            <label class="control-label col-md-3 text-right param-text">{{languageJson.Config.Equipment.Parameters}}</label><!--通讯参数:-->
+                                            <div class="col-md-4">
+                                                <input id="para" class="form-control" name="para" type="text" ng-model="port.Setting" Virtual-Key-Board="port.Setting">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-2">{{languageJson.Config.Equipment.SO}}</label><!--SO库名:-->
+                                            <div class="col-md-10">
+                                                <input id="dll" class="form-control" name="dll" type="text" ng-model="samplerUnit.DllPath" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="addClick()">{{languageJson.Config.Equipment.Add}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Equipment.Close}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options i").tooltip({html : true });});
+</script>

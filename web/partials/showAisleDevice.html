@@ -1,0 +1,41 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.AisleEquipment.Title}}<!--冷通道设备选择--></h4>
+            </div>
+            <div class="modal-body center-block">
+                <table align="center" class="body_transparent">
+                    <tr>
+                        <td>{{languageJson.AisleEquipment.Equipment.Title}}</td><!--设备类型：-->
+                        <td style="width: 80%;">
+                            <select class="form-control" ng-model="AisleTable.Type" ng-change="changeAisleTableType(AisleTable.Type)">
+                                <option value="thermal">{{languageJson.AisleEquipment.Equipment.Temperature}}</option><!--温度-->
+                                <option value="humidity">{{languageJson.AisleEquipment.Equipment.Humidity}}</option><!--湿度-->
+                                <option value="smoke">{{languageJson.AisleEquipment.Equipment.Smoke}}</option><!--烟感-->
+                                <option value="infrared">{{languageJson.AisleEquipment.Equipment.Infrared}}</option><!--红外-->
+                                <option value="skyFalling">{{languageJson.AisleEquipment.Equipment.Skylight}}</option><!--天窗-->
+                                <option value="video">{{languageJson.AisleEquipment.Equipment.Video}}</option>
+                                <option value="rtspVideo">{{languageJson.AisleEquipment.Equipment.LiveBroadcast}}</option><!--萤石云直播-->
+                            </select>
+                        </td>
+                    </tr>
+                    <tr><td><br/></td></tr>
+                    <tr>
+                        <td>{{languageJson.AisleEquipment.Device}}</td><!--设备选择：-->
+                        <td>
+                            <select class="form-control" ng-model="AisleTable.TableId">
+                                <option value=""> -- {{languageJson.AisleEquipment.New}} -- </option><!--新增-->
+                                <!--<option value="{{item.id}}" ng-repeat="item in AisleTable.devices">{{item.name}}</option>-->
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="getInto()">{{languageJson.AisleEquipment.Enter}}</button><!--进入-->
+            </div>
+        </div>
+    </div>
+</div>

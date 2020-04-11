@@ -1,0 +1,71 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.OtherModule.ChinamobileCfgBox.CreateDeviceID}}</h4><!--生成DeviceID-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group" style="margin: 20px 0px 0px 0px;">
+                            <div class="col-md-12">
+                                <table class="table table-condensed table-bordered table-striped ng-table tooltip-options">
+                                    <tr>
+                                        <!--设备类型编码-->
+                                        <td align="center">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceCore}}
+                                            <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                title="<h5>该4位为设备所属的“设备类型”与“设备子类”对应的编码</h5>">
+                                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                                            </a>
+                                        </td>
+                                        <!--预留位-->
+                                        <td align="center">{{languageJson.OtherModule.ChinamobileCfgBox.SetAside}}
+                                            <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                title="<h5>该2位为预留待用，默认为00</h5>">
+                                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                                            </a>
+                                        </td>
+                                        <!--系统序号-->
+                                        <td align="center">{{languageJson.OtherModule.ChinamobileCfgBox.SystemNo}}
+                                            <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                title="<h5>该3位为设备所属系统顺序号默认“000”</h5>">
+                                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                                            </a>
+                                        </td>
+                                        <!--设备序号-->
+                                        <td align="center">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceNo}}
+                                            <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                title="<h5>该6位为各省可自行利用设备顺序号的前3位来识别楼栋、楼层和机房</h5>">
+                                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select class="form-control" ng-model="DeviceID.TypeCode">
+                                                <option value="{{row.Type}}" ng-repeat="row in BInterfaceMobileTypes"
+                                                    ng-selected="DeviceID.TypeCode == row.Type">[{{row.Type}},{{row.Name}}]</option>
+                                            </select>
+                                        </td>
+                                        <td><input class="form-control" placeholder="" type="text" ng-model="DeviceID.ResCode" /></td>
+                                        <td><input class="form-control" placeholder="" type="text" ng-model="DeviceID.SysCode" /></td>
+                                        <td><input class="form-control" placeholder="" type="text" ng-model="DeviceID.DevCode" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="createCmbDeviceID()">{{languageJson.OtherModule.ChinamobileCfgBox.Create}}</button><!--生成-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.OtherModule.ChinamobileCfgBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

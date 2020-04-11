@@ -1,0 +1,12 @@
+<KPIBags>
+	<KPIBag ID="Label1" BagType="Label" Text="历史告警分布" Tag=""/>
+	
+	<KPIBag ID="Chart1" BagType="Chart" SourceType="SQLStr" QueryString="select equipmentName,(SELECT count(*) from tbl_historyevent B where A.EquipmentId=B.EquipmentId ) AS equipmentCount from tbl_equipment A" Text="历史告警统计(按设备)"  Tag="ChartType=Bar&amp;YTitle=告警数&amp;XTitle=设备名&amp;IsXLean=false"/>
+
+	<KPIBag ID="Chart2" BagType="Chart" SourceType="SQLStr" QueryString="SELECT '水浸' AS EventName,COUNT(*) FROM TBL_HistoryEvent WHERE BaseTypeId like '1004005%' UNION SELECT '烟感' AS EventName,COUNT(*) FROM TBL_HistoryEvent WHERE BaseTypeId like '1004006%' UNION SELECT '门碰' AS EventName,COUNT(*) FROM TBL_HistoryEvent WHERE BaseTypeId like '1004007%' UNION SELECT '红外' AS EventName,COUNT(*) FROM TBL_HistoryEvent WHERE BaseTypeId like '1004008%';" Text="门碰烟感水浸红外告警次数比较" Tag="ChartType=Pie&amp;ChartTitle=门碰烟感水浸红外告警次数比较"/>
+	
+	<KPIBag ID="Chart3" BagType="Chart" SourceType="StoredProcedure" QueryString="PAM_StationGAlarmStatisticByMonth" Text="历史告警统计(按月份)" Tag="ChartType=Bar&amp;YTitle=告警数&amp;XTitle=月份&amp;IsXLean=false"/>
+	
+	<KPIBag ID="Chart4" BagType="Chart" SourceType="StoredProcedure" QueryString="PAM_StationGAlarmStatisticByDay" Text="历史告警统计(最近30天)" Tag="ChartType=Bar&amp;YTitle=告警数&amp;XTitle=日期&amp;IsXLean=false"/>
+	
+</KPIBags>

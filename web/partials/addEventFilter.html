@@ -1,0 +1,112 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 70%">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{addEventFilterTitle}}</h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <table border="0" cellspacing="2" cellpadding="2" align="left" class="grid bg-transparent table-checkbox">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="allEventStateSelected" name="allEventStateSelected" ng-click="selectAllEventState()" ng-model="allSelected.EventStateSelected"/>
+                                        </td>
+                                        <td colspan="2" style="text-align: center"><label for="allEventStateSelected">{{languageJson.AlarmNotice.Status}}</label><!--事件状态:-->
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="scroll-easy" style="width:100%; height: 200px; float: left;">
+                                    <table  class="table table-condensed table-bordered table-striped table-checkbox">
+                                        <tr ng-repeat="row in eventStates">
+                                            <td>
+                                                <input id="sta{{row.ItemId}}" type="checkbox" name="selectedEventState" ng-click="selectEventState()" ng-model="row.Selected" />
+                                                <label for="sta{{row.ItemId}}" ng-click="selectEventState()">{{row.Display}}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <table border="0" cellspacing="2" cellpadding="2" align="left" class="grid bg-transparent table-checkbox">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="allEventSeveritySelected" name="allEventSeveritySelected" ng-click="selectAllEventSeverity()" ng-model="allSelected.EventSeveritySelected"/>
+                                        </td>
+                                        <td colspan="2" style="text-align: center"><label for="allEventSeveritySelected">{{languageJson.AlarmNotice.Level}}</label><!--事件等级:-->
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="scroll-easy" style="width:100%; height: 200px; float: left;">
+                                    <table  class="table table-condensed table-bordered table-striped table-checkbox">
+                                        <tr ng-repeat="row in eventSeveritys">
+                                            <td>
+                                                <input id="sev{{row.ItemId}}" type="checkbox" name="selectedEventSeverity" ng-click="selectEventSeverity()" ng-model="row.Selected" />
+                                                <label for="sev{{row.ItemId}}" ng-click="selectEventSeverity()">{{row.Display}}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <table border="0" cellspacing="2" cellpadding="2" align="left" class="grid bg-transparent table-checkbox">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="allEmployeeSelected" name="allEmployeeSelected" ng-click="selectAllEmployee()" ng-model="allSelected.EmployeeSelected"/>
+                                        </td>
+                                        <td colspan="2" style="text-align: center"><label for="allEmployeeSelected">{{languageJson.AlarmNotice.Recipient}}</label><!--接收者:-->
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="scroll-easy" style="width:100%; height: 200px; float: left;">
+                                    <table  class="table table-condensed table-bordered table-striped table-checkbox">
+                                        <tr ng-repeat="row in employees">
+                                            <td>
+                                                <input id="emp{{row.EmployeeId}}" type="checkbox" name="selectedEmployee" ng-click="selectEmployee()" ng-model="row.Selected" />
+                                                <label for="emp{{row.EmployeeId}}" ng-click="selectEmployee()">[{{row.EmployeeName}},{{row.Mobile}}]</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <table border="0" cellspacing="2" cellpadding="2" align="left" class="grid bg-transparent table-checkbox">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="allEquipmentSelected" name="allEquipmentSelected" ng-click="selectAllEquipment()" ng-model="allSelected.EquipmentSelected"/>
+                                        </td>
+                                        <td colspan="2" style="align: center"><label for="allEquipmentSelected">{{languageJson.AlarmNotice.Equipment}}</label><!--设备:-->
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="scroll-easy" style="width:100%; height: 200px; float: left;">
+                                    <table  class="table table-condensed table-bordered table-striped table-checkbox" >
+                                        <tr ng-repeat="row in equipments">
+                                            <td>
+                                                <input id="eq{{row.EquipmentId}}" type="checkbox" name="selectedEquipment" ng-click="selectEquipment()" ng-model="row.Selected" />
+                                                <label for="eq{{row.EquipmentId}}" ng-click="selectEquipment()">{{row.Display}}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="addEventFilterInfo()">{{btnName}}</button>
+                <!--<button type="button" class="btn btn-default" ng-click="$hide()">取消</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+

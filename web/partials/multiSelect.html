@@ -1,0 +1,30 @@
+<div style="display:block;overflow:auto;margin-left:auto;margin-right:auto;width:550px;">
+    <div style="float:left;width: 100%;">
+        <i class="fa fa-search" style="font-size: 24px;"></i>
+        <input class="form-control" ng-model="signalValue" Virtual-Key-Board="signalValue" style="width: 190px;display:inline;margin: 10px 0px;margin-left: 5px;" type="text" placeholder="{{language.FilterSignal}}"/><!--筛选信号-->
+    </div>
+	<div style="float:left;">
+		<label class="control-label" style="display:block;" for="multiSelectSelected">{{ selectedLabel }}
+		({{ model.length }})</label>
+		<select id="multiSelectAvailable" ng-model="selected.available" multiple
+			class="pull-left form-control" ng-options="e as e[displayAttr] for e in model | filter:{baseTypeName:signalValue}"
+			style="height:auto;line-height:30px;width:220px; vertical-align:middle;min-height:180px;border-radius: 0px;">
+		</select>
+	</div>
+	<div style="float:left;margin:20px;">
+        <button class="btn btn-default" style="display:block;margin:30px 10px;"  ng-click="add()" title="Add selected"
+                ng-disabled="selected.available.length == 0">
+            <i class="fa fa-arrow-right"></i>
+        </button>
+		<button class="btn btn-default" style="display:block;margin:30px 10px;" ng-click="remove()" title="Remove selected"
+		        ng-disabled="selected.current.length == 0">
+		    <i class="fa fa-arrow-left"></i>
+		</button>
+	</div>
+	<div style="float:left;">
+		<label class="control-label"  style="display:block;" for="multiSelectAvailable">{{ availableLabel }}
+		({{ available.length }})</label>
+		<select id="currentRoles" class="form-control" ng-model="selected.current" multiple
+		ng-options="e as e[displayAttr] for e in available" style="height:auto;line-height:30px;width:220px;vertical-align:middle;min-height:180px;border-radius: 0px;"></select>
+	</div>
+</div>

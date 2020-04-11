@@ -1,0 +1,45 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.TextControl.UpdTitle}}</h4><!--文本框设置-->
+            </div>
+            <div class="modal-body center-block div_body">
+               <table class="table table_body">
+                   <tr> <td>{{languageJson.Configuration.TextControl.TextContent.Title}}</td><td>
+                       <input class="form-control" ng-model="labelcfg.Name" type="text"
+                              style="display:inline;margin-right: 15px;{{languageJson.Language == 'Chinese'?'width: 70%;':'width: 60%;'}}" Virtual-Key-Board="labelcfg.Name"><!--绑定值-->
+                       <buttion type="button" class="btn btn-primary" style="{{languageJson.Language == 'Chinese'?'width: 25%;':'width: 35%;'}}" ng-click="bindingDlg()" >{{languageJson.Configuration.TextControl.TextContent.Button}}</buttion></td> </tr><!--绑定信号-->
+                   <tr> <td>{{languageJson.Configuration.TextControl.Size}}(px)</td><td><input class="form-control" ng-model="labelcfg.FontSize" Virtual-Key-Board="labelcfg.FontSize" type="text"> </tr><!--大小-->
+                   <tr> <td>{{languageJson.Configuration.TextControl.Color}}</td><td><input class="form-control" ng-model="labelcfg.Color" type="color"></td> </tr><!--颜色-->
+                   <tr> <td>{{languageJson.Configuration.TextControl.BackColor}}</td><td><input class="form-control"  ng-model="labelcfg.BackColor" type="color"></td> </tr><!--背景颜色-->
+                   <tr> <td>{{languageJson.Configuration.TextControl.BackStyle.Title}}</td><td><!--背景样式-->
+                       <select class="form-control" ng-model="labelcfg.BackStyle">
+                           <option value="">{{languageJson.Configuration.TextControl.BackStyle.Null}}</option><!--空-->
+                           <option value="configure_bg">[{{languageJson.Configuration.TextControl.BackStyle.Blue}}]</option><!--蓝色-->
+                           <option value="white_bg">[{{languageJson.Configuration.TextControl.BackStyle.White}}]</option><!--白色-->
+                       </select>
+                   </td> </tr>
+                   <tr> <td>{{languageJson.Configuration.TextControl.Bold.Title}}</td><td><!--加粗-->
+                       <select class="form-control" ng-model="labelcfg.FontWeight">
+                           <option value="normal">{{languageJson.Configuration.TextControl.Bold.Normal}}</option><!--普通-->
+                           <option value="bold">{{languageJson.Configuration.TextControl.Bold.Bold}}</option><!--加粗-->
+                       </select>
+                   </td> </tr>
+                   <tr> <td>{{languageJson.Configuration.TextControl.Align.Title}}</td><td><!--对齐-->
+                       <select class="form-control" ng-model="labelcfg.TextAlign">
+                           <option value="center">{{languageJson.Configuration.TextControl.Align.Center}}</option><!--居中-->
+                           <option value="left">{{languageJson.Configuration.TextControl.Align.Left}}</option><!--左对齐-->
+                           <option value="right">{{languageJson.Configuration.TextControl.Align.Right}}</option><!--右对齐-->
+                       </select>
+                   </td> </tr>
+               </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">保存</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

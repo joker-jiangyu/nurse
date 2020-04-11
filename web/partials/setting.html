@@ -1,0 +1,100 @@
+<div class="container-fluid setting-root" ng-controller="settingCtrl">
+    <div class="setting-body page-cut">
+        <div class="dropdown-report">
+            <ul>
+                <!-- 功能列表 -->
+                <li ng-show="isAdminRole" class="{{isHomeSetting == true ? 'active' : ''}}" ng-click="homeSettingClick('partials/include/homeSetting.html')">
+                    <a>
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <samp class="dropdown-title"> {{languageJson.FeatureList.Title}} </samp>
+                        <i class="fa fa-chevron-right right-arrows" ></i>
+                    </a>
+                </li>
+                <!-- IP设置 -->
+                <li class="{{isIPSetting == true ? 'active' : ''}}" ng-click="ipSettingClick('partials/include/ipSetting.html')">
+                    <a href>
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <samp class="dropdown-title">{{languageJson.Header.Advanced.Ip.Title}}</samp>
+                        <i class="fa fa-chevron-right right-arrows" ></i>
+                    </a>
+                </li>
+                <!-- 系统操作 -->
+                <li class="{{isSystemSetting == true ? 'active' : ''}}" ng-click="systemSettingClick('partials/include/systemSetting.html')">
+                    <a href>
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-power-off fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <samp class="dropdown-title">{{languageJson.Header.Advanced.System.Title}}</samp>
+                        <i class="fa fa-chevron-right right-arrows" ></i>
+                    </a>
+                </li>
+                <!-- 密码修改 -->
+                <li class="{{isChangePassword == true ? 'active' : ''}}" ng-show="isNeedLogin" ng-click="changePassword('partials/include/changePassword.html')" >
+                    <a style="cursor:pointer;">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-key fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <samp class="dropdown-title">{{languageJson.Header.User.Password.Title}}</samp>
+                        <i class="fa fa-chevron-right right-arrows" ></i>
+                    </a>
+                </li>
+                <!-- 阀值设置 -->
+                <li ng-hide="isAdminRole" class="{{isThresholdSet == true ? 'active' : ''}}" ng-click="isThresholdSetting('partials/include/thresholdSet.html')" >
+                    <a style="cursor:pointer;">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-cogs fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <samp class="dropdown-title">{{languageJson.ThresholdSettings.Title}}</samp>
+                        <i class="fa fa-chevron-right right-arrows" ></i>
+                    </a>
+                </li>
+                <!-- 关于 -->
+                <li class="{{isShowAbout == true ? 'active' : ''}}" ng-click="showAbout('partials/showAbout.html')">
+                    <a style="cursor:pointer;">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <samp class="dropdown-title">{{languageJson.Header.User.About}}</samp>
+                        <i class="fa fa-chevron-right right-arrows" ></i>
+                    </a>
+                </li>
+                <!-- 退出  ng-show="isNeedLogin" -->
+                <li ng-click="exit()">
+                    <a href="#">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <samp class="dropdown-title">{{languageJson.Header.User.Exit}}</samp>
+                    </a>
+                </li>
+                <!--<li ng-show="!isNeedLogin && isSystemName == 'Linux'" ng-click="desktop()">
+                    <a href="#">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <samp class="dropdown-title">{{languageJson.Header.User.Exit}}</samp>
+                    </a>
+                </li>-->
+            </ul>
+        </div>
+    </div>
+
+    <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+
+    <!-- 镶嵌页面 -->
+    <div class="setting-option page-cut">
+        <div ng-include="includePath"></div>
+    </div>
+</div>

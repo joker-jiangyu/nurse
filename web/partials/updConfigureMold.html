@@ -1,0 +1,195 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title"> {{languageJson.ConfigureMold.UpdTitle}} </h4><!--修改组态页面配置-->
+            </div>
+
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 tooltip-options">
+                            <div class="form-group">
+                                <label class="control-label  col-md-3">{{languageJson.ConfigureMold.Title}}:</label><!--标题-->
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" placeholder="" ng-model="ConfigureMold.configName" Virtual-Key-Board="ConfigureMold.configName">
+                                </div>
+                            </div>
+                            <!--文本图标-->
+                            <div class="form-group" ng-hide="IsShowJson">
+                                <label class="control-label  col-md-3">{{languageJson.ConfigureMold.Icon.Title}}:</label>
+                                <div class="col-md-6 input-font-chart">
+                                    <select class="form-control" ng-model="ConfigureMold.fontChart" style="width: 90px;float: left;">
+                                        <option value="">{{languageJson.ConfigureMold.Icon.No}}</option><!--空-->
+                                        <option value="fa-th-large">[{{languageJson.ConfigureMold.Icon.Home}}]</option><!--首页-->
+                                        <option value="fa-thermometer-half">[{{languageJson.ConfigureMold.Icon.Thermometer}}]</option><!--温度-->
+                                        <option value="fa-tint">[{{languageJson.ConfigureMold.Icon.Water}}]</option><!--水滴-->
+                                        <option value="fa-pie-chart">[{{languageJson.ConfigureMold.Icon.Pie}}]</option><!--饼图-->
+                                        <option value="fa-server">[{{languageJson.ConfigureMold.Icon.Device}}]</option><!--设备-->
+                                        <option value="fa-hdd-o">[{{languageJson.ConfigureMold.Icon.UPS}}]</option><!--UPS-->
+                                        <option value="fa-bolt">[{{languageJson.ConfigureMold.Icon.Power}}]</option><!--配电-->
+                                        <option value="fa-snowflake-o">[{{languageJson.ConfigureMold.Icon.AC}}]</option><!--空调-->
+                                        <option value="fa-columns">[{{languageJson.ConfigureMold.Icon.Door}}]</option><!--门禁-->
+                                        <option value="fa-television">[ IT ]</option><!--IT-->
+                                        <option value="fa-video-camera">[{{languageJson.ConfigureMold.Icon.Video}}]</option><!--摄像头-->
+                                    </select>
+                                    <!--<select class="form-control" ng-model="ConfigureMold.fontChart" style="width: 90px;float: left;">
+                                        <option value="">{{languageJson.ConfigureMold.Icon.No}}</option>&lt;!&ndash;空&ndash;&gt;
+                                        <option value="home_icon">[{{languageJson.ConfigureMold.Icon.Home}}]</option>&lt;!&ndash;首页&ndash;&gt;
+                                        <option value="thermal_icon">[{{languageJson.ConfigureMold.Icon.Thermometer}}]</option>&lt;!&ndash;温度&ndash;&gt;
+                                        <option value="water_icon">[{{languageJson.ConfigureMold.Icon.Water}}]</option>&lt;!&ndash;水滴&ndash;&gt;
+                                        <option value="pie_icon">[{{languageJson.ConfigureMold.Icon.Pie}}]</option>&lt;!&ndash;饼图&ndash;&gt;
+                                        <option value="device_icon">[{{languageJson.ConfigureMold.Icon.Device}}]</option>&lt;!&ndash;设备&ndash;&gt;
+                                        <option value="UPS_icon">[{{languageJson.ConfigureMold.Icon.UPS}}]</option>&lt;!&ndash;UPS&ndash;&gt;
+                                        <option value="power_icon">[{{languageJson.ConfigureMold.Icon.Power}}]</option>&lt;!&ndash;配电&ndash;&gt;
+                                        <option value="AC_icon">[{{languageJson.ConfigureMold.Icon.AC}}]</option>&lt;!&ndash;空调&ndash;&gt;
+                                        <option value="door_icon">[{{languageJson.ConfigureMold.Icon.Door}}]</option>&lt;!&ndash;门禁&ndash;&gt;
+                                    </select>-->
+                                    <input type="text" class="form-control" ng-model="ConfigureMold.fontChart" ng-click="showShowFontChart()" style="width: 170px;float: left;margin-left: 5px;">
+                                    <ul id="myFontChart" class="show-font-chart">
+                                        <li ng-click="ConfigureMold.fontChart = ''">{{languageJson.ConfigureMold.Icon.No}}</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-th-large'"><i class="fa fa-th-large fa-lg"></i> [{{languageJson.ConfigureMold.Icon.Home}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-thermometer-half'"><i class="fa fa-thermometer-half fa-lg"></i> [{{languageJson.ConfigureMold.Icon.Thermometer}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-tint'"><i class="fa fa-tint fa-lg"></i> [{{languageJson.ConfigureMold.Icon.Water}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-pie-chart'"><i class="fa fa-pie-chart fa-lg"></i> [{{languageJson.ConfigureMold.Icon.Pie}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-server'"><i class="fa fa-server fa-lg"></i> [{{languageJson.ConfigureMold.Icon.Device}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-hdd-o'"><i class="fa fa-hdd-o fa-lg"></i> [{{languageJson.ConfigureMold.Icon.UPS}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-bolt'"><i class="fa fa-bolt fa-lg"></i> [{{languageJson.ConfigureMold.Icon.Power}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-snowflake-o'"><i class="fa fa-snowflake-o fa-lg"></i> [{{languageJson.ConfigureMold.Icon.AC}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-columns'"><i class="fa fa-columns fa-lg"></i> [{{languageJson.ConfigureMold.Icon.Door}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-television'"><i class="fa fa-television fa-lg"></i> [ IT ]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'fa-video-camera'"><i class="fa fa-video-camera fa-lg"></i> [{{languageJson.ConfigureMold.Icon.Video}}]</li>
+                                    </ul>
+                                    <!--<ul id="myFontChart" class="show-font-chart">
+                                        <li ng-click="ConfigureMold.fontChart = ''">{{languageJson.ConfigureMold.Icon.No}}</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'home_icon'"><img src="..\img\MenuBar\home_icon.png" /> [{{languageJson.ConfigureMold.Icon.Home}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'thermal_icon'"><img src="..\img\MenuBar\thermal_icon.png" /> [{{languageJson.ConfigureMold.Icon.Thermometer}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'water_icon'"><img src="..\img\MenuBar\water_icon.png" /> [{{languageJson.ConfigureMold.Icon.Water}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'pie_icon'"><img src="..\img\MenuBar\pie_icon.png" /> [{{languageJson.ConfigureMold.Icon.Pie}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'device_icon'"><img src="..\img\MenuBar\device_icon.png" /> [{{languageJson.ConfigureMold.Icon.Device}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'UPS_icon'"><img src="..\img\MenuBar\UPS_icon.png" /> [{{languageJson.ConfigureMold.Icon.UPS}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'power_icon'"><img src="..\img\MenuBar\power_icon.png" /> [{{languageJson.ConfigureMold.Icon.Power}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'AC_icon'"><img src="..\img\MenuBar\AC_icon.png" /> [{{languageJson.ConfigureMold.Icon.AC}}]</li>
+                                        <li ng-click="ConfigureMold.fontChart = 'door_icon'"><img src="..\img\MenuBar\door_icon.png" /> [{{languageJson.ConfigureMold.Icon.Door}}]</li>
+                                    </ul>-->
+                                </div>
+                                <label class="control-label col-md-2">{{languageJson.ConfigureMold.Effect}}:</label><!--效果-->
+                                <div class="col-md-1" style="line-height: 35px;" ng-hide="ConfigureMold.fontChart == ''">
+                                    <!--<img src="..\img\MenuBar\{{ConfigureMold.fontChart}}.png" />-->
+                                    <i class="fa {{ConfigureMold.fontChart}} fa-2x"></i>
+                                </div>
+                            </div>
+                            <!--绑定设备-->
+                            <div class="form-group" ng-show="IsShowJson">
+                                <label class="control-label  col-md-3">{{languageJson.ConfigureMold.Binding}}
+                                    <a  href data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                        title="<h5>父节点无需绑定设备</h5>">
+                                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                                    </a>:
+                                </label>
+                                <div class="col-md-5">
+                                    <select id="portType" class="form-control" name = "portType" ng-model="ConfigureMold.equipmentId"
+                                            ng-change="changeEquipment(ConfigureMold.equipmentId)">
+                                        <option ng-repeat="row in ConfigureMold.Equipments" ng-selected="{{row.EquipmentId == ConfigureMold.equipmentId}}"
+                                                value="{{row.EquipmentId}}">{{row.EquipmentName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-warning" ng-click="ConfigureMold.equipmentId = ''">{{languageJson.ConfigureMold.Clear}}</button><!--清除-->
+                                </div>
+                            </div>
+                            <!--跳转路径-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-3">{{languageJson.ConfigureMold.JumpLink.Title}}
+                                    <a  href data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                        title="<h5>父节点：为空时跳转链接为第一个子节点的连接，父节点路径不能为/device/或/adevice/目录</h5>">
+                                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                                    </a>:
+                                </label>
+                                <div class="col-md-6">
+                                    <select class="form-control" ng-model="ConfigureMold.configUrl" style="width: 90px;float: left;">
+                                        <option value="">{{languageJson.ConfigureMold.JumpLink.No}}</option><!--空-->
+                                        <option ng-hide="IsShowJson" value="#/mdcalarm">[{{languageJson.ConfigureMold.JumpLink.MdcHome}}]</option><!--MDC概览-->
+                                        <option ng-hide="IsShowJson" value="#/mdctemp">[{{languageJson.ConfigureMold.JumpLink.MdcTemperature}}]</option><!--MDC温场-->
+                                        <option ng-hide="IsShowJson" value="#/mdcSignalRecord">[{{languageJson.ConfigureMold.JumpLink.mdcSignalRecord}}]</option><!--MDC历史数据-->
+                                        <option ng-hide="IsShowJson" value="#/viewer3d">[{{languageJson.ConfigureMold.JumpLink.Room3D}}]</option><!--3D展示-->
+                                        <option ng-hide="IsShowJson" value="#/assetsManager">[{{languageJson.ConfigureMold.JumpLink.Asset}}]</option><!--资产管理-->
+                                        <option ng-hide="IsShowJson" value="#/assetRackManager">[{{languageJson.ConfigureMold.JumpLink.AssetRack}}]</option><!--资产架管理-->
+                                        <option ng-hide="IsShowJson" value="#/nodeTemp">[{{languageJson.ConfigureMold.JumpLink.Node64Temperature}}]</option><!--64节点温场-->
+                                        <option ng-show="IsShowJson" value="#/adevice/1004/adiagram">[{{languageJson.ConfigureMold.JumpLink.RoomHome}}]</option><!--小机房概览-->
+                                        <option ng-show="IsShowJson" value="#/adevice/8890/adiagram">[{{languageJson.ConfigureMold.JumpLink.IViewHome}}]</option><!--IView概览-->
+                                        <option ng-show="IsShowJson" ng-repeat="row in JsonTemplates" value="#/device/{{row.id}}/diagram"
+                                                ng-selected="ConfigureMold.configUrl == '#/device/{{row.id}}/diagram'">[{{row.name}}]</option>
+                                    </select>
+                                    <input type="text" class="form-control" placeholder="" ng-model="ConfigureMold.configUrl" Virtual-Key-Board="ConfigureMold.configUrl" style="margin-left: 5px;float: left;width: 170px;">
+                                </div>
+                                <!-- 组态类型 -->
+                                <div ng-show="IsShowJson" class="col-md-3">
+                                    <select class="form-control" ng-model="ConfigureMold.ConfigureType" ng-change="changeMoldType(ConfigureMold.ConfigureType)">
+                                        <option value="Default">{{languageJson.ConfigureMold.Type.Default}}</option><!--标准组态-->
+                                        <option value="Table">{{languageJson.ConfigureMold.Type.Table}}</option><!--表格组态-->
+                                        <option value="Static">{{languageJson.ConfigureMold.Type.Static}}</option><!--静态框架-->
+                                    </select>
+
+                                    <!--<label class="control-label col-md-2">{{languageJson.ConfigureMold.Tabularization}}:</label>&lt;!&ndash;表格化&ndash;&gt;
+                                    <div class="col-md-1 timeGroupCheck" style="padding-top: 7px;">
+                                        <label>
+                                            <input type="checkbox" ng-checked="{{IsTableJson}}" ng-click="clickTableJson(IsTableJson)">
+                                            <i>{{getCheckbox(IsTableJson)}}</i>
+                                        </label>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <!--<div class="form-group" ng-show="IsShowJson">
+                                <label class="control-label  col-md-3">静态页面链接:</label>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-warning" ng-click="generateStaticFrame(ConfigureMold)">生成静态</button>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" ng-model="ConfigureMold.staticFrameUrl" style="margin-left: 10px;">
+                                </div>
+                            </div>-->
+                            <!--显示顺序-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-3">{{languageJson.ConfigureMold.Order}}:</label><!--显示顺序-->
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" placeholder="" ng-model="ConfigureMold.displayIndex" Virtual-Key-Board="ConfigureMold.displayIndex">
+                                </div>
+                            </div>
+                            <!--<div class="form-group">
+                                <label class="control-label  col-md-3">图文对齐:</label>
+                                <div class="col-md-7">
+                                    <select class="form-control" ng-model="ConfigureMold.displayType">
+                                        <option value="false">水平对齐</option>
+                                        <option value="true">垂直对齐</option>
+                                    </select>
+                                </div>
+                            </div>-->
+                            <!--是否可见-->
+                            <div class="form-group">
+                                <label class="control-label  col-md-3">{{languageJson.ConfigureMold.Visible}}:</label>
+                                <div class="col-md-7 timeGroupCheck" style="padding-top: 7px;">
+                                    <label>
+                                        <input type="checkbox" ng-checked="{{ConfigureMold.visible}}" ng-click="clickVisible(ConfigureMold)">
+                                        <i>{{getCheckbox(ConfigureMold.visible)}}</i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning left" ng-click="ExportClk(ConfigureMold.configId)" ng-show="IsShowJson"><i class="fa fa-download"></i> {{languageJson.ConfigureMold.Export}}</button><!--导出当前组态-->
+                <button type="button" class="btn btn-warning left" ng-click="ImportClk(ConfigureMold)" ng-show="IsShowJson"><i class="fa fa-upload"></i> {{languageJson.ConfigureMold.Import}}</button><!--导入当前组态-->
+                <button type="button" class="btn btn-primary"
+                        ng-click="updConfigureMold()">{{languageJson.ConfigureMold.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.ConfigureMold.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

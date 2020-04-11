@@ -1,0 +1,46 @@
+<div class="modal-content am-modal-dialog">
+    <div class="modal-header">
+        <h4 class="modal-title"> {{languageJson.ThresholdSettings.Title}} </h4>
+    </div>
+    <div class="model-body-footer" style="width: 100%;padding-top: 0px;">
+        <div class="modal-body">
+            <div class="body-head" style="{{isShowView == true ? 'overflow: hidden;': 'overflow: ;'}}">
+                <div class="view-show-hide" ng-click="showViewClick()">
+                    <i class="fa {{isShowView == true ?'fa-angle-double-down':'fa-angle-double-up'}}"></i>
+                </div>
+                <ul>
+                    <li class="{{ item.EquipmentTemplateId == selectTemplateId ? 'active' : ''}}" ng-click="selectTemplate(item.EquipmentTemplateId)" ng-repeat="item in equipmentTemplates"> {{item.EquipmentTemplateName}} </li>
+                </ul>
+            </div>
+            <div class="body-content scroll-easy" style="max-height: 55vh;width: 100%;">
+                <table align="center" class="table body_transparent" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <td align="center">{{languageJson.ThresholdSettings.AlarmName}}</td><!--告警名称-->
+                        <td align="center">{{languageJson.ThresholdSettings.AlarmSeverity}}</td><!--告警等级-->
+                        <td align="center">{{languageJson.ThresholdSettings.Operation}}</td><!--比较符-->
+                        <td align="center">{{languageJson.ThresholdSettings.CompareValue}}</td><!--告警阀值-->
+                        <td align="center">{{languageJson.ThresholdSettings.Meanings}}</td><!--含义-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in EventConditions">
+                        <td align="center">{{item.EventName}}</td>
+                        <td align="center">{{item.EventSeverity}}</td>
+                        <td align="center">{{item.StartOperation}}</td>
+                        <td align="center" class="value">
+                            <input type="hidden" class="form-control id" style="width: 100px;" value="{{item.EventId}}">
+                            <input type="text" class="form-control comVal" style="width: 100px;" value="{{item.StartCompareValue}}" Virtual-Key-Board>
+                        </td>
+                        <td align="center">{{item.Meanings}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary"
+                    ng-click="thresholdSetting()"><i class="fa fa-pencil-square-o"></i> {{languageJson.ThresholdSettings.Modify}} </button><!--修改-->
+        </div>
+    </div>
+</div>

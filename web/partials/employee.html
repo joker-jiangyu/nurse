@@ -1,0 +1,49 @@
+<div class="container-fluid" ng-controller="EmployeeCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.Person.Config}} > {{languageJson.Person.Management}}
+                <button type="button" class="btn btn-primary right return-btn" onclick="window.location.href='#/setting'"><i class="fa fa-reply"></i> {{languageJson.Login.Return}}</button>
+            </h1><!--配置 > 人员管理-->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="tabs-below">
+                        <p>
+                            <button class="btn btn-default btn-primary" ng-click="addEmployee()">{{languageJson.Person.Add}}</button><!--新增人员-->
+                        </p>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{languageJson.Person.Management}}<!--人员管理-->
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                    <tr ng-repeat="row in employees">
+                                        <td data-title="languageJson.Person.ID" filter="{EmployeeId: 'number'}" align="center">{{row.EmployeeId}}</td><!--人员ID-->
+                                        <td data-title="languageJson.Person.Name" filter="{EmployeeName: 'text'}" align="center">{{row.EmployeeName}}</td><!--人员名称-->
+                                        <td data-title="languageJson.Person.Number" filter="{Mobile: 'text'}" align="center">{{row.Mobile}}</td><!--联系电话 "'联系电话'" -->
+                                        <td data-title="languageJson.Person.Email" filter="{Email: 'text'}" align="center">{{row.Email}}</td><!--邮箱-->
+                                        <td class="center" data-title="languageJson.Person.Operating" align="center"><!--操作-->
+                                            <button type="button" class="btn btn-sm btn-danger"  ng-click="removeEmployee(row.EmployeeId, row.EmployeeName)">{{languageJson.Person.Delete}}</button><!--删除-->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+

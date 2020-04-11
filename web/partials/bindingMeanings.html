@@ -1,0 +1,38 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()">
+                    <i class="fa fa-times"></i></button>
+                <h4 class="modal-title tooltip-options">{{title}}{{languageJson.Configuration.MeaningBox.Title}}
+                    <a  href="#" data-toggle="tooltip"  ng-hide="languageJson.Language == 'English'"
+                        title="<h5>值须为顺序排列</h5>">
+                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                    </a>
+                </h4><!--含义设置-->
+            </div>
+            <div class="modal-body">
+                <div class="form-group" >
+                    <table id="BindMes" ng-table="tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                        <tr ng-repeat="row in DataMeanings">
+                            <td data-title="languageJson.Configuration.MeaningBox.Value" align="center"><input type="text" class="form-control" ng-model="row.Value" Virtual-Key-Board="row.Value"/></td>
+                            <td data-title="languageJson.Configuration.MeaningBox.Meaning" align="center"><input type="text" class="form-control" ng-model="row.Meanings" Virtual-Key-Board="row.Meanings"/></td>
+                            <td class="center" data-title="languageJson.Configuration.MeaningBox.Operat" align="center">
+                                <button type="button" class="btn btn-danger"
+                                        ng-click="deleteMeaningsClick($index)">{{languageJson.Configuration.MeaningBox.Delete}}</button><!--删除-->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary left" ng-click="addMeaningsCol()">{{languageJson.Configuration.MeaningBox.Add}}</button><!--新增-->
+                <button type="button" class="btn btn-primary" ng-click="saveMeanings()">{{languageJson.Configuration.MeaningBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.MeaningBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

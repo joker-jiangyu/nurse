@@ -1,0 +1,90 @@
+<div class="container-fluid" ng-controller="userOperationLogCtrl">
+    <div class="row">
+        <div class="record-title" style="{{languageJson.Language == 'English'?'width: 800px;':''}}">
+            <table class="body_transparent">
+                <tr>
+                    <td><a href="#/kpi/5">{{languageJson.Header.Chart.HistoryAlarm}}</a></td><!--历史告警分布-->
+                    <td><a href="#/alarmrecord">{{languageJson.AlarmRecord.Title2}}</a></td><!--历史告警记录-->
+                    <td><a href="#/signalrecord">{{languageJson.SignalRecord.Title2}}</a></td><!--历史数据记录-->
+                    <td class="selected"><a href="#/userOperationRecord">{{languageJson.OperationRecord.Title2}}</a></td><!--用户操作记录-->
+                </tr>
+            </table>
+        </div>
+        <div class="body_export" ng-show="SystemName == 'Windows'">
+            <button class="btn btn-default padding-bottom pull-right"
+                    ng-click="exportToHtml()">{{languageJson.AlarmRecord.Export}}</button><!--导出...-->
+        </div>
+    </div>
+    <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-2">
+                <select class="form-control"  ng-model="SelectTimeType" ng-change="changeTimeType(SelectTimeType)" style="margin-top: 12px;text-align-last: center;">
+                    <option value="Month">{{languageJson.OperationRecord.TimeType.Month}}</option><!--按月份-->
+                    <option value="YMD">{{languageJson.OperationRecord.TimeType.YMD}}</option><!--按年月日-->
+                </select>
+            </div>
+            <div class="col-lg-10" ng-show="SelectTimeType == 'Month'">
+                <label class="control-label text-right left" style="line-height: 60px;">{{startTime}}</label>
+                <div class="col-lg-9">
+                    <rangeslider min="1" max="12" value="11" rang-value="rangeValues"></rangeslider>
+                </div>
+                <label class="control-label text-right" style="line-height: 60px;">{{endTime}}</label>
+            </div>
+            <div class="col-lg-10" ng-show="SelectTimeType == 'YMD'" style="height: 91px;padding-top: 14px;">
+                <label class="control-label col-lg-2" style="text-align: right;line-height: 35px;"><i class="fa fa-calendar"></i> {{languageJson.AlarmRecord.StartTime}}</label><!--开始时间-->
+                <div class="col-lg-3"><input id="TimeControl1" class="form-control" ng-model="SelectTime.startDate"></div>
+                <label class="control-label col-lg-2" style="text-align: right;line-height: 35px;"><i class="fa fa-calendar"></i> {{languageJson.AlarmRecord.EndTime}}</label><!--开始时间-->
+                <div class="col-lg-3"><input id="TimeControl2" class="form-control" ng-model="SelectTime.endDate"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row dialog_box">
+        <div class="col-lg-12" style="margin: 10px 0px;font-size: 18px;">
+            <div class="form-group">
+                <label class="control-label col-md-2" style="text-align: right;line-height: 33px;">{{languageJson.OperationRecord.LogonId}}</label><!--登录名：-->
+                <div class="col-md-3">
+                    <select class="form-control" ng-model="filter.logonId">
+                        <option value="">{{languageJson.OperationRecord.All}}</option><!-- -- 全部 -- -->
+                        <option ng-repeat="item in AccountIds" value="{{item.logonId}}">{{item.logonId}}</option>
+                    </select>
+                </div>
+                <label class="control-label col-md-2" style="text-align: right;line-height: 33px;">{{languageJson.OperationRecord.ContentType}}</label><!--内容类型：-->
+                <div class="col-md-3">
+                    <select class="form-control" ng-model="filter.content">
+                        <option value="">{{languageJson.OperationRecord.All}}</option><!-- -- 全部 -- -->
+                        <option ng-repeat="item in ContentTypes" value="{{item.ItemValue}}">{{languageJson.Language == 'English'?item.ItemAlias:item.ItemValue}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-condensed table-bordered table-striped table_body">
+                <thead class="ng-scope">
+                <tr class="ng-table-sort-header">
+                    <th class="header pointer" style="text-align: center;">{{languageJson.OperationRecord.Table.LoginName}}</th><!--登录名-->
+                    <th class="header pointer" style="text-align: center;">IP</th>
+                    <th class="header pointer" style="text-align: center;">{{languageJson.OperationRecord.Table.Content}}</th><!--内容-->
+                    <th class="header pointer" style="text-align: center;">{{languageJson.OperationRecord.Table.Time}}</th><!--时间-->
+                </tr>
+                </thead>
+                <tbody>
+                <!--<tr>
+                    <td align="center"><input type="text" class="form-control" ng-model="filter.logonId" placeholder="{{languageJson.OperationRecord.Filter}}" Virtual-Key-Board="filter.logonId"/></td>&lt;!&ndash;输入筛选关键字&ndash;&gt;
+                    <td align="center"><input type="text" class="form-control" ng-model="filter.ip" placeholder="{{languageJson.OperationRecord.Filter}}" Virtual-Key-Board="filter.ip"/></td>&lt;!&ndash;输入筛选关键字&ndash;&gt;
+                    <td align="center"><input type="text" class="form-control" ng-model="filter.content" placeholder="{{languageJson.OperationRecord.Filter}}" Virtual-Key-Board="filter.content"/></td>&lt;!&ndash;输入筛选关键字&ndash;&gt;
+                    <td align="center"></td>
+                </tr>-->
+                <tr ng-repeat="row in tableParams.list">
+                    <td align="center">{{row.logonId}}</td>
+                    <td align="center">{{row.ip}}</td>
+                    <td align="center">{{row.content}}</td>
+                    <td align="center">{{row.starTime}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- 使用方法请参照Directives.js => tablePaging -->
+            <table-Paging table-Param="tableParams" filter-Param="filter"></table-Paging>
+        </div>
+    </div>
+</div>

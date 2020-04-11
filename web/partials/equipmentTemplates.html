@@ -1,0 +1,55 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.Manage}}</h4><!-- 模板管理 -->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label  col-md-3">{{languageJson.Config.Template.Template}}</label>
+                            <div class="col-md-7">
+                                <select class="form-control" name = "portType" ng-model="selectTemplate" ng-change="changeRebinding(selectTemplate)">
+                                    <option value="{{row}}" ng-repeat="row in equipmentTemplates"
+                                            ng-selected="{{row.EquipmentTemplateId==Rebinding.EquipmentTemplateId}}">{{row.EquipmentTemplateName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="col-md-12">
+                                <table class="table table-condensed table-bordered table-striped table-hover">
+                                    <tr>
+                                        <th style="text-align: right;">{{languageJson.Config.Modify.Manufacturer}}</th><!--厂家:-->
+                                        <td>{{Rebinding.Vendor}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: right;">{{languageJson.Config.Modify.Types}}</th><!--类型:-->
+                                        <td>{{Rebinding.CategoryName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: right;">{{languageJson.Config.Modify.Attributes}}</th><!--属性:-->
+                                        <td>{{Rebinding.PropertyName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: right;">{{languageJson.Config.Modify.SoName}}</th><!--SO名称:-->
+                                        <td>{{Rebinding.SoName}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="rebindingClick()">{{languageJson.Config.Modify.Save}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Equipment.Close}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options i").tooltip({html : true });});
+</script>

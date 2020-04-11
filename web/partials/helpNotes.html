@@ -1,0 +1,38 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 90vw;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Header.Advanced.Notes.Title}}</h4><!--导航-->
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs" style="padding-top: 10px;">
+                    <li class="tab" ng-class="{active:helpNotes.path=='00'}" style="padding-left: 45px;">
+                        <a href ng-click="helpHeadClk('00')">{{languageJson.Header.Advanced.Notes.Path00}}</a><!--首页导航-->
+                    </li>
+                    <li class="tab" ng-class="{active:helpNotes.path=='01'}">
+                        <a href ng-click="helpHeadClk('01')">{{languageJson.Header.Advanced.Notes.Path01}}</a><!--配置设备-->
+                    </li>
+                    <li class="tab" ng-class="{active:helpNotes.path=='02'}">
+                        <a href ng-click="helpHeadClk('02')">{{languageJson.Header.Advanced.Notes.Path02}}</a><!--配置设备模板-->
+                    </li>
+                    <li class="tab" ng-class="{active:helpNotes.path=='03'}">
+                        <a href ng-click="helpHeadClk('03')">{{languageJson.Header.Advanced.Notes.Path03}}</a><!--配置告警联动-->
+                    </li>
+                    <li class="tab" ng-class="{active:helpNotes.path=='04'}">
+                        <a href ng-click="helpHeadClk('04')">{{languageJson.Header.Advanced.Notes.Path04}}</a><!--配置告警通知-->
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body center-block">
+                <div class="help-notes-body" ng-click="fullImage()">
+                    <img src="{{helpNotes.src}}" />
+                </div>
+                <div class="help-arrows-head" style="width: 150px;">{{helpNotes.title}}</div>
+                <div class="help-arrows-left"><i class="fa fa-chevron-left fw" ng-click="lastPage()"></i></div>
+                <div class="help-arrows-right"><i class="fa fa-chevron-right fw" ng-click="nextPage()"></i></div>
+                <div class="help-arrows-footer">{{helpNotes.page}}/{{helpNotes.total}}</div>
+            </div>
+        </div>
+    </div>
+</div>

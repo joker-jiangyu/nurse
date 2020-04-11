@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<KPIBags>
+	<KPIBag ID="Label1" BagType="Label" Text="设备活动告警分布" Tag=""/>
+	
+	<KPIBag ID="AnalysisChart1" BagType="Chart" SourceType="StoredProcedure" QueryString="PAM_StationGAlarmStatistic" Text="活动告警统计(按告警等级)"  Tag="ChartType=Pie&amp;ChartTitle=活动告警统计(按告警等级)"/>
+	
+	<KPIBag ID="AnalysisChart3" BagType="Chart" SourceType="StoredProcedure" QueryString="SEL_ActivityWarn" Text="设备活动告警等级分布"  Tag="ChartType=Bar&amp;YTitle=警告数(求和)&amp;XTitle=设备名称&amp;IsXLean=false"/>
+	
+	<KPIBag ID="AnalysisChart4" BagType="Chart" SourceType="SQLStr" QueryString="SELECT (SELECT EquipmentName FROM TBL_Equipment WHERE EquipmentId = A.EquipmentId limit 1) AS 'EquipmentName',count(B.EventSeverityId) AS 'AlarmCount' FROM TBL_ActiveSignal A LEFT OUTER JOIN TBL_ActiveEvent B ON A.EquipmentId = B.EquipmentId  GROUP BY A.EquipmentId,A.FloatValue,A.Meanings" Text="设备活动告警数"  Tag="ChartType=Bar&amp;YTitle=警告数&amp;XTitle=设备名称&amp;IsXLean=false"/>
+	
+	<KPIBag ID="AnalysisChart5" BagType="Chart" SourceType="SQLStr" QueryString="SELECT (SELECT EquipmentName FROM TBL_Equipment WHERE EquipmentId = A.EquipmentId limit 1) AS 'EquipmentName',2*(A.FloatValue)-1 AS 'State' FROM TBL_ActiveSignal A LEFT OUTER JOIN TBL_ActiveEvent B ON A.EquipmentId = B.EquipmentId  GROUP BY A.EquipmentId,A.FloatValue,A.Meanings" Text="设备通讯状态(1表示正常,-1表示断开)"  Tag="ChartType=Bar&amp;YTitle=状态&amp;XTitle=设备名称&amp;IsXLean=false"/>
+</KPIBags>

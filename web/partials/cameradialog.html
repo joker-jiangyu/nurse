@@ -1,0 +1,29 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.MDCHome.VideoBox.Title}}</h4><!--视频预览-->
+            </div>
+            <div class="modal-body">
+                <div class="camera camera-plugin fulled" id="camerasingleview">
+                    <iframe ng-src="{{src}}" name="iframecamera" class="filled"  frameborder="no" style="overflow: hidden; padding: 0px; margin: 0px;" ></iframe>
+                </div><!--src="{{src}}"-->
+            <div class="modal-footer">
+                <!--<button type="button" ng-click="cameraClick()" style="float: left;" class="btn btn-primary" ng-hide="isHide">设置</button>-->
+                <!--<button type="button" ng-click="fullscreen()" class="btn btn-primary">全屏</button>-->
+                <button type="button" class="btn btn-default"  ng-click="$hide()">{{languageJson.MDCHome.VideoBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function loadCamera() {
+        if (window.frames["iframecamera"].document.readyState == "complete") {
+            //alert("加载成功");
+        }else
+            alert("加载失败");
+    }
+    loadCamera();
+</script>

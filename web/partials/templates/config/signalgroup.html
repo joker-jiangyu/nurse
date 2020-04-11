@@ -1,0 +1,22 @@
+<div class="panel-primary" partid="[id]" style="position: absolute; left: [left]px; top: [top]px; width: [width]px; height: [height]px; z-index: [zindex];">
+    <div class="panel-body signal-body [options.Background]" style="padding: 6px 20px;">
+        <div class="table-responsive"  style="overflow: hidden">
+            <div class="signal_title" ng-hide="{{'[options.Name]' == ''}}">
+                <label class="groupname">[options.Name]</label>
+            </div>
+            <div class="signal-body-table scroll-easy" style="height:[control.Height]px;">
+                <table class="filled body_transparent">
+                    <tr class="signal_body" ng-repeat="sig in signalList | filter:{ partId: '[id]'}">
+                        <td class="table_signal_body_name">
+                            <label>{{sig.baseTypeName}}</label>
+                        </td>
+                        <td class="signal_body_space"></td>
+                        <td class="table_signal_body_value pointer">
+                            <i class="{{sig.className}}">{{sig.currentValue}}</i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

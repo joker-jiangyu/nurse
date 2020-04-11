@@ -1,0 +1,98 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.EventBase.Title}}</h4><!--事件基类-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-default">
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.EventBase.EventName}}</label><!--事件名称:-->
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="text" ng-model="Events.SignalName" disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.EventBase.DeviceBaseType}}</label><!--设备基类:-->
+                                            <div class="col-md-7">
+                                                <select class="form-control" name = "BaseEquipmentName" ng-model="Events.EquipmentBaseType" ng-change="CheckedEventEquipmentBaseType()">
+                                                    <option value="{{row.baseEquipmentId}}" ng-selected="{{row.baseEquipmentId==Events.EquipmentBaseType}}"
+                                                            ng-repeat="row in Template.EquipmentBaseType | filter:EquipmentType">{{row.baseEquipmentId}} , {{row.baseEquipmentName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="form-control" placeholder="{{languageJson.Config.EventBase.FilterDevice}}" type="text" ng-model="EquipmentType" /><!--筛选设备基类-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.EventBase.EventBaseType}}</label><!--事件基类:-->
+                                            <div class="col-md-7">
+                                                <select class="form-control" name = "BaseTypeId" ng-model="Events.BaseTypeId" ng-change="CheckedEventBaseTypeId(Events.BaseTypeId)">
+                                                    <option value="{{row.BaseTypeId}}" ng-selected="{{row.BaseTypeId==Events.BaseTypeId}}"
+                                                            ng-repeat="row in Template.EventBaseDic | filter:BaseType">{{row.BaseTypeId}} , {{row.BaseTypeName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="form-control" placeholder="{{languageJson.Config.EventBase.FilterEvent}}" type="text" ng-model="BaseType" /><!--筛选事件基类-->
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default" style="{{Events.IsBaseNameExt}}">
+                                            <div class="panel-heading tooltip-options">
+                                                {{languageJson.Config.EventBase.ExprTitle}}
+                                                <a  href data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                                    title="<h5>扩展表达式：新增单个根据“=>”左边的数字新增；新增多个根据“=>”左边至右边的数字新增。</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </div><!--扩展表达式-->
+                                            <br/>
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.Config.EventBase.Expr}}</label><!--扩展名格式:-->
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" type="text" ng-model="Events.BaseNameExt" disabled/>
+                                                    </div>
+                                                    <div class="col-md-2" style="{{Events.IsSystem}}">
+                                                        <button type="button" class="btn btn-danger" ng-click="removeEventBaseDic()">{{languageJson.Config.EventBase.Del}}</button><!--删除-->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.Config.EventBase.Replace}}</label><!--{0}替换为:-->
+                                                    <div class="col-md-3">
+                                                        <input class="form-control" type="text" ng-model="Events.StartNum"/>
+                                                    </div>
+                                                    <div class="col-md-2" style="padding-top: 8px;text-align: center;">
+                                                        =>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input class="form-control" type="text"  ng-model="Events.EndNum" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-primary" ng-click="createEvent()">{{languageJson.Config.EventBase.Add}}</button><!--新增-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="clearEvents()">{{languageJson.Config.EventBase.Clear}}</button><!--清除-->
+                <button type="button" class="btn btn-primary" ng-click="confirmedEvents()">{{languageJson.Config.EventBase.Determine}}</button><!--确定-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.EventBase.Close}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

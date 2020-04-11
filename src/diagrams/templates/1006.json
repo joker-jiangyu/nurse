@@ -1,0 +1,27 @@
+{
+	"edit": false,
+	"page": {
+		"bgImage": ""
+	},
+	"parts": [{
+		"id": "image1",
+		"type": "imagepart",
+		"left": 100,
+		"top": 250,
+		"width": 252,
+		"height": 350,
+		"zindex": 1,
+		"options": "img/diagram/humiture.png"
+	},
+	{
+		"id": "signalgroup1",
+		"type": "signalgroup",
+		"left": 420,
+		"top": 300,
+		"width": 223,
+		"height": 180,
+		"zindex": 1,
+		"binding": "BS:1006999001|BS:1006001001|BS:1006003001",
+		"options": "Name:温湿度|Background:configure_bg"
+	}]
+}

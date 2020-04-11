@@ -1,0 +1,104 @@
+<div class="container-fluid" ng-controller="hisDataRecordCtrl">
+    <div class="row">
+        <div class="record-title" style="{{languageJson.Language == 'English'?'width: 800px;':''}}">
+            <table class="body_transparent">
+                <tr>
+                    <td><a href="#/kpi/5">{{languageJson.Header.Chart.HistoryAlarm}}</a></td><!--历史告警分布-->
+                    <td><a href="#/alarmrecord">{{languageJson.AlarmRecord.Title2}}</a></td><!--历史告警记录-->
+                    <td class="selected"><a href="#/signalrecord">{{languageJson.SignalRecord.Title2}}</a></td><!--历史数据记录-->
+                    <td><a href="#/userOperationRecord">{{languageJson.OperationRecord.Title2}}</a></td><!--用户操作记录-->
+                </tr>
+            </table>
+        </div>
+        <div class="body_export" ng-show="SystemName == 'Windows'">
+            <button class="btn btn-default padding-bottom pull-right"
+                    ng-click="exportToHtml()">{{languageJson.AlarmRecord.Export}}</button><!--导出...-->
+        </div>
+    </div>
+    <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-inline">
+                <div class="col-lg-12 form-group WhiteInput">
+                    <label class="control-label"><i class="fa fa-bullseye"></i> {{languageJson.SignalRecord.Selected.Title}}</label><!--已选信号:-->
+                    <span isteven-multi-select
+                          input-model="allsigs"
+                          output-model="selectedsigs"
+                          button-label="name (deviceName)"
+                          item-label="name"
+                          tick-property="selected"
+                          translation="localLang"
+                          orientation="horizontal"
+                          max-labels="20"
+                          max-height="450px"
+                          group-property="msGroup"
+                          on-select-all="onSelectAll()"
+                    >
+					</span>
+                </div>
+                <div class="col-lg-2">
+                    <select class="form-control"  ng-model="SelectTimeType" ng-change="changeTimeType(SelectTimeType)" style="margin-top: 12px;text-align-last: center;width: 100%;">
+                        <option value="Month">{{languageJson.SignalRecord.TimeType.Month}}</option><!--按月份-->
+                        <option value="YMD">{{languageJson.SignalRecord.TimeType.YMD}}</option><!--按年月日-->
+                    </select>
+                </div>
+                <div class="col-lg-10" ng-show="SelectTimeType == 'Month'">
+                    <label class="control-label text-right left" style="line-height: 60px;">{{startTime}}</label>
+                    <div class="col-lg-9">
+                        <rangeslider min="1" max="12" value="11" rang-value="rangeValues"></rangeslider>
+                    </div>
+                    <label class="control-label text-right" style="line-height: 60px;">{{endTime}}</label>
+                </div>
+                <div class="col-lg-10" ng-show="SelectTimeType == 'YMD'" style="height: 91px;padding-top: 14px;">
+                    <label class="control-label col-lg-2" style="text-align: right;line-height: 35px;"><i class="fa fa-calendar"></i> {{languageJson.AlarmRecord.StartTime}}</label><!--开始时间-->
+                    <div class="col-lg-3"><input id="TimeControl1" class="form-control" ng-model="SelectTime.startDate" style="width: 100%;"></div>
+                    <label class="control-label col-lg-2" style="text-align: right;line-height: 35px;"><i class="fa fa-calendar"></i> {{languageJson.AlarmRecord.EndTime}}</label><!--开始时间-->
+                    <div class="col-lg-3"><input id="TimeControl2" class="form-control" ng-model="SelectTime.endDate" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-opacity">
+        <div class="row">
+            <div class="col-lg-12">
+                <div><chart value="chartData" height="450" obj="chart"></chart></div>
+            </div>
+        </div>
+        <div class="row dialog_box">
+            <div class="col-lg-12 alarm_table_body">
+
+                <table  id="hisDataTable" ng-table="tableParams" show-filter="false" class="table ng-table-responsive  table-condensed alarm_table table_body" >
+                    <tr ng-repeat="hisData in $data">
+                        <td data-title="languageJson.SignalRecord.Table.Name" filter="{ 'name': 'text' }">
+                            <div  class="text-center">
+                                <span>{{hisData.name}}</span>
+                            </div>
+                        </td><!--'名称'-->
+                        <td data-title="languageJson.SignalRecord.Table.Type" filter="{ 'baseType': 'text' }">
+                            <div  class="text-center">
+                                <span>{{hisData.baseType}}</span>
+                            </div>
+                        </td><!--'类型'-->
+                        <td data-title="languageJson.SignalRecord.Table.Value" >
+                            <div  class="text-center">
+								<span>
+									{{hisData.floatValue | precise : hisData.showPrecision}} {{hisData.unit}}
+								</span>
+                            </div>
+                        </td><!--'值'-->
+                        <td data-title="languageJson.SignalRecord.Table.Meaning" >
+                            <div class="text-center">
+                                <span>{{hisData.meanings}}</span>
+                            </div>
+                        </td><!--'含义'-->
+                        <td data-title="languageJson.SignalRecord.Table.Time" >
+                            <div class="text-center">
+                                <span>{{hisData.sampleTime}}</span>
+                            </div>
+                        </td><!--'采集时间'-->
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

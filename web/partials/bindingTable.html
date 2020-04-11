@@ -1,0 +1,28 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.BindDataBox.Title}}</h4><!--数据绑定设置-->
+            </div>
+            <div class="modal-body div_body">
+                <div class="form-group">
+                    <label>{{languageJson.Configuration.BindDataBox.Select}}</label><!--信号选择-->
+                    <input type="text" class="input-filter form-control ng-valid ng-scope ng-touched ng-dirty ng-valid-parse " placeholder="{{languageJson.Configuration.BindDataBox.Filter}}" ng-model="selecteds" Virtual-Key-Board="selecteds"
+                           style="width: 100%;display:inline;margin:10px 0px;"></br><!--筛选信号-->
+                    <select class="form-control" multiple="true"
+                            ng-options="dev.name for dev in data.devices | filter:{name : selecteds}"
+                            ng-model="data.selecteds" >
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning"
+                        ng-click="deleteBind()">{{languageJson.Configuration.BindDataBox.Delete}}</button><!--删除绑定-->
+                <button type="button" class="btn btn-primary"
+                        ng-click="ok()">{{languageJson.Configuration.BindDataBox.Setting}}</button><!--设置绑定-->
+            </div>
+        </div>
+    </div>
+</div>

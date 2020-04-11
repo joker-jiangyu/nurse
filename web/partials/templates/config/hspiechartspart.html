@@ -1,0 +1,12 @@
+<div class="panel-primary" partid="[id]" style="position: absolute; left: [left]px; top: [top]px; width: [width]px; height: [height]px; z-index: [zindex];">
+    <div class="panel-body chart-body [options.Background]">
+        <div style="border-bottom: 1px solid rgba(243, 240, 240, 0.5);font-size: 20px;padding-left: 15px;" ng-hide="{{'[options.Title]' === ''}}">
+            <label class="title">[options.Title]</label>
+        </div>
+        <div class="pieChart" style="width: 100%; height:  calc(100% - 30px);"></div>
+
+        <div class="export-button" ng-hide="{{'[options.Title]' === ''}}">
+            <i class="fa fa-download" style="position: absolute;top: 27px;right: 10px;cursor: pointer;font-size: 20px;" ng-click="clickExport('[id]','hspiechartspart')" title="{{languageJson.Configuration.HistoryChartControl.Export}}"></i>
+        </div>
+    </div>
+</div>

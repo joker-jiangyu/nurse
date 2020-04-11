@@ -1,0 +1,47 @@
+<div class="container-fluid" ng-controller="ConfigMdcCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header left">{{configMdc.titleName}}</h1>
+            <div class="page-header right" style="padding-right: 1.5vw;">
+                <!--<button type="button" class="btn btn-primary" ng-click="showConfigMdc()">修改微模块配置</button>-->
+                &nbsp;&nbsp;
+                <button class="btn btn-default btn-warning" ng-click="reLoadEquipmentConfigClick()">配置生效</button>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <div id="AlarmRoot">
+        <div class="root-cheek">
+            <div class="water">
+                <div id="waterA" hidden class="button position1 normal" ng-click="signalClk('水浸1','1004','WaterA',otherSignals.waterA)" style="display: block;z-index:1;top:25vh;">
+                    <input type="hidden" ng-model="cabinet.waterA" />
+                </div>
+            </div>
+            <!-- 机柜 -->
+            <div id="MdcCabinet" style="margin-top:29vh;">
+                <div class="cabinet-box" ng-mouseenter="cabinetMouseenter()" ng-mouseleave="cabinetMouseleave()">
+                    <div class="cabinet">
+                        <table style="margin: 0px auto;width:{{MdcWidth}}%">
+                            <tr>
+                                <td colspan="16">
+                                    <div id="skyFalling" class="corridor normal" style="display: block;height: 0px;">
+                                        <div id="camera4" class="camera camera4" ng-click="cameraClk('4')" style="top:-15vh;left:{{MdcWidth/100*35.5}}vw;"></div>
+                                        <div id="smoke2" hidden class="smoke smoke2 normal" ng-click="signalClk('烟感2','1004','Smoke2',otherSignals.smoke2)" style="display: block;top: 17vh;right:12vw;">
+                                            <input type="hidden" ng-model="cabinet.smoke2" />
+                                        </div>
+                                        <div id="infrared1" hidden class="infrared infrared1 normal" ng-click="signalClk('红外1','1004','Infrared1',otherSignals.infrared1)" style="display: block;top: 17vh;">
+                                            <input type="hidden" ng-model="cabinet.infrared1" />
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="mdc-alarm-tr2" class="device"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

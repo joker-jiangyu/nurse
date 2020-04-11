@@ -1,0 +1,8 @@
+/bin/*
+*.log
+*.log.1
+.idea/*
+.metadata/*
+/target/*
+/web/upload/*
+/target/

@@ -1,0 +1,32 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Header.Advanced.Title}}</h4>
+            </div>
+            <div class="modal-body center-block">
+                <table align="center" class="body_transparent">
+                    <tr>
+                        <td align="right" style="padding-right: 10px;">{{languageJson.Header.Advanced.Ip.IP}}</td>
+                        <td><input type="text" id="newIp" ng-model="newIp" class="form-control" size="40" Virtual-Key-Board="newIp"/></td>
+                    </tr>
+                    <tr><td><br/></td></tr>
+                    <tr>
+                        <td align="right" style="padding-right: 10px;">{{languageJson.Header.Advanced.Ip.Mask}}</td>
+                        <td><input type="text" id="netmask" ng-model="netmask" class="form-control" Virtual-Key-Board="netmask"/></td>
+                    </tr>
+                    <tr><td><br/></td></tr>
+                    <tr>
+                        <td align="right" style="padding-right: 10px;">{{languageJson.Header.Advanced.Ip.Gateway}}</td>
+                        <td><input type="text" id="defaultGw" ng-model="defaultGw" class="form-control" Virtual-Key-Board="defaultGw"/></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Header.Advanced.Ip.Close}}</button>
+                <button type="button" class="btn btn-primary" ng-click="ipSave()">{{languageJson.Header.Advanced.Ip.Modify}}</button>
+            </div>
+        </div>
+    </div>
+</div>

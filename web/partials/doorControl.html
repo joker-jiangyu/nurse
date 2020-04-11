@@ -1,0 +1,298 @@
+<div class="container-fluid" ng-controller="DoorConfigCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.Person.Config}} > {{languageJson.Access.Control}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="panel-body" ng-init="tab=1;tabs=0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="tab" ng-class="{active:tab==1}" ng-click="initSpeedAddDoorCard();tabs=0">
+                <a href ng-click="tab = 1"> {{languageJson.Access.Control}} </a><!--门禁管理-->
+            </li>
+            <li class="tab" ng-class="{active:tab==2}" ng-click="tabs=1;loadCard()">
+                <a href ng-click="tab = 2"> {{languageJson.Access.Management}}</a><!--维护管理-->
+            </li>
+        </ul>
+
+        <div class="tab-content tab-pane" ng-show="tab==1">
+            <form class="form-horizontal">
+                <div class="panel panel-default" style="background-color: rgba(0,0,0,0);width: 800px;">
+                    <div class="panel-body">
+                        <div class="form-group col-md-12"></div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label col-md-2">{{languageJson.Access.Card}}<!--卡号类型-->
+                            </label>
+                            <div class="col-md-4">
+                                <select class="form-control" name = "userId" ng-model="SpeedDoorCard.cardType">
+                                    <option value="{{row.ItemId}}" ng-repeat="row in CardTypes"
+                                            ng-selected="row.ItemId == CardTypes[0].ItemId">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label col-md-2">
+                                {{languageJson.Access.Cards}}
+                            </label><!--卡号:-->
+
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="{{languageJson.Access.Code}}" type="text"  ng-model="SpeedDoorCard.cardCode"
+                                       ng-change="cardCodeChange()"/><!--请输入卡号-->
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" name = "doorName" ng-model="selectedEquipmentId" ng-change="filterTimeGroupByDoor(selectedEquipmentId)">
+                                    <option value="{{row.equipmentId}}" ng-repeat="row in DoorManage.doorList">{{row.doorName}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-primary" ng-click="getCardCode()">{{languageJson.Access.Get}}</button><!--获取卡号-->
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label col-md-2">{{languageJson.Access.Cardholder}}</label><!--持卡人-->
+                            <div class="col-md-4">
+                                <select class="form-control" name = "userId" ng-model="SpeedDoorCard.userId">
+                                    <option value="{{row.EmployeeId}}" ng-repeat="row in CardManage.addCard.employee">{{row.EmployeeName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="margin-bottom: 0px;">
+                            <label class="control-label col-md-2">{{languageJson.Access.Door}}</label>
+                            <div class="col-md-4 timeGroupCheck" style="margin-top:5px;">
+                                <label>
+                                    <input type="checkbox" ng-click="checkedDoor($event)" ng-model="isAllCheck">
+                                    <i>{{getCheckbox(isAllCheck)}}</i>
+                                </label>
+                                {{languageJson.Access.All}}
+                            </div><!--全选-->
+                        </div>
+                        <div class="form-group col-md-12" style="margin-bottom: 0px;">
+                            <label class="control-label col-md-2"></label>
+                            <div class="col-md-9">
+                                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped tbody-overflow time_set_bg">
+                                    <thead class="ng-scope">
+                                    <tr class="ng-table-sort-header">
+                                        <th class="td1">{{languageJson.Access.Select}}</th><!--选择-->
+                                        <th class="td2">{{languageJson.Access.Name}}</th><!--门名称-->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="row in DoorManage.doorList">
+                                        <td class="td1" align="center">
+                                            <input type="checkbox" ng-model="row.isCheck" ng-checked="{{item.isCheck}}" />
+                                        </td>
+                                        <td class="td2" align="center">{{row.doorName}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label col-md-2 tooltip-options">{{languageJson.Access.Time}}<!--时段限制-->
+                            </label>
+                            <div class="col-md-4">
+                                <select class="form-control" name = "portType" ng-model="SpeedDoorCard.timeGroup">
+                                    <option value="{{item.timeGroupId}}" ng-repeat="item in TimeGroupFilter"
+                                            ng-selected="{{item.timeGroupId==99999999}}">{{item.timeGroupName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label col-md-2">{{languageJson.Access.End}}</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" ng-model="SpeedDoorCard.endTime" name="endDate" data-date-format="yyyy-MM-dd" bs-datepicker>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label col-md-2 tooltip-options">{{languageJson.Access.Swipe}}<!--刷卡加密码-->
+                                <a  href="#" data-toggle="tooltip"
+                                    title="<h5>{{languageJson.Access.Password}}</h5>"><!--刷卡加密码:需要先在门管理中勾选'刷卡加密码-->
+                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                </a>
+                            </label>
+                            <div class="col-md-4" ng-show="isShowPwd">
+                                <input type="text" class="form-control" ng-model="SpeedDoorCard.openPassWord" name="endDate" placeholder="默认不用密码">
+                            </div>
+                            <div class="col-md-3 timeGroupCheck" style="margin-top:5px;">
+                                <label>
+                                    <input type="checkbox" ng-click="checkedPwd($event)">
+                                    <i>{{getCheckbox(isShowPwd)}}</i>
+                                </label>
+                                {{languageJson.Access.Use}}<!--使用密码-->
+                            </div>
+                        </div>
+                        <div class="modal-footer col-md-7">
+                            <button type="button" class="btn btn-primary"
+                                    ng-click="SpeedAddDoorCardClick()">{{languageJson.Access.Adds}}</button><!--新增卡-->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-content tab-pane" ng-show="tab==2">
+            <!-- /.row -->
+            <div class="panel-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="tabs" ng-class="{active:tabs==1}" ng-click="loadCard()">
+                        <a href ng-click="tabs = 1">{{languageJson.Card.Management}}</a><!--卡管理-->
+                    </li>
+                    <li class="tabs" ng-class="{active:tabs==2}">
+                        <a href ng-click="tabs = 2">{{languageJson.Card.Door}}</a><!--门管理-->
+                    </li>
+                    <li class="tabs" ng-class="{active:tabs==3}" ng-click="loadData()">
+                        <a href ng-click="tabs = 3">{{languageJson.Card.Time}}</a><!--时限管理-->
+                    </li>
+                </ul>
+
+                <div class="tab-content tab-pane" ng-show="tabs==1">
+                    <div class="tabs-below" style="height: 4.5vh;">
+                        <div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2" style="line-height: 30px;width: 90px;{{languageJson.Language == 'English'?'width:auto;':''}}">{{languageJson.Card.Type}}</label><!--卡号类型:-->
+                                <div class="col-md-1">
+                                    <select class="form-control" name = "portType" ng-model="selectCard.cardCategory">
+                                        <option value="{{item.ItemId}}" ng-repeat="item in CardManage.cardDataItem.CardCategory">{{languageJson.Language == 'English' ? item.ItemAlias : item.ItemValue}}</option>
+                                    </select>
+                                </div>
+                                <label class="control-label col-md-2" style="line-height: 30px;width: 90px;{{languageJson.Language == 'English'?'width:auto;':''}}">{{languageJson.Card.Card}}</label><!--卡名称：-->
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" ng-model="selectCard.cardName"/>
+                                </div>
+                                <label class="control-label col-md-2" style="line-height: 30px;width: 110px;{{languageJson.Language == 'English'?'width:auto;':''}}">{{languageJson.Card.Cards}}</label><!--卡号类型：-->
+                                <div class="col-md-1">
+                                    <select class="form-control" name = "portType" ng-model="selectCard.cardType">
+                                        <option value="{{item.ItemId}}" ng-repeat="item in CardManage.cardDataItem.CardType">{{languageJson.Language == 'English' ? item.ItemAlias : item.ItemValue}}</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer col-md-1" style="padding: 0px;">
+                                    <button type="button" class="btn btn-primary" ng-click="selectCardClick()">{{languageJson.Card.Query}}</button><!--查询-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{languageJson.Card.List}}<!--卡信息列表-->
+                        </div>
+                        <div class="panel-body">
+                            <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                <tr ng-repeat="row in paginationCard.cardList">
+                                    <td data-title="languageJson.Card.Number" filter="{EquipmentId: 'number'}" align="center">{{row.cardCode}}</td><!--卡号-->
+                                    <td data-title="languageJson.Card.Name" filter="{EquipmentName: 'text'}" align="center">{{row.cardName}}</td><!--'卡名称'-->
+                                    <td data-title="languageJson.Card.Cardholder" filter="{EquipmentName: 'text'}" align="center">{{row.userName}}</td><!--'持卡人'-->
+                                    <td data-title="languageJson.Card.Types" filter="{EquipmentName: 'text'}" align="center">{{row.cardCategoryName}}</td><!--'卡类型'-->
+                                    <td data-title="languageJson.Card.Numbertype" filter="{EquipmentName: 'text'}" align="center">{{row.cardTypeName}}</td><!--'卡号类型'-->
+                                    <td data-title="languageJson.Card.Associated" align="center">{{row.doorList}}</td><!--'关联门列'-->
+                                    <td data-title="languageJson.Card.Registration" filter="{EquipmentId: 'number'}" align="center">{{row.registerTime}}</td><!--'注册时间'-->
+                                    <td data-title="languageJson.Card.Effective" filter="{EquipmentName: 'text'}" align="center">{{row.endTime}}</td><!--'有效时间'-->
+                                    <td class="center" data-title="languageJson.Card.Operation" align="center"><!--'操作'-->
+                                        <button type="button" class="btn btn-sm btn-primary"  ng-click="updateCardClick(row.cardId,row.cardStatus)">{{languageJson.Card.Modify}}</button><!--修改-->
+                                        &nbsp;&nbsp;
+                                        <button type="button" class="btn btn-sm btn-danger"  ng-click="deleteCardClick(row.cardId)">{{languageJson.Card.Delete}}</button><!--删除-->
+                                    </td>
+                                </tr>
+                            </table>
+                            <tm-Pagination-Card card="paginationCard" carddataitem="CardManage.cardDataItem"></tm-Pagination-Card>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content tab-pane" ng-show="tabs==2">
+                    <br/>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{languageJson.Manage.List}}<!--门信息列表-->
+                        </div>
+                        <div class="panel-body">
+                            <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                <tr ng-repeat="row in DoorManage.doorList">
+                                    <td data-title="languageJson.Manage.Access" filter="{equipmentName: 'text'}" align="center">{{row.equipmentName}}</td><!--'门禁控制器'-->
+                                    <td data-title="languageJson.Manage.Door" filter="{doorId: 'number'}" align="center">{{row.doorNo}}</td><!--'门号'-->
+                                    <td data-title="languageJson.Manage.Name" filter="{doorName: 'text'}" align="center">{{row.doorName}}</td><!--'门名称'-->
+                                    <td data-title="languageJson.Manage.Address" filter="{address: 'text'}" align="center">{{row.address}}</td><!--'门安装地址'-->
+                                    <td class="center" data-title="languageJson.Manage.Operation" align="center"><!--'操作'-->
+                                        <button type="button" class="btn btn-sm btn-primary"  ng-click="selectDoorByIdClick(row.doorId)">{{languageJson.Manage.Modify}}</button><!--修改-->
+                                        &nbsp;&nbsp;
+                                        <button type="button" class="btn btn-sm btn-warning"  ng-click="controlDoorClick(row)">{{languageJson.Manage.Control}}</button><!--控制-->
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content tab-pane" ng-show="tabs==3">
+                    <div class="tabs-below">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="height: 45vh;background-color: rgba(0, 0, 0, 0);{{languageJson.Language == 'English'?'width:auto;':''}}">
+
+                                <div class="panel-heading tooltip-options">
+                                    {{languageJson.Advance.Advance}}<!-- 准进时段维护-->
+                                </div>
+                                <div class="panel-body" style="padding-top: 8px;">
+                                    <div class="col-md-3">
+                                        <div class="col-md-12">
+                                            <label class="control-label col-md-4" style="line-height: 35px;">{{languageJson.Advance.Time}}</label><!--准进时间组:-->
+                                            <div class="col-md-6">
+                                                <input class="form-control" placeholder="{{languageJson.Advance.Please}}" type="text" ng-model="DataManage.addName"><!--输入名称新增-->
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-primary" ng-click="insertTimeGroupClick()">{{languageJson.Advance.Add}}</button><!--新增-->
+                                            </div>
+                                        </div>
+                                        <div class="panel-body time_set_bg" style="margin-top: 40px;height: 31vh;overflow-y: auto;">
+                                            <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                                                <tr ng-repeat="row in DoorManage.timeGroup" ng-click="showTimeGroup(row)">
+                                                    <td data-title="languageJson.Advance.ID" filter="{EquipmentId: 'number'}" align="center">{{row.timeGroupId}}</td><!--'编号'-->
+                                                    <td data-title="languageJson.Advance.Name" filter="{EquipmentName: 'text'}" align="center">{{row.timeGroupName}}</td><!--'名称'-->
+                                                    <td class="center" data-title="languageJson.Advance.Operation" align="center"><!--'操作'-->
+                                                        <button type="button" class="btn btn-sm btn-danger" ng-hide="{{row.timeGroupId==99999999}}"
+                                                                ng-click="deleteTimeGroupClick(row.timeGroupId)">{{languageJson.Advance.Delete}}</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="col-md-5">
+                                            <label class="control-label col-md-3" style="line-height: 35px;">{{languageJson.Advance.Group}}</label><!--时间组:-->
+                                            <div class="col-md-6">
+                                                <input class="form-control" placeholder="{{languageJson.Advance.Times}}" type="text" ng-model="DataManage.updName"><!--请选择时间组-->
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-primary {{isHide}}" ng-click="updateTimeGroupClick()">{{languageJson.Advance.Save}}</button>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body timeGroupCheck time_set_bg" style="margin-top: 40px;height: 31vh;overflow-y: auto;">
+                                            <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                                <tr ng-repeat="row in DataManage.timeGroupSpan">
+                                                    <td data-title="languageJson.Advance.One" align="center"><!--一周每天时段-->
+                                                        <label ng-repeat="item in row.checks">
+                                                            <input type="checkbox" ng-checked="{{item.isCheck}}" ng-model="item.isCheck"
+                                                                   ng-click="clickTimeGroup()">
+                                                            <i>{{item.id}}</i>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                                                <tr ng-repeat="row in DataManage.allowTime">
+                                                    <td data-title="languageJson.Advance.Serial" align="center">{{row.count}}</td><!--'序号'-->
+                                                    <td data-title="languageJson.Advance.Advances" align="center">{{row.time}}</td><!--'可进时段'-->
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

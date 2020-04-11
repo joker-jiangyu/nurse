@@ -1,0 +1,28 @@
+<div class="modal-content am-modal-dialog">
+    <div class="modal-header">
+        <h4 class="modal-title">{{languageJson.Header.Advanced.Ip.Title}}</h4>
+    </div>
+    <div class="model-body-footer">
+        <div class="modal-body center-block">
+            <table align="center" class="body_transparent" style="margin: 0px auto;">
+                <tr>
+                    <td align="right" style="padding-right: 10px;">{{languageJson.Header.Advanced.Ip.IP}}</td>
+                    <td><input type="text" id="newIp" ng-model="newIp" class="form-control" size="30" Virtual-Key-Board="newIp"/></td>
+                </tr>
+                <tr><td><br/></td></tr>
+                <tr>
+                    <td align="right" style="padding-right: 10px;">{{languageJson.Header.Advanced.Ip.Mask}}</td>
+                    <td><input type="text" id="netmask" ng-model="netmask" class="form-control" size="30" Virtual-Key-Board="netmask"/></td>
+                </tr>
+                <tr><td><br/></td></tr>
+                <tr>
+                    <td align="right" style="padding-right: 10px;">{{languageJson.Header.Advanced.Ip.Gateway}}</td>
+                    <td><input type="text" id="defaultGw" ng-model="defaultGw" class="form-control" size="30" Virtual-Key-Board="defaultGw"/></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="ipSave()"><i class="fa fa-pencil-square-o"></i> {{languageJson.Header.Advanced.Ip.Modify}}</button>
+        </div>
+    </div>
+</div>

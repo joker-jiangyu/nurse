@@ -1,0 +1,204 @@
+<div class="container-fluid" ng-controller="MdcSignalRecordCtrl">
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="btn-group diagram" ng-model="select.selectedMdcId" bs-radio-group>
+            <label ng-repeat="dev in mdcConfigs" class="btn diagram-tab" ng-click="changeDevice('2D',dev.id)">
+                <input type="radio" value="{{dev.id}}">{{dev.name}}
+            </label>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+
+    <!-- 微模块查询 -->
+    <div id="AlarmRoot" ng-hide="isShowRoot">
+        <div class="root-cheek">
+            <div class="cabinet_body">
+                <div class="water">
+                    <div id="water1" ng-click="devicesClk('Environment','')" class="button position1 normal"></div>
+                    <div id="water2" ng-click="devicesClk('Environment','')" class="button position2 normal"></div>
+                </div>
+                <!-- 机柜 -->
+                <div id="MdcCabinet">
+                    <div class="cabinet-box">
+                        <div class="cabinet">
+                            <table class="body_transparent" style="margin: 0px auto;">
+                                <tr class="door">
+                                    <td rowspan="4" style="width: 24px;"><div ng-click="devicesClk('Door','')" class="door1 normal right"></div></td>
+                                    <td colspan="16"></td>
+                                    <td rowspan="4" style="width: 24px;"><div ng-click="devicesClk('Door','')" class="door2 normal left"></div></td>
+                                </tr>
+                                <tr id="mdc-alarm-tr1" class="device"></tr>
+                                <tr>
+                                    <td colspan="16">
+                                        <div id="skyFalling" ng-click="devicesClk('Environment','')" class="corridor normal" style="cursor: pointer;">
+                                            <table id="AisleTable" class="cabinet-aisle-table body_transparent">
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="mdc-alarm-tr2" class="device"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 历史告警 、 历史数据 -->
+    <div id="HistoryRoot" ng-show="isShowRoot">
+        <!-- 历史告警 -------------------------------------------------------------------------- -->
+        <div class="history-alarm-body">
+            <div class="query col-lg-12">
+                <div class="btn-toolbar" role="toolbar" data-toggle="buttons">
+                    <label class="control-label col-md-12">{{languageJson.MdcSignalRecord.HisAlarm.AlarmTime}}</label><!--告警时间：-->
+                    <div class="btn-group">
+                        <label class="btn btn-primary {{selectQuery.alarmType == 'day' && selectQuery.alarmNumber == 3 ? 'active' : ''}}" ng-click="queryHisAlarm('day',3)">
+                            <input type="radio" name="alarm"> {{languageJson.MdcSignalRecord.HisAlarm.ThreeDays}}
+                        </label><!--三天-->
+                        <label class="btn btn-primary {{selectQuery.alarmType == 'day' && selectQuery.alarmNumber == 7 ? 'active' : ''}}" ng-click="queryHisAlarm('day',7)">
+                            <input type="radio" name="alarm"> {{languageJson.MdcSignalRecord.HisAlarm.OneWeek}}
+                        </label><!--一周-->
+                        <label class="btn btn-primary {{selectQuery.alarmType == 'day' && selectQuery.alarmNumber == 14 ? 'active' : ''}}" ng-click="queryHisAlarm('day',14)">
+                            <input type="radio" name="alarm"> {{languageJson.MdcSignalRecord.HisAlarm.TwoWeek}}
+                        </label><!--两周-->
+                        <label class="btn btn-primary {{selectQuery.alarmType == 'day' && selectQuery.alarmNumber == 30 ? 'active' : ''}}" ng-click="queryHisAlarm('day',30)">
+                            <input type="radio" name="alarm"> {{languageJson.MdcSignalRecord.HisAlarm.OneMonth}}
+                        </label><!--一个月-->
+                    </div>
+                    <label class="control-label col-md-12">{{languageJson.MdcSignalRecord.HisAlarm.QueryNumber}}</label><!--总条数：-->
+                    <div class="btn-group">
+                        <label class="btn btn-primary {{selectQuery.alarmType == 'total' && selectQuery.alarmNumber == 10 ? 'active' : ''}}" ng-click="queryHisAlarm('total',10)">
+                            <input type="radio" name="alarm"> {{languageJson.MdcSignalRecord.HisAlarm.N10}}
+                        </label><!--10条-->
+                        <label class="btn btn-primary {{selectQuery.alarmType == 'total' && selectQuery.alarmNumber == 20 ? 'active' : ''}}" ng-click="queryHisAlarm('total',20)">
+                            <input type="radio" name="alarm"> {{languageJson.MdcSignalRecord.HisAlarm.N20}}
+                        </label><!--20条-->
+                        <label class="btn btn-primary {{selectQuery.alarmType == 'total' && selectQuery.alarmNumber == 50 ? 'active' : ''}}" ng-click="queryHisAlarm('total',50)">
+                            <input type="radio" name="alarm"> {{languageJson.MdcSignalRecord.HisAlarm.N50}}
+                        </label><!--50条-->
+                        <label class="btn btn-primary {{selectQuery.alarmType == 'total' && selectQuery.alarmNumber == 100 ? 'active' : ''}}" ng-click="queryHisAlarm('total',100)">
+                            <input type="radio" name="alarm"> {{languageJson.MdcSignalRecord.HisAlarm.N100}}
+                        </label><!--100条-->
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <div ng-show="isNoAlarm" style="font-size: 16px;">{{languageJson.MdcSignalRecord.NoData}}</div><!--没有数据...-->
+                <div class="alarm-content" ng-repeat="row in HisAlarms">
+                    <table class="body_transparent">
+                        <tr>
+                            <th colspan="2"><i class="fa fa-bell fa-fw alarm-level-{{row.alarmLevel}}"></i>{{row.alarmLevelName}}</th>
+                        </tr>
+                        <tr>
+                            <th>{{languageJson.MdcSignalRecord.HisAlarm.DeviceName}}</th><td>[{{row.siteName}}]{{row.deviceName}}</td>
+                        </tr><!--设备名称：-->
+                        <tr>
+                            <th>{{languageJson.MdcSignalRecord.HisAlarm.StartTime}}</th><td>{{row.startTime}}</td>
+                        </tr><!--发生时间：-->
+                        <tr>
+                            <th>{{languageJson.MdcSignalRecord.HisAlarm.EndTime}}</th><td>{{row.endTime}}</td>
+                        </tr><!--结束时间：-->
+                        <tr>
+                            <th>{{languageJson.MdcSignalRecord.HisAlarm.AlarmContent}}</th><td>{{row.eventName}} {{row.meanings}}[{{languageJson.MdcSignalRecord.HisAlarm.TriggerValue}}{{row.triggerValue}}]</td>
+                        </tr><!--告警内容： 触发值:-->
+                        <tr>
+                            <th>{{languageJson.MdcSignalRecord.HisAlarm.AlarmStatus}}</th><td>{{row.Status}}</td>
+                        </tr><!--告警状态：-->
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- 历史数据 -------------------------------------------------------------------------- -->
+        <div class="history-signal-body">
+            <div class="device-list diagram" ng-hide="isTable">
+                <div class="device-scroll" >
+                    <div class="device-list-div" data-toggle="buttons">
+                        <label ng-repeat="row in ChartDevices" class="btn {{row.id == selectQuery.deviceId ? 'active' : ''}}" ng-click="chartDeviceClk(row.id)">
+                            <input type="radio" name="device"> {{row.name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="data-body" style="height: 51px">
+                <div class="query col-lg-12" >
+                    <div ng-hide="isTable" style="float: left;">
+                        <button ng-click="settingChartParam(selectQuery.deviceId)" class="btn btn-primary">{{languageJson.MdcSignalRecord.HisData.SettingCharts}}</button><!--设置曲线图参数-->
+                    </div>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary {{selectQuery.signalDays == 3 ? 'active' : ''}}" ng-click="queryHisData(3)">
+                            <input type="radio" name="data"> {{languageJson.MdcSignalRecord.HisData.ThreeDays}}
+                        </label><!--三天-->
+                        <label class="btn btn-primary {{selectQuery.signalDays == 7 ? 'active' : ''}}" ng-click="queryHisData(7)">
+                            <input type="radio" name="data"> {{languageJson.MdcSignalRecord.HisData.OneWeek}}
+                        </label><!--一周-->
+                        <label class="btn btn-primary {{selectQuery.signalDays == 14 ? 'active' : ''}}" ng-click="queryHisData(14)">
+                            <input type="radio" name="data"> {{languageJson.MdcSignalRecord.HisData.TwoWeek}}
+                        </label><!--两周-->
+                        <label class="btn btn-primary {{sselectQuery.signalDays == 30 ? 'active' : ''}}" ng-click="queryHisData(30)">
+                            <input type="radio" name="data"> {{languageJson.MdcSignalRecord.HisData.OneMonth}}
+                        </label><!--一个月-->
+                        <label class="btn btn-primary {{selectQuery.signalDays == 90 ? 'active' : ''}}" ng-click="queryHisData(90)">
+                            <input type="radio" name="data"> {{languageJson.MdcSignalRecord.HisData.ThreeMonth}}
+                        </label><!--三个月-->
+                        <label class="btn btn-primary {{selectQuery.signalDays == 180 ? 'active' : ''}}" ng-click="queryHisData(180)">
+                            <input type="radio" name="data"> {{languageJson.MdcSignalRecord.HisData.HalfYear}}
+                        </label><!--半年-->
+                        <label class="btn btn-primary {{selectQuery.signalDays == 365 ? 'active' : ''}}" ng-click="queryHisData(365)">
+                            <input type="radio" name="data"> {{languageJson.MdcSignalRecord.HisData.OneYear}}
+                        </label><!--一年-->
+                    </div>
+                </div>
+            </div>
+            <div class="data-body scroll-easy" style="height: calc(100% - 100px);overflow-y: auto;overflow-x: hidden;">
+                <div class="body body-table" ng-show="isTable">
+                    <table class="table table-condensed table-bordered table-striped alarm_table table_body">
+                        <thead class="ng-scope">
+                        <tr class="ng-table-sort-header">
+                            <th class="header pointer" style="text-align: center;">{{languageJson.CardsRecord.Table.DoorNo}}</th><!--门号-->
+                            <th class="header pointer" style="text-align: center;">{{languageJson.CardsRecord.Table.DoorName}}</th><!--门名称-->
+                            <th class="header pointer" style="text-align: center;">{{languageJson.CardsRecord.Table.CardCode}}</th><!--卡号-->
+                            <th class="header pointer" style="text-align: center;">{{languageJson.CardsRecord.Table.CardName}}</th><!--卡名称-->
+                            <th class="header pointer" style="text-align: center;">{{languageJson.CardsRecord.Table.Cardholder}}</th><!--持卡人-->
+                            <th class="header pointer" style="text-align: center;" >{{languageJson.CardsRecord.Table.SwipeCardSign}}</th><!--刷卡标志-->
+                            <th class="header pointer" style="text-align: center;">{{languageJson.CardsRecord.Table.SwipeCardTime}}</th><!--刷卡时间-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in tableParams.list">
+                            <td align="center">{{row.DoorNo}}</td>
+                            <td align="center">{{row.DoorName}}</td>
+                            <td align="center">{{row.CardCode}}</td>
+                            <td align="center">{{row.CardName}}</td>
+                            <td align="center">{{row.CardUserName}}</td>
+                            <td align="center">{{languageJson.Language == 'Chinese'?row.ValidName:row.ItemAlias}}</td>
+                            <td align="center">{{row.RecordTime}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div style="padding-top: 5px;"></div>
+                    <!-- 使用方法请参照Directives.js => tablePaging -->
+                    <table-Paging table-Param="tableParams" filter-Param="filter"></table-Paging>
+                </div>
+                <div ng-hide="isTable">
+                    <div class="body body-chart">
+                        <div ng-show="isNoHisData" style="font-size: 16px;">{{languageJson.MdcSignalRecord.NoData}}</div><!--没有数据...-->
+                        <div class="chart chart{{row.ChartMapId}}" ng-repeat="row in HisSignals"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="history-button">
+            <button ng-click="returnTable()" class="btn btn-primary">
+                <i class="fa fa-share fa-flip-horizontal fa-fw"></i>
+                {{languageJson.Login.Return}}
+            </button><!--返回-->
+        </div>
+    </div>
+    <div class="fullscreen">
+        <a title="全屏,按ESC退出." ng-click="FullScreen()"><i class="glyphicon glyphicon-fullscreen" ></i></a>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".MdcMenu div").tooltip({html : true });});
+</script>

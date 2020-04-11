@@ -1,0 +1,202 @@
+<div ng-controller="editorCtrl" style="width: 100%;">
+  <div id="left" >
+    <div class="section">
+      <div class="sectionHeader" >
+        <span class="glyphicon glyphicon-th"></span>
+      {{languageJson.Room3D.Title}}</div><!--功能-->
+      <div class="sectionBody">
+        <div ng-class="{symbol : true, symbolActive : bn.currentSymbol === sym}"
+          ng-repeat="sym in bn.symbols" ng-show="sym.visible"
+          ng-click="bn.selectSymbol(sym)"
+          bs-tooltip="sym.tip" data-placement="right">
+          <div>
+            <span><image class="icon" ng-src="{{sym.icon}}"></image></span>
+            <p/>
+              <span>{{sym.title}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="right" >
+      <div class="section">
+        <div class="sectionHeader">
+          <span class="glyphicon glyphicon-list-alt"></span> {{languageJson.Room3D.Details}}<!--详情-->
+        </div>
+        <div class="sectionBody">
+          <div class = "panel panel-default">
+            <div class = "panel-heading">
+              <h3 class = "panel-title">
+                {{languageJson.Room3D.Basic.Title}}<!--基础信息-->
+              </h3>
+            </div>
+            <div class = "panel-body">
+              <form class="form-inline" role="form">
+                <div class="form-group">
+                  <label for="titleInput">{{languageJson.Room3D.Basic.Name}}</label><!--名称-->
+                  <input style="width:130px;" ng-change="change()" id="titleInput" type="text" ng-model="setting.title">
+                </div>
+                <p></p>
+                <div class="form-group">
+                  <label for="angleInput">{{languageJson.Room3D.Basic.Angle}}</label><!--角度-->
+                  <input style="width:130px;" ng-change="change()" id="angleInput" type="text" ng-model="setting.angle">
+                </div>
+                <p></p>
+                <div class="form-group">
+                  <label for="aboveInput">{{languageJson.Room3D.Basic.Height}}</label><!--高度-->
+                  <input style="width:130px;" ng-change="change()" id="aboveInput" type="text" ng-model="setting.aboveGround">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class = "panel panel-default">
+            <div class = "panel-heading">
+              <h3 class = "panel-title">
+                {{languageJson.Room3D.Data.Title}}<!-- 数据绑定-->
+              </h3>
+            </div>
+            <div class = "panel-body">
+              <form class="form-inline" role="form">
+                <div class="form-group">
+                  <div ng-repeat="bs in setting.bindings">
+                    {{bs.name}}
+                  </div>
+                  <p ng-if="setting.bindings.length == 0">
+                    <strong>{{languageJson.Room3D.Data.No}}</strong><!--无-->
+                  </p>
+                  <p></p>
+                  <div class="text-center">
+                    <button class="btn btn-default" ng-click="bn.setBinding(setting.bindings)">{{languageJson.Room3D.Data.Setting}}</button><!--设置-->
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class = "panel panel-default">
+            <div class = "panel-heading">
+              <h3 class = "panel-title">
+                {{languageJson.Room3D.Appearance.Title}}<!--外观模板-->
+              </h3>
+            </div>
+            <div class = "panel-body">
+              <form class="form-inline" role="form">
+                <div class="form-group">
+                  <label for="titleInput">{{languageJson.Room3D.Appearance.Template}}</label><!--样板-->
+                  <select name="moldSelect" id="moldSelect" style="width:130px;"
+                    ng-options="mold.title for mold in setting.molds track by mold.id"
+                    ng-model="setting.mold" ng-change="change()">
+                  </select>
+                  <p/>
+                    <img ng-show= "setting.mold.img" ng-src="{{setting.mold.img}}"
+                    class="img-thumbnail" width="160" height="160">
+                    <p/>
+                      <p class="text-muted">
+                        {{setting.mold.remark}}
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="main" >
+          <div class="toolbar">
+            <div class="btn-group btn-group-sm btn-group-pad" role="group" aria-label="...">
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.newConfig()"
+              bs-tooltip="bn.local('new')" data-placement="bottom">
+              <span class="glyphicon glyphicon-floppy-disk"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.save()" ng-disabled="!bn.dirty"
+              bs-tooltip="bn.local('save')" data-placement="bottom">
+              <span class="glyphicon glyphicon-floppy-save"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.option()"
+              bs-tooltip="bn.local('page_option')" data-placement="bottom">
+              <span class="glyphicon glyphicon-file"></span>
+              </button>
+            </div>
+            <div class="btn-group btn-group-sm btn-group-pad" role="group" aria-label="...">
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.delete()"
+               bs-tooltip="bn.local('delete')" data-placement="bottom">
+              <span class="glyphicon glyphicon-remove"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.copy()"
+              bs-tooltip="bn.local('clone')" data-placement="bottom">
+              <!-- ng-disabled="bn.selection.length == 0"  -->
+              <span class="glyphicon glyphicon-copy"></span>
+              </button>
+            </div>
+            <div class="btn-group btn-group-sm btn-group-pad" role="group" aria-label="...">
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.align('top')"
+              bs-tooltip="bn.local('align_top')" data-placement="bottom">
+              <span class="glyphicon glyphicon-object-align-top"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.align('hcenter')"
+              bs-tooltip="bn.local('align_hcenter')" data-placement="bottom">
+              <span class="glyphicon glyphicon-object-align-horizontal"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.align('bottom')"
+              bs-tooltip="bn.local('align_bottom')" data-placement="bottom">
+              <span class="glyphicon glyphicon-object-align-bottom"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.spacing('v')"
+              bs-tooltip="bn.local('align_vscale')" data-placement="bottom">
+              <span class="glyphicon glyphicon-resize-vertical"></span>
+              </button>
+            </div>
+            <div class="btn-group btn-group-sm btn-group-pad " role="group" aria-label="...">
+              <button type="button" class="btn btn-default btn-sm"  ng-click="bn.align('left')"
+              bs-tooltip="bn.local('align_left')" data-placement="bottom">
+              <span class="glyphicon glyphicon-object-align-left"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.align('vcenter')"
+              bs-tooltip="bn.local('align_vcenter')" data-placement="bottom">
+              <span class="glyphicon glyphicon-object-align-vertical"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.align('right')"
+              bs-tooltip="bn.local('align_right')" data-placement="bottom">
+              <span class="glyphicon glyphicon-object-align-right"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.spacing('h')"
+              bs-tooltip="bn.local('align_hscale')" data-placement="bottom">
+              <span class="glyphicon glyphicon-resize-horizontal"></span>
+              </button>
+            </div>
+            <div class="btn-group btn-group-sm btn-group-pad " role="group" aria-label="...">
+              <button type="button" class="btn btn-default btn-sm"  ng-click="bn.move('left')"
+              bs-tooltip="bn.local('move_left')" data-placement="bottom">
+              <span class="glyphicon glyphicon-triangle-left"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.move('right')"
+              bs-tooltip="bn.local('move_right')" data-placement="bottom">
+              <span class="glyphicon glyphicon-triangle-right"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.move('up')"
+              bs-tooltip="bn.local('move_up')" data-placement="bottom">
+              <span class="glyphicon glyphicon-triangle-top"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.move('down')"
+              bs-tooltip="bn.local('move_down')" data-placement="bottom">
+              <span class="glyphicon glyphicon-triangle-bottom"></span>
+              </button>
+            </div>
+            <div class="btn-group btn-group-sm btn-group-pad " role="group" aria-label="...">
+              <button type="button" class="btn btn-default btn-sm"  ng-click="bn.toBack()"
+              bs-tooltip="bn.local('to_back')" data-placement="bottom">
+              <span class="glyphicon glyphicon-eye-close"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="bn.toFront()"
+              bs-tooltip="bn.local('to_front')" data-placement="bottom">
+              <span class="glyphicon glyphicon-eye-open"></span>
+              </button>
+            </div>
+            <div class="btn-group btn-group-sm btn-group-pad pull-right" role="group" aria-label="...">
+            </div>
+          </div>
+          <div class="graphCanvas">
+            <div id="graphContainer" >
+            </div>
+          </div>
+        </div>
+      </div>

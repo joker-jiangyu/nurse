@@ -1,0 +1,40 @@
+<div class="panel panel-primary" dragger resizer>
+    <div class="panel-heading diagram-ele-head" title="{{languageJson.Configuration.ActiveChartControl.UpdTitle}}">
+
+        <a class="pull-left grahico" setparttop  title="{{languageJson.Configuration.Control.Top}}"><!--置顶-->
+            <i class="fa fa-eject" ></i></a>
+
+        <a class="pull-right grahico" deletepartsetter title="{{languageJson.Configuration.Control.Delete}}"><!--删除-->
+            <i class="fa fa-times" ></i></a>
+
+        <a class="pull-right grahico" basepiechartsetter title="{{languageJson.Configuration.Control.Setter}}"><!--设置-->
+            <i class="fa fa-wrench" ></i></a>
+    </div>
+
+    <div class="panel-body chart-body">
+        <div class="avg-max-min">
+            <div class="max">
+                <div>
+                    <span class="value"></span>
+                    <span class="name">MAX</span>
+                </div>
+            </div>
+            <div class="min">
+                <div>
+                    <span class="value"></span>
+                    <span class="name">MIN</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="border-bottom: 1px solid rgba(243, 240, 240, 0.5);font-size: 20px;padding-left: 15px;" class="isShow pie-chart-title"><label class="title"></label></div><!--标题-->
+        <div class="pie" style="width: 100%; height: calc(100% - 30px);"></div>
+        <div class="circle">
+            <canvas class="new_gauge" width="300" height="300"></canvas>
+            <div class="circle-value">0.0</div>
+            <div class="circle-name"></div>
+        </div>
+        <div><i style="position: absolute;top: 26px;right: 40px;cursor: pointer;font-size: 12px;border: 1px solid;border-radius: 5px;padding: 2px 5px;" class="pue" ng-click="clickPue()" title="{{languageJson.Configuration.ActiveChartControl.Export}}">PUE</i></div><!--PUE-->
+        <div class="isShow"><i class="fa fa-download" style="position: absolute;top: 27px;right: 10px;cursor: pointer;font-size: 20px;" ng-click="clickExport($event)" title="{{languageJson.Configuration.ActiveChartControl.Export}}"></i></div><!--导出Excel-->
+    </div>
+</div>

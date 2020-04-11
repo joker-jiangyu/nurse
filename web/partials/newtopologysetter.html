@@ -1,0 +1,123 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.TopologyControl.AddTitle}}</h4><!--新增拓扑图-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body div_body">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{languageJson.Configuration.TopologyControl.Title}}</label><!--标题:-->
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" ng-model="Topology.title" Virtual-Key-Board="Topology.title" placeholder="{{languageJson.Configuration.TopologyControl.TitlePrompt}}"/><!--可为空-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{languageJson.Configuration.TopologyControl.FontSize}}</label><!--字体大小(px):-->
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" ng-model="Topology.fontSize"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 tooltip-options">{{languageJson.Configuration.TopologyControl.Closed}}</label><!--闭合图片:-->
+                                    <div class="col-md-4">
+                                        <input class="btn btn-default" style="width: 180px;" type="file" ngfile accept="image/*"/>
+                                    </div>
+                                    <div class="col-md-4 topology-img-div">
+                                        <!--<input class="form-control" type="text" readonly ng-model="Topology.upImgName"/>-->
+                                        <img src="{{Topology.upImgName}}" class="topology-img">
+                                        <div class="topology-expand-div">
+                                            <img src="{{Topology.upImgName}}" title="{{languageJson.Configuration.TopologyControl.SelectPrompt}}" ng-click="showImgFile('Topology.upImgName')"><!--点击选择图片资源-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 tooltip-options">{{languageJson.Configuration.TopologyControl.Disconnect}}</label><!--断开图片:-->
+                                    <div class="col-md-4">
+                                        <input class="btn btn-default" style="width: 180px;" type="file" ngfile2 accept="image/*"/>
+                                    </div>
+                                    <div class="col-md-4 topology-img-div">
+                                        <!--<input class="form-control" type="text" readonly ng-model="Topology.openImgName"/>-->
+                                        <img src="{{Topology.openImgName}}" class="open-img topology-img">
+                                        <div class="topology-expand-div">
+                                            <img src="{{Topology.openImgName}}" title="{{languageJson.Configuration.TopologyControl.SelectPrompt}}" ng-click="showImgFile('Topology.openImgName')"><!--点击选择图片资源-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">
+                                    <label class="control-label col-md-3">图片旋转( ° ):</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" ng-model="Topology.rotate"/>
+                                    </div>
+                                </div>-->
+                                <div class="form-group">
+                                    <label class="control-label  col-md-3">{{languageJson.Configuration.TopologyControl.FilterEquipment}}</label><!--设备筛选:-->
+                                    <div class="col-md-8">
+                                        <select class="form-control" name = "portType" ng-model="Topology.DeviceId" ng-change="changeDevice(Topology.DeviceId)">
+                                            <option value="{{row.equipmentId}}" ng-repeat="row in deviceList"
+                                                    ng-selected="{{row.equipmentId==Topology.DeviceId}}">{{row.configName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"><i class="fa fa-search" style="font-size: 24px;line-height: 54px;float: right;"></i></div>
+                                    <div class="col-md-8">
+                                        <input class="form-control col-md-7" ng-model="filterTxt" Virtual-Key-Board="filterTxt" placeholder="{{languageJson.Configuration.TopologyControl.FilterSignal}}" style="display:inline;margin: 10px 0px" type="text" /><!--筛选信号-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3" style="margin-top: 35px;">{{languageJson.Configuration.TopologyControl.BindingSignal}}</label><!--绑定信号:-->
+                                    <div class="col-md-8">
+                                        <div class="div_content" style="height: 100px; padding:0px 5px 0px 5px;">
+                                            <div class="radio" ng-repeat="item in Topology.events | filter:{SignalName:filterTxt}">
+                                                <label>
+                                                    <input type="radio" ng-model="Topology.SignalId" name="optionsGauges" id="event{{$index + 1}}"
+                                                           value="{{item.SignalId}}" ng-click="clickSignal(Topology.DeviceId,Topology.SignalId)">
+                                                    {{item.SignalName}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{languageJson.Configuration.TopologyControl.ClosedValue}}</label><!--闭合控制值:-->
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="portType" ng-model="Topology.upValue" ng-change="changeUpOpenValue('upValue','openValue')">
+                                            <option value="" ng-hide="Topology.SignalMeanings.length == 2">{{languageJson.Configuration.TopologyControl.NonDisconnect}}</option><!--非断开-->
+                                            <option value="{{row.StateValue}}" ng-repeat="row in Topology.SignalMeanings"
+                                                    ng-selected="{{row.StateValue==Topology.upValue}}">{{row.Meanings}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{languageJson.Configuration.TopologyControl.DisconnectValue}}</label><!--断开控制值:-->
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="portType" ng-model="Topology.openValue" ng-change="changeUpOpenValue('openValue','upValue')">
+                                            <option value="" ng-hide="Topology.SignalMeanings.length == 2">{{languageJson.Configuration.TopologyControl.NonClosed}}</option><!--非闭合-->
+                                            <option value="{{row.StateValue}}" ng-repeat="row in Topology.SignalMeanings"
+                                                    ng-selected="{{row.StateValue==Topology.openValue}}">{{row.Meanings}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="save()">{{languageJson.Configuration.TopologyControl.Add}}</button><!--新增-->
+                    <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.TopologyControl.Close}}</button><!--关闭-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

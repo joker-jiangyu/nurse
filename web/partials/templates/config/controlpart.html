@@ -1,0 +1,25 @@
+<div class="panel-primary" partid="[id]" style="position: absolute; left: [left]px; top: [top]px; width: [width]px; height: [height]px; z-index: [zindex];">
+
+    <div ng-hide="{{'[options.StyleType]' == 'DataControl'}}" class="panel-body remote-control"
+         ng-click="validateauthority('[id]');" style="background-size:100% 100% !important; height:calc(100% - 25px); cursor: pointer;background-image:url('[options.Img]');">
+        <img styles="width:100%; height:auto;" />
+    </div>
+
+    <div ng-show="{{'[options.StyleType]' == 'DataControl'}}" class="panel-body remote-regulating">
+        <table class="nts-table body_transparent">
+            <tr><td colspan="2" class="control-name"></td></tr>
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" class="control-index" value="0">
+                    <input type="text" class="form-control control-value [control.valueIsShow]" Virtual-Key-Board >
+                    <input type="text" class="form-control control-meaning [control.meaningIsShow]" disabled>
+                </td>
+            </tr>
+            <tr class="adjust">
+                <td><button type="button" class="btn btn-primary" ng-click="MinusValue('[id]')"><i class="fa fa-arrow-left"></i></button></td>
+                <td><button type="button" class="btn btn-primary" ng-click="PlusValue('[id]')"><i class="fa fa-arrow-right"></i></button></td>
+            </tr>
+            <tr><td colspan="2"><button type="button" class="btn btn-primary" ng-click="TransparentControl('[id]')">{{languageJson.InputBox.OK}}</button></td></tr>
+        </table>
+    </div>
+</div>

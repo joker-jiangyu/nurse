@@ -1,0 +1,29 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.TableConfigEdit.Title}}</h4><!--表格组态编辑器-->
+            </div>
+            <div class="modal-body center-block">
+                <table align="center" class="body_transparent border table-td-hover" style="width: 80%;height: 280px;text-align: center;">
+                    <tr ng-repeat="dia in diagram.table.tr" ng-init="dia.index = $index">
+                        <td class="pointer" ng-class="{true:'table-active',false:'table-normal'}[location.trIndex == dia.index && location.tdIndex == ps.index]"
+                            ng-repeat="ps in dia.td" colspan="{{ps.colspan}}" rowspan="{{ps.rowspan}}"
+                            ng-click="choiceTableClick(ps,dia.index)" ng-init="ps.index = $index">{{ps.table.tr.length}}{{languageJson.TableConfigEdit.RowData}}</td><!--行数据-->
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-body">
+                <button type="button" class="btn btn-warning" ng-click="resetTable(choiceTable)">{{languageJson.TableConfigEdit.ResetTable}}</button><!--重置表格-->
+                <button type="button" class="btn btn-primary" ng-click="colRowSpan(choiceTable)">{{languageJson.TableConfigEdit.RowCol}}</button><!--跨行 | 跨列-->
+                <button type="button" class="btn btn-warning" ng-click="deleteCells(choiceTable)">{{languageJson.TableConfigEdit.DeleteCell}}</button><!--删除单元格-->
+                <button type="button" class="btn btn-primary" ng-click="bindingSignal(choiceTable)">{{languageJson.TableConfigEdit.BindingSignal}}</button><!--绑定信号-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveTable()">{{languageJson.TableConfigEdit.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.TableConfigEdit.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

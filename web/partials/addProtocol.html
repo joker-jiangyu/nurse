@@ -1,0 +1,29 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Increase.Title}}</h4><!-- 增加协议 -->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  {{languageJson.Language == 'English'?'col-md-4':'col-md-3'}}">{{languageJson.Increase.Document}}</label><!--协议文件:-->
+                                <div class="col-md-8">
+                                    <input class="btn btn-default" ngfile type="file" ngf-select ng-model="protocolFile" fileupload name="proFile" accept=".zip"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="addProtocolFile()">{{languageJson.Increase.Add}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Increase.Close}}</button>
+            </div>
+        </div>
+    </div>
+</div>

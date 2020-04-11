@@ -1,0 +1,135 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog" style="width: 598px;">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.VirtualControl.UpdTitle}}</h4><!--修改虚拟量控件-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body div_body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.ControlName}}</label><!--虚拟信号名称:-->
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" ng-model="virtualSignal.name" Virtual-Key-Board="virtualSignal.name" placeholder="{{languageJson.Configuration.VirtualControl.NamePrompt}}"><!--可为空-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.Background.Title}}</label><!--背景样式：-->
+                                            <div class="col-md-9">
+                                                <select class="form-control" ng-model="virtualSignal.background">
+                                                    <option value="">{{languageJson.Configuration.VirtualControl.Background.Transparency}}</option><!--透明背景-->
+                                                    <option value="configure_bg">{{languageJson.Configuration.VirtualControl.Background.Blue}}</option><!--蓝色背景-->
+                                                    <option value="white_bg">{{languageJson.Configuration.VirtualControl.Background.White}}</option><!--白色背景-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.FontSize}}</label><!--字体大小：-->
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" ng-model="virtualSignal.fontSize">
+                                            </div><label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.DataBackground.Title}}</label><!--数据背景：-->
+                                            <div class="col-md-3">
+                                                <select class="form-control" name = "EventSeverity" ng-model="virtualSignal.dataBackground">
+                                                    <option value="1">{{languageJson.Configuration.VirtualControl.DataBackground.Transparency}}</option><!--透明-->
+                                                    <option value="2">{{languageJson.Configuration.VirtualControl.DataBackground.Status}}</option><!--状态颜色-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.FilterEquipment}}</label><!--设备筛选:-->
+                                            <div class="col-md-9">
+                                                <select class="form-control" name = "portType" ng-model="virtualSignal.equipmentId" ng-change="changeEquipment(virtualSignal.equipmentId)">
+                                                    <option value="{{row.equipmentId}}" ng-repeat="row in virtualSignal.equipments track by $index"
+                                                            ng-selected="{{row.equipmentId==diagram.deviceId}}">{{row.configName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.FilterSignal}}</label><!--信号帅选:-->
+                                            <div class="col-md-6">
+                                                <select class="form-control" name = "portType" ng-model="virtualSignal.signalId" ng-change="changeSignal()">
+                                                    <option value="{{row.signalId}}" ng-repeat="row in virtualSignal.signals | filter:{signalName:filterName}">{{row.signalName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" ng-model="filterName"Virtual-Key-Board="filterName" placeholder="{{languageJson.Configuration.VirtualControl.FilterSignal2}}"><!--刷选信号-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 tooltip-options">{{languageJson.Configuration.VirtualControl.Expression.Title}}
+                                                <a  href="#" data-toggle="tooltip" ng-hide="languageJson.Language == 'English'"
+                                                    title="<h5>表达式：通过表达式计算信号最终值，运算表达式放到函数中，字符串放到函数外，设备编号100000001的信号编号100103001除于10表达式为：[100000001-100103001]/10</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </label><!--表达式:-->
+                                            <div class="col-md-9">
+                                                <textarea type="text" id="Expression" class="form-control ng-pristine ng-untouched ng-valid" ng-model="virtualSignal.Expression" Virtual-Key-Board="virtualSignal.Expression" ng-blur="getCursortPosition()"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <ul class="ExpressionSymbol right tooltip-options" style="margin:10px 20px 0px 0px;">
+                                                    <li ng-click="ClickSignalsLi('(')">(</li>
+                                                    <li ng-click="ClickSignalsLi(')')">)</li>
+                                                    <li ng-click="ClickSignalsLi('+')">+</li>
+                                                    <li ng-click="ClickSignalsLi('-')">-</li>
+                                                    <li ng-click="ClickSignalsLi('*')">*</li>
+                                                    <li ng-click="ClickSignalsLi('/')" style="margin-right: 10px;">/</li>
+                                                    <li ng-click="ClickSignalsLi('pow(,)')" style="width: 50px;" id="powerFun" title="<h5>幂函数</h5>">pow(,)</li>
+                                                    <li ng-click="ClickSignalsLi('abs()')" style="width: 50px;" id="absVal" title="<h5>绝对值</h5>">abs()</li>
+                                                    <li ng-click="ClickSignalsLi('max(,)')" style="width: 50px;" id="maxVal" title="<h5>最大值</h5>">max(,)</li>
+                                                    <li ng-click="ClickSignalsLi('min(,)')" style="width: 50px;margin-right: 10px;" id="minVal" title="<h5>最小值</h5>">min(,)</li>
+                                                    <li ng-click="ClickSignalsLi('int()')" style="width: 50px;" id="int" title="<h5>取整</h5>">int()</li>
+                                                    <li ng-click="ClickSignalsLi('dou()')" style="width: 50px;" id="double" title="<h5>取0.00浮点值</h5>">dou()</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.Kind.Title}}</label><!--种类:-->
+                                            <div class="col-md-3">
+                                                <select class="form-control" name = "EventSeverity" ng-model="virtualSignal.category">
+                                                    <option value="1" ng-selected="{{virtualSignal.category == 1}}">{{languageJson.Configuration.VirtualControl.Kind.Analog}}</option><!--模拟量-->
+                                                    <option value="2" ng-selected="{{virtualSignal.category == 2}}">{{languageJson.Configuration.VirtualControl.Kind.Switch}}</option><!--开关量-->
+                                                </select>
+                                            </div>
+                                            <div ng-show="virtualSignal.category == 1">
+                                                <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.Unit}}</label><!--单位:-->
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" ng-model="virtualSignal.unit" Virtual-Key-Board="virtualSignal.unit" placeholder="{{languageJson.Configuration.VirtualControl.NamePrompt}}"><!--可为空-->
+                                                </div>
+                                            </div>
+                                            <div ng-show="virtualSignal.category == 2">
+                                                <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.Meaning}}</label><!--含义:-->
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" ng-model="virtualSignal.meanings" ng-click="bindMeaningsBox()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.VirtualControl.DataColor}}</label><!--数据颜色：-->
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" ng-model="virtualSignal.dataColor" ng-click="showColorSelect(virtualSignal.dataColor)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="updNewVirtualSignal()">{{languageJson.Configuration.VirtualControl.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.VirtualControl.Close}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a,.tooltip-options li").tooltip({html : true });});
+</script>

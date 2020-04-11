@@ -1,0 +1,62 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog mdcAlarm am-modal-dialog dialog_box" style="margin-top: 100px;">
+        <div class="modal-content">
+            <div class="modal-header" draggable style="border: 1px solid rgba(255, 255, 255, 0);padding-left: 42px;background-color: #0a1e65;"><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()">
+                    <i class="fa fa-times"></i>
+                </button>
+                <h4 class="modal-title" id="myVideoModalLabel">
+                    {{languageJson.AssetRecord.Title}}
+                </h4><!--资产操作记录-->
+            </div>
+        </div>
+        <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+        <div class="row assets-log">
+            <div class="form-group col-md-12" style="margin-top: 20px;">
+                <label class="control-label col-md-2" style="line-height: 35px;text-align: right;">{{languageJson.AssetRecord.StartTime}}</label><!--开始时间:-->
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-model="log.StartDate" data-date-format="yyyy-MM-dd" bs-datepicker>
+                </div>
+                <label class="control-label col-md-1" style="line-height: 35px;text-align: right;">{{languageJson.AssetRecord.EndTime}}</label><!--结束时间:-->
+                <div class="col-md-3">
+                    <input type="text" class="form-control" ng-model="log.EndDate" data-date-format="yyyy-MM-dd" bs-datepicker>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-primary padding-bottom" ng-click="queryAssetsManager(log.StartDate,log.EndDate)" >{{languageJson.AssetRecord.Query}}</button><!--查询-->
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="log.Filtrate" placeholder="{{languageJson.AssetRecord.Filter}}"/><!--筛选内容-->
+                    <i class="fa fa-search"></i>
+                </div>
+                <div class="col-md-1 right">
+                    <button class="btn btn-default padding-bottom pull-right" ng-click="exportToHtml()">{{languageJson.AssetRecord.Export}}</button><!--导出...-->
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="alarm_table_body" style="padding-bottom: 50px;">
+                    <div style="max-height: 500px;overflow-x: auto;">
+                        <table show-filter="false" class="table ng-table-responsive  alarm_table" >
+                            <tr><th style="text-align: center;">{{languageJson.AssetRecord.Title}}</th></tr><!--资产操作记录-->
+                            <tr ng-repeat="log in log.AssetsManagerLog | filter:{Content:log.Filtrate}">
+                                <td>
+                                    <div>
+                                        <span>
+                                            <div style="display:inline;font-size: 18px;">
+                                                {{log.Content}}
+                                                <span class="text-muted small">
+                                                    <em> {{ log.Date }}</em>
+                                                </span>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

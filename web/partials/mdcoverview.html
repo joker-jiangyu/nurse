@@ -1,0 +1,171 @@
+<div ng-controller="MDCOverviewCtrl">
+    <div style="width:100%;height: calc(100vh - 68px);">
+        <!--     <div id="mdc1" style="width:calc(100vw - 423px);height:100%;">
+        
+    </div>
+    <div style = "position:absolute;width:400px;height:calc(100vh - 68px);
+         left:calc(100vw - 420px);top:52px;padding:4px;"> 
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-body">Panel Content</div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-body">Panel Content</div>
+              </div>
+            </div>
+    </div>
+ -->
+        <div id="mdc1" style="width:100%;height:100%;position:relative;">
+        </div>
+        <!--<div id="tempIndicator" style="position: absolute;right:450px;top:140px;width:10px;">
+		    <div style="margin-left:20px;">
+			    &lt;!&ndash;<h5>温度标尺</h5>&ndash;&gt;
+			    <div ng-repeat="colorItem in colorDic">
+				    <div style="background-color:{{colorItem.color}};width:20px;">{{colorItem.value}}</div>
+			    </div>
+		    </div>
+	    </div>-->
+        <div id="tempIndicator" class="row mdc_temp_foot" style="right: 23%;top: 15%;">
+            <div style="width: 70px;padding: 10px 5px 20px 5px;" class="configure_bg">
+                <h5>{{languageJson.Mdc3DHome.Ruler}}</h5><!--温度标尺-->
+                <h5 style="margin-left: 5px;">℃</h5>
+                <div ng-repeat="colorItem in colorDic" style="width: 50px;margin: 0px auto;line-height: 10px;">
+                    <div class="foot_number">{{colorItem.value}}</div><div style="background-color:{{colorItem.color}};width:20px;height: 20px;display: inline-block;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="bouncyMenu">
+            <a href="#" class="btn btn-circle-lg menubtn" 
+            ng-class="{true: 'menuactive'}[currentStage == 'monitor']" 
+            style="margin:10px;" bs-tooltip="languageJson.Mdc3DHome.Monitor" data-placement="right" ng-click="stageMonitor()">
+                <span class="fa fa-bell"></span>
+            </a><!--'安全监控'-->
+            <a href="#" class="btn btn-circle-lg menubtn" 
+            ng-class="{true: 'menuactive'}[currentStage == 'power']" 
+            style="margin:10px;" bs-tooltip="languageJson.Mdc3DHome.Power" data-placement="right" ng-click="stagePower()">
+                <span class="fa fa-bolt fa-fw"></span>
+            </a><!--'能耗分布'-->
+            <a href="#" class="btn btn-circle-lg menubtn" 
+            ng-class="{true: 'menuactive'}[currentStage == 'thermal']" 
+            style="margin:10px;" bs-tooltip="languageJson.Mdc3DHome.Thermal" data-placement="right" ng-click="stageThermal()">
+                <span class="fa fa-tint fa-fw"></span>
+            </a><!--'温度云图'-->
+            <a href="#" class="btn btn-circle-lg menubtn" 
+            ng-class="{true: 'menuactive'}[currentStage == 'space']" 
+            style="margin:10px;" bs-tooltip="languageJson.Mdc3DHome.Space" data-placement="right" ng-click="stageSpace()">
+                <span class="fa fa-tasks fa-fw"></span>
+            </a><!--'空间管理'-->
+            <a href="#" class="btn btn-circle-lg menubtn" style="margin:10px;" bs-tooltip="languageJson.Mdc3DHome.Partmount" data-placement="right" ng-click="partmount()">
+                <span class="fa fa-exchange fa-fw"></span>
+            </a><!--'结构展示'-->
+            <a href="#" class="btn btn-circle-lg menubtn" style="margin:10px;" bs-tooltip="languageJson.Mdc3DHome.Cruising" data-placement="right" ng-click="cruising()">
+                <span class="fa fa-repeat fa-fw"></span>
+            </a><!--'自动巡游'-->
+        </div>
+        <!--<div class="btn-group" role="group" aria-label="..." style="position:absolute;top:80px;right:500px;">
+             <button type="button" class="btn btn-default" ng-click="smoking()">烟感</button>
+            <button type="button" class="btn btn-default" ng-click="redalert()">红外</button>
+             <button type="button" class="btn btn-default" ng-click="leaking()">水浸</button>
+             <button type="button" class="btn btn-default" ng-click="opendoor()">门碰</button>
+             <button type="button" class="btn btn-default" ng-click="openceiling()">天窗</button>
+             <button type="button" class="btn btn-default" ng-click="rackAlarm()">机架</button>
+             <button type="button" class="btn btn-default" ng-click="cruising()">巡游</button>
+        </div>-->
+        <div style="position:absolute;bottom:2px;left:20px;filter: alpha(opacity=70);
+        opacity: 0.7;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">{{languageJson.Mdc3DHome.Alarm}}</h5><!--告警-->
+                </div>
+                <div class="panel-body">
+                    <div class="bouncyAlarmPanel">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr ng-repeat="alarm in MDCAlarm">
+                                <td>
+                                    <i class="fa fa-bell fa-fw alarmLevel{{alarm.alarmLevel}}"></i> {{alarm.alarmContent}}
+                        <span class="text-muted small">
+                        <em> {{ alarm.startTime }}</em>
+                        </span>
+                                    <span class="pull-right">
+                                <a type="button" style="border:0px;"
+                                        class="endButton"
+                                        ng-click="beginEndAlarm(alarm.uniqueId)">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                            </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position:absolute;width:400px;height:calc(100vh - 68px);
+         left:calc(100vw - 420px);top:52px;padding:4px;filter: alpha(opacity=70);
+        opacity: 0.7;">
+            <div class="panel-group">
+                <div class="panel panel-default" style="border-radius: 20px;">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">mPUE</h5>
+                    </div>
+                    <div class="panel-body text-center">
+                        <div ng-controller="MDCPUECtrl" style="position:relative;">
+                            <div class="clock bouncyPUETextPanel">{{MDCPower.mPueData}}</div>
+                            <div>
+                                <chart value="chartData" height="200" obj="chart"></chart>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">{{languageJson.Mdc3DHome.TotalPower}}</h5><!--总用电量(kWh)-->
+                        </div>
+                        <div class="panel-body text-center clock bouncyTextPanel">{{MDCPower.totalElectricity}}</div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">{{languageJson.Mdc3DHome.CurrentPower}}</h5><!--实时功率(kW)-->
+                        </div>
+                        <div class="panel-body text-center clock bouncyTextPanel">{{MDCPower.totalPower}}</div>
+                    </div>
+                    <div class="panel panel-default" style="border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">{{languageJson.Mdc3DHome.ItLoad}}</h5><!--IT负载率-->
+                        </div>
+                        <div class="panel-body text-center">
+                            <div ng-controller="MDCITLoadCtrl">
+                                <div style="padding:14px;text-align:center;vertical-align:middle;position:relative;">
+                                    <div class="clock" style="top: 50%;bottom: auto;left: 50%;position: absolute;
+                                color: #bbb;font-weight: 100;line-height: 1;
+                                transform: translateY(-50%) translateX(-50%);font-size: 50px;">
+                                        {{MDCPower.eLoad | number:0}}%
+                                    </div>
+                                    <round-progress max="100" current="itLoad" color="#45ccce" bgcolor="#3a3a3a" radius="100" stroke="10" semi="false" gradient="true" rounded="true" clockwise="false" responsive="false" duration="800" animation="easeInOutQuart" animation-delay="0">
+                                    </round-progress>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--     <div class="row">
+
+        <div id="mdc1" class="col-lg-12" style="height: calc(100vh - 63px);">            
+        </div>
+ -->
+                <!--  <div class="col-lg-3">
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-body">Panel Content</div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-body">Panel Content</div>
+              </div>
+            </div>
+        </div>
+    </div> -->
+            </div>
+            <div id="svgtempA" style="display:none;"></div>
+            <div id="svgtempB" style="display:none;"></div>
+            

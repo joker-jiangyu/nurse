@@ -1,0 +1,64 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.NodeTemperature.AddTempConfig}}</h4><!--新增温场-->
+            </div>
+            <form class="form-horizontal">
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="col-md-12">
+                            <!--标题：-->
+                            <div class="form-group" style="margin-top: 20px;">
+                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.Title}}</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" ng-model="tempConfig.title">
+                                </div>
+                            </div>
+                            <!--关联设备：-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.Device}}</label>
+                                <div class="col-md-7">
+                                    <select class="form-control" ng-model="tempConfig.deviceId">
+                                        <option value="{{item.id}}" ng-repeat="item in devices">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--表格大小：-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.TableSize}}</label>
+                                <div class="col-md-2">
+                                    <input class="form-control" type="text" ng-model="tempConfig.totalRow">
+                                </div>
+                                <label class="control-label col-md-1" style="text-align:left;">{{languageJson.NodeTemperature.Row}}</label><!--行-->
+                                <div class="col-md-2">
+                                    <input class="form-control" type="text" ng-model="tempConfig.totalCol">
+                                </div>
+                                <label class="control-label col-md-1" style="text-align:left;">{{languageJson.NodeTemperature.Col}}</label><!--列-->
+                            </div>
+                            <!--关联JSON：-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.NodeTemperature.Json}}</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" ng-model="tempConfig.json">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3"></label>
+                                <label class="control-label col-md-7" style="text-align:left;">
+                                    {{languageJson.NodeTemperature.Prompt.Json}}
+                                </label>
+                                <!--json文件存储温场的设备基类配置，详情请看data/nodeTemperature/temp.json-->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveTemperature()">{{languageJson.NodeTemperature.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.NodeTemperature.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

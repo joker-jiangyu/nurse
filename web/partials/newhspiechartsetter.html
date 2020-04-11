@@ -1,0 +1,176 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog" id="hrPieChartId" style="width: 598px;">
+            <div class="modal-header tooltip-options" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.HistoryChartControl.AddTitle}}</h4><!--新增历史图表控件-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body div_body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <!--图表标题:-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.ChartTitle}}</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" ng-model="hrPieChart.GroupTitle" Virtual-Key-Board="hrPieChart.GroupTitle" type="text" placeholder="{{languageJson.Configuration.HistoryChartControl.TitlePrompt}}" /><!--可为空-->
+                                        </div>
+                                    </div>
+                                    <!--图表类型:-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.ChartType.Title}}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="hrPieChart.ChartType" ng-change="typeChange(hrPieChart.ChartType)">
+                                                <option value="line">{{languageJson.Configuration.HistoryChartControl.ChartType.Line}}</option><!--折线图-->
+                                                <option value="bar" >{{languageJson.Configuration.HistoryChartControl.ChartType.Bar}}</option><!--柱状图-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--数据类型:-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.DataType.Title}}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="hrPieChart.DataType">
+                                                <option value="1">{{languageJson.Configuration.HistoryChartControl.DataType.Signal}}</option><!--历史信号-->
+                                                <option value="2">{{languageJson.Configuration.HistoryChartControl.DataType.Pue}}</option><!--历史PUE-->
+                                                <option value="3" hidden="hidden">{{languageJson.Configuration.HistoryChartControl.DataType.Sql}}</option><!--SQL脚本-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--背景样式：-->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{languageJson.Configuration.HistoryChartControl.Background.Title}}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="hrPieChart.Background">
+                                                <option value="">{{languageJson.Configuration.HistoryChartControl.Background.None}}</option><!--透明背景-->
+                                                <option value="configure_bg">{{languageJson.Configuration.HistoryChartControl.Background.Blue}}</option><!--蓝色背景-->
+                                                <option value="white_bg">{{languageJson.Configuration.HistoryChartControl.Background.White}}</option><!--白色背景-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrPieChart.ChartType == 'line'">
+                                        <!--单双轴-->
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 tooltip-options">{{languageJson.Configuration.HistoryChartControl.AxisType.Title}}
+                                                <a href ><i class="fa fa-question-circle fa-fw pointer " ng-hide="languageJson.Language == 'English'" title="<h5>双轴：Y轴两边不同刻度含义，如温度湿度</h5>"></i></a>:
+                                            </label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" name = "portType" ng-model="hrPieChart.SingleBiaxial">
+                                                    <option value="1" >{{languageJson.Configuration.HistoryChartControl.AxisType.Single}}</option><!--单轴-->
+                                                    <option value="2" >{{languageJson.Configuration.HistoryChartControl.AxisType.Double}}</option><!--双轴-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--数据类型：-->
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 tooltip-options">{{languageJson.Configuration.HistoryChartControl.HistoryDataType.Title}}</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" name = "portType" ng-model="hrPieChart.HistoryDataType">
+                                                    <option value="avg" >{{languageJson.Configuration.HistoryChartControl.HistoryDataType.Avg}}</option><!--每天平均值-->
+                                                    <option value="max" >{{languageJson.Configuration.HistoryChartControl.HistoryDataType.Max}}</option><!--每天最大值-->
+                                                    <option value="min" >{{languageJson.Configuration.HistoryChartControl.HistoryDataType.Min}}</option><!--每天最小值-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Y1轴名称:-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.Y1.AxisName}}</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" ng-model="hrPieChart.Y1Name" Virtual-Key-Board="hrPieChart.Y1Name" type="text" placeholder="{{languageJson.Configuration.HistoryChartControl.TitlePrompts}}" /><!--可为空-->
+                                        </div>
+                                    </div>
+                                    <!--Y1最小值:--><!--Y1最大值:-->
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.Y1.MinVal}}</label>
+                                        <div class="col-md-3">
+                                            <input class="form-control" ng-model="hrPieChart.Y1Min" Virtual-Key-Board="hrPieChart.Y1Min" type="text" placeholder="{{languageJson.Configuration.HistoryChartControl.TitlePrompt}}" /><!--可为空-->
+                                        </div>
+                                        <label class="control-label  col-md-2">{{languageJson.Configuration.HistoryChartControl.Y1.MaxVal}}</label>
+                                        <div class="col-md-3">
+                                            <input class="form-control" ng-model="hrPieChart.Y1Max" Virtual-Key-Board="hrPieChart.Y1Max" type="text" placeholder="{{languageJson.Configuration.HistoryChartControl.TitlePrompt}}" /><!--可为空-->
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrPieChart.DataType == 1">
+                                        <!--Y1轴信号:-->
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.Y1.Signal}}</label>
+                                            <div class="col-md-5">
+                                                <input class="form-control" ng-model="hrPieChart.Y1Signals" type="text" readonly/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-click="showMultiSelect('scope.hrPieChart.Y1Signals',hrPieChart.Y1Signals)">{{languageJson.Configuration.HistoryChartControl.BindingSignal}}</button><!--绑定信号-->
+                                            </div>
+                                        </div>
+                                        <div ng-show="hrPieChart.SingleBiaxial == 2">
+                                            <!--Y2轴名称:-->
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.Y2.AxisName}}</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" ng-model="hrPieChart.Y2Name" Virtual-Key-Board="hrPieChart.Y2Name" type="text" placeholder="{{languageJson.Configuration.HistoryChartControl.TitlePrompts}}" /><!--可为空-->
+                                                </div>
+                                            </div>
+                                            <!--Y2最小值:--><!--Y2最大值:-->
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.Y2.MinVal}}</label>
+                                                <div class="col-md-3">
+                                                    <input class="form-control" ng-model="hrPieChart.Y2Min" Virtual-Key-Board="hrPieChart.Y2Min" type="text" placeholder="{{languageJson.Configuration.HistoryChartControl.TitlePrompt}}" /><!--可为空-->
+                                                </div>
+                                                <label class="control-label  col-md-2">{{languageJson.Configuration.HistoryChartControl.Y2.MaxVal}}</label>
+                                                <div class="col-md-3">
+                                                    <input class="form-control" ng-model="hrPieChart.Y2Max" Virtual-Key-Board="hrPieChart.Y2Max" type="text" placeholder="{{languageJson.Configuration.HistoryChartControl.TitlePrompt}}" /><!--可为空-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Y2轴信号:-->
+                                        <div class="form-group" ng-show="hrPieChart.SingleBiaxial == 2">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.HistoryChartControl.Y2.Signal}}</label>
+                                            <div class="col-md-5">
+                                                <input class="form-control" ng-model="hrPieChart.Y2Signals" type="text" readonly/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-primary"
+                                                        ng-click="showMultiSelect('scope.hrPieChart.Y2Signals',hrPieChart.Y2Signals)">{{languageJson.Configuration.HistoryChartControl.BindingSignal}}</button><!--绑定信号-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="hrPieChart.DataType == 3">
+                                        <label class="control-label col-md-3 tooltip-options">查询SQL
+                                            <a href ><i class="fa fa-question-circle fa-fw pointer " ng-hide="languageJson.Language == 'English'" title="<h5>查询结果：第一列为Y轴名称，第二列为曲线1的值，第三列为曲线2的值以此类推</h5>"></i></a>:
+                                            <div><input id="State" type="radio" name="SQLType"><label for="State"> SQL语句</label></div>
+                                            <div><input id="Pro" type="radio" name="SQLType"><label for="Pro"> 存储过程</label></div>
+                                        </label>
+                                        <div class="col-md-8">
+                                            <textarea class="form-control ng-pristine ng-valid ng-touched" rows="4" ng-model="hrPieChart.SelectSQL"></textarea>
+                                        </div>
+                                    </div>
+                                    <!--周期(天)-->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{languageJson.Configuration.HistoryChartControl.Cycle}}
+                                            <a href class="tooltip-options">
+                                                <i class="fa fa-question-circle fa-fw pointer " ng-hide="languageJson.Language == 'English'" title="<h5>周期：周期超过30天需要联系管理人员，修改配置</h5>"></i>
+                                            </a>:
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" ng-model="hrPieChart.Days" Virtual-Key-Board="hrPieChart.Days" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">{{languageJson.Configuration.HistoryChartControl.Add}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.HistoryChartControl.Close}}</button><!--取消-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options i").tooltip({html : true });});
+</script>

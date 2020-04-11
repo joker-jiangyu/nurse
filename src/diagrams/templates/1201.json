@@ -1,0 +1,41 @@
+{
+    "edit": false,
+    "page": {
+        "bgImage": "img/diagram/environment.jpg"
+    },
+    "parts": [
+        {
+            "id": "label1",
+            "type": "labelpart",
+            "left": 140,
+            "top": 54,
+            "width": 825,
+            "height": 60,
+			"zindex":1,
+            "binding": "BS:120111",
+            "options": "Name:视频监控|FontSize:25|FontWeight:bold|TextAlign:center|Color:#FFFFFF|BackColor:#337bb8|Background:configure_bg"
+        },
+        {
+            "id": "camerapart1",
+            "type": "camerapart",
+            "left": 944,
+            "top": 229,
+            "width": 66,
+            "height": 146,
+			"zindex":1,
+            "binding": "BS:2111",
+            "options": "Img:img/diagram/camera.png|User:admin|Pwd:gt123456|IP:192.168.2.61|Port:80|ChannelNo:1"
+        },
+        {
+            "id": "camerapart2",
+            "type": "camerapart",
+            "left": 132,
+            "top": 223,
+            "width": 62,
+            "height": 140,
+			"zindex":1,
+            "binding": "BS:2111",
+            "options": "Img:img/diagram/camera.png|User:admin|Pwd:gt123456|IP:192.168.2.62|Port:80|ChannelNo:1"
+        }
+    ]
+}

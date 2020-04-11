@@ -1,0 +1,120 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.PercentControl.AddRatio}}</h4><!--新增占比-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Configuration.PercentControl.Ratios}}</label><!--占比：-->
+                                            <div class="col-md-4" style="padding-bottom: 15px;">
+                                                <input  class="form-control" type="text" ng-model="percentRatio.percent" disabled/>
+                                            </div>
+                                            <label class="control-label col-md-2">{{languageJson.Configuration.PercentControl.Colors}}</label><!--颜色：-->
+                                            <div class="col-md-4" style="padding-bottom: 15px;">
+                                                <input  class="form-control" type="color" ng-model="percentRatio.color"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Configuration.PercentControl.Min}}</label><!--最小值：-->
+                                            <div class="col-md-2" style="padding-bottom: 15px;">
+                                                <select class="form-control" ng-model="percentRatio.minSymbol">
+                                                    <option value="" > -∞ </option>
+                                                    <option value=">" > &gt </option>
+                                                    <option value=">=" > &gt= </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2" style="padding-bottom: 15px;">
+                                                <input  class="form-control" type="text" ng-model="percentRatio.minValue" Virtual-Key-Board="percentRatio.minValue" ng-hide="percentRatio.minSymbol == ''"/>
+                                            </div>
+                                            <label class="control-label col-md-2">{{languageJson.Configuration.PercentControl.Max}}</label><!--最大值：-->
+                                            <div class="col-md-2" style="padding-bottom: 15px;">
+                                                <select class="form-control" ng-model="percentRatio.maxSymbol">
+                                                    <option value="" > +∞ </option>
+                                                    <option value="<" > &lt </option>
+                                                    <option value="<=" > &lt= </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2" style="padding-bottom: 15px;">
+                                                <input  class="form-control" type="text" ng-model="percentRatio.maxValue" Virtual-Key-Board="percentRatio.maxValue" ng-hide="percentRatio.maxSymbol == ''"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.Configuration.PercentControl.ControlQueue}}
+                                </div><!--控制队列 (可为空)-->
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="col-md-6">
+                                                <label class="control-label col-md-3">{{languageJson.Configuration.PercentControl.Devices}}</label>
+                                                <div class="col-md-9" style="padding-bottom: 15px;">
+                                                    <select class="form-control" ng-model="percentRatio.claDevicesId" ng-change="changeDeviceTemplate(percentRatio.claDevicesId)">
+                                                        <option value="{{row.id}}" ng-repeat="row in addPercent.Devices"> {{row.name}} </option>
+                                                    </select>
+                                                </div>
+                                                <label class="control-label col-md-3">{{languageJson.Configuration.PercentControl.Controls}}</label>
+                                                <div class="col-md-5" style="padding-bottom: 15px;">
+                                                    <select class="form-control" ng-model="percentRatio.control" ng-change="changeControl(percentRatio.control)">
+                                                        <option value="{{row}}" ng-repeat="row in percentRatio.Controls | filter:{ControlName : template}"> {{row.ControlName}} </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4" style="padding-bottom: 15px;">
+                                                    <input  class="form-control" type="text" placeholder="{{languageJson.Configuration.PercentControl.FilterControl}}" ng-model="template" Virtual-Key-Board="template"/><!--筛选控制-->
+                                                </div>
+                                                <label class="control-label col-md-3">{{languageJson.Configuration.PercentControl.ControlValues}}</label><!--控制值:-->
+                                                <div class="col-md-9" ng-show="CommandType == 2" style="padding-bottom: 15px;">
+                                                    <select class="form-control" ng-model="percentRatio.controlValue" ng-change="changeControlValue(percentRatio.controlValue)">
+                                                        <option value="{{row.ParameterValue}}" ng-repeat="row in percentRatio.ControlMeanings"> {{row.Meanings}} </option>
+                                                    </select>
+                                                </div>
+                                                <div ng-show="CommandType == 1">
+                                                    <div class="col-md-6" style="padding-bottom: 15px;">
+                                                        <input  class="form-control" type="text" ng-model="percentRatio.controlValue" Virtual-Key-Board="percentRatio.controlValue" placeholder="Section:[{{MinValue}}-{{MaxValue}}]"/>
+                                                    </div>
+                                                    <div class="col-md-3" style="padding-bottom: 15px;">
+                                                        <button type="button" class="btn btn-primary"
+                                                                ng-click="addControlValue(percentRatio.controlValue)">{{languageJson.Configuration.PercentControl.Add}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="height: 135px;overflow:auto;">
+                                                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                                                    <tr ng-repeat="row in percentRatio.controlLogActions">
+                                                        <td data-title="languageJson.Configuration.PercentControl.Device" align="center">{{row.equipmentName}}</td><!--'设备'-->
+                                                        <td data-title="languageJson.Configuration.PercentControl.Control" align="center">{{row.controlName}}</td><!--'控制'-->
+                                                        <td data-title="languageJson.Configuration.PercentControl.ControlValue" align="center">{{row.actionMeanings}}</td><!--'控制值'-->
+                                                        <td class="center" data-title="languageJson.Configuration.PercentControl.Operation" align="center"><!--'操作'-->
+                                                            <button type="button" class="btn btn-sm btn-danger"  ng-click="deleteMeaningsClick($index)">{{languageJson.Configuration.PercentControl.Delete}}</button><!--删除-->
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="addPercentRatio()">{{languageJson.Configuration.PercentControl.Add}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.PercentControl.Close}}</button>
+            </div>
+        </div>
+    </div>
+</div>

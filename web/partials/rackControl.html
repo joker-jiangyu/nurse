@@ -1,0 +1,30 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">资产条控制</h4>
+            </div>
+            <div class="modal-body center-block">
+                <div class="input-group date form_datetime col-md-10 col-md-offset-1" data-date="" ng-click="click()"
+                     data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd hh:ii:ss">
+                    <label class="tooltip-options">是否巡检:
+                        <a  href data-toggle="tooltip"
+                            title="<h5>巡检：根据左边设备栏循环切换页面</h5>">
+                            <i class="fa fa-question-circle fa-fw pointer "></i>
+                        </a>
+                    </label>
+                    <div style="display: inline;">
+                        <button type="button" class="btn btn btn-primary" ng-click="controlClick()">停止</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

@@ -1,0 +1,91 @@
+<div class="container-fluid" ng-controller="assetRackManagerCtrl" id = "rollBtn_top">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.AssetRackPage.Title}}</h1><!--高级配置 > 资产机架管理-->
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="nav nav-divider">
+            <div class="form-inline">
+                <div>
+                    <button type="button" class="btn btn btn-primary" ng-click="addCabinetRackClick()">{{languageJson.AssetRackPage.Add}}</button><!--添加资产机架-->
+                    <!--<button type="button" class="btn btn btn-primary" ng-click="rackControlClick()">控制</button>-->
+                    <button class="btn btn-default btn-warning" ng-click="reLoadEquipmentConfigClick()">{{languageJson.AssetRackPage.Sync}}</button><!--同步到MDC-->
+                    <button class="btn btn-default padding-bottom right" ng-click="showAssetsLogClick()">{{languageJson.AssetRackPage.Log}}</button><!--资产操作日志-->
+                </div>
+                <p></p>
+            </div>
+            <div class="panel panel-default" style="margin-bottom: 0px;">
+                <div class="panel-heading">
+                    {{languageJson.AssetRackPage.AssetList.Title}}
+                </div><!--资产机架列表-->
+                <div class="panel-body">
+                    <table class="table table-condensed table-bordered table-striped table-hover">
+                        <thead>
+                        <tr class="ng-table-sort-header">
+                            <th style="text-align: center" class="pointer RackId" ng-click="SortBy('RackId')">{{languageJson.AssetRackPage.AssetList.ID}}<i class="fa fa-chevron-down right" style="line-height: 20px;"></i></th><!--编号-->
+                            <th style="text-align: center" class="pointer CabinetName" ng-click="SortBy('CabinetName')">{{languageJson.AssetRackPage.AssetList.Cabinet}}<i class="fa right" style="line-height: 20px;"></i></th><!--机柜-->
+                            <th style="text-align: center" class="pointer RackInfo" ng-click="SortBy('RackInfo')">{{languageJson.AssetRackPage.AssetList.RackInfo}}<i class="fa right" style="line-height: 20px;"></i></th><!--机架网络信息-->
+                            <th style="text-align: center" class="pointer ServerInfo" ng-click="SortBy('ServerInfo')">{{languageJson.AssetRackPage.AssetList.ServerInfo}}<i class="fa right" style="line-height: 20px;"></i></th><!--服务器网络信息-->
+                            <th style="text-align: center" class="pointer UsedDate" ng-click="SortBy('UsedDate')">{{languageJson.AssetRackPage.AssetList.Date}}<i class="fa right" style="line-height: 20px;"></i></th><!--时间-->
+                            <th style="text-align: center" class="pointer TotalSpace" ng-click="SortBy('TotalSpace')">{{languageJson.AssetRackPage.AssetList.Total}}<i class="fa right" style="line-height: 20px;"></i></th><!--总U位-->
+                            <th style="text-align: center" class="pointer SurplusSpace" ng-click="SortBy('SurplusSpace')">{{languageJson.AssetRackPage.AssetList.Remaining}}<i class="fa right" style="line-height: 20px;"></i></th><!--剩余U位-->
+                            <th style="text-align: center" class="pointer StatusMeaning" ng-click="SortBy('StatusMeaning')">{{languageJson.AssetRackPage.AssetList.Status}}<i class="fa right" style="line-height: 20px;"></i></th><!--状态-->
+                            <th style="text-align: center;{{languageJson.Language == 'English'?'width: 200px;':''}}">{{languageJson.AssetRackPage.AssetList.Operation}}</th><!--操作-->
+                        </tr>
+                        </thead>
+                        <tr>
+                            <td align="center"><input type="text" class="form-control" ng-model="RackId" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="CabinetName" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="RackInfo" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="ServerInfo" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="UsedDate" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="TotalSpace" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="SurplusSpace" /></td>
+                            <!--<td align="center"><input type="text" class="form-control" ng-model="equipmentName" /></td>-->
+                            <td align="center">
+                                <select class="form-control" name = "portType" ng-model="StatusMeaning">
+                                    <option value="" >{{languageJson.AssetRackPage.AssetList.Meaning.All}}</option><!---- 所有 ---->
+                                    <option value="{{languageJson.AssetRackPage.AssetList.Meaning.Connecting}}" >{{languageJson.AssetRackPage.AssetList.Meaning.Connecting}}</option><!--连接ing...-->
+                                    <option value="{{languageJson.AssetRackPage.AssetList.Meaning.Normal}}" >{{languageJson.AssetRackPage.AssetList.Meaning.Normal}}</option><!---- 正常 ---->
+                                    <option value="{{languageJson.AssetRackPage.AssetList.Meaning.Alarm}}" >{{languageJson.AssetRackPage.AssetList.Meaning.Alarm}}</option><!---- 告警 ---->
+                                    <option value="{{languageJson.AssetRackPage.AssetList.Meaning.Stop}}" >{{languageJson.AssetRackPage.AssetList.Meaning.Stop}}</option><!---- 关闭监听 ---->
+                                </select>
+                            </td>
+                            <td align="center" style="width: 9vw;"></td>
+                        </tr>
+                        <tr ng-repeat="row in cabinetRacks | filter:{RackId:RackId,CabinetName:CabinetName,RackInfo:RackInfo,
+                                ServerInfo:ServerInfo,UsedDate:UsedDate,TotalSpace:TotalSpace,SurplusSpace:SurplusSpace,StatusMeaning:StatusMeaning} | orderBy : sortingOrder : reverse">
+                            <td align="center">{{row.RackId}}</td>
+                            <td align="center">{{row.CabinetName}}</td>
+                            <td align="center">{{row.RackInfo}}</td>
+                            <td align="center">{{row.ServerInfo}}</td>
+                            <td align="center">{{row.UsedDate}}</td>
+                            <td align="center">{{row.TotalSpace}}</td>
+                            <td align="center">{{row.SurplusSpace}}</td>
+                            <td align="center">{{row.StatusMeaning}}</td>
+                            <td align="center">
+                                <button type="button" class="btn btn-sm btn-success"
+                                        ng-click="showAssetsRackManagerClick(row.CabinetId,row.CabinetName,row.StatusMeaning,row.TotalSpace,row.SurplusSpace)">
+                                    {{languageJson.AssetRackPage.AssetList.Asset}}
+                                </button><!--资产-->
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="updateAssetsRackManagerClick(row)">{{languageJson.AssetRackPage.AssetList.Edit}}</button><!--编辑-->
+                                <button type="button" class="btn btn-sm btn-danger"  ng-click="removeAssetsRackManagerClick(row.CabinetId)">{{languageJson.AssetRackPage.AssetList.Delete}}</button><!--删除-->
+                                <!--<button type="button" class="btn btn btn-danger">无权限</button>-->
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- 使用方法请参照Directives.js => tablePaging -->
+                    <table-Paging table-Param="assetsManagerData" filter-Param="filter"></table-Paging>
+                </div>
+            </div>
+            <div align="right" id = "rollBtn" style="display: block;" title = "Top"><span class="fa fa-arrow-circle-up" style = "font-size: 50px"></span></div>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelector("#rollBtn").onclick = function(){
+        document.querySelector("#rollBtn_top").scrollIntoView(true);
+    };
+</script>
+

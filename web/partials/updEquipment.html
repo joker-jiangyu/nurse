@@ -1,0 +1,98 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.Update.Title}}</h4><!--修改设备-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--<div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.Config.Update.TemplateId}}</label>&lt;!&ndash;模板编码:&ndash;&gt;
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" placeholder="" ng-model="equipment.EquipmentTemplateId" readonly="readonly">
+                                </div>
+                            </div>-->
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.Config.Update.TemplateName}}</label><!--模板名称:-->
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="" ng-model="equipment.EquipmentTemplateName" readonly="readonly">
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-primary" ng-click="showTemplateListClick(equipment.EquipmentTemplateId)">{{languageJson.Config.Update.Rebinding}}</button><!--重新绑定-->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.Config.Update.Name}}</label><!--设备名称:-->
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" placeholder="" ng-model="equipment.EquipmentName" Virtual-Key-Board="equipment.EquipmentName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">{{languageJson.Config.Update.Equipment}}</label><!--设备厂家:-->
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" placeholder="" ng-model="equipment.Vendor" Virtual-Key-Board="equipment.Vendor">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.Config.Update.Port}}<!--端口设置-->
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.Config.Update.Number}}</label><!--端口号:-->
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="port" placeholder="" ng-model="equipment.PortNo" Virtual-Key-Board="equipment.PortNo">
+                                                </div>
+                                                <label class="control-label  col-md-3 tooltip-options">{{languageJson.Config.Update.PortType}}<!--端口类型-->
+                                                    <a href ><i class="fa fa-question-circle fa-fw pointer " ng-hide="languageJson.Language=='English'"
+                                                    title="<h5>串口:普通串口形式.<br/>SNMP口:标准南向SNMP协议.<br/>虚拟网口:通讯参数为虚假参数.<br/>网口:普通网口形式.<br/>简单逻辑口:IT服务器专用.</h5>"></i></a>:
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <select id="portType" class="form-control" name = "portType" ng-model="equipment.PortType" ng-change="portTypeChange(equipment.PortType)" ng-disabled="equipment.readonly">
+                                                        <option ng-repeat="row in portTypes" value="{{row.PortTypeId}}" ng-selected="equipment.PortType == row.PortTypeId">{{row.PortTypeValue}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.Config.Update.Address}}</label><!--地址:-->
+                                                <div class="col-md-3">
+                                                    <input id="address" class="form-control" name="address" type="text" ng-model="equipment.Address" Virtual-Key-Board="equipment.Address">
+                                                </div>
+                                                <label class="control-label  col-md-3">{{languageJson.Config.Update.Parameters}}</label><!--通讯参数:-->
+                                                <div class="col-md-4">
+                                                    <input id="para" class="form-control" name="para" type="text" ng-model="equipment.Setting" Virtual-Key-Board="equipment.Setting" ng-readonly="equipment.readonly">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.Config.Update.SO}}</label><!--SO库名:-->
+                                                <div class="col-md-10">
+                                                    <input id="dll" class="form-control" name="dll" type="text" ng-model="equipment.DllPath" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="updClick()">{{languageJson.Config.Update.Modify}}</button><!--修改-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Update.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options i").tooltip({html : true });});
+</script>

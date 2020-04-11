@@ -1,0 +1,85 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header active-alarm-header">{{languageJson.Alarm.Title}}</h1><!--当前告警-->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        
+    </div>
+    <div class="row" ng-controller="activeAlarmTableCtrl">
+        <div class="col-lg-12">
+            <div class="tabs-below active-alarm-filter">
+                <!--紧急告警-->
+                <span class="body pointer" ng-click="checkTest('levelUrgent')">
+                    <i class="fa {{levelFilter.levelUrgent == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel3"></i>
+                    <span>{{languageJson.Alarm.EAlarm}}</span>
+                </span>
+                <!--重要告警-->
+                <span class="body pointer" ng-click="checkTest('levelImportant')">
+                    <i class="fa {{levelFilter.levelImportant == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel2"></i>
+                    <span>{{languageJson.Alarm.IAlarm}}</span>
+                </span>
+                <!--一般告警-->
+                <span class="body pointer" ng-click="checkTest('levelCommon')">
+                    <i class="fa {{levelFilter.levelCommon == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel1"></i>
+                    <span>{{languageJson.Alarm.GAlarm}}</span>
+                </span>
+                <!--提示信息-->
+                <span class="body pointer" ng-click="checkTest('levelTip')">
+                    <i class="fa {{levelFilter.levelTip == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel0"></i>
+                    <span>{{languageJson.Alarm.PAlarm}}</span>
+                </span>
+                <!--<span class="body"><checkbox class="btn-danger" ng-model="levelFilter.levelUrgent" ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('levelUrgent')">{{languageJson.Alarm.EAlarm}}</span> </span>&lt;!&ndash;紧急告警&ndash;&gt;
+                <span class="body"><checkbox class="btn-warning" ng-model="levelFilter.levelImportant"  ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('levelImportant')">{{languageJson.Alarm.IAlarm}}</span> </span>&lt;!&ndash;重要告警&ndash;&gt;
+                <span class="body"><checkbox class="btn-info" ng-model="levelFilter.levelCommon"  ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('levelCommon')">{{languageJson.Alarm.GAlarm}}</span> </span>&lt;!&ndash;一般告警&ndash;&gt;
+                <span class="body"><checkbox class="btn-success" ng-model="levelFilter.levelTip"  ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('levelTip')">{{languageJson.Alarm.PAlarm}}</span> </span>&lt;!&ndash;提示信息&ndash;&gt;-->
+
+                <!--<span class="simulate-alarm">
+                    <button class="btn btn-default" ng-click="simulateAlarmClick()">模拟告警</button>
+                </span>-->
+
+                <span class="pull-right active-alarm-export" style="margin-bottom:12px">
+                    <button class="btn btn-default padding-bottom "
+                ng-click="exportToHtml()">{{languageJson.Alarm.Export}}...</button></span><!--导出-->
+                <!-- ng-csv="exportAlarms" add-bom="true" charset="GBK"
+                csv-header="['时间', '内容']"
+                filename="alarms.csv" -->
+                
+            </div>
+            <br/>
+            <div class="dialog_box">
+                <div class="alarm_table_body">
+                    <table  id="alarmTable" ng-table="tableParams" show-filter="true" class="table ng-table-responsive alarm_table table_body active-alarm-table" >
+                        <tr ng-repeat="alarm in $data">
+                            <!--'正在发生的告警'-->
+                            <td data-title="languageJson.Alarm.CurrAlarm" filter="{ 'alarmContent': 'text' }">
+                                <div>
+                                    <span>
+                                        <div ng-click="clickDeviceInfo(alarm.deviceId)" style="display:inline;cursor: pointer;">
+                                            <span><i class="fa fa-bell fa-fw alarmLevel{{alarm.alarmLevel}}">
+                                            </i></span> {{alarm.alarmContent}}
+                                            <span class="text-muted small">
+                                                <em> {{ alarm.startTime }}</em>
+                                            </span>
+                                        </div>
+                                        <span class="pull-right" ng-show="isAdminRole">
+                                            <button type="button" style="border:0px;"
+                                                    class="btn btn-default"
+                                                    ng-click="beginEndAlarm(alarm.uniqueId)">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        </span>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+<!-- /.container-fluid -->

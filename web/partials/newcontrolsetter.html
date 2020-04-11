@@ -1,0 +1,175 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.RemoteControl.AddTitle}}</h4><!--新增遥控遥调-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body div_body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.RemoteControl.ControlType}}</label><!--控制类型：-->
+                                        <div class="col-md-8">
+                                            <select class="form-control"  ng-model="controls.optionType" ng-change="initList()">
+                                                <option value="{{row.ItemId}}" ng-repeat="row in ItemControls"
+                                                        ng-selected="{{row.ItemId==ItemControls[0].ItemId}}">{{languageJson.Language == 'Chinese' ? row.ItemValue : row.ItemAlias}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-hide="controls.optionType == 3">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.RemoteControl.StyleType.Title}}</label><!--样式类型：-->
+                                        <div class="col-md-8">
+                                            <select class="form-control"  ng-model="controls.styleType">
+                                                <option value="ImageButton">{{languageJson.Configuration.RemoteControl.StyleType.ImageButton}}</option><!--图片按钮-->
+                                                <option value="DataControl">{{languageJson.Configuration.RemoteControl.StyleType.DataControl}}</option><!--数值控制-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.RemoteControl.EquipmentType}}</label><!--设备类型：-->
+                                        <div class="col-md-8">
+                                            <select class="form-control"  ng-model="controls.deviceId" ng-change="initList()">
+                                                <option value="{{row.equipmentId}}" ng-repeat="row in decices track by $index"
+                                                        ng-selected="{{row.equipmentId==controls.deviceId}}">{{row.configName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--普通控制-->
+                                    <div id="control" ng-hide="controls.optionType == 3">
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.RemoteControl.ControlList}}</label><!--控制列表：-->
+                                            <div class="col-md-8">
+                                                <div class="div_content" style="width: 100%; height: 200px; padding:0px 5px 0px 5px;">
+                                                    <div class="radio" ng-repeat="item in controls.lists">
+                                                        <label>
+                                                            <input type="radio" ng-model="controls.optionsControl"   name="optionsControl"
+                                                                   id="optionsControl{{$index + 1}}" value="{{item.BaseTypeId}}" ng-click="controlClk(controls.deviceId,item.BaseTypeId)">
+                                                            {{item.ControlName}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-show="controls.optionType == 2 && controls.styleType == 'ImageButton'">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.RemoteControl.SelectMeaning}}</label><!--选择控制含义：-->
+                                            <div class="col-md-8">
+                                                <select class="form-control" ng-model="controls.controlValue">
+                                                    <option value="{{row.ParameterValue}}" ng-repeat="row in controls.values">{{row.Meanings}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--遥控联动-->
+                                    <div id="controlLinkage" ng-show="controls.optionType == 3">
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.RemoteControl.ControlName}}</label><!--控制：-->
+                                            <div class="col-md-5">
+                                                <select class="form-control" ng-model="controls.control" ng-change="changeControl(controls.control)">
+                                                    <option value="{{row}}" ng-repeat="row in controls.Controls | filter:{ControlName : template}"> {{row.ControlName}} </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input  class="form-control" type="text" placeholder="{{languageJson.Configuration.RemoteControl.Filter}}" ng-model="template" Virtual-Key-Board="template"/><!--筛选控制-->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label  col-md-3">{{languageJson.Configuration.RemoteControl.Delay}}</label><!--延迟(s)：-->
+                                            <div class="col-md-2" style="padding-bottom: 15px;">
+                                                <input  class="form-control" type="text" ng-model="controls.delay" Virtual-Key-Board="controls.delay"/>
+                                            </div>
+                                            <label class="control-label  col-md-2">{{languageJson.Configuration.RemoteControl.ControlVal}}</label><!--控制值：-->
+                                            <div ng-hide="controls.CommandType == 1" class="col-md-4" style="padding-bottom: 15px;">
+                                                <select class="form-control" ng-model="controls.controlValue" ng-change="changeControlValue('1',controls.controlValue)">
+                                                    <option value="{{row.ParameterValue}}" ng-repeat="row in controls.Meanings"> {{row.Meanings}} </option>
+                                                </select>
+                                            </div>
+                                            <div ng-show="controls.CommandType == 1">
+                                                <div class="col-md-3" style="padding-bottom: 15px;">
+                                                    <input  class="form-control" type="text" ng-model="controls.controlValue" Virtual-Key-Board="controls.controlValue" placeholder="{{languageJson.Configuration.RemoteControl.Ranges}}:[{{MinValue}}-{{MaxValue}}]"/><!--范围-->
+                                                </div>
+                                                <div class="col-md-1" style="padding-bottom: 15px;">
+                                                    <button type="button" class="btn btn-primary"
+                                                            ng-click="changeControlValue('2',controls.controlValue)">{{languageJson.Configuration.RemoteControl.Add}}</button><!--添加-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="max-height: 200px;overflow-y: auto;">
+                                            <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                                                <tr ng-repeat="row in controls.controlActions">
+                                                    <td data-title="languageJson.Configuration.RemoteControl.Table.Number" align="center">{{row.index}}</td><!--'序号'-->
+                                                    <td data-title="languageJson.Configuration.RemoteControl.Table.Delay" align="center">{{row.delay}}</td><!--'延迟(s)'-->
+                                                    <td data-title="languageJson.Configuration.RemoteControl.Table.Equipment" align="center">{{row.equipmentName}}</td><!--'设备'-->
+                                                    <td data-title="languageJson.Configuration.RemoteControl.Table.Control" align="center">{{row.controlName}}</td><!--'控制'-->
+                                                    <td data-title="languageJson.Configuration.RemoteControl.Table.Value" align="center">{{row.actionMeanings}}</td><!--'控制值'-->
+                                                    <td class="center" data-title="languageJson.Configuration.RemoteControl.Table.Operation" align="center">
+                                                        <button type="button" class="btn btn-sm btn-danger"  ng-click="deleteMeaningsClick($index)">{{languageJson.Configuration.RemoteControl.Table.Delete}}</button><!--删除-->
+                                                    </td><!--'操作'-->
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="controls.styleType == 'ImageButton'">
+                                        <label class="control-label  col-md-3">{{languageJson.Configuration.RemoteControl.BindingImage}}
+                                            <label><sapn style="color: red;">{{languageJson.Configuration.RemoteControl.DefaultTran}}</sapn></label>
+                                        </label><!--绑定图片：/默认:半透明-->
+                                        <div class="col-md-4">
+                                            <input type="file" accept="image/*" ngfile  class="btn btn-default" style="width: 80%;"/>
+                                        </div>
+                                        <div class="col-md-4 topology-img-div">
+                                            <!--<input class="form-control" type="text" readonly ng-model="Topology.upImgName"/>-->
+                                            <img src="{{imgFilePath}}" class="topology-img">
+                                            <div>
+                                                <img src="{{imgFilePath}}" title="{{languageJson.Configuration.RemoteControl.ClickPrompt}}" ng-click="showImgFile('imgFilePath')">
+                                            </div><!--点击选择图片资源-->
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">
+                                        <label class="control-label col-md-3" style="line-height: 40px;">{{languageJson.Configuration.RemoteControl.NeedPassword}}</label>&lt;!&ndash;是否需要密码：&ndash;&gt;
+                                        <div class="col-md-1 timeGroupCheck">
+                                            <label style="line-height: 52px;">
+                                                <input type="checkbox" ng-click="checkedDoor($event,'controls.isControlCheck')" ng-model="controls.isControlCheck">
+                                                <i>{{getCheckbox(controls.isControlCheck)}}</i>
+                                            </label>
+                                        </div>
+                                        <div ng-show="controls.isControlCheck">
+                                            <label class="control-label col-md-3">{{languageJson.Configuration.RemoteControl.Passwrod}}
+                                                <label><sapn style="color: red;">{{languageJson.Configuration.RemoteControl.DefaultPwd}}</sapn></label>
+                                            </label>&lt;!&ndash;密码：/默认:admin&ndash;&gt;
+                                            <div class="col-md-4" style="margin: 10px 0px;">
+                                                <input class="form-control" ng-model="controls.controlPwd" Virtual-Key-Board="controls.controlPwd" type="password"/>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{languageJson.Configuration.RemoteControl.PwdType.Title}}</label><!--密码类型：-->
+                                        <div class="col-md-4">
+                                            <select class="form-control" ng-model="controls.pwdType" ng-change="changePwdTypeValue(controls.pwdType)">
+                                                <option value="NoPassword" selected="selected"> {{languageJson.Configuration.RemoteControl.PwdType.NoPassword}} </option>
+                                                <option value="LoginPassword"> {{languageJson.Configuration.RemoteControl.PwdType.LoginPassword}} </option>
+                                                <option value="SharePassword"> {{languageJson.Configuration.RemoteControl.PwdType.SharePassword}} </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 input-password" ng-show="controls.pwdType == 'SharePassword'">
+                                            <input class="form-control" ng-model="controls.controlPwd" Virtual-Key-Board="controls.controlPwd" type="password" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">{{languageJson.Configuration.RemoteControl.Add}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.RemoteControl.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

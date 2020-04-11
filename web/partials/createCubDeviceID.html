@@ -1,0 +1,55 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.OtherModule.ChinaunicomCfgBox.CreateDeviceID}}</h4><!--生成DeviceID-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group" style="margin: 20px 0px 0px 0px;">
+                            <div class="col-md-12">
+                                <table class="table table-condensed table-bordered table-striped ng-table tooltip-options">
+                                    <tr>
+                                        <!--设备类型-->
+                                        <td align="center">{{languageJson.OtherModule.ChinaunicomCfgBox.DeviceCore}}
+                                            <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                title="<h5>该3位为设备类型</h5>">
+                                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                                            </a>
+                                        </td>
+                                        <!--顺序编号-->
+                                        <td align="center">{{languageJson.OtherModule.ChinaunicomCfgBox.Serial}}
+                                            <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                title="<h5>该2位为顺序编号</h5>">
+                                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select class="form-control" ng-model="DeviceID.Code">
+                                                <option value="{{row.Type}}" ng-repeat="row in BInterfaceUnicomTypes"
+                                                        ng-selected="DeviceID.Code == row.Type">[{{row.Type}},{{row.Name}}]</option>
+                                            </select>
+                                        </td>
+                                        <td><input class="form-control" placeholder="" type="text" ng-model="DeviceID.Number" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="createCubDeviceID()">{{languageJson.OtherModule.ChinaunicomCfgBox.Create}}</button><!--生成-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.OtherModule.ChinaunicomCfgBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

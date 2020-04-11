@@ -1,0 +1,145 @@
+<div class="modal-content am-modal-dialog">
+    <div class="modal-header">
+        <h4 class="modal-title"> {{languageJson.FeatureList.Title}} </h4>
+    </div>
+    <div class="model-body-footer" style="width: 100%;padding-top: 0px;">
+        <div class="modal-body">
+            <div>
+                <table class="transparency_bg">
+                    <tr>
+                        <!--协议管理-->
+                        <td onclick="window.location.href='#/protocol'">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-cogs fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">{{languageJson.Header.Config.Protocols}} </samp>
+                            </a>
+                        </td>
+                        <!-- 配置管理 -->
+                        <td onclick="window.location.href='#/config'">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-wrench fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title"> {{languageJson.Header.Config.Config}} </samp>
+                            </a>
+                        </td>
+                        <!--组态管理-->
+                        <td ng-click="configureMold()">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-bars fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title"> {{languageJson.Header.Advanced.Configure}} </samp>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table class="transparency_bg" style="border-top: 0px;">
+                    <tr>
+                        <!--接口配置-->
+                        <td onclick="window.location.href='#/otherModule'">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-cog fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">{{languageJson.Header.Config.OtherModule}} </samp>
+                            </a>
+                        </td>
+                        <!--人员管理-->
+                        <td onclick="window.location.href='#/employee'">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">{{languageJson.Header.Config.Employee}} </samp>
+                            </a>
+                        </td>
+                        <!--告警通知-->
+                        <td onclick="window.location.href='#/notify'">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-bullhorn fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">{{languageJson.Header.Config.AlarmNotice}} </samp>
+                            </a>
+                        </td>
+                        <!--告警联动-->
+                        <td onclick="window.location.href='#/alarmLinkage'">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title"> {{languageJson.Header.Config.AlarmLinkage}} </samp>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table class="transparency_bg">
+                    <tr>
+                        <!--MDC配置-->
+                        <td ng-click="showConfigMdc()" ng-show="isShowFeature('Mdc')">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-circle fa-stack-2x"></i>
+                                          <i class="fa fa-th-list fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">{{languageJson.Header.Config.MDC}} </samp>
+                            </a>
+                        </td>
+                        <!--数据管理-->
+                        <td ng-click="historyDataClearClick()">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-history fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">{{languageJson.Header.Advanced.Data}} </samp>
+                            </a>
+                        </td>
+                        <!--权限管理-->
+                        <td ng-click="permissionManage()">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-unlock-alt fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">{{languageJson.Header.User.Authority}} </samp>
+                            </a>
+                        </td>
+                        <!--  界面设置 -->
+                        <td ng-click="changeHome()">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-home fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">{{languageJson.Header.User.Interface.Title}}</samp>
+                            </a>
+                        </td>
+                        <!--  登录界面设置 -->
+                        <td ng-click="changeLogin()">
+                            <a>
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-home fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                <samp class="dropdown-title">登录界面设置</samp>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

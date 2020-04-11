@@ -1,0 +1,49 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.ShieldEventBox.Title}}</h4><!-- 事件屏蔽状态 -->
+            </div>
+            <div class="modal-body center-block div_body">
+
+                <div style="margin: 10px 0px;">
+                    <span class="body" style="cursor: pointer;">
+                        <checkbox class="btn-default" ng-model="ShieldTemplate.Shield"  ng-click="checkShieldAll(ShieldTemplate.EquipmentTemplateId,undefined,ShieldTemplate.Shield)"></checkbox>
+                        <span ng-click="checkShieldAll(ShieldTemplate.EquipmentTemplateId,'$scope.ShieldTemplate.Shield',ShieldTemplate.Shield)">{{ShieldTemplate.EquipmentTemplateName}}</span>
+                    </span>
+                </div>
+                <div  style="width: 100%; max-height: 400px; padding:0px 5px 0px 5px; border: 0px;" class="div_content scroll-easy">
+                    <table class="table table-condensed table-bordered table-striped table-hover ng-table">
+                        <thead class="ng-scope">
+                        <tr class="ng-table-sort-header">
+                            <th>{{languageJson.Config.ShieldEventBox.Shield}}</th>
+                            <th>{{languageJson.Config.ShieldEventBox.EventName}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td align="center">
+                                <select class="form-control" ng-model="Shield">
+                                    <option value="" selected="selected">{{languageJson.Config.ShieldEventBox.All}}</option><!--全部-->
+                                    <option value="false">{{languageJson.Config.ShieldEventBox.Enable}}</option><!--启用-->
+                                    <option value="true">{{languageJson.Config.ShieldEventBox.Shield}}</option><!--屏蔽-->
+                                </select>
+                            </td>
+                            <td align="center"><input type="text" class="form-control" ng-model="EventName" virtual-key-board="EventName"/></td>
+                        </tr>
+                        <tr ng-repeat="item in EventList | filter:{Shield:Shield,EventName:EventName}">
+                            <td align="center"><checkbox class="btn-default" ng-model="item.Shield" ng-click="checkShieldEvent(item,item.Shield)"></checkbox></td>
+                            <td ng-click="checkShieldEvent(item,undefined)"><span>{{item.EventName}}</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="ShieldEventSave()">{{languageJson.Config.ShieldEventBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.ShieldEventBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

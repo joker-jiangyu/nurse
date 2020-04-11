@@ -1,0 +1,107 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.AssetBox.UpdTitle}}</h4><!--编辑资产信息-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.AssetCode}}</label><!--资产编码*:-->
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="editAssetsRowData.assetsCode" maxlength="15">
+                            </div>
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.AssetType.Title}}</label><!--资产类型:-->
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="editAssetsRowData.assetType" maxlength="15" >
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.AssetName}}</label><!--资产名称*:-->
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="editAssetsRowData.assetsName">
+                            </div>
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.AssetStyle}}</label><!--资产型号:-->
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="editAssetsRowData.assetStyle">
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.Device.Title}}</label><!--设备:-->
+                            <div class="col-md-3">
+                                <select class="form-control" ng-model="editAssetsRowData.equipmentId"
+                                        ng-change="changeEquipment('edit',editAssetsRowData.equipmentId)">
+                                    <option value="">{{languageJson.AssetBox.Device.SelectPrompt}}</option><!----请选择设备---->
+                                    <option ng-repeat="row in allEquipmentList" value="{{row.EquipmentId}}" ng-selected = "row.EquipmentId == editAssetsRowData.equipmentId">{{row.EquipmentName}}</option>
+                                </select>
+                            </div>
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.Vendor}}</label><!--资产厂家:-->
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="editAssetsRowData.vendor">
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.Status.Title}}</label><!--状态:-->
+                            <div class="col-md-3">
+                                <select class="form-control" ng-model="editAssetsRowData.status">
+                                    <option value="1">{{languageJson.AssetBox.Status.Putaway}}</option><!--上架-->
+                                    <option value="0">{{languageJson.AssetBox.Status.Demolition}}</option><!--下架-->
+                                </select>
+                                <!--<input type="text" class="form-control" ng-model="editAssetsRowData.status">-->
+                            </div>
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.Responsible}}</label><!--负责人:-->
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="editAssetsRowData.responsible">
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.Position}}</label><!--位置:-->
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" ng-model="editAssetsRowData.position">
+                            </div>
+                            <button type="button" class="btn btn-primary"
+                                    ng-click="bindPosition('editAssetsRowData.position',editAssetsRowData.position)">{{languageJson.AssetBox.Binding}}</button><!--U位绑定-->
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.UsedDate}}</label><!--投产时间:-->
+                            <div class="col-md-9" ng-class="{'has-error': datepickerForm.date.$invalid}">
+                                <input type="text" class="form-control" ng-model="editAssetsRowData.usedDate" name="usedDate" data-date-format="yyyy-MM-dd" bs-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-12" style="line-height: 40px;">
+                            <label class="control-label  col-md-3">{{languageJson.AssetBox.Remark}}</label><!--备注:-->
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" style="height: 50px" ng-model="editAssetsRowData.description">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveEditAssetsManagerClick()">{{languageJson.AssetBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.AssetBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

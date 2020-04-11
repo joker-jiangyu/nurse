@@ -1,0 +1,1120 @@
+/* 字体颜色 */
+body{
+    color: #464952;
+}
+.form-signin .input-group input,.logotitle,.sidebar ul li a,
+    .dropdown >a,.diagram>a{
+    color: #464952;
+}
+.diagram>.btn:hover{
+    color: #FFFFFF;
+    background-color: #237AF8;
+}
+
+/* 背景颜色 */
+.navbar-header,.menu_bar,.navbar{
+    background-color: #fbfefd;
+}
+.menu_bar .device-ul{
+    background-color: #f3f4fb;
+    padding: 2px;
+}
+.menu_bar .device-li:hover,
+.menu_bar .device-li.active{
+    background-image: none;
+    background-color: #237AF8;
+    color: #FFFFFF;
+}
+
+/* 登录页面 li 鼠标悬停事件 */
+.login-ul > li {
+    position: relative;
+    display: block;
+}
+.login-ul > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+.login-ul > li > a > select{
+    cursor: pointer;
+}
+.login-ul > li > a:hover{
+    background-color: rgba(153, 153, 153, 0);
+}
+
+/* 输入框颜色 */
+input[type="text"],textarea,input[type="password"]{
+    border-radius: 20px;
+    background-color: #F5F6FA;
+    border: 1px solid #5599FD;
+    box-shadow: rgba(15, 96, 244, 0) 0px 0px 20px;
+    color: #464952;
+}
+
+/* 背景图 */
+.Body-Background{
+    background: url(../img/loginbg.jpg) left top/cover no-repeat !important;
+}
+.Login-Background{
+    background: url(../img/logininfo.png) no-repeat;
+}
+
+/* 总览页面 */
+.body_bg{
+    background: url(../img/bg.jpg) no-repeat;
+}
+#view-scroll a{
+    margin-right: 8px;
+}
+
+.sidebar ul li a.active{
+    background: url(../img/MenuBar/bg_White.png) left;
+    background-size: calc(100% - 20px) 50px;
+    color: #237AF8;
+}
+.sidebar ul li a:hover{
+    background: url(../img/MenuBar/bg_White.png) left;
+    background-size: calc(100% - 20px) 50px;
+}
+.diagram-alarmCount, .view-alarmCount{
+    background-color: #E64E5B;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{
+    background-color: #F2F3FA;
+}
+.nav > li > a:focus{
+    background-color: #F2F3FA;
+}
+.nav > li > a:hover{
+    background-color: #F2F3FA;
+}
+.dropdown-menu{
+    background-color: #F5F6FA;
+}
+.dropdown-menu > ul > li > a{
+    color: #464952;
+}
+.dropdown-menu .divider{
+    background-color: #464952;
+}
+#alarmCount{
+    background-color: #E64E5B;
+}
+
+.diagram> .active{
+    background-color: #fbfefd;
+    color: #237AF8;
+    border: 2px solid rgb(222, 226, 246);
+}
+.diagram label{
+    background-color: #F5F6FA;
+    border: 2px solid rgb(222, 226, 246);
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+}
+.btn:active, .btn.active{
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+    background-color: #237af8;
+    color: #FFFFFF;
+    border-color:#237af8;
+}
+
+#view-scroll{
+    margin: 8px 0px 0px 8px;
+    width: calc(99.5%);
+}
+#view-scroll.iView-scroll{
+    margin-left: 160px;
+}
+#diagramControl{
+    height:calc(100% - 48px);
+}
+#page-wrapper .row{
+    margin-top: 8px;
+    margin-left: -7px;
+}
+
+/* MDC 首页 */
+.MdcMenu{
+    height: 48px;
+    border: 2px solid rgb(222, 226, 246);
+}
+.MdcMenu table,.MdcMenu tr td{
+    background-color: #F5F6FC;/*rgb(222, 226, 246);*/
+}
+.MdcMenu tr td.selected{
+    background-color: #ffffff;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+    color: #237AF8;
+}
+.MdcMenu tr td:hover{
+    background-color: #ffffff;
+}
+
+/* iView 3.0 历史 */
+.record-title{
+    height: 48px;
+    border: 2px solid rgb(35, 122, 248);
+}
+.record-title a{
+    color: #464952;
+}
+.record-title table,.record-title table tr td{
+    background-color: #F5F6FC;
+}
+.record-title table tr td:hover{
+    background-color: #ffffff;
+}
+.record-title table tr td.selected{
+    background-color: #237af8;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+    color: #ffffff;
+}
+.record-title table tr td.selected a{
+    color: #ffffff;
+}
+
+
+.cabinet_body{
+    background-image: none;
+    background-color: #FBFEFD;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.3);
+}
+
+/* MDC 机柜背景图 */
+.UPS{
+    background:url('../img/mdc/ups_White.png');
+}
+.RACK{
+    background:url('../img/mdc/rack_White.png');
+}
+.AC{
+    background:url('../img/mdc/ac_White.png');
+}
+.UNUSE{
+    background:url('../img/mdc/unuse_White.png');
+}
+.CELL{
+    background:url('../img/mdc/cell_White.png');
+}
+.RECTIFIER{
+    background:url('../img/mdc/rectifier_White.png');
+}
+.HVDC{
+    background:url('../img/mdc/hvdc_White.png');
+}
+
+.cabinet-box .cabinet-body{
+    background-color: rgba(39, 47, 66, 0);
+    box-shadow: 0px 2px 20px 0px rgba(140, 146, 172, 0.5);
+}
+.cabinet-box .cabinet-body > div{
+    background-color: #F5F6FC;
+    color: #464952;
+    border-radius: 0px;
+}
+.thermal .cabinet-body{
+    border: rgb(208, 212, 232) 3px solid;
+}
+
+/* MDC 机柜告警边框颜色 */
+.device .normal{
+    border: rgb(208, 212, 232) 3px solid;
+    box-shadow: 0px 2px 20px 0px rgba(140, 146, 172, 0.5);
+    -webkit-box-shadow: 0px 2px 20px 0px rgba(140, 146, 172, 0.5);
+}
+.device .alarmUrgent{
+    border:rgb(236, 93, 160) 3px solid;
+    box-shadow: 0px 2px 20px 0px rgba(219, 63, 118,1);
+    -webkit-box-shadow: 0px 2px 20px 0px rgba(219, 63, 118,1);
+    -moz-box-shadow: 0px 2px 20px 0px rgba(219, 63, 118,1);
+}
+.device .alarmImportant{
+    border:rgb(231, 191, 6) 3px solid;
+    box-shadow: 0px 2px 20px 0px rgba(243, 220, 86,1);
+    -webkit-box-shadow: 0px 2px 20px 0px rgba(243, 220, 86,1);
+    -moz-box-shadow: 0px 2px 20px 0px rgba(243, 220, 86,1);
+}
+.device .alarmCommon{
+    border:rgb(36, 122, 250) 3px solid;
+    box-shadow: 0px 2px 20px 0px rgba(100, 172, 253,1);
+    -webkit-box-shadow: 0px 2px 20px 0px rgba(100, 172, 253,1);
+    -moz-box-shadow: 0px 2px 20px 0px rgba(100, 172, 253,1);
+}
+.device .alarmTip{
+    border:#17C06B 3px solid;
+    box-shadow: 0px 2px 20px 0px rgba(24, 212, 121,1);
+    -webkit-box-shadow: 0px 2px 20px 0px rgba(24, 212, 121,1);
+    -moz-box-shadow: 0px 2px 20px 0px rgba(24, 212, 121,1);
+}
+.device .disable{
+    border:#5E687F 3px solid;
+    box-shadow: 0px 2px 20px 0px rgba(127, 140, 171, 1);
+    -webkit-box-shadow: 0px 2px 20px 0px rgba(127, 140, 171,1);
+    -moz-box-shadow: 0px 2px 20px 0px rgba(127, 140, 171,1);
+}
+
+.cabinet{
+    color: #464952;;
+}
+.cabinet .cabinet-title{
+    background-color: rgba(8, 9, 13, 0);
+}
+
+/** 天窗 */
+#skyFalling.normal{
+    margin: 0.5vh 0px;
+    background: url(../img/mdc/AisleNormal_White.png) no-repeat;
+    background-size: 100% 18vh;
+}
+#skyFalling.alarm{
+    margin: 0.5vh 0px;
+    background: url(../img/mdc/AisleAlarm_White.png) no-repeat;
+    background-size: 100% 18vh;
+}
+
+.tableTop{
+    background-color: #E64E5B;
+}
+
+/* MDC 摄像头 */
+.camera_left.cameraNormal,.camera_right.cameraNormal{
+    width: 4vw;
+    height: 4vw;
+    background: url('../img/mdc/CameraBall_Normal.png') no-repeat center;
+    background-size: 3vw 3vw;
+}
+.camera_left.cameraDisconnect,.camera_right.cameraDisconnect{
+    width: 4vw;
+    height: 4vw;
+    background: url('../img/mdc/CameraBall.png') no-repeat center;
+    background-size: 3vw 3vw;
+}
+
+/* MDC 实时告警 */
+.Play-Screen{
+    background-color: #fbfefd;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+}
+.Play-Screen-Button{
+    border-top: 1px solid #DDDDDF;
+}
+.Play-Screen-Button .box{
+    background: #247AFA;
+    color: #FFFFFF;
+}
+.Play-Screen-Button .box:before{
+    border-top: 20px solid #247AFA;
+}
+
+.root-cheek .filer_body{
+    width: 8vw;
+    height: 3vw;
+    position: absolute;
+    top: -2vh;
+    right: 0vh;
+    z-index: 3;
+    line-height: 3vh;
+}
+/* MDC 告警弹出框 */
+.modal-content, .dialog_box{
+    background-color:#FFFFFF;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+}
+.modal-header,.table_body thead, table thead,.table_body tbody, table tbody{
+    background-color:#FFFFFF;
+}
+.mdcBelow{
+    background-color: #EFF3FE;
+}
+.modal-content .modal-header, .dialog_box .alarm_table_body{
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+}
+.modal-content .input-password > div{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.modal-content .input-password label{
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+}
+.modal-content .input-password input{
+    width: 300px;
+    display: inline-block;
+}
+/* 64节温场 */
+.node-temp-body .body-caliper,
+.body-temperature table tr td{
+    border: 1px solid #FFFFFF;
+}
+.node-edit-config .modal-header,
+.node-edit-view .modal-header{
+    border-bottom: 1px solid #d5daeb;
+    background-color:#FFFFFF;
+}
+.node-edit-config,.node-edit-view{
+    border: 1px solid #d5daeb;
+}
+.add-temperature{
+    border: 1px solid #d5daeb;
+}
+.Test-Box-Choose table tr td.point{
+    border: 1px solid #000000;
+}
+.edit-img-temp{
+    border: 1px solid #d5daeb;
+}
+.edit-temp .edit-temp-modal{
+    border: 1px solid #d5daeb;
+}
+.active-alarm-body thead tr td,
+.active-alarm-body thead tr th,
+.alarm-list-table .alarm-table-time td,
+.alarm-list-table td.alarm-table-level,
+.alarm-list-table td.alarm-table-name{
+    border-bottom: 1px solid #D5DAEB;
+}
+
+.table-bordered{
+    border: 1px solid #D5DAEB;
+    background-color: #d7dcee;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td{
+    border-bottom: 1px solid #D5DAEB;
+}
+
+.modal-content button.close{
+    background-color: #f75ea9;
+}
+.modal-content button.close:hover{
+    background-color: #EB5D9E;
+}
+.modal-content button.close i{
+    color: #FFFFFF;
+}
+
+/* 按钮 */
+.btn-default{
+    background-color: #B9C0DD;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.focus,
+.btn-default:active,
+.btn-default.active{
+    background-color: #237af8;
+}
+.btn-danger{
+    background-color: #EB5D9E;
+    border-color: #f45da7;
+}
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger.focus,
+.btn-danger:active,
+.btn-danger.active{
+    background-color: #f45da7;
+    border-color:#f45da7;
+}
+.alarmLevel3{
+    color:#EB5D9E;
+}
+.btn-warning{
+    background-color: #ED8B31;
+    border-color:#f69132;
+}
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning.focus,
+.btn-warning:active,
+.btn-warning.active{
+    background-color: #f69132;
+}
+.alarmLevel2{
+    color:#ED8B31;
+}
+.btn-info,.btn-primary{
+    background-color: #247AFA;
+    border-color:#247cff;
+}
+.btn-info:hover,
+.btn-info:focus,
+.btn-info.focus,
+.btn-info:active,
+.btn-info.active,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary.active{
+    background-color: #247cff;
+    border-color:#247cff;
+}
+.alarmLevel1{
+    color:#247AFA;
+}
+.btn-success{
+    background-color: #5cb85c;
+    border-color:#66c666;
+}
+.btn-success:hover,
+.btn-success:focus,
+.btn-success.focus,
+.btn-success:active,
+.btn-success.active{
+    background-color: #66c666;
+    border-color:#66c666;
+}
+.alarmLevel0{
+    color:#5cb85c;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+    background-color: #B9C0DD;
+    border: 1px solid #B9C0DD;
+    color: #464952;
+}
+.form-control{
+    background-color: #F5F6FA;
+    border: 1px solid #5599FD;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+    color: #464952;
+}
+
+.pagination > .active > a, .pagination > .active > span,
+.pagination > .active > a:hover, .pagination > .active > span:hover,
+.pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #4F96FB;
+    color: #FFFFFF;
+}
+.pagination > li > a, .pagination > li > span{
+    color: #656779;
+}
+
+.camera-plugin{
+    background-color: #EFF3FA;
+}
+
+.panel-default{
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+}
+.panel-default > .panel-heading{
+    background-color: #f5f6fc;
+    color: #656779;
+}
+
+.asset-head{
+    background-color: #EFF3FA;
+}
+
+.panel-group .panel{
+    border-radius: 20px;
+}
+
+.rackDevice,.rackDevice-selected{
+    color: #FFFFFF;
+}
+
+
+/* Room 首页 */
+.diagram-tab{
+    background-color: #F5F6FA;
+    border: 2px solid rgb(222, 226, 246);
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+}
+
+/* 告警总览表 */
+.page-header{
+    color: #656779;
+}
+.panel-red .panel-heading, .panel-yellow .panel-heading,
+.panel-blue .panel-heading, .panel-green .panel-heading{
+    background-color: #EFF3FA;
+}
+.panel-footer{
+    background-color: #EFF3FA;
+}
+
+.panel-red,.panel-red .panel-heading{
+    border-color: #EB5D9E;
+    color: #EB5D9E;
+}
+.panel-yellow,.panel-yellow .panel-heading{
+    border-color:#ED8B31;
+    color: #ED8B31;
+}
+.panel-blue,.panel-blue .panel-heading{
+    border-color:#247AFA;
+    color: #247AFA;
+}
+.panel-green,.panel-green .panel-heading{
+    border-color:#5cb85c;
+    color: #5cb85c;
+}
+
+#rollBtn,#rollAlarm,#rollInfo{
+    color: #656779;
+}
+
+.table-hover > tbody > tr:hover {
+    background-color:#EFF3FA;
+}
+
+.div_content{
+    background-color: #EFF3FA;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+    border: 1px solid #5599FD;
+}
+
+/* 编辑器 */
+.editor-menu{
+    background-color: #FFFFFF;
+    border: 2px solid #cacaca;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+    color: #464952 !important;
+}
+.is-show-div{
+    background-color: #FFFFFF;
+    border: 2px solid #cacaca;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+    color: #464952 !important;
+    top: -2px;
+    width: 25px;
+}
+.editor button{
+    border:2px solid rgb(222, 226, 246);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+}
+.editor_lock.true{
+    background-color: rgb(222, 226, 246);
+    border-color: rgb(222, 226, 246);
+}
+
+.image-preview{
+    background-color: #b9c0dd;
+}
+
+
+input.btn-default{
+    color: #464952;
+    border: 1px solid #5599FD;
+}
+input[type="file"]{
+    background-color: #EFF3FA;
+    /*background-color: #B9C0DD;*/
+    border: 1px solid #5599FD;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+}
+input.btn-default:hover, select.btn-default:hover,
+input.btn-default:focus, select.btn-default:focus,
+input.btn-default.focus, select.btn-default.focus,
+input.btn-default:active, select.btn-default:active,
+input.btn-default.active, select.btn-default.active,
+.open > .dropdown-toggle.btn-default{
+    color: #464952;
+    background-color: #EFF3FA;
+    border: 1px solid #5599FD;
+}
+
+/* 组态白色样式 */
+.white_bg{
+    border: 1px solid rgba(32, 100, 202, 0.12);
+    border-radius: 10px;
+    /*opacity: 0.9;*/
+    background-color: #FFFFFF;
+    box-shadow:0px 2px 20px 0px rgba(140, 146, 172, 1);
+}
+.white_bg .signal_title{
+    padding: 4px 16px;
+    border-bottom: 1px solid rgba(32, 100, 202, 0.12);
+    margin-bottom: 6px;
+}
+.white_bg .table_signal_body_value i{
+    /*color: #FFFFFF;*/
+}
+
+.show-font-chart{
+    background-color: #f5f5f5;
+    border: 1px solid rgba(32, 100, 202, 0.12);
+}
+.image-signal-body .diagram-sigimg-title{
+    color: #464952;
+}
+.image-signal-body .diagram-sigimg-value{
+    color: #FFFFFF;
+}
+
+.device_info_btn{
+    color: #FFFFFF;
+}
+
+
+/* 组态值样式 */
+.signal-value-disconnect{
+    background-color:#b9c0dd;
+    border: #b9c0dd solid 1px;
+    color: #464952;
+}
+.signal-value-normal{
+    background-color:#0BCF6D;
+    border: #0BCF6D solid 1px;
+    color: #FFFFFF;
+}
+.signal-value-alarm{
+    background-color:#ED7720;
+    border: #ED7720 solid 1px;
+    color: #FFFFFF;
+}
+
+.ExpressionSymbol li{
+    border: 1px solid #025aff;
+    background-color: #247afa;
+    color: #FFFFFF;
+}
+
+/*本地图片选择*/
+.topology-img-div{
+    background-color: #b9c0dd;
+    border: 1px solid #5599FD;
+}
+div.topology-expand-div{
+    background-color: #b9c0dd;
+}
+.topology-img-div:hover div{
+    background-color: #b9c0dd;
+}
+
+/* 表格组态 */
+.nts-table .nts-held{
+    background-color: #b9c0dd;
+}
+
+/* 时间 */
+table{
+    background-color: #b9c0dd;
+}
+.datepicker>table>thead>tr>th>.btn-default,
+.datepicker>table>tbody>tr>td>.btn-default{
+    background-color: #F2F3FA;
+    color: #464952;
+}
+.text-muted{
+    color: #82879a;
+}
+
+.border, .border tr,
+.border tr td,
+.border tr th{
+    border: #b9c0dd solid 1px;
+}
+
+select, select.btn-default{
+    background-color: #FFFFFF;
+    color: #464952;
+    border: 1px solid #5599FD;
+    box-shadow: rgba(15, 96, 244, 0) 0px 0px 20px;
+}
+
+/* KPI */
+.charts_div .charts_a div,.charts_div .table_div{
+    color: #464952;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(32, 100, 202, 0.12);
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+}
+
+/* 视频 */
+.camera-menu,.split-area{
+    background-color: #FFFFFF;
+}
+.camera_color,
+.camera-menu .title span,
+.camera-menu .parasAdjust span{
+    color: #464952;
+}
+.camera-menu .tree ul li,
+.split-area a{
+    color: #217CF6;
+}
+.camera-menu .title{
+    background-color: #F2F4FB;
+    border: 0px;
+}
+.camera-menu .parasAdjust span{
+    background: url(../img/video/parascontrol_White.png) no-repeat;
+    background-size: 116px 28px;
+}
+.camera-menu .parasAdjust span a{
+    background: none;
+}
+.camera-menu .parasAdjust span i{
+    background: none;
+}
+.split-area span.camera_view,
+.split-area span.camera_record{
+    border: 1px solid #217CF6;
+}
+.input-group-addon{
+    border-radius: 20px;
+    background-color: #0166fe;
+    border: 1px solid #0166fe;
+}
+.record-search button{
+    background-color: #0166fe;
+    border-color: #0179ff;
+}
+.record-search button:hover{
+    background-color: #247cff;
+    border-color:#247cff;
+}
+
+
+/* 配置 => 配置管理 */
+.nav-tabs{
+    border-bottom: 1px solid rgb(222, 226, 246);
+}
+.nav-tabs > li{
+    margin-right: 8px;
+}
+.nav-tabs > li > a{
+    background-color: #F5F6FA;
+    border: 2px solid rgb(222, 226, 246);
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+    margin-right:0px;
+    border-radius:0px;
+}
+.nav-tabs > li > a:hover{
+    color: #237AF8;
+    background-color: #FFFFFF;
+    border: 2px solid rgb(222, 226, 246);
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus{
+    background-color: #237af8;
+    color: #ffffff;
+    border: 2px solid rgb(222, 226, 246);
+}
+.nav-tabs a{
+    color: #464952;
+}
+.manage-top-div{
+    background-color: #d7dcee;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px;
+}
+.white_table_bottom{
+    background-color: #f5f6fc;
+    border-radius: 20px;
+}
+
+
+/* 小机房 3D配置 */
+.section,
+.sectionBody,
+.sectionHeader{
+    background-color: #d7dcee;
+}
+
+
+/* 门禁管理 - 时间组 */
+.time_set_bg{
+    background-color: #D8DDEE;
+}
+.timeGroupCheck label i{
+    color: #464952;
+}
+.timeGroupCheck input[type="checkbox"]:checked + i{
+    color: #FFFFFF;
+}
+
+#ControlDoor .td1{
+    background-color: #d7dcee;
+}
+#ControlDoor table tbody tr td{
+    border: 1px solid #B9C0DD;
+}
+
+
+.sk-wave .sk-rect{
+    background-color: #464952;
+}
+
+/* 指导 */
+.help-notes-body{
+    background-image: url(../img/bg_Blue.jpg);
+}
+
+.templateProperty{
+    background-color: #d7dcee;
+    border: 1px solid #B9C0DD;
+}
+
+/* MDC配置 */
+.Mdc_Aisle tr td{
+    border: 1px solid #B9C0DD;
+}
+.Mdc_Aisle tr td:hover{
+    background-color: #d7dcee;
+}
+.cabinet_title_color a{
+    color: #464952;
+}
+
+.config_mdc_marked{
+    color: #656779;
+}
+
+/* iView 3.0 功能弹出框 */
+.navbar-top-links .dropdown-menu{
+    color: #464952;
+    background-color: #FFFFFF;
+    border: 1px solid #B9C0DD;
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+}
+.navbar-static-top ul li.top-title a:hover,
+.navbar-static-top ul li.top-title a.active{
+    /*background: url(../img/MenuBar/bg_White_2.png) 100% 100% no-repeat;*/
+    background: none;
+    color: #FFFFFF;
+    background-color: #237AF8;
+}
+
+/* 接口配置 */
+.content_message{
+    color: #464952;
+    background-color: #d8ddee;
+    border: 1px solid #B9C0DD;
+    box-shadow: 0px 6px 10px 0px rgba(1, 102, 254, 0.1);
+}
+
+.iview-sidebar ul li a:focus{
+    background: none;
+}
+.iview-sidebar ul li a.active{
+    /*background: url(../img/MenuBar/bg_White.png) left;
+    background-size: 100% 50px;*/
+    background: none;
+    /*border-right: 5px solid #237AF8;*/
+    background-color: #237AF8;
+    color: #FFFFFF;
+}
+.iview-sidebar ul li a:hover{
+    /*background: url(../img/MenuBar/bg_White.png) left;*/
+    background: none;
+    /*border-right: 5px solid #237AF8;*/
+    background-color: #237AF8;
+    color: #FFFFFF;
+}
+
+
+/* 透明背景颜色 */
+.body_transparent{
+    background-color: transparent;
+}
+
+/* IView 3.0 登陆页面 */
+.keyboard_box,.zn_box{
+    background: #d8ddee;
+}
+.c_panel,.i_button{
+    background-color: #d8ddee;
+    color: #464952;
+}
+
+/* 导航背景 */
+.full-image{
+    background-image: url('../img/bg_Blue.jpg');
+    cursor: pointer;
+    border: 3px solid #464952;
+}
+
+/* 设备详情 - 确定告警 */
+.alarm-remark{
+    color: #464952;
+}
+
+/* 组态编辑器 - 圆盘 */
+.key-wheel{
+    background-color: #FFFFFF;
+    border: 2px solid #cacaca;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+    color: #464952 !important;
+}
+.key-wheel .key-title{
+    border: 1px solid #cacaca;
+}
+.key-table tr td, .key-table tr th{
+    border: 1px solid #cacaca;
+}
+
+/* 告警弹出框 */
+#pop{
+    background-color: #FFFFFF;
+    border: 1px solid #cacaca;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+}
+#popHead h2,#popHead #popClose,#popIntro a,#popTime{
+    color: #464952;
+}
+#popHead{
+    background-color: #FFFFFF;
+    border: 1px solid #cacaca;
+}
+#popContent dl{
+    background-color: #d8ddee;
+}
+
+/* 表格组态页 */
+.div-border{
+    background-color: #FFFFFF;
+    border: 1px solid #cacaca;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+}
+/* 表格实时值告警 */
+.alarm-border{
+    border: 2px dashed #E64E5B;
+    color: #E64E5B;
+}
+/* 表格实时值中断 */
+.disconnect-border{
+    border: 2px dashed #949bb8;
+    color: #949bb8;
+}
+
+/* 组态-实时图表 平均值、最大值、最小值 */
+.white_bg .avg-max-min{
+    color: #464952;
+}
+
+/* License 提示颜色 */
+.license_div a{
+    color: #464952;
+}
+.license_div a span{
+    color: #ff8300;
+}
+
+/* MDC历史告警 */
+.alarm-level-3{
+    color: #EB5D9E;
+}
+.alarm-level-2{
+    color: #ED8B31;
+}
+.alarm-level-1{
+    color: #247AFA;
+}
+.alarm-level-0{
+    color: #5cb85c;
+}
+.cabinet_list .cabinet_name:hover,
+.cabinet_list .cabinet_device:hover{
+    background-color: rgba(32, 122, 248, 0.5);
+}
+.device-list label.active{
+    color: #FFFFFF;
+}
+.history-alarm-body .btn-group .btn-primary,
+.history-signal-body .btn-group .btn-primary{
+    background-color: rgba(36, 124, 255, 0.8);
+    border-color: rgba(36, 124, 255, 0.8);
+}
+.device-list-div label{
+    font-size: 16px;
+}
+
+.switch-check{
+    background: #d8ddee;
+}
+
+/* 滚动条样式 默认 */
+.scroll-easy::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
+}
+.scroll-easy::-webkit-scrollbar-track { /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* 组态列表 */
+.view-show-hide i{
+    color: #464952;;
+}
+.view-show-hide i:hover{
+    color: rgba(70, 73, 82, 0.5);;
+}
+
+/*64节温场*/
+.body-temperature{
+    background-color: rgba(227, 228, 234, 0);
+}
+.body-caliper .caliper{
+    background-color: #E3E4EA;
+    color: #464952;
+}
+.node-temp-title{
+    border: 2px solid rgb(222, 226, 246);
+}
+.node-temp-title table,.node-temp-title table tr td{
+    background-color: #F5F6FC;
+}
+.node-temp-title table tr td.selected{
+    background-color: #ffffff;
+    box-shadow: 0px 2px 20px 0px rgba(32, 100, 202, 0.12);
+}
+/* 表格隔行变色 */
+.table > thead > tr > td,
+.table > thead > tr > th{
+    background-color: #D5DAEB;
+}
+.table tr:nth-child(even){
+    background-color: #e3e8f9;
+}
+.alarm-list-table tr.odd,
+.alarm-list-table tr.odd td{
+    background-color: #f5f6fc;
+}
+.alarm-list-table tr.even,
+.alarm-list-table tr.even td{
+    background-color: #e3e8f9;
+}
+
+/* 加载页面 */
+.page-load .background span{
+    color: #2e80fa;
+}
+
+/* 功能列表 */
+.setting-body ul li a,
+.setting-body ul li a:hover,
+.setting-body ul li a:active{
+    color: #464952;
+}
+.setting-body ul li{
+    background-color: #FFFFFF;
+}
+.setting-option .modal-content .model-body-footer{
+    background-color: #FFF;
+}
+.home-setting .modal-body table{
+    border-top: 10px solid #f5f6fc;
+    border-left: 10px solid #f5f6fc;
+}
+.home-setting .modal-body table tr td{
+    border-right: 10px solid #f5f6fc;
+    border-bottom: 10px solid #f5f6fc;
+}
+.home-setting .modal-body table tr td samp.dropdown-title{
+    color: #464952;
+}

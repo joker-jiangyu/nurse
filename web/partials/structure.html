@@ -1,0 +1,16 @@
+<div id="root-structure" ng-controller="structureCtrl">
+    <!-- 设备列表 -->
+    <div ng-show="startOverflow" class="view-show-hide" ng-click="showViewClick()">
+        <i class="fa {{isShowView == true ?'fa-angle-double-down':'fa-angle-double-up '}}"></i>
+    </div>
+    <div class="btn-group diagram iView-scroll" ng-model="select.selectedDeviceId" bs-radio-group style="margin: 8px;">
+        <label ng-repeat="dev in devices" class="btn diagram-tab" ng-click="changeDevice(dev.configUrl,dev.deviceId)" style="overflow: hidden;">
+            <input type="radio"  value="{{dev.deviceId}}">{{dev.configName}}
+            <span class='ng-binding view-alarmCount' deviceid="{{dev.deviceId}}"></span>
+        </label>
+    </div>
+
+    <div class="device_info_btn" ng-click="DeviceInfoClk()" style="z-index: 999;">
+        <span>{{languageJson.Configuration.Details}}</span><!--设备详情-->
+    </div>
+</div>

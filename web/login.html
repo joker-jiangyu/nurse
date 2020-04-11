@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+
+        <link rel="icon" href="favicon.ico" type="img/x-ico" />
+        <title></title>
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="css/site.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- alert Css -->
+        <link rel="stylesheet" href="css/alert.css">
+        <link rel="stylesheet" href="css/settingLogin.css">
+        <!-- versions 2.0.0 CSS -->
+        <link id="VersionLink" href="css/versions2.css" rel="stylesheet" type="text/css">
+        <!-- Virtual Key Board CSS -->
+        <link rel="stylesheet" href="css/mathquill.css">
+        <link rel="stylesheet" href="css/keyboard.css">
+        <!-- 风格 CSS -->
+        <link id="StyleLink" href="" rel="stylesheet" type="text/css">
+    </head>
+    <body id="login-body" class="loginbody Body-Background" ng-controller="LoginCtrl">
+        <div class="container">
+
+            <div class="login-bg login_pannel Login-Background">
+                <img class="logo" onclick="location.reload();"/>
+                <h3 class="logotitle" style="margin-top: 10px;margin-bottom: 20px;"></h3>
+                <!--<br/>-->
+                <form  class="form-signin" role="form">
+                    <div class="input-group" style="padding-top:0px;">
+                        <input id="username" class="login_input_bg" style="border: 1px solid rgb(68, 142, 254);" placeholder="请输入用户名" name="username" type="text" value="" Virtual-Key-Board />
+                        <input id="pwd" class="login_input_bg" style="border: 1px solid rgb(68, 142, 254);" placeholder="请输入密码" name="password" type="password" value="" Virtual-Key-Board />
+                    </div>
+                    <div class="timeGroupCheck left" style="display: inline;">
+                        <label class="dropdown-toggle">
+                            <input type="checkbox" id="LoginId">
+                            <label id="hint" for="LoginId"> 记住密码 </label>
+                        </label>
+                    </div>
+                    <div><p id="errText" style="color:red;"></p></div>
+                    <a href="#" id="btnLogin" class="btn btn-primary btn-lg btn-block login_button" style="outline: none;font-weight: 100;border-radius: 20px;padding: 8px 16px;">登   录</a>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Language Chinese/English -->
+        <!--<div>
+            <ul class="login-ul navbar-top-links navbar-right white-color">
+                <li class="dropdown" style="font-size: 20px;">
+                    <a class="dropdown-toggle servertime" data-toggle="dropdown">&lt;!&ndash;href="#/timeSetting"&ndash;&gt;
+                        <i class="fa fa-language fa-fw" style="color: #FFFFFF;"></i>
+                        <select id="language" style="height: 30px;">
+                            <option value="Chinese">中文</option>
+                            <option value="English">English</option>
+                        </select>
+                    </a>
+                </li>
+            </ul>
+        </div>-->
+
+        <!-- System Style -->
+        <div>
+            <ul class="login-ul navbar-top-links navbar-left">
+                <li class="dropdown" style="font-size: 20px;">
+                    <a class="dropdown-toggle servertime" data-toggle="dropdown"><!--href="#/timeSetting"-->
+                        <sapn style="color: #FFFFFF;" id="ui-style">风格：</sapn>
+                        <select id="systemStyle" style="height: 30px;">
+                            <option value="Blue" id="ui-blue">星空蓝</option>
+                            <option value="White" id="ui-white">科技白</option>
+                        </select>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- License Info -->
+        <div class="license_div"><a href id="btnLicense" ng-click="show()" hidden="hidden">试用期还剩 <span></span> 天，点击注册！</a></div>
+
+        <div id="License_Body" class="" hidden="hidden">
+            <div class="modal-dialog">
+                <div class="modal-content am-modal-dialog">
+                    <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                        <button type="button" class="close" ng-click="hide()"><i class="fa fa-times"></i></button>
+                        <h4 id="Register-License" class="modal-title">注册License</h4>
+                    </div>
+                    <div class="modal-body center-block">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="Generate_Info" class="modal-body div_body" style="padding: 5px 42px;">
+                                    <h4 class="Generate-License">生成机器码</h4>
+                                    <button type="button" class="btn btn-primary Generate-License" ng-click="generateInfo()">生成机器码</button>
+                                    <br/>
+                                </div>
+                                <div id="Upload_License" class="modal-body div_body" style="padding: 5px 42px;">
+                                    <h4 id="Upload-License">上传注册码</h4>
+                                    <input type="file" class="btn btn-default col-md-3" style="width: 300px;margin-right: 10px" ngfile/>
+                                    <button id="Upload-License-Button" type="button" class="btn btn-primary" ng-click="uploadLicense()">上传注册文件</button>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src="js/lib/jquery.min.js"></script>
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/app.js"></script>
+
+        <script src="js/lib/angular-strap.min.js"></script>
+        <script src="js/lib/angular-strap.tpl.min.js"></script>
+        <script src="js/filters.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/directives.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/login.js"></script>
+		<!-- Alert.Js-->
+        <script src='js/lib/alert.js'></script>
+        <!-- Virtual Key Board JQuery -->
+        <script src="js/lib/jquery.slimscroll.min.js"></script>
+        <script src="js/lib/chinese-pynsimpl.js"></script>
+        <script src="js/lib/mathquill.min.js"></script>
+    </body>
+</html>

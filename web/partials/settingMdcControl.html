@@ -1,0 +1,71 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()">
+                    <i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.MDC.ControlBox.Title}}</h4><!--设置控制-->
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <label class="control-label col-md-4 labelCenter text-right">{{languageJson.MDC.ControlBox.DeviceName}}</label><!--设备名称:-->
+                    <div class="col-md-8">
+                        <select class="form-control" ng-model="control.deviceId"
+                                ng-change="changeControlDevice(control.deviceId)">
+                            <option ng-repeat="dev in control.devices" value="{{dev.id}}"
+                                    ng-selected="dev.id == control.deviceId">{{dev.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="control-label col-md-4 labelCenter text-right">{{languageJson.MDC.ControlBox.ControlName}}</label><!--控制名称:-->
+                    <div class="col-md-8">
+                        <select class="form-control" ng-model="control.control"
+                                ng-change="changeControlControl(control.deviceId,control.control)">
+                            <option ng-repeat="dev in control.controls" value="{{dev}}"
+                                    ng-selected="dev.BaseTypeId == control.baseTypeId">
+                                {{dev.ControlName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="control-label col-md-4 labelCenter text-right">{{languageJson.MDC.ControlBox.ParameterValue}}</label><!--控制值:-->
+                    <div class="col-md-8" ng-show="control.CommandType == 1">
+                        <input  class="form-control" ng-model="control.value" type="text" placeholder="{{control.prompt}}">
+                    </div>
+                    <div class="col-md-8" ng-show="control.CommandType == 2">
+                        <select class="form-control" ng-model="control.value">
+                            <option ng-repeat="dev in control.values" value="{{dev.ParameterValue}}"
+                                    ng-selected="dev.ParameterValue == control.value">
+                                {{dev.Meanings}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="control-label col-md-4 text-right" style="line-height: 50px;">{{languageJson.MDC.ControlBox.IsPassword}}</label><!--是否需要密码：-->
+                    <div class="col-md-1 timeGroupCheck">
+                        <label style="line-height: 52px;">
+                            <input type="checkbox" ng-model="control.isControlCheck">
+                            <i>{{getCheckbox(control.isControlCheck)}}</i>
+                        </label>
+                    </div>
+                    <div ng-show="control.isControlCheck">
+                        <label class="control-label col-md-3 text-right" style="line-height: 50px;">{{languageJson.MDC.ControlBox.Password}}</label><!--密码：-->
+                        <div class="col-md-4" style="margin: 10px 0px;">
+                            <input class="form-control" ng-model="control.password" type="password"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        ng-click="$hide()">{{languageJson.MDC.ControlBox.Close}}</button><!-- 关闭 -->
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveMdcControl()">{{languageJson.MDC.ControlBox.Save}}</button><!-- 保存 -->
+            </div>
+        </div>
+    </div>
+</div>

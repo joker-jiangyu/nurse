@@ -1,0 +1,159 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.OtherModule.ModifyConfigBox.Title}}</h4><!--SNMP配置-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="form-group" style="margin: 20px 0px 10px 0px;">
+                                            <div class="col-md-12">
+                                                <!--系统位置:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">{{languageJson.OtherModule.ModifyConfigBox.Location}}</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="SnmpInfo.sysLocation" />
+                                                    </div>
+                                                </div>
+                                                <!--联系人:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">{{languageJson.OtherModule.ModifyConfigBox.Contact}}</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="SnmpInfo.sysContact" />
+                                                    </div>
+                                                </div>
+                                                <!--系统名称:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">{{languageJson.OtherModule.ModifyConfigBox.Name}}</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="SnmpInfo.sysName" />
+                                                    </div>
+                                                </div>
+                                                <!--系统对象编号*:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">{{languageJson.OtherModule.ModifyConfigBox.ObjectID}}</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="SnmpInfo.sysObjectID" />
+                                                    </div>
+                                                </div>
+                                                <!--备注:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">{{languageJson.OtherModule.ModifyConfigBox.Descr}}</label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="SnmpInfo.sysDescr" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group">
+                                                <!--ip地址 端口-->
+                                                <div class="col-md-12">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ModifyConfigBox.IpAddress}}:</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="addIpInfo.ip" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ModifyConfigBox.Port}}:</label>
+                                                    <div class="col-md-2">
+                                                        <input class="form-control" type="text" ng-model="addIpInfo.port" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-primary" ng-click="addIpInfoClick(addIpInfo.ip,addIpInfo.port)">{{languageJson.OtherModule.ModifyConfigBox.Add}}</button><!--添加-->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" style="max-height: 152px;margin-top: 10px;overflow-y: auto;">
+                                                    <table class="table table-condensed table-bordered table-striped table-hover ng-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>{{languageJson.OtherModule.ModifyConfigBox.IpAddress}}</th><!--ip地址-->
+                                                            <th>{{languageJson.OtherModule.ModifyConfigBox.Port}}</th><!--端口-->
+                                                            <th>{{languageJson.OtherModule.ModifyConfigBox.Operation}}</th><!--操作-->
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="item in SnmpInfo.IPS">
+                                                            <td align="center">{{item.IP}}</td>
+                                                            <td align="center">{{item.port}}</td>
+                                                            <td align="center"><button type="button" class="btn btn-sm btn-danger ng-binding" ng-click="delInfoClick(SnmpInfo.IPS,item)">删除</button></td><!--删除-->
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--<div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <label class="control-label col-md-1">Device:</label>
+                                                    <div class="col-md-5">
+                                                        <select class="form-control" ng-model="deviceId" ng-change="snmpType = changeDevice(deviceId,snmpType)">
+                                                            <option value="{{row.id}}" ng-repeat="row in devices">[{{row.id}},{{row.name}}]</option>
+                                                        </select>
+                                                    </div>
+                                                    <label class="control-label col-md-1">Type:</label>
+                                                    <div class="col-md-3">
+                                                        <select id="device_select" class="form-control" ng-model="snmpType">
+                                                            <option value="{{row.type}}" ng-repeat="row in snmpTypes">{{row.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-primary" ng-click="addDeviceInfoClick(deviceId,snmpType)">{{languageJson.OtherModule.ModifyConfigBox.Add}}</button>&lt;!&ndash;添加&ndash;&gt;
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 " style="max-height: 187px;margin-top: 10px;overflow-y: auto;">
+                                                    <table class="table table-condensed table-bordered table-striped table-hover ng-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>{{languageJson.OtherModule.ModifyConfigBox.DeviceId}}</th>&lt;!&ndash;设备编号&ndash;&gt;
+                                                            <th>{{languageJson.OtherModule.ModifyConfigBox.DeviceName}}</th>&lt;!&ndash;设备名称&ndash;&gt;
+                                                            <th>{{languageJson.OtherModule.ModifyConfigBox.Type}}</th>&lt;!&ndash;类型&ndash;&gt;
+                                                            <th>{{languageJson.OtherModule.ModifyConfigBox.Operation}}</th>&lt;!&ndash;操作&ndash;&gt;
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="item in deviceInfos">
+                                                            <td align="center">{{item.id}}</td>
+                                                            <td align="center">{{item.name}}</td>
+                                                            <td align="center">{{item.type}}</td>
+                                                            <td align="center"><button type="button" class="btn btn-sm btn-danger ng-binding" ng-click="delInfoClick(deviceInfos,item)">{{languageJson.OtherModule.ModifyConfigBox.Delete}}</button></td>&lt;!&ndash;删除&ndash;&gt;
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveSnmpConfigClick()">{{languageJson.OtherModule.ModifyConfigBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.OtherModule.ModifyConfigBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

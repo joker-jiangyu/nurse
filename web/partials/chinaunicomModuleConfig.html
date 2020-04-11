@@ -1,0 +1,132 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 1000px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.OtherModule.ChinaunicomCfgBox.Title}}</h4><!--联通B接口配置-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="form-group" style="margin: 20px 0px 10px 0px;">
+                                            <div class="col-md-12">
+                                                <!--FSU编号*: FSU资源编号*:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.FSUId}}</label>
+                                                    <div class="col-md-3">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.FSUID" />
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" class="btn btn-primary" ng-click="createCubFSUIDClick()">{{languageJson.OtherModule.ChinaunicomCfgBox.CreateId}}</button><!--生成ID *-->
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.FSURId}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.FSURID" />
+                                                    </div>
+                                                </div>
+                                                <!--SC IP*: SC端口*:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.SCIP}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.SCIP" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.SCPort}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.SCPort" />
+                                                    </div>
+                                                </div>
+                                                <!--安全IP:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.IPSecIP}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.IPSecIP" />
+                                                    </div>
+                                                </div>
+                                                <!--安全用户名: 安全密码:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.IPSecUser}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.IPSecUser" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.IPSecPwd}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.IPSecPwd" />
+                                                    </div>
+                                                </div>
+                                                <!--注册用户名*: 注册密码*:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.LoginUser}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.loginUser" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.LoginPwd}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.loginPwd" />
+                                                    </div>
+                                                </div>
+                                                <!--FTP用户名*: FTP密码*:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.FTPUser}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.FTPUser" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinaunicomCfgBox.FTPPwd}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="Chinaunicom.FTPPwd" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="form-group" style="margin: 10px 0px 10px 0px;">
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-primary" ng-click="addCubDeviceClick()">{{languageJson.OtherModule.ChinaunicomCfgBox.AddDevice}}</button><!--添加设备-->
+                                            </div>
+                                            <div class="col-md-12" style="max-height: 187px;margin-top: 10px;overflow-y: auto;">
+                                                <table class="table table-condensed table-bordered table-striped table-hover ng-table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{{languageJson.OtherModule.ChinaunicomCfgBox.DeviceId}}</th><!--设备编号-->
+                                                        <th>{{languageJson.OtherModule.ChinaunicomCfgBox.DeviceRId}}</th><!--设备资管编号-->
+                                                        <th>{{languageJson.OtherModule.ChinaunicomCfgBox.DeviceName}}</th><!--设备名称-->
+                                                        <th>{{languageJson.OtherModule.ChinaunicomCfgBox.Operate}}</th><!--操作-->
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="item in Chinaunicom.Devices">
+                                                        <td align="center">{{item.deviceId}}</td>
+                                                        <td align="center">{{item.deviceRId}}</td>
+                                                        <td align="center">{{item.deviceName}}</td>
+                                                        <td align="center">
+                                                            <button type="button" class="btn btn-sm btn-primary ng-binding" ng-click="modifyCubDeviceClick(item)">{{languageJson.OtherModule.ChinaunicomCfgBox.Modify}}</button><!--修改-->
+                                                            <button type="button" class="btn btn-sm btn-danger ng-binding" ng-click="delInfoClick(Chinaunicom.Devices,item)">{{languageJson.OtherModule.ChinaunicomCfgBox.Delete}}</button><!--删除-->
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveChinaunicomModuleConfig()">{{languageJson.OtherModule.ChinaunicomCfgBox.Save}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.OtherModule.ChinaunicomCfgBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

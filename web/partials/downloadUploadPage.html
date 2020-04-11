@@ -1,0 +1,119 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.ConfigurationPage.Title}}</h4><!--组态页面管理-->
+            </div>
+            <div class="modal-body tooltip-options">
+                <table class="table table-condensed table-bordered table-striped table_body">
+                    <thead>
+                    <tr class="ng-table-sort-header">
+                        <!--引用组态页面-->
+                        <th align="center" colspan="4">{{languageJson.Configuration.ConfigurationPage.Reference.Title}}
+                            <!---->
+                            <a  href data-toggle="tooltip" title="<h5>引用组态页面：将选中设备的组态页面引用到当前页面</h5>">
+                                <i class="fa fa-question-circle fa-fw pointer "></i>
+                            </a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td align="center">{{languageJson.Configuration.ConfigurationPage.Reference.ReferenceOther}}</td><!--引用其他组态：-->
+                        <td align="center">
+                            <select class="form-control" ng-model="CopyJsonPage">
+                                <option ng-repeat="row in JsonInstances" value="{{row.value}}">[{{row.name}}]</option>
+                            </select>
+                        </td>
+                        <td align="center">
+                            <input type="text" class="form-control" ng-model="CopyJsonPage" readonly>
+                        </td>
+                        <td align="center">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="CopyJsonClick(CopyJsonPage)">
+                                {{languageJson.Configuration.ConfigurationPage.Reference.Reference}}
+                            </button><!--引用-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-condensed table-bordered table-striped table_body" ng-show="false">
+                    <thead>
+                    <tr class="ng-table-sort-header">
+                        <th align="center" colspan="4">{{languageJson.Configuration.ConfigurationPage.Export.Title}}</th><!--导出组态页面-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td align="center">{{languageJson.Configuration.ConfigurationPage.Export.CurrentPath}}</td><!--当前组态路径：-->
+                        <td align="center" colspan="2">
+                            <input type="text" class="form-control" ng-model="DownloadNowPage" readonly>
+                        </td>
+                        <td align="center">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="DownloadPage(DownloadNowPage)">
+                                <i class="fa fa-download">{{languageJson.Configuration.ConfigurationPage.Export.Export}}</i><!--下载-->
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">{{languageJson.Configuration.ConfigurationPage.Export.DefaultPath}}</td><!--默认组态路径：-->
+                        <td align="center">
+                            <select class="form-control" ng-model="DownloadOldPage">
+                                <option ng-repeat="row in JsonTemplates" value="{{row.value}}">[{{row.name}}]</option>
+                            </select>
+                        </td>
+                        <td align="center">
+                            <input type="text" class="form-control" ng-model="DownloadOldPage" readonly>
+                        </td>
+                        <td align="center">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="DownloadPage(DownloadOldPage)">
+                                <i class="fa fa-download">{{languageJson.Configuration.ConfigurationPage.Export.Export}}</i><!--下载-->
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-condensed table-bordered table-striped table_body" ng-show="false">
+                    <thead>
+                    <tr class="ng-table-sort-header">
+                        <th align="center" colspan="4">{{languageJson.Configuration.ConfigurationPage.Import.Title}}</th><!--导入组态页面-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td align="center">{{languageJson.Configuration.ConfigurationPage.Import.CurrentPath}}</td><!--覆盖当前组态：-->
+                        <td align="center" colspan="2">
+                            <input class="btn btn-default" ngfile type="file" accept=".json"/>
+                        </td>
+                        <td align="center">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="UploadNowPage('instances')">
+                                <i class="fa fa-upload">{{languageJson.Configuration.ConfigurationPage.Import.Import}}</i><!--上传-->
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">{{languageJson.Configuration.ConfigurationPage.Import.DefaultPath}}</td><!--添加默认组态：-->
+                        <td align="center" colspan="2">
+                            <input class="btn btn-default" ngfile2 type="file" accept=".json"/>
+                        </td>
+                        <td align="center">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="UploadNowPage('templates')">
+                                <i class="fa fa-upload">{{languageJson.Configuration.ConfigurationPage.Import.Import}}</i><!--上传-->
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger left" ng-click="DeleteInstancesJson()">{{languageJson.Configuration.ConfigurationPage.Restore.Title}}</button><!--还原组态-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.ConfigurationPage.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

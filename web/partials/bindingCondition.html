@@ -1,0 +1,48 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()">
+                    <i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.Setting.Condition}}<!--事件条件设置--></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="overflow: auto;">
+                    <table id="BindMes" ng-table="tableParams" style="width: 1100px;" class="table table-condensed table-bordered table-striped table-hover">
+                        <tr ng-repeat="row in EventCondition">
+                            <td class="center" data-title="languageJson.Config.Setting.Operation" align="center"><!--操作-->
+                                <button type="button" class="btn btn-danger"
+                                        ng-click="deleteConditionClick($index)">{{languageJson.Config.Setting.Delete}}<!--删除--></button>
+                            </td>
+                            <td data-title="languageJson.Config.Setting.Numbering" align="center" style="width: 70px;"><input type="text" class="form-control" ng-model="row.EventConditionId" readonly/></td><!--编号-->
+                            <td data-title="languageJson.Config.Setting.Level" align="center" style="width: 120px;"><!--事件等级-->
+                                <select class="form-control" ng-model="row.EventSeverity">
+                                    <option value="{{item.ItemId}}" ng-repeat="item in Event.EventSeverity"
+                                            ng-selected="{{item.ItemId==row.EventSeverity}}">{{languageJson.Language == 'English' ? item.ItemAlias : item.ItemValue}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td data-title="languageJson.Config.Setting.Operator" align="center"><!--'开始操作符'-->
+                                <select class="form-control" ng-model="row.StartOperation">
+                                    <option value="=" ng-selected="{{'='==row.StartOperation}}">=</option>
+                                    <option value=">" ng-selected="{{'>'==row.StartOperation}}">></option>
+                                    <option value="<" ng-selected="{{'<'==row.StartOperation}}"><</option>
+                                    <option value="!=" ng-selected="{{'!='==row.StartOperation}}">!=</option>
+                                </select>
+                            </td>
+                            <td data-title="languageJson.Config.Setting.Comparing" align="center"><input type="text" class="form-control" ng-model="row.StartCompareValue"/></td><!--'开始比较值'-->
+                            <td data-title="languageJson.Config.Setting.Delay" align="center"><input type="text" class="form-control" ng-model="row.StartDelay"/></td><!--'开始延时'-->
+                            <td data-title="languageJson.Config.Setting.Meaning" align="center"><input type="text" class="form-control" ng-model="row.Meanings"/></td><!--'含义'-->
+                            <td data-title="languageJson.Config.Setting.Event" align="center"><input type="text" class="form-control" ng-model="row.BaseTypeId" ng-click="EventBaseTypeId(row)" readonly placeholder="{{languageJson.Config.Setting.Base}}"/></td><!--'基类事件'--><!--点击绑定基类-->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary left" ng-click="addConditionCol()">{{languageJson.Config.Setting.New}}<!--新增--></button>
+                <button type="button" class="btn btn-primary" ng-click="saveCondition()">{{languageJson.Config.Setting.Save}}<!--保存--></button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Setting.Close}}<!--关闭--></button>
+            </div>
+        </div>
+    </div>
+</div>

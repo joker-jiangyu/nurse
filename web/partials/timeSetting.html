@@ -1,0 +1,32 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Header.Advanced.Timing.Title}}</h4>
+            </div>
+            <div class="modal-body center-block">
+                <div class="input-group date form_datetime col-md-11 col-md-offset-1" data-date="" ng-click="click()"
+                     data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd hh:ii:ss">
+                    <span class="input-group-addon" style="border-radius: 0px;">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                    <input class="form-control time_setting" id="dateTime" type="text" ng-model="dateTime" data-date-format="yyyy-mm-dd hh:ii:ss" style="width: 80%;">
+                    <button type="button" class="btn btn-primary" ng-click="timeSave()">{{languageJson.Header.Advanced.Timing.Title}}</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Header.Advanced.Timing.Close}}</button>
+            </div>
+        </div>
+	</div>
+
+    <script>
+        (function(){
+            $(".form_datetime").datetimepicker({
+                autoclose: true,
+                todayBtn: true
+            });
+        })();
+    </script>
+</div>

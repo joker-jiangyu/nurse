@@ -1,0 +1,41 @@
+{
+    "title" : {
+        "text": "",
+        "x":"center",
+        "textStyle":{
+            "color":"#FFF"
+        }
+    },
+    "tooltip" : {
+        "trigger": "item",
+        "formatter": "{a} <br/>{b} : {c} ({d}%)"
+    },
+    "toolbox": {
+        "show" : false,
+        "feature" : {
+            "magicType" : {
+                "show": true,
+                "type": ["pie", "funnel"],
+                "option": {
+                    "funnel": {
+                        "x": "25%",
+                        "width": "50%",
+                        "funnelAlign": "left"
+                    }
+                }
+            },
+            "restore" : {"show": true}
+        }
+    },
+    "calculable" : "true",
+    "series" : [
+        {
+            "name":"",
+            "type":"pie",
+            "center" : ["50%", "50%"],
+            "radius" : [20, "55%"],
+            "roseType" : "radius",
+            "data":[]
+        }
+    ]
+}

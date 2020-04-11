@@ -1,0 +1,55 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 720px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Management.Title}} - {{languageJson.Management.Regularly}}</h4><!--数据管理 - 定时清理历史数据任务-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="margin-bottom: 0px;">
+                                <div class="panel-heading tooltip-options">
+                                    {{languageJson.Management.Scheduled.Title}}<!--定时任务列表-->
+                                    <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                        title="<h5>修改后请点击 任务生效 按钮，启动任务!</h5>">
+                                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                                    </a>
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="modal-body col-md-12">
+                                            <button type="button" class="btn btn-primary" ng-click="addClearTasksClk()">{{languageJson.Management.Scheduled.Add}}</button><!--新增任务-->
+                                            <button type="button" class="btn btn-warning right" ng-click="resetClearTasksClk()">{{languageJson.Management.Scheduled.Task}}</button><!--任务生效-->
+                                            <div class="form-group modal-body scroll-easy" style="padding-bottom: 0px;margin-bottom: 0px;height: 300px;">
+                                                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                                                    <tr ng-repeat="row in ClearTasks">
+                                                        <td data-title="languageJson.Management.Mission.Title" align="center">{{row.name}}</td><!--'任务名称'-->
+                                                        <!--<td data-title="'清理对象'" align="center">{{row.clearObject}}</td>-->
+                                                        <td data-title="languageJson.Management.Mission.Storage" align="center">{{row.storageDays}}</td><!--'存储天数'-->
+                                                        <td data-title="languageJson.Management.Mission.Task" align="center">{{row.statusName}}</td><!--'任务状态'-->
+                                                        <td class="center" data-title="languageJson.Management.Mission.Operation" align="center"><!--'操作'-->
+                                                            <button type="button" class="btn btn-sm btn-primary" ng-click="updClearTasksClk(row)">{{languageJson.Management.Mission.Modify}}</button><!--修改-->
+                                                            <button type="button" class="btn btn-sm btn-danger" ng-click="delClearTasksClk(row.id)">{{languageJson.Management.Mission.Delete}}</button><!--删除-->
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Management.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

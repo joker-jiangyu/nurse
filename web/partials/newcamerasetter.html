@@ -1,0 +1,20 @@
+﻿<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Configuration.VideoControl.SelectPrompt}}</h4><!--选择需绑定的视频-->
+            </div>
+            <div class="modal-body center-block div_body">
+
+                <div  style="width: 100%; height: 200px; padding:0px 5px 0px 5px; " class="div_content">
+                    <div class="radio" ng-repeat="item in cameralist"><label><input type="radio" ng-model="camerachecked.item"   name="cameraradio" id="cameraRadios{{$index + 1}}" value="{{item.id}}">{{item.cameraname}}</label></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">{{languageJson.Configuration.VideoControl.Add}}</button><!--新增-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Configuration.VideoControl.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

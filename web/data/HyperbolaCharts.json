@@ -1,0 +1,81 @@
+{
+    "title": {
+        "text": "",
+        "x": "center",
+        "textStyle":{
+            "color":"#FFF"
+        }
+    },
+    "grid":{
+        "x": 40,
+        "x2": 30,
+        "y":50,
+        "y2": 50,
+        "borderWidth":0
+    },
+    "tooltip": {
+        "trigger": "axis",
+        "formatter": ""
+    },
+    "legend": {
+        "data":[],
+        "x": "center",
+        "y":"bottom",
+        "textStyle":{
+            "color":"#FFF"
+        }
+    },
+    "toolbox": {
+        "show": false,
+        "feature": {
+            "magicType": {
+                "show": true,
+                "type": ["line", "bar"]
+            },
+            "restore": {
+                "show": true
+            }
+        }
+    },
+    "xAxis": [{
+        "type": "category",
+        "boundaryGap": false,
+        "axisLine": {
+            "onZero": false
+        },
+        "data": [],
+        "axisLabel" : {
+            "textStyle":{
+                "color":"#FFF"
+            }
+        },
+        "splitLine":{
+            "show": false
+        }
+    }],
+    "yAxis": [{
+        "name": "",
+        "type": "value",
+        "axisLabel" : {
+            "textStyle":{
+                "color":"#FFF"
+            }
+        },
+        "splitLine":{
+            "show": false
+        }
+    },
+    {
+        "name": "",
+        "type": "value",
+        "axisLabel" : {
+            "textStyle":{
+                "color":"#FFF"
+            }
+        },
+        "splitLine":{
+            "show": false
+        }
+    }],
+    "series": []
+}

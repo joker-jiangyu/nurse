@@ -1,0 +1,87 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 1000px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title"> {{languageJson.ConfigureMold.AddTitle}} </h4><!--组态页面配置-->
+            </div>
+
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 scroll-easy" style="height: 500px;">
+                            <table class="panel table table-condensed table-bordered table-striped alarm-list-table">
+                                <thead>
+                                <tr class="ng-table-sort-header">
+                                    <th style="text-align: center;">{{languageJson.ConfigureMold.Title}}</th><!--标题-->
+                                    <th style="text-align: center;">{{languageJson.ConfigureMold.Icon.Title}}</th><!--文本图标-->
+                                    <th style="text-align: center;">{{languageJson.ConfigureMold.JumpLink.Title}}</th><!--跳转链接-->
+                                    <th style="text-align: center;">{{languageJson.ConfigureMold.Order}}</th><!--显示顺序-->
+                                    <th style="text-align: center;">{{languageJson.ConfigureMold.Visible}}</th><!--是否可见-->
+                                    <th style="text-align: center;">{{languageJson.ConfigureMold.Operation}}</th><!--操作-->
+                                </tr>
+                                </thead>
+                                <tbody ng-repeat="row in ConfigureMolds">
+                                <tr style="border-bottom: 1px solid #3b4755;" class="even">
+                                    <td filter="{EquipmentId: 'number'}" align="left"><i class="fa fa-chevron-down"></i> {{row.configName}}</td>
+                                    <td filter="{EquipmentName: 'text'}" align="center"><i class="fa {{row.fontChart}} fa-2x"></i><!--<img src="..\img\MenuBar\{{row.fontChart}}.png" />--></td>
+                                    <td filter="{EquipmentName: 'text'}" align="center">{{row.configUrl}}</td>
+                                    <td filter="{EquipmentName: 'text'}" align="center">
+                                        <a href ng-click="sortClick('up',row.configId)"><i class="fa fa-arrow-up fa-fw"></i></a>
+                                        <a href ng-click="sortClick('down',row.configId)"><i class="fa fa-arrow-down fa-fw"></i></a>
+                                    </td>
+                                    <td filter="{EquipmentName: 'text'}" align="center" class="timeGroupCheck">
+                                        <label>
+                                            <input type="checkbox" ng-click="checkClick(row.configId,row.visible)" ng-checked="{{row.visible}}">
+                                            <i style="width: 20px;height: 20px;line-height: 18px;">{{getCheckbox(row.visible)}}</i>
+                                        </label>
+                                    </td>
+                                    <td class="center" align="center">
+                                        <button type="button" class="btn btn-sm btn-primary" ng-click="updateConfigureMoleClick(row,false)">{{languageJson.ConfigureMold.Modify}}</button><!--修改-->
+                                        <button type="button" class="btn btn-sm btn-primary" ng-click="insertConfigureMoldClick(row.configId)">{{languageJson.ConfigureMold.AddChild}}</button><!--新增子节点-->
+                                        <button type="button" class="btn btn-sm btn-danger" ng-click="removeConfigureMoldClick(row.configId)">{{languageJson.ConfigureMold.Delete}}</button><!--删除-->
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="item in row.parts" class="odd">
+                                    <td filter="{EquipmentId: 'number'}" colspan="2" align="left" style="padding-left: 30px;"><i class="fa fa-caret-right"></i>&nbsp;&nbsp;{{item.configName}}</td>
+                                    <!--<td filter="{EquipmentName: 'text'}" align="center"><i class="fa {{item.fontChart}} fa-fw"></i></td>-->
+                                    <td filter="{EquipmentName: 'text'}" align="center">{{item.configUrl}}</td>
+                                    <td filter="{EquipmentName: 'text'}" align="center">
+                                        <a href ng-click="sortClick('up',item.configId)"><i class="fa fa-arrow-up fa-fw"></i></a>
+                                        <a href ng-click="sortClick('down',item.configId)"><i class="fa fa-arrow-down fa-fw"></i></a>
+                                    </td>
+                                    <td filter="{EquipmentName: 'text'}" align="center" class="timeGroupCheck">
+                                        <label>
+                                            <input type="checkbox" ng-click="checkClick(item.configId,item.visible)" ng-checked="{{item.visible}}">
+                                            <i style="width: 20px;height: 20px;line-height: 18px;">{{getCheckbox(item.visible)}}</i>
+                                        </label>
+                                    </td>
+                                    <td class="center" align="center">
+                                        <button type="button" class="btn btn-sm btn-primary" ng-click="updateConfigureMoleClick(item,true)">{{languageJson.ConfigureMold.Modify}}</button><!--修改-->
+                                        <button type="button" class="btn btn-sm btn-danger" ng-click="removeConfigureMoldClick(item.configId)">{{languageJson.ConfigureMold.Delete}}</button><!--删除-->
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="6">
+                                        <button type="button" class="btn btn-sm btn-primary" style="float: left;"
+                                                ng-click="insertConfigureMoldClick('-1')">{{languageJson.ConfigureMold.AddParent}}</button><!--新增父节点-->
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning left" ng-click="ExportAllClk()"><i class="fa fa-download"></i> {{languageJson.ConfigureMold.ExportAll}}</button><!--导出所有组态-->
+                <!--<button type="button" class="btn btn-warning left" ng-click="ImportAllClk()"><i class="fa fa-upload"></i> {{languageJson.ConfigureMold.ImportAll}}</button>--><!--导入所有组态-->
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveConfigureMold()">{{languageJson.ConfigureMold.Generate}}</button><!--生成-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.ConfigureMold.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

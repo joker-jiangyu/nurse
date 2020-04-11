@@ -1,0 +1,21 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content am-modal-dialog">
+      <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+        <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+        <h4 class="modal-title">{{languageJson.InputBox.Title}}</h4><!-- 输入-->
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>{{message}}</label>
+          <input type="text" class="form-control" ng-model="inputValue" ng-change="changeValue(inputValue)">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+                ng-click="ok()">{{languageJson.InputBox.OK}}</button><!--确定-->
+        <button type="button" class="btn btn-default" ng-click="cancel()">{{languageJson.InputBox.Close}}</button><!--取消-->
+      </div>
+    </div>
+  </div>
+</div>

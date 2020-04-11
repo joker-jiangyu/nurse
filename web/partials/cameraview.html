@@ -1,0 +1,105 @@
+<div ng-controller="videoCtrl" class="filled">
+
+
+    <table class="filled body_transparent" cellspacing="0" cellpadding="0">
+        <tr>
+            <td class="camera-view">
+                <div id="cameraPlugin" class="camera-plugin">
+                </div>
+            <div class="split-area">
+
+                <span class="camera_view">
+                    <a title="{{languageJson.Preview.Stop.Title}}" class="glyphicon glyphicon-stop" ng-click="stopplay()" ></a><!--"停止"-->
+                    <a title="{{languageJson.Preview.Stop.Capture}}" class="fa fa-camera" ng-click="capturePic()"></a><!--抓图-->
+                    <a title="{{languageJson.Preview.Stop.Magnify}}" class="fa fa-search-plus" ng-click="zoom3D()"></a><!--3D放大-->
+                </span>
+
+                <a title="1x1" class="fa fa-square-o fa-3" style="font-size:17px;" ng-click="changeWndNum(1)"></a>
+                <a title="2x2" class="glyphicon glyphicon-th-large"  ng-click="changeWndNum(2);"></a>
+                <a title="3x3" class="glyphicon glyphicon-th"  ng-click="changeWndNum(3)"></a>
+                <a title="4x4" class="glyphicon glyphicon-calendar"  ng-click="changeWndNum(4)"></a>
+                <a title="{{languageJson.Preview.Stop.Full}}" class="glyphicon glyphicon-fullscreen" ng-click="fullscreen()"></a><!--全屏-->
+            </div>
+            </td>
+
+            <td class="camera-menu" valign="top">
+                <div style="height:600px; width: 100%; overflow: hidden;">
+                <div class="cameraview" ng-hide="reviewhide">
+                        <div class="title">
+                            <span>{{languageJson.Preview.Title}}</span><!--视频预览-->
+                        </div>
+                        <!---树结构 -->
+                        <div class="tree">
+                        <ul>
+                            <li ng-repeat="item in cameratree">
+                                <i class="fa {{item.videoType==2?'fa-hdd-o':'fa-video-camera'}} fa-fw"></i>
+                                <a id="video{{item.equipmentId}}" class="camera_color" href ng-click="loginplayview(item,item.cameraJson[0])">{{item.equipmentName}}</a>
+                                <ul ng-show="item.videoType == 2">
+                                    <li ng-repeat="i in item.cameraJson" ng-click="loginplayview(item,i)">
+                                        <i class="fa fa-eye fa-fw"></i>
+                                        <a  id="camera{{i.cameraId}}" class="camera_color" hred>{{i.cameraName}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        </div>
+                        <!---控制区域--->
+                        <div class="paras">
+                            <div class="title">
+                                <span>{{languageJson.Preview.Cloud}}</span><!--云台控制-->
+                            </div>
+                            <div class="yuntai">
+                                <table cellpadding="0" cellspacing="0" class="body_transparent camera_cloud_img">
+                                    <tr>
+                                        <td>
+                                           <a href=""> <img class="ptz_left_up" ng-mousedown="mouseDownPTZControl(5);" ng-onmouseup="mouseUpPTZControl();" src="img/video/ptz_left_up.png" /></a>
+                                        </td>
+                                        <td>
+                                            <a href=""> <img class="ptz_up" ng-mousedown="mouseDownPTZControl(1);" ng-onmouseup="mouseUpPTZControl();"src="img/video/ptz_up.png" /></a>
+                                        </td>
+                                        <td>
+                                            <a href=""> <img class="ptz_right_up" ng-mousedown="mouseDownPTZControl(7);" ng-onmouseup="mouseUpPTZControl();" src="img/video/ptz_right_up.png" /></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href=""> <img class="ptz_left" src="img/video/ptz_left.png"   ng-mousedown="mouseDownPTZControl(3);" ng-onmouseup="mouseUpPTZControl();"/></a>
+                                        </td>
+                                        <td>
+                                            <a href=""> <img class="ptz_auto" src="img/video/ptz_auto.png" ng-click="mouseDownPTZControl(9);" /></a>
+                                        </td>
+                                        <td>
+                                            <a href=""><img class="ptz_right" src="img/video/ptz_right.png"  ng-mousedown="mouseDownPTZControl(4);" ng-onmouseup="mouseUpPTZControl();" /></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href=""> <img class="ptz_left_down" src="img/video/ptz_left_down.png"  ng-mousedown="mouseDownPTZControl(6);" ng-onmouseup="mouseUpPTZControl();"  /></a>
+                                        </td>
+                                        <td>
+                                            <a href=""><img class="ptz_down" src="img/video/ptz_down.png"  ng-mousedown="mouseDownPTZControl(2);" ng-onmouseup="mouseUpPTZControl();" /></a>
+                                        </td>
+                                        <td>
+                                            <a href=""><img class="ptz_right_down" src="img/video/ptz_right_down.png"  ng-mousedown="mouseDownPTZControl(8);" ng-onmouseup="mouseUpPTZControl();" /></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="{{languageJson.Language == 'English'?'parasAdjustE':'parasAdjust'}}">
+                                    <span><a onmousedown="PTZZoomIn()" onmouseup="PTZZoomStop()"></a><label>{{languageJson.Preview.Focal.Title}}</label><i onmousedown="PTZZoomout()" onmouseup="PTZZoomStop()"></i></span><!--焦距-->
+                                    <span><a onmousedown="PTZFocusIn()" onmouseup="PTZFoucusStop()"></a><label>{{languageJson.Preview.Focal.Focus}}</label><i onmousedown="PTZFoucusOut()" onmouseup="PTZFoucusStop()"></i></span><!--焦点-->
+                                    <span><a onmousedown="PTZIrisIn()" onmouseup="PTZIrisStop()"></a><label>{{languageJson.Preview.Focal.Aperture}}</label><i  onmousedown="PTZIrisOut()" onmouseup="PTZIrisStop()"></i></span><!--光圈-->
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+

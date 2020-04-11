@@ -1,0 +1,42 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content am-modal-dialog">
+      <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+        <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+        <h4 class="modal-title">{{languageJson.Configuration.TextControl.BindingSettings.Title}}</h4><!--数据绑定设置-->
+      </div>
+      <div class="modal-body div_body">
+          <div class="form-group" style="height:34px;line-height: 34px;">
+              <label class="control-label {{languageJson.Language == 'Chinese'?'col-md-3':'col-md-4'}}">{{languageJson.Configuration.TextControl.BindingSettings.FilterEquipment}}</label><!--设备筛选:-->
+              <div class="{{languageJson.Language == 'Chinese'?'col-md-9':'col-md-8'}}">
+                  <select class="form-control" name = "portType" ng-model="Topology.DeviceId" ng-change="changeDevice(Topology.DeviceId)">
+                      <option value="{{row.equipmentId}}" ng-repeat="row in deviceList"
+                              ng-selected="{{row.equipmentId==Topology.DeviceId}}">{{row.configName}}
+                      </option>
+                  </select>
+              </div>
+          </div>
+        <div class="form-group">
+          <label>{{languageJson.Configuration.TextControl.BindingSettings.SignalSelection}}</label><!--信号选择-->
+            <input type="text" class="input-filter form-control ng-valid ng-scope ng-touched ng-dirty ng-valid-parse " placeholder="{{languageJson.Configuration.TextControl.BindingSettings.FilterSignal}}" ng-model="selecteds"
+                   style="width: 100%;display:inline;margin:10px 0px;"  Virtual-Key-Board="selecteds"></br><!--筛选信号-->
+          <!--<select class="form-control" multiple="true"
+                  ng-options="dev.name for dev in data.devices | filter:{name : selecteds}"
+                  ng-model="data.selecteds" >model="data.selecteds" >
+          </select>-->
+        <select class="form-control" multiple="true" ng-model="data.selecteds" >
+            <option value="{{dev}}" ng-repeat="dev in data.devices | filter:{name:selecteds}"
+                    ng-selected="dev.baseTypeId == selectId">{{dev.name}}</option>
+        </select>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning"
+                ng-click="deleteBind()">{{languageJson.Configuration.TextControl.BindingSettings.DeleteBinding}}</button><!--删除绑定-->
+        <button type="button" class="btn btn-primary"
+                ng-click="ok()">{{languageJson.Configuration.TextControl.BindingSettings.SetBinding}}</button><!--设置绑定-->
+      </div>
+    </div>
+  </div>
+</div>

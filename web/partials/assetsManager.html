@@ -1,0 +1,86 @@
+<div class="container-fluid" ng-controller="assetsManagerCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.AssetPage.Title}}</h1><!--高级配置 > 资产管理-->
+        </div>
+    </div>
+    <div class="panel-body" ng-init="tab=1;tabs=1">
+        <div class="nav nav-divider">
+            <div class="form-inline">
+                <div>
+                    <button type="button" class="btn btn btn-primary" ng-click="addAssetsManagerClick()">{{languageJson.AssetPage.Add}}</button><!--增加-->
+                    <button type="button" class="btn btn btn-primary" ng-click="importMDCAssetsClick()">{{languageJson.AssetPage.OneClick}}</button><!--一键导入资产信息-->
+                    <button type="button" class="btn btn-default padding-bottom pull-right" ng-click="exportToHtml()">{{languageJson.AssetPage.Export}}</button><!--导出...-->
+                </div>
+                <p></p>
+            </div>
+            <div class="panel panel-default" style="margin-bottom: 0px;">
+                <div class="panel-heading">
+                    {{languageJson.AssetPage.AssetList.Title}}
+                </div><!--资产列表-->
+                <div class="panel-body">
+                    <table class="table table-condensed table-bordered table-striped table-hover">
+                        <thead>
+                        <tr class="ng-table-sort-header">
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.AssetCode}}</th><!--资产编码-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.AssetName}}</th><!--资产名称-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.AssetType}}</th><!--资产类型-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.AssetStyle}}</th><!--资产型号-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.Device}}</th><!--设备-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.Vendor}}</th><!--资产厂家-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.UsedDate}}</th><!--投产时间-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.Responsible}}</th><!--联系人-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.Position}}</th><!--位置-->
+                            <th style="text-align: center">{{languageJson.AssetPage.AssetList.Status}}</th><!--状态-->
+                            <th style="text-align: center;width: 160px;">{{languageJson.AssetPage.AssetList.Operation}}</th><!--操作-->
+                        </tr>
+                        </thead>
+                        <tr>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.assetsCode" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.assetsName" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.assetType" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.assetStyle" /></td>
+                            <!--<td align="center"><input type="text" class="form-control" ng-model="equipmentName" /></td>-->
+                            <td align="center">
+                                <select class="form-control" name = "portType" ng-model="filter.equipmentId">
+                                    <option value="" >{{languageJson.AssetPage.AssetList.Filter.All}}</option><!-- -- 所有 -- -->
+                                    <option value="notNull" >{{languageJson.AssetPage.AssetList.Filter.Monitoring}}</option><!-- -- 监控设备 -- -->
+                                    <option value="null" >{{languageJson.AssetPage.AssetList.Filter.Unmonitored}}</option><!-- -- 非监控设备 -- -->
+                                    <option value="{{row.EquipmentId}}" ng-repeat="row in allEquipmentList">{{row.EquipmentName}}</option>
+                                </select>
+                            </td>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.vendor" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.usedDate" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.responsible" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.position" /></td>
+                            <td align="center"><input type="text" class="form-control" ng-model="filter.status" /></td>
+                            <td align="center" style="width: 7vw;"></td>
+                        </tr>
+                        <div class="form-inline">
+                            <tr ng-repeat="row in assetsManagerData.list">
+                                <td align="center">{{row.assetsCode}}</td>
+                                <td align="center">{{row.assetsName}}</td>
+                                <td align="center">{{row.assetType}}</td>
+                                <td align="center">{{row.assetStyle}}</td>
+                                <td align="center">{{row.equipmentName}}</td>
+                                <td align="center">{{row.vendor}}</td>
+                                <td align="center">{{row.usedDate}}</td>
+                                <td align="center">{{row.responsible}}</td>
+                                <td align="center">{{row.position}}</td>
+                                <td align="center">{{row.statusMeaning}}</td>
+                                <td align="center" >
+                                    <button type="button" class="btn btn-sm btn-primary" ng-click="editAssetsManagerClick(row)">{{languageJson.AssetPage.AssetList.Modify}}</button><!--编辑-->
+                                    <button type="button" class="btn btn-sm btn-danger"  ng-click="removeAssetsManagerClick(row.assetsId)">{{languageJson.AssetPage.AssetList.Delete}}</button><!--删除-->
+                                    <!--<button type="button" class="btn btn btn-danger">无权限</button>-->
+                                </td>
+                            </tr>
+                        </div>
+                    </table>
+                    <!-- 使用方法请参照Directives.js => tablePaging -->
+                    <table-Paging table-Param="assetsManagerData" filter-Param="filter"></table-Paging>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

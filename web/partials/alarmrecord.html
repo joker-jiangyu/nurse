@@ -1,0 +1,102 @@
+<div class="container-fluid" ng-controller="hisAlarmRecordCtrl">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">{{languageJson.AlarmRecord.Title}}</h1><!--历史 > 历史告警记录-->
+		</div>
+	</div>
+	<spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+	<div class="row ">
+
+		<div class="col-lg-12 ">
+			<div class="form-inline">
+				<div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+					<label class="control-label"><i class="fa fa-calendar"></i> {{languageJson.AlarmRecord.StartTime}}</label><!--开始时间-->
+					<input type="text" class="form-control" ng-model="params.startDate" name="startDate" data-date-format="yyyy/MM/dd" bs-datepicker>
+				</div>
+				<div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+					<label class="control-label"><i class="fa fa-calendar"></i> {{languageJson.AlarmRecord.EndTime}}</label><!--结束时间-->
+					<input type="text" class="form-control" ng-model="params.endDate" name="endDate" data-date-format="yyyy/MM/dd" bs-datepicker>
+				</div>
+				<button class="btn btn-primary padding-bottom" ng-click="query()" >{{languageJson.AlarmRecord.Query}}</button><!--查询-->
+                <button class="btn btn-default padding-bottom pull-right"
+                	ng-click="exportToHtml()">{{languageJson.AlarmRecord.Export}}</button><!--导出...-->
+				<hr>
+			</div>
+		</div>
+	</div>
+	<div class="row dialog_box">
+		<div class="col-lg-12 alarm_table_body">
+			<!--<table  id="alarmTable" ng-table="tableParams" show-filter="true" class="table ng-table-responsive  table-condensed table-striped  alarm_table table_body" >
+				<tr ng-repeat="alarm in $data" style="height:50px;">
+					<td data-title="'内容'" filter="{ 'alarmContent': 'text' }">
+						<div>
+							<span>
+								<span>
+									<i class="fa fa-bell fa-fw alarmLevel{{alarm.alarmLevel}}">
+									</i>
+								</span> {{alarm.alarmContent}}
+								<span class="text-muted small">
+                                <em> {{alarm.remark}}</em>
+                            </span>
+							</span>
+						</div>
+					</td>
+					<td data-title="'开始于'" >
+						<div>
+							<span><small>{{alarm.startTime}}</small></span>
+						</div>
+					</td>
+					<td data-title="'结束于'" >
+						<div>
+							<span><small>{{alarm.endTime}}</small></span>
+						</div>
+					</td>
+				</tr>
+			</table>
+            <br/>-->
+            <table class="table table-condensed table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align: center">{{languageJson.AlarmRecord.Content}}</th><!--内容-->
+                        <th style="text-align: center">{{languageJson.AlarmRecord.StartWith}}</th><!--开始于-->
+                        <th style="text-align: center">{{languageJson.AlarmRecord.EndWith}}</th><!--结束于-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control" ng-model="filter.content" /></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-repeat="alarm in tableParams.list">
+                        <td>
+                            <div>
+                                <span>
+                                    <span>
+                                        <i class="fa fa-bell fa-fw alarmLevel{{alarm.alarmLevel}}">
+                                        </i>
+                                    </span> {{alarm.alarmContent}}
+                                    <span class="text-muted small">
+                                    <em ng-show="alarm.remark.length > 0"> ({{alarm.remark}})</em>
+                                </span>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <span><small>{{alarm.startTime}}</small></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <span><small>{{alarm.endTime}}</small></span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 使用方法请参照Directives.js => tablePaging -->
+            <table-Paging table-Param="tableParams" filter-Param="filter"></table-Paging>
+		</div>
+	</div>
+</div>

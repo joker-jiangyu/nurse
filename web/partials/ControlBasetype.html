@@ -1,0 +1,98 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Config.Contros.Base}}<!--控制基类--></h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-default">
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.Contros.Control}}<!--控制名称:--></label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="text" ng-model="Controls.SignalName" disabled/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.Contros.Equipment}}<!--设备基类:--></label>
+                                                <div class="col-md-7">
+                                                <select class="form-control" name = "BaseEquipmentName" ng-model="Controls.EquipmentBaseType" ng-change="CheckedControlEquipmentBaseType()">
+                                                    <option value="{{row.baseEquipmentId}}" ng-selected="{{row.baseEquipmentId==Controls.EquipmentBaseType}}"
+                                                            ng-repeat="row in Template.EquipmentBaseType | filter:EquipmentType">{{row.baseEquipmentId}} , {{row.baseEquipmentName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="form-control" placeholder="{{languageJson.Config.Contros.Class}}" type="text" ng-model="EquipmentType" />
+                                            </div><!-筛选设备基类--->
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">{{languageJson.Config.Contros.Base}}<!--控制基类:--></label>
+                                            <div class="col-md-7">
+                                                <select class="form-control" name = "BaseTypeId" ng-model="Controls.BaseTypeId" ng-change="CheckedControlBaseTypeId(Controls.BaseTypeId)">
+                                                    <option value="{{row.BaseTypeId}}" ng-selected="{{row.BaseTypeId==Controls.BaseTypeId}}"
+                                                            ng-repeat="row in Template.ControlBaseDic | filter:BaseType">{{row.BaseTypeId}} , {{row.BaseTypeName}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="form-control" placeholder="{{languageJson.Config.Contros.Screening}}" type="text" ng-model="BaseType" />
+                                            </div><!--筛选控制基类-->
+                                        </div>
+                                        <div class="panel panel-default" style="{{Controls.IsBaseNameExt}}">
+                                            <div class="panel-heading tooltip-options">
+                                                扩展表达式
+                                                <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                                    title="<h5>扩展表达式：新增单个根据“=>”左边的数字新增；新增多个根据“=>”左边至右边的数字新增。</h5>">
+                                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                                </a>
+                                            </div>
+                                            <br/>
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.Config.Contros.Base}}<!--扩展名格式:--></label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control" type="text" ng-model="Controls.BaseNameExt" disabled/>
+                                                    </div>
+                                                    <div class="col-md-2" style="{{Controls.IsSystem}}">
+                                                        <button type="button" class="btn btn-danger" ng-click="removeControlBaseDic()">{{languageJson.Config.Contros.Remove}}<!--删除--></button>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.Config.Contros.Base}}<!--{0}替换为:--></label>
+                                                    <div class="col-md-3">
+                                                        <input class="form-control" type="text" ng-model="Controls.StartNum"/>
+                                                    </div>
+                                                    <div class="col-md-2" style="padding-top: 8px;text-align: center;">
+                                                        =>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input class="form-control" type="text"  ng-model="Controls.EndNum" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-primary" ng-click="createControl()">{{languageJson.Config.Contros.New}}<!--新增--></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" ng-click="clearControls()">{{languageJson.Config.Contros.Clear}}<!--清除--></button>
+                <button type="button" class="btn btn-primary" ng-click="confirmedControls()">{{languageJson.Config.Contros.Determine}}<!--确定--></button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Contros.Cancel}}<!--取消--></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

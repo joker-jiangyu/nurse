@@ -1,0 +1,126 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 1000px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceCfg}}</h4><!--设备配置-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="form-group" style="margin: 20px 0px 10px 0px;">
+                                            <div class="col-md-12">
+                                                <!--关联设备*:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.RelateDevice}}</label>
+                                                    <div class="col-md-6">
+                                                        <select class="form-control" name = "portType" ng-model="CmbDevice.equipId" ng-change="changeCmbDevice(CmbDevice.equipId)">
+                                                            <option value="{{row.id}}" ng-repeat="row in devices"
+                                                                    ng-selected="{{row.id==CmbDevice.equipId}}">{{row.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!--设备ID*:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceIds}}</label>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.deviceId" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-primary" ng-click="createCmbDeviceIDClick()">{{languageJson.OtherModule.ChinamobileCfgBox.CreateId}}</button><!--生成ID *-->
+                                                    </div>
+                                                </div>
+                                                <!--设备名称*: 设备类型:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceNames}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.deviceName" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceModel}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.model" />
+                                                    </div>
+                                                </div>
+                                                <!--设备品牌: 设备容量:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceBrand}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.brand" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.RatedCapacity}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.ratedCapacity" />
+                                                    </div>
+                                                </div>
+                                                <!--设备版本: 投产时间:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceVersion}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.version" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.BeginRunTime}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.beginRunTime" />
+                                                    </div>
+                                                </div>
+                                                <!--描述:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.DeviceDescribe}}</label>
+                                                    <div class="col-md-10">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.devDescribe" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="form-group" style="margin: 20px 0px 10px 0px;">
+                                            <div class="col-md-12">
+                                                <!--站点ID: 站点名称:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.SiteId}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.siteID" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.SiteName}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.siteName" />
+                                                    </div>
+                                                </div>
+                                                <!--机房ID: 机房名称:-->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.RoomId}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.roomId" />
+                                                    </div>
+                                                    <label class="control-label col-md-2">{{languageJson.OtherModule.ChinamobileCfgBox.RoomName}}</label>
+                                                    <div class="col-md-4">
+                                                        <input class="form-control" placeholder="" type="text" ng-model="CmbDevice.roomName" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="saveCmbDeviceConfig()">{{CmbDeviceType == "insert"?languageJson.OtherModule.ChinamobileCfgBox.Add:languageJson.OtherModule.ChinamobileCfgBox.Save}}</button><!--"新增" "保存" -->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.OtherModule.ChinamobileCfgBox.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable>
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Equipment.Equipment}}<!--新增机柜设备--></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <label class="control-label {{languageJson.Language == 'English'?'col-md-4':'col-md-3'}} labelCenter">{{languageJson.Equipment.Device}}<!--设备选择:--></label>
+                    <div class="{{languageJson.Language == 'English'?'col-md-8':'col-md-9'}}">
+                        <select id="portType" class="form-control" name = "portType" ng-model="configMdc.deviceId"
+                                ng-change="changeEventDevice(configMdc.deviceId)">
+                            <option value="">--{{languageJson.Equipment.NonMonitoring}}--</option><!--非监控设备-->
+                            <option ng-repeat="dev in configMdc.devices" value="{{dev.id}}"
+                                    ng-selected="{{dev.id == configMdc.deviceId}}">
+                                {{dev.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12" ng-show="configMdc.deviceId == ''">
+                    <label class="control-label col-md-3 labelCenter">{{languageJson.Equipment.Name}}<!--非监控设备名称:--></label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" ng-model="configMdc.deviceName">
+                    </div>
+                </div>
+                <div class="panel panel-default col-md-12" style="box-shadow: rgba(15, 96, 244, 0.8) 0px 0px;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <label>{{languageJson.Equipment.EquipmentSpace.Space}}<!--设备的空间--></label>
+                        </div>
+                        <br/>
+                        <div class="panel-body">
+                            <label class="control-label  col-md-3 labelCenter">{{languageJson.Equipment.EquipmentSpace.Start}}<!--开始U位:--></label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="configMdc.UIndex">
+                            </div>
+                            <div class="col-md-6 labelCenter">{{languageJson.Equipment.EquipmentSpace.Ranges}}<!--取值范围：-->{{section.value1}} {{section.value2}}</div>
+                        </div>
+                        <div class="panel-body">
+                            <label class="control-label  col-md-3 labelCenter">{{languageJson.Equipment.EquipmentSpace.Height}}<!--设备U高度:--></label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" ng-model="configMdc.UHeight">
+                            </div>
+                            <div class="col-md-6 labelCenter">{{languageJson.Equipment.EquipmentSpace.Ranges}}[0,{{configMdc.cabinetUHeight - configMdc.useHeight}}]，{{languageJson.Equipment.EquipmentSpace.Means}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="addCabinetDevice()">{{languageJson.Equipment.Decide.Save}}<!--保存--></button>
+                    <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Equipment.Decide.Close}}<!--关闭--></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

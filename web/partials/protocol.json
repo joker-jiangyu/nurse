@@ -1,0 +1,18 @@
+﻿{
+"count":"3",
+"equipmentTemplates":
+	[
+		{
+		"EquipmentTemplateId" : "75500001",
+		"EquipmentTemplateName" : "艾默生电源(M500F,S,D)_广南者兔_直流配电"
+		},
+		{
+		"EquipmentTemplateId" : "75500002",
+		"EquipmentTemplateName" : "IPLU_2801BM电池采集板"
+		},
+		{
+		"EquipmentTemplateId" : "75500003",
+		"EquipmentTemplateName" : "IPLU2801BM_212局_二楼电力室电池组3(1#艾默生开关电源)"
+		}
+	]
+}

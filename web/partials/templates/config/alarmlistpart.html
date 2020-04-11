@@ -1,0 +1,53 @@
+<div class="panel-primary" partid="[id]" style="position: absolute; left: [left]px; top: [top]px; width: [width]px; height: [height]px; z-index: [zindex];">
+    <div class="panel-body filled" style="height: calc(100% - 19px);">
+        <div class="active-alarm-head">
+            <!--紧急告警-->
+            <span class="body pointer" ng-click="checkTest('levelUrgent')">
+                <i class="fa {{levelFilter.levelUrgent == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel3"></i>
+                <span class="ng-binding">{{languageJson.Alarm.EAlarm}}</span>
+            </span>
+            <!--重要告警-->
+            <span class="body pointer" ng-click="checkTest('levelImportant')">
+                <i class="fa {{levelFilter.levelImportant == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel2"></i>
+                <span class="ng-binding">{{languageJson.Alarm.IAlarm}}</span>
+            </span>
+            <!--一般告警-->
+            <span class="body pointer" ng-click="checkTest('levelCommon')">
+                <i class="fa {{levelFilter.levelCommon == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel1"></i>
+                <span class="ng-binding">{{languageJson.Alarm.GAlarm}}</span>
+            </span>
+            <!--提示信息-->
+            <span class="body pointer" ng-click="checkTest('levelTip')">
+                <i class="fa {{levelFilter.levelTip == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel0"></i>
+                <span class="ng-binding">{{languageJson.Alarm.PAlarm}}</span>
+            </span>
+        </div>
+        <div class="active-alarm-body scroll-easy" style="overflow-y: auto; height: calc(100% - 40px);">
+            <table id="alarmTable" show-filter="true" class="table ng-table-responsive active-alarm-table body_transparent">
+                <thead>
+                <tr>
+                    <td align="center" class="ng-binding">{{languageJson.Alarm.AlarmLevels}}</td><!--等级-->
+                    <td align="center" class="ng-binding">{{languageJson.Alarm.DeviceName}}</td><!--设备名称-->
+                    <td align="center" class="ng-binding">{{languageJson.Alarm.AlarmName}}</td><!--告警名称-->
+                    <td align="center" class="ng-binding">{{languageJson.Alarm.Meanings}}</td><!--含义-->
+                    <td align="center" class="ng-binding">{{languageJson.Alarm.TriggerValue}}</td><!--触发值-->
+                </tr>
+                </thead>
+                <tbody class="scroll-easy alarm-list-table">
+                <tr ng-repeat-start="alarm in ActiveAlarm" class="alarm-table-content {{($index-1)%2 == 0 ? 'even' : 'odd'}}">
+                    <td align="center" rowspan="2" class="alarm-table-level">
+                        <span><i class="fa fa-bell fa-fw alarmLevel{{alarm.alarmLevel}}"></i></span>
+                    </td>
+                    <td align="center" rowspan="2" class="alarm-table-name">{{alarm.deviceName}}</td>
+                    <td align="center">{{alarm.eventName}}</td>
+                    <td align="center">{{alarm.meanings}}</td>
+                    <td align="center">{{alarm.triggerValue}}</td>
+                </tr>
+                <tr ng-repeat-end class="alarm-table-time {{($index-1)%2 == 0 ? 'even' : 'odd'}}">
+                    <td colspan="3" align="right">{{alarm.startTime}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

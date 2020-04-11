@@ -1,0 +1,205 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 950px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{btnName}} {{languageJson.Config.Signal.Details}}</h4><!--新增信号详细信息-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Numbering}}<!--编号:--></label>
+                                <div class="col-md-4">
+                                    <input readonly type="text" class="form-control" ng-model="Signals.SignalId">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Name}}<!--名称:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.SignalName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Sort}}<!--分类:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Signals.SignalType" ng-change="ChangeSignalType(Signals.SignalType)">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Signal.SignalType"
+                                                ng-selected="{{row.ItemId==Signals.SignalType}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Base}}<!--基类信号:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control col-md-4" style="{{languageJson.Language == 'English'?'width:64%;':'width:70%'}}" ng-model="Signals.BaseTypeId" readonly>
+                                    <button type="button" class="btn btn-primary "  ng-click="SignalBaseTypeId()">{{languageJson.Config.Signal.Binding}}<!--绑定--></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Number}}<!--通道号:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.ChannelNo">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Type}}<!--通道类型:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Signals.ChannelType">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Signal.ChannelType"
+                                                ng-selected="{{row.ItemId==Signals.ChannelType}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Data}}<!--数据类型:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Signals.DataType">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Signal.DataType"
+                                                ng-selected="{{row.ItemId==Signals.DataType}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label  col-md-2 tooltip-options">{{languageJson.Config.Signal.Accuracy}}<!--精度:-->
+                                    <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                            title="<h5>精度：信号保留有效数字，如保留一位有效数字输入：0.0</h5>">
+                                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                                    </a>
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.ShowPrecision">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading tooltip-options">{{languageJson.Config.Signal.Expression}}<!--表达式:-->
+                                    <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                        title="<h5>表达式：通过表达式计算信号最终值，信号编号100103001除于10表达式为：[-1,100103001]/10</h5>">
+                                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                                    </a>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12" style="width: 100%;height: 10px;"></div>
+                                    <label class="control-label col-md-2">{{languageJson.Config.Signal.Signal}}<!--信号:--></label>
+                                    <div class="col-md-4">
+                                        <select class="form-control" ng-model="Events.SignalId" ng-change="ChangeSignalExpression(Events.SignalId)">
+                                            <option value="{{row.SignalId}}" ng-repeat="row in SignalList | filter:filterName"
+                                                    ng-selected="{{row.SignalId==Events.SignalId}}">{{row.SignalId}},{{row.SignalName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" placeholder="{{languageJson.Linkage.Alarm.Lists}}" type="text" ng-model="filterName" /><!--筛选信号-->
+                                    </div>
+                                    <div class="col-md-12" style="width: 100%;height: 10px;"></div>
+                                    <div class="col-md-12">
+                                        <textarea id="SignalExpression" type="text" class="form-control" style="{{ExpressionClass}}" ng-model="Signals.Expression" ng-blur="CheckExpression('SignalExpression')"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <ul class="ExpressionSymbol right" style="margin:10px 20px 0px 0px;">
+                                            <li ng-click="ClickSignalsLi('AND')" title="并且" style="width: 40px;">AND</li>
+                                            <li ng-click="ClickSignalsLi('OR')" title="或者" style="width: 30px;">OR</li>
+                                            <li style="border: 1px solid #fff0;background-color: #fff0;">  </li>
+                                            <li ng-click="ClickSignalsLi('(')">(</li>
+                                            <li ng-click="ClickSignalsLi(')')">)</li>
+                                            <li ng-click="ClickSignalsLi('+')">+</li>
+                                            <li ng-click="ClickSignalsLi('-')">-</li>
+                                            <li ng-click="ClickSignalsLi('*')">*</li>
+                                            <li ng-click="ClickSignalsLi('/')">/</li>
+                                            <li ng-click="ClickSignalsLi('==')">==</li>
+                                            <li ng-click="ClickSignalsLi('>')">&gt</li>
+                                            <li ng-click="ClickSignalsLi('>=')">&gt=</li>
+                                            <li ng-click="ClickSignalsLi('<')">&lt</li>
+                                            <li ng-click="ClickSignalsLi('<=')">&lt=</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Types}}<!--种类:--></label>
+                                <div class="col-md-4">
+                                    <select class="form-control" name = "EventSeverity" ng-model="Signals.SignalCategory" ng-change="ChangeCategory(Signals.SignalCategory)">
+                                        <option value="{{row.ItemId}}" ng-repeat="row in Signal.SignalCategory"
+                                                ng-selected="{{row.ItemId==Signals.SignalCategory}}">{{languageJson.Language == 'English' ? row.ItemAlias : row.ItemValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <label class="control-label col-md-2" ng-show="CategoryHide">{{languageJson.Config.Signal.Meaning}}<!--信号含义:--></label>
+                                <div class="col-md-4" ng-show="CategoryHide">
+                                    <input type="text" class="form-control col-md-4" style="{{languageJson.Language == 'English'?'width:64%;':'width:70%'}}" ng-model="Signals.Meanings">
+                                    <button type="button" class="btn btn-primary" ng-click="BindingMeanings('Signal',Signals)">{{languageJson.Config.Signal.Binding}}<!--绑定--></button>
+                                </div>
+                                <label class="control-label col-md-2" ng-hide="CategoryHide">{{languageJson.Config.Signal.Unit}}<!--单位:--></label>
+                                <div class="col-md-4" ng-hide="CategoryHide">
+                                    <input type="text" class="form-control" ng-model="Signals.Unit">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Period}}<!--存储周期(秒):--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.StoreInterval" ng-change="ChangeNumber(Signals.StoreInterval)">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Absolute}}<!--绝对值阀值:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.AbsValueThreshold" ng-change="ChangeNumber(Signals.AbsValueThreshold)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Percentage}}<!--百分比阀值:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.PercentThreshold" ng-change="ChangeNumber(Signals.PercentThreshold)">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Statistical}}<!--统计周期(时):--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.StaticsPeriod" ng-change="ChangeNumber(Signals.ChargeStoreInterVal)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-show="ChargeShow">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Charge}}<!--充电状态电池存储周期(秒):--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.ChargeStoreInterVal" ng-change="ChangeNumber(Signals.PercentThreshold)">
+                                </div>
+                                <label class="control-label  col-md-2">{{languageJson.Config.Signal.Charges}}<!--充电状态电池绝对值阀值:--></label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Signals.ChargeAbsValue" ng-change="ChangeNumber(Signals.ChargeStoreInterVal)">
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-2">有效:</label>
+                                <div class="col-md-4 timeGroupCheck">
+                                    <label><input type="checkbox" ng-model="Signals.Enable"><i>√</i></label>
+                                </div>
+                                <label class="control-label  col-md-2">可见:</label>
+                                <div class="col-md-4 timeGroupCheck">
+                                    <label><input type="checkbox" ng-model="Signals.Visible"><i>√</i></label>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="saveSignal()">{{btnName}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Config.Signal.Close}}<!--关闭--></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

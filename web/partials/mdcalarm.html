@@ -1,0 +1,150 @@
+<div class="container-fluid" ng-controller="MDCAlarmCtrl">
+	<div class="row" style="margin-bottom: 30px;">
+        <div class="btn-group diagram" ng-model="select.selectedMdcId" bs-radio-group>
+            <label ng-repeat="dev in mdcNames" class="btn diagram-tab" ng-click="changeDevice('2D',dev.id)">
+                <input type="radio"  value="{{dev.id}}">{{dev.name}}
+            </label>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+
+    <div id="AlarmRoot">
+        <div class="MdcMenu">
+            <table class="body_transparent">
+                <tr>
+                    <td class="selected" ng-click="stageMonitor()" ng-show="isShowFeature('MDCSecurity')">{{languageJson.MDCHome.Head.Security}}</td><!--安全监控-->
+                    <td ng-click="stagePower()" ng-show="isShowFeature('MDCPower')">{{languageJson.MDCHome.Head.Energy}}</td><!--能耗分布-->
+                    <td ng-click="stageThermal()" ng-show="isShowFeature('MDCTemp')">{{languageJson.MDCHome.Head.Temperature}}</td><!--温度分布-->
+                    <td ng-click="stageSpace()" ng-show="isShowFeature('MDCSpace')">{{languageJson.MDCHome.Head.Space}}</td><!--空间管理-->
+                </tr>
+            </table>
+        </div>
+        <!-- 当前告警弹屏 -->
+        <div class="Alarm-Play-Screen" ng-show="currentStage == 'monitor' || currentStage == undefined">
+            <!--<div style="width: 80vw;">-->
+                <div class="Play-Screen" ng-repeat="item in FilterData.AlarmList | limitTo:4">
+                    <div ng-click="clickDeviceInfo(item.deviceId)" style="display:inline;cursor: pointer;">
+                        <i class="fa fa-bell fa-fw alarmLevel{{item.alarmLevel}}"></i>
+                        {{item.alarmContent}}
+                        <span class="text-muted small">{{item.startTime}}</span>
+                    </div>
+                    <span class="close-i fa-lg" ng-click="beginEndAlarm(item.uniqueId)"><i class="fa fa-check-circle fa-lg" style="color: #0AD06B;"></i></span>
+                </div>
+           <!-- </div>-->
+            <div class="Play-Screen-Button" ng-show="FilterData.Legend > 4">
+                <div class="box" ng-click="alarmTable()">{{FilterData.Legend}}</div>
+            </div>
+        </div>
+        <div class="root-cheek">
+            <!-- 告警图表 -->
+            <div id="mdcAlarmTable" class="alarm-chart normal" ng-click="alarmTable()" ng-show="currentStage == 'monitor' || currentStage == undefined"><div></div></div>
+            <div class="filer_body" ng-show="currentStage == 'monitor' || currentStage == undefined" style="{{languageJson.Language === 'English'?'width: 12vw;':''}}">
+                <div class="filer_font">{{languageJson.MDCHome.IOFilter}}</div><!--环境量-->
+                <div id="mdcFiltering" class="filtering filteringShow" ng-click="filtering()" ></div>
+            </div>
+            <div class="cabinet_body">
+                <div class="water">
+                    <div id="water1" style="visibility:hidden;" class="button position1 {{mdcStyle.water1}}"></div>
+                    <div id="water2" style="visibility:hidden;" class="button position2 {{mdcStyle.water2}}"></div>
+                </div>
+                <!-- 机柜 -->
+                <div id="MdcCabinet">
+                    <div class="cabinet-box" ng-mouseenter="cabinetMouseenter()" ng-mouseleave="cabinetMouseleave()">
+                        <div class="cabinet">
+                            <table class="body_transparent" style="margin: 0px auto;/*width: {{MdcWidth}}%;*/">
+                                <tr class="door">
+                                    <td rowspan="4" style="width: 24px;"><div ng-click="mdcControlClk('door1')" class="door1 {{mdcStyle.door1}} right"></div></td>
+                                    <td colspan="16"></td>
+                                    <td rowspan="4" style="width: 24px;"><div ng-click="mdcControlClk('door2')" class="door2 {{mdcStyle.door2}} left"></div></td>
+                                </tr>
+                                <tr id="mdc-alarm-tr1" class="device"></tr>
+                                <tr>
+                                    <td colspan="16">
+                                        <div id="skyFalling" class="corridor {{mdcStyle.skyFalling1}}">
+                                            <!--<table class="cabinet-aisle-table body_transparent">
+                                                <tr>
+                                                    <td align="left"></td>
+                                                    <td align="left"></td>
+                                                    <td align="left"></td>
+                                                    <td align="center"></td>
+                                                    <td align="right"></td>
+                                                    <td align="right"></td>
+                                                    <td align="right"></td>
+                                                </tr>
+                                                <tr>&lt;!&ndash; {{camera3_img}} &ndash;&gt;
+                                                    <td align="left"><div id="camera1" class="camera camera_left cameraNormal" ng-click="openAisleTable('2','1')"></div></td>
+                                                    <td align="left">
+                                                        <div id="thermalHumidity1" class="thermalHumidity_2" style="width: 150px;" ng-show="currentStage == 'thermal'">
+                                                            <div id="thermal1" ng-show="thermalHumidity.thermal1">
+                                                                <div class="thermal_2 normal {{THFontColor.thermal1}}">{{thermalHumidity.thermal1}}</div>
+                                                            </div>
+                                                            <div id="humidity1" ng-show="thermalHumidity.humidity1">
+                                                                <div class="humidity_2 normal {{THFontColor.humidity1}}">{{thermalHumidity.humidity1}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td align="left">
+                                                        <div id="smoke1" style="visibility:hidden;" class="smoke smoke1 {{mdcStyle.smoke1}}"></div>
+                                                        <div id="infrared1" style="visibility:hidden;" class="infrared infrared1 {{mdcStyle.infrared1}}"></div>
+                                                    </td>
+                                                    <td align="center">
+                                                        &lt;!&ndash;<div id="skyFalling1" hidden class="skyFalling skyFalling1"></div>&ndash;&gt;
+                                                        <div id="thermalHumidity2" class="thermalHumidity_2" style="left: 38vw;width: 150px;" ng-show="currentStage == 'thermal'">
+                                                            <div id="thermal2" ng-show="thermalHumidity.thermal2">
+                                                                <div class="thermal_2 normal {{THFontColor.thermal2}}">{{thermalHumidity.thermal2}}</div>
+                                                            </div>
+                                                            <div id="humidity2" ng-show="thermalHumidity.humidity2">
+                                                                <div class="humidity_2 normal {{THFontColor.humidity2}}">{{thermalHumidity.humidity2}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td align="right">
+                                                        <div id="smoke2" style="visibility:hidden;" class="smoke smoke2 {{mdcStyle.smoke2}}"></div>
+                                                        <div id="infrared2" style="visibility:hidden;" class="infrared infrared2 {{mdcStyle.infrared2}}"></div>
+                                                    </td>
+                                                    <td align="right">
+                                                        <div id="thermalHumidity3" class="thermalHumidity_2" style="width: 150px;" ng-show="currentStage == 'thermal'">
+                                                            <div id="thermal3" ng-show="thermalHumidity.thermal3">
+                                                                <div class="thermal_2 normal {{THFontColor.thermal3}}">{{thermalHumidity.thermal3}}</div>
+                                                            </div>
+                                                            <div id="humidity3" ng-show="thermalHumidity.humidity3">
+                                                                <div class="humidity_2 normal {{THFontColor.humidity3}}">{{thermalHumidity.humidity3}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>&lt;!&ndash; {{camera4_img}} &ndash;&gt;
+                                                    <td align="right"><div id="camera2" class="camera camera_right cameraNormal" ng-click="openAisleTable('2','7')"></div></td>
+                                                    &lt;!&ndash;<tr>
+                                                    <td><div id="msg"></div></td>
+                                                    </tr>&ndash;&gt;
+                                                </tr>
+                                                <tr>
+                                                    <td align="left"></td>
+                                                    <td align="left"></td>
+                                                    <td align="left"></td>
+                                                    <td align="center"></td>
+                                                    <td align="right"></td>
+                                                    <td align="right"></td>
+                                                    <td align="right"></td>
+                                                </tr>
+                                            </table>-->
+                                            <table id="AisleTable" class="cabinet-aisle-table body_transparent">
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="mdc-alarm-tr2" class="device"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fullscreen">
+        <a title="全屏,按ESC退出." ng-click="FullScreen()"><i class="glyphicon glyphicon-fullscreen" ></i></a>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".MdcMenu div").tooltip({html : true });});
+</script>

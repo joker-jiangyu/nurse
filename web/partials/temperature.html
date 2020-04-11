@@ -1,0 +1,26 @@
+<div class="container-fluid" ng-controller="TemperatureCtrl">
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="btn-group diagram" ng-model="select.selectedMdcId" bs-radio-group>
+            <label ng-repeat="dev in mdcNames" class="btn diagram-tab" ng-click="changeDevice('temperature',dev.id)">
+                <input type="radio"  value="{{dev.id}}">{{dev.name}}
+            </label>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <div id="MdcTemperture">
+        <div class="cabinet-box">
+            <div class="cabinet">
+                <table style="margin: auto auto;{{MdcWidth}}">
+                    <tr id="temperature-tr1" class="device"></tr>
+                    <tr><td colspan="16" style="height: 5vh;"></td></tr>
+                    <tr id="temperature-tr2" class="device"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="fullscreen">
+        <a title="全屏,按ESC退出." ng-click="FullScreen()"><i class="glyphicon glyphicon-fullscreen" ></i></a>
+    </div>
+</div>

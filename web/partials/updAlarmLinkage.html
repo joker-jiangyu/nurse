@@ -1,0 +1,168 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 1000px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Linkage.Alarm.Modify}}<!--修改告警联动--></h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="col-md-12">
+                                        <br/>
+                                        <div class="form-group">
+                                            <label class="control-label  {{languageJson.Language == 'English'?'col-md-3':'col-md-2'}}">{{languageJson.Linkage.Alarm.Alarm}}<!--告警联动名称:--></label>
+                                            <div class="{{languageJson.Language == 'English'?'col-md-3':'col-md-4'}}">
+                                                <input type="text" class="form-control" ng-model="AlarmLinkage.actionName" Virtual-Key-Board="AlarmLinkage.actionName" ng-change="click()">
+                                            </div>
+                                            <label class="control-label  {{languageJson.Language == 'English'?'col-md-3':'col-md-2'}}">{{languageJson.Linkage.Alarm.Type}}<!--联动触发类型:--></label>
+                                            <div class="{{languageJson.Language == 'English'?'col-md-3':'col-md-4'}}">
+                                                <select class="form-control" ng-model="AlarmLinkage.triggerType">
+                                                    <option value="row.ItemId" ng-repeat="row in TriggerTypes"
+                                                            ng-selected="row.ItemId == TriggerTypes[0].ItemId"
+                                                            ng-disabled="row.ItemId == 2"> {{row.ItemValue}} </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading tooltip-options">
+                                    {{languageJson.Linkage.Alarm.Expression}}<!--触发表达式-->
+                                    <a  href="#" data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                        title="<h5>触发表达式：通过表达式条件触发控制，如设备编号为100000001，信号编号100103001值为1触发控制时，表达式为：[100000001,100103001]==1</h5>">
+                                        <i class="fa fa-question-circle fa-fw pointer "></i>
+                                    </a>
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="form-group">
+                                                <label class="control-label  col-md-2">{{languageJson.Linkage.Alarm.Equipment}}<!--设备:--></label>
+                                                <div class="col-md-3">
+                                                    <select class="form-control" ng-model="AlarmLinkage.devicesId" ng-change="changeDevice(AlarmLinkage.devicesId)">
+                                                        <option value="{{row.id}}" ng-repeat="row in Devices"
+                                                                ng-selected="row.id == Devices[0].id"> {{row.name}} </option>
+                                                    </select>
+                                                </div>
+                                                <label class="col-md-2">
+                                                    <select class="form-control" ng-model="AlarmLinkage.listType" ng-change="changeListType(AlarmLinkage.listType)" style="width: 80px;float:  right;">
+                                                        <option value="0" ng-selected="AlarmLinkage.listType == 0"> {{languageJson.Linkage.Alarm.Signal}} </option><!--信号:-->
+                                                        <option value="1" ng-selected="AlarmLinkage.listType == 1"> {{languageJson.Linkage.Alarm.Event}} </option><!--事件:-->
+                                                    </select>
+                                                </label>
+                                                <div class="col-md-3">
+                                                    <select  ng-show="AlarmLinkage.listType == 0" class="form-control" ng-model="AlarmLinkage.signalId" ng-change="changeSignal('startExpression',AlarmLinkage.signalId)">
+                                                        <option value="{{row.signalId}}" ng-repeat="row in Signals | filter:{signalName:filterName}"> {{row.signalName}} </option>
+                                                    </select>
+                                                    <select ng-show="AlarmLinkage.listType == 1" class="form-control" ng-model="AlarmLinkage.Value" ng-change="changeEvent('startExpression',AlarmLinkage.Value)">
+                                                        <option value="{{row}}" ng-repeat="row in Events | filter:{ItemAlias:filterName}"> {{row.Name}} </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" ng-model="filterName" Virtual-Key-Board="filterName" placeholder=" {{languageJson.Linkage.Alarm.Lists}}"><!--筛选信号-->
+                                                </div>
+                                            </div>
+                                            <div class="form-group" style="width: 98%;margin: 0px auto;">
+                                                <textarea type="text" id="startExpression" class="form-control ng-pristine ng-untouched ng-valid" ng-model="AlarmLinkage.startExpression" Virtual-Key-Board="AlarmLinkage.startExpression" ng-blur="CheckExpression('startExpression')"></textarea>
+                                            </div>
+                                            <br/>
+                                            <div class="form-group">
+                                                <ul class="ExpressionSymbol right">
+                                                    <li ng-click="ClickLi('startExpression','AND')" title="并且" style="width: 40px;">AND</li>
+                                                    <li ng-click="ClickLi('startExpression','OR')" title="或者" style="width: 30px;">OR</li>
+                                                    <li style="border: 1px solid #fff0;background-color: #fff0;">  </li>
+                                                    <li ng-click="ClickLi('startExpression','(')">(</li>
+                                                    <li ng-click="ClickLi('startExpression',')')">)</li>
+                                                    <li ng-click="ClickLi('startExpression','+')">+</li>
+                                                    <li ng-click="ClickLi('startExpression','-')">-</li>
+                                                    <li ng-click="ClickLi('startExpression','*')">*</li>
+                                                    <li ng-click="ClickLi('startExpression','/')">/</li>
+                                                    <li ng-click="ClickLi('startExpression','==')">==</li>
+                                                    <li ng-click="ClickLi('startExpression','>')">&gt</li>
+                                                    <li ng-click="ClickLi('startExpression','<')">&lt</li>
+                                                    <li ng-click="ClickLi('startExpression','!=')">!=</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{languageJson.Linkage.Alarm.Queue}}<!--控制队列-->
+                                </div>
+                                <div class="panel-body">
+                                    <form role="form">
+                                        <div class="col-md-12">
+                                            <br/>
+                                            <div class="col-md-6">
+                                                <label class="control-label col-md-3">{{languageJson.Linkage.Alarm.Equipment}}<!--设备:--></label>
+                                                <div class="col-md-9" style="padding-bottom: 15px;">
+                                                    <select class="form-control" ng-model="AlarmLinkage.claDevicesId" ng-change="changeDeviceTemplate(AlarmLinkage.claDevicesId)">
+                                                        <option value="{{row.id}}" ng-repeat="row in Devices"
+                                                                ng-selected="row.id == Devices[0].id"> {{row.name}} </option>
+                                                    </select>
+                                                </div>
+                                                <label class="control-label col-md-3">{{languageJson.Linkage.Alarm.Control}}<!--控制:--></label>
+                                                <div class="col-md-5" style="padding-bottom: 15px;">
+                                                    <select class="form-control" ng-model="AlarmLinkage.control" ng-change="changeControl(AlarmLinkage.control)">
+                                                        <option value="{{row}}" ng-repeat="row in Controls | filter:{ControlName : template}"
+                                                                ng-selected="row.ControlId == Controls[0].ControlId"> {{row.ControlName}} </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4" style="padding-bottom: 15px;">
+                                                    <input  class="form-control" type="text" placeholder="{{languageJson.Linkage.Alarm.Screening}}" ng-model="template" Virtual-Key-Board="template"/><!--筛选控制-->
+                                                </div>
+                                                <label class="control-label col-md-3">{{languageJson.Linkage.Alarm.Value}}<!--控制值:--></label>
+                                                <div class="col-md-9" ng-show="CommandType == 2" style="padding-bottom: 15px;">
+                                                    <select class="form-control" ng-model="AlarmLinkage.controlValue" ng-change="changeControlValue(AlarmLinkage.controlValue)">
+                                                        <option value="{{row.ParameterValue}}" ng-repeat="row in ControlMeanings"> {{row.Meanings}} </option>
+                                                    </select>
+                                                </div>
+                                                <div ng-show="CommandType == 1">
+                                                    <div class="col-md-6" style="padding-bottom: 15px;">
+                                                        <input  class="form-control" type="text" ng-model="AlarmLinkage.controlValue" Virtual-Key-Board="AlarmLinkage.controlValue" placeholder="范围:[{{MinValue}}-{{MaxValue}}]"/>
+                                                    </div>
+                                                    <div class="col-md-3" style="padding-bottom: 15px;">
+                                                        <button type="button" class="btn btn-primary"
+                                                                ng-click="addControlValue(AlarmLinkage.controlValue)">{{languageJson.Linkage.Alarm.Add}}<!--添加--></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="height: 135px;overflow:auto;">
+                                                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+                                                    <tr ng-repeat="row in AlarmLinkage.controlLogActions">
+                                                        <td data-title="languageJson.Linkage.Alarm.Equipments" align="center">{{row.equipmentName}}</td><!--'设备'-->
+                                                        <td data-title="languageJson.Linkage.Alarm.Controls" align="center">{{row.controlName}}</td><!--'控制'-->
+                                                        <td data-title="languageJson.Linkage.Alarm.Values" align="center">{{row.actionMeanings}}</td><!--'控制值'-->
+                                                        <td class="center" data-title="languageJson.Linkage.Alarm.Operation" align="center"><!--'操作'-->
+                                                            <button type="button" class="btn btn-sm btn-danger"  ng-click="deleteMeaningsClick($index)">{{languageJson.Linkage.Alarm.Delete}}<!--删除--></button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="updAlarmLinkage()">{{languageJson.Linkage.Alarm.New}}</button><!--保存-->
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Linkage.Alarm.Close}}</button><!--关闭-->
+            </div>
+        </div>
+    </div>
+</div>
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

@@ -1,0 +1,177 @@
+
+    <div id="view-scroll" class="btn-group diagram ng-pristine ng-untouched ng-valid">
+        <a id="view-home" ng-click="homePageClk()"  class="btn diagram-tab" style="{{languageJson.Language == 'English'?'width: auto;':''}}">
+            {{languageJson.RoomHome.RoomTitle}}
+        </a><!--机房布局图  href="#/adevice/1004/adiagram"-->
+
+        <a href="#/"  class="btn diagram-tab ng-binding ng-scope active" style="{{languageJson.Language == 'English'?'width: auto;':''}}">
+            {{languageJson.RoomHome.AlarmTitle.Title}}
+        </a><!--告警总览表-->
+    </div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+             <h2 class="page-header">{{languageJson.RoomHome.AlarmTitle.AlarmTable.Title}}</h2><!--告警总览-->
+         </div>
+       <!-- /.col-lg-12 -->
+        <!-- https://github.com/JulianWielga/angular-masonry-wall -->
+        <!-- http://ngmodules.org/modules/ngInfiniteScroll -->
+    </div>
+    <div>
+        <!-- /.row -->
+        <div class="row" ng-controller="homeCtrl">
+
+
+
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-red">
+                    <a href="#/alarm/4">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-bell fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge" ng-bind="alarmCount.levelUrgent"></div>
+                                <div>{{languageJson.RoomHome.AlarmTitle.AlarmTable.EAlarm}}</div><!--紧急告警-->
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="panel-footer">
+                            <span class="pull-left">{{languageJson.RoomHome.AlarmTitle.AlarmTable.Details}}</span><!--查看详情-->
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <a href="#/alarm/3">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-bell fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge" ng-bind="alarmCount.levelImportant"></div>
+                            <div>{{languageJson.RoomHome.AlarmTitle.AlarmTable.IAlarm}}</div><!--重要告警-->
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="panel-footer">
+                        <span class="pull-left">{{languageJson.RoomHome.AlarmTitle.AlarmTable.Details}}</span><!--查看详情-->
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-blue">
+                <a href="#/alarm/2">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-bell fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge" ng-bind="alarmCount.levelCommon"></div>
+                            <div>{{languageJson.RoomHome.AlarmTitle.AlarmTable.GAlarm}}</div><!--一般告警-->
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="panel-footer">
+                        <span class="pull-left">{{languageJson.RoomHome.AlarmTitle.AlarmTable.Details}}</span><!--查看详情-->
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <a href="#/alarm/1">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge" ng-bind="alarmCount.levelTip"></div>
+                            <div>{{languageJson.RoomHome.AlarmTitle.AlarmTable.PAlarm}}</div><!--提示信息-->
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="panel-footer">
+                        <span class="pull-left">{{languageJson.RoomHome.AlarmTitle.AlarmTable.Details}}</span><!--查看详情-->
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- /.row -->
+        <div class="row" ng-controller="deviceStatusCtrl">
+            <div class="col-lg-12">
+                <h4>{{languageJson.RoomHome.AlarmTitle.EquipmentTable.Title}}</h4><!--设备状态列表-->
+            </div>
+            <div class="col-lg-12">
+                    <!-- /.panel-heading -->
+                    <div class="panel-body" >
+                        <table class="table-head table table-condensed">
+                            <tr >
+                                <th class="col-md-1" align="center" style="text-align: center !important;">{{languageJson.RoomHome.AlarmTitle.EquipmentTable.Number}}</th><!--序号-->
+                                <th class="col-md-2">{{languageJson.RoomHome.AlarmTitle.EquipmentTable.Status}}</th><!--状态-->
+                                <th class="col-md-4">{{languageJson.RoomHome.AlarmTitle.EquipmentTable.Equipment}}</th><!--设备-->
+                                <th class="col-md-5">{{languageJson.RoomHome.AlarmTitle.EquipmentTable.Message}}</th><!--信息-->
+                            </tr>
+                        </table>
+                        <div class="table-responsive table-opacity" style="overflow: auto; height:100%;">
+
+                                <table class="table table-hover table-condensed" style="font-size:15px;" >
+                                <tbody>
+                                <tr ng-repeat="dev in devices | orderBy:'status'" ng-click="gotoDevice(dev.id)">
+                                    <td  class = "col-md-1" align="center" >{{$index+1}}</td>
+                                    <td >
+                                        <h5>
+                                            <span  ng-class = "getStatusTextClass('col-md-2', dev.status)">
+                                                <i ng-class="getStatusIconClass(dev.status)"></i>
+                                            </span>
+                                            {{getStatusLabel(dev.status)}}
+                                        </h5>
+                                    </td>
+                                    <td class = "col-md-4">
+                                        <h5><b><bigger>{{dev.name}} </bigger></b>
+                                            <small>
+                                                <em ng-hide=""> {{languageJson.Language == 'English' ? dev.typeAlias : dev.type}}</em>
+                                            </small></h5>
+                                    </td>
+                                    <td class = "col-md-5">
+                                        <h5>{{dev.remark}}</h5>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>

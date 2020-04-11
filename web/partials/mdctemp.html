@@ -1,0 +1,40 @@
+<div class="container-fluid" ng-controller="MDCTempCtrl">
+	<div class="row" style="margin-bottom: 30px;">
+		<div class="btn-group diagram" ng-model="select.selectedMdcId" bs-radio-group>
+			<label ng-repeat="dev in mdcNames" class="btn diagram-tab" ng-click="changeDevice('mdctemp',dev.id)">
+				<input type="radio"  value="{{dev.id}}">{{dev.name}}
+			</label>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<spinner class="loading" show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+	<div class="row mdc_temp_foot">
+		<div style="width: 70px;padding: 10px 5px 20px 5px;" class="configure_bg">
+			<h5>{{languageJson.MDCTemp.TempeScale}}</h5><!--温度标尺-->
+            <h5 style="margin-left: 5px;">℃</h5>
+			<div ng-repeat="colorItem in colorDic" style="width: 50px;margin: 0px auto;line-height: 10px;">
+                <div class="foot_number">{{colorItem.value}}</div><div style="background-color:{{colorItem.color}};width:20px;height: 20px;display: inline-block;"></div>
+			</div>		
+		</div>
+	</div>
+
+	<div style="position:absolute;right: 20%;top: 20.5%;height:200px">
+		<div id="r1"></div>
+		<div id="mdc-temp-tr1" style="position:absolute;left:0px;top:0px;"></div>
+		<div id="r2" style="position:absolute;left:0px;top:350px;" ng-hide="isHide"/>
+		<div id="mdc-temp-tr2" style="position:absolute;left:0px;top:350px;" ng-hide="isHide"></div>
+	</div>
+<!-- 	<div style="position:absolute;left:300px;top:140px;" class="inline-block">
+		<div ng-repeat="rack in tempRacks" style="display:inline-block;margin:10px;width:120px;">
+				<h5>{{rack.name}}</h5>
+				<div style="border:thin solid white" ng-repeat="srv in rack.servers">
+					<div style="height:14px;  background-color:{{srv.temp}}"></div>
+				</div>
+		</div>
+	</div> -->
+
+    <div class="fullscreen">
+        <a title="全屏,按ESC退出." ng-click="FullScreen()"><i class="glyphicon glyphicon-fullscreen" ></i></a>
+    </div>
+</div>
+

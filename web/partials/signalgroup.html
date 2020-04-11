@@ -1,0 +1,33 @@
+<div class="panel panel-primary" dragger resizer>
+	<div class="panel-heading diagram-ele-head" title="{{languageJson.Configuration.SignalControl.UpdTitle}}">
+
+
+		<a class="pull-left grahico" setparttop  title="{{languageJson.Configuration.Control.Top}}"><!--置顶-->
+			<i class="fa fa-eject" ></i></a>
+
+        <a class="pull-right grahico" deletepartsetter title="{{languageJson.Configuration.Control.Delete}}"><!--删除-->
+            <i class="fa fa-times" ></i></a>
+
+		<a class="pull-right grahico" basesignalsetter  title="{{languageJson.Configuration.Control.Setter}}"><!--设置-->
+		<i class="fa fa-wrench" ></i></a>
+	</div>
+	<div class="panel-body signal-body" style="padding: 6px 20px;">
+		<div class="table-responsive"  style="overflow: hidden">
+            <div class="signal_title"><label class="groupname"  /></div>
+            <!--<div class="signal_body" ng-repeat="sig in signalList | filter:{ partId: ''}">
+                <div class="signal_body_name" ><label>{{sig.baseTypeName}}</label></div>
+                <div class="signal_body_space" ></div>
+                <div class="signal_body_value pointer" ng-click="showHistoryChart(sig.deviceId,sig.baseTypeId,sig.signalName)"><i style="{{sig.backgroundColor}}">{{sig.currentValue}}</i></div>
+            </div>-->
+			<div class="signal-body-table scroll-easy">
+				<table class="filled body_transparent">
+					<tr class="signal_body" ng-repeat="sig in signalList | filter:{ partId: ''}">
+						<td class="table_signal_body_name"><label>{{sig.baseTypeName}}</label></td>
+						<td class="signal_body_space"></td>
+						<td class="table_signal_body_value pointer" ng-click="showHistoryChart(sig.deviceId,sig.baseTypeId,sig.signalName)"><i class="{{sig.className}}">{{sig.currentValue}}</i></td><!--style="{{sig.backgroundColor}}"-->
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

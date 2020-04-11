@@ -1,0 +1,97 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width: 720px;">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()">
+                    <i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.BindSignalBox.Title}}</h4><!--绑定基类信号-->
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <label class="control-label col-md-3 labelCenter text-right">{{languageJson.BindSignalBox.Type.Title}}</label><!--类型:-->
+                    <div class="col-md-9">
+                        <select class="form-control" ng-model="multi.type">
+                            <option value="1" ng-selected="multi.type == 1">{{languageJson.BindSignalBox.Type.AddSignal}}</option><!--快捷添加信号-->
+                            <option value="2" ng-selected="multi.type == 2">{{languageJson.BindSignalBox.Type.AddLine}}</option><!--添加空白列-->
+                        </select>
+                    </div>
+                </div>
+                <div ng-hide="multi.type == 2" class="form-group col-md-12">
+                    <label class="control-label col-md-3 labelCenter text-right">{{languageJson.BindSignalBox.Select}}</label><!--设备选择:-->
+                    <div class="col-md-9">
+                        <select class="form-control" ng-model="multi.deviceId" ng-change="changeDevice(multi.deviceId)">
+                            <option ng-repeat="dev in multi.devices" value="{{dev.id}}" ng-selected="{{dev.id == multi.deviceId}}">
+                                {{dev.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-hide="multi.type == 2" class="form-group col-md-12" style="height: 320px;">
+                    <div style="display:block;overflow:auto;margin-left:auto;margin-right:auto;width:700px;">
+                        <div style="float:left;width: 100%;">
+                            <i class="fa fa-search" style="font-size: 24px;"></i>
+                            <input class="form-control filter-border" ng-model="filterValue" type="text" placeholder="{{languageJson.BindSignalBox.Filter}}"/><!--筛选信号-->
+                        </div>
+                        <div>
+                            <div style="position: absolute;top: 55px;" class="timeGroupCheck">
+                                <label class="control-label" style="display:block;">
+                                    {{ multi.selectedLabel }}({{ multi.selected.length }})</label>
+                                <label ng-click="allSelected()" style="margin: 2px 0px;">
+                                    {{languageJson.BindSignalBox.All}}<i class="i-border" ng-class="{true:'checked',false:'disabled'}[multi.selectedVisible]">{{getCheckbox(multi.selectedVisible)}}</i>
+                                </label><!--全选：-->
+                                <div class="div-border" style="width:220px;min-height:180px;">
+                                    <ul class="multi-border-select">
+                                        <li ng-repeat="item in multi.selected | filter:{name : filterValue}">
+                                            <label ng-click="checkboxSelected(item)">
+                                                <i class="i-border" ng-class="{true:'checked',false:'disabled'}[item.visible]">{{getCheckbox(item.visible)}}</i>
+                                                {{item.name}}
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div style="width: 340px;position: absolute;top: 55px;right: 10px;" class="timeGroupCheck">
+                                <label class="control-label"  style="display:block;">
+                                    {{ multi.availableLabel }}({{ multi.available.length }})
+                                </label>
+                                <label ng-click="allAvailable()" style="margin: 2px 0px;">
+                                    {{languageJson.BindSignalBox.All}}<i class="i-border" ng-class="{true:'checked',false:'disabled'}[multi.availableVisible]">{{getCheckbox(multi.availableVisible)}}</i>
+                                </label><!--全选：-->
+                                <div class="div-border" style="width:100%;min-height:180px;">
+                                    <ul class="multi-border-available">
+                                        <li ng-repeat="item in multi.available">
+                                            <label ng-click="checkboxAvailable(item)">
+                                                <i class="i-border" ng-class="{true:'checked',false:'disabled'}[item.visible]">{{getCheckbox(item.visible)}}</i>
+                                                {{item.name}}
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <label class="control-label col-md-5 labelCenter tooltip-options">{{multi.multiLabel}}
+                                        <a href ><span class="fa fa-question-circle fa-fw pointer " ng-hide="languageJson.Language == 'English'" title="<h5>批量修改已选列表信息</h5>"></span></a></label>
+                                    <div class="col-md-7">
+                                        <select class="form-control" ng-model="multi.batchId" ng-change="changeBatchDevice(multi.batchId)">
+                                            <option ng-repeat="dev in multi.devices" value="{{dev.id}}">
+                                                {{dev.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="ok()">{{multi.submitLabel}}</button><!-- saveBindDevice() -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script ng-hide="true">
+    $(function () { $(".tooltip-options span").tooltip({html : true });});
+</script>

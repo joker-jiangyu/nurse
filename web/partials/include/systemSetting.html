@@ -1,0 +1,37 @@
+<div class="modal-content am-modal-dialog">
+    <div class="modal-header" draggable>
+        <h4 class="modal-title">{{languageJson.Header.Advanced.System.Title}}</h4>
+    </div>
+    <div class="model-body-footer" style="padding-bottom: 30px;">
+        <div class="panel-body">
+            <div id="ControlDoor" class="panel-body">
+                <table ng-table="demo.tableParams" class="table table-condensed table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td>{{languageJson.Header.Advanced.System.Command}}</td>
+                        <td>{{languageJson.Header.Advanced.System.Explanation}}</td>
+                        <td align="center">{{languageJson.Header.Advanced.System.Operating}}</td>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td>{{languageJson.Header.Advanced.System.Restart}}</td>
+                        <td>{{languageJson.Header.Advanced.System.RestartExplanation}}</td>
+                        <td align="center"><button type="button" class="btn btn-primary"  ng-click="systemControlClick('reboot')"><i class="fa fa-pencil-square-o"></i> {{languageJson.Header.Advanced.System.Execution}}</button></td>
+                    </tr>
+                    <!--<tr ng-show="isAdminRole">
+                        <td>{{languageJson.Header.Advanced.System.Shutdown}}</td>
+                        <td>{{languageJson.Header.Advanced.System.ShutdownExplanation}}</td>
+                        <td align="center">
+                            <button type="button" class="btn btn-primary"  ng-click="systemControlClick('shutdown')"><i class="fa fa-pencil-square-o"></i> {{languageJson.Header.Advanced.System.Execution}}</button>
+                        </td>
+                    </tr>-->
+                    <tr ng-show="isAdminRole">
+                        <td>{{languageJson.Header.Advanced.System.Reset}}</td>
+                        <td>{{languageJson.Header.Advanced.System.ResetPrompt}}</td>
+                        <td align="center"><button type="button" class="btn btn-primary"  ng-click="systemControlClick('reset')"><i class="fa fa-pencil-square-o"></i> {{languageJson.Header.Advanced.System.Execution}}</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

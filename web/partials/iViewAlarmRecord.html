@@ -1,0 +1,145 @@
+<div class="container-fluid" ng-controller="hisAlarmRecordCtrl">
+    <div class="row">
+        <div class="record-title" style="{{languageJson.Language == 'English'?'width: 800px;':''}}">
+            <table class="body_transparent">
+                <tr>
+                    <td><a href="#/kpi/5">{{languageJson.Header.Chart.HistoryAlarm}}</a></td><!--历史告警分布-->
+                    <td class="selected"><a href="#/alarmrecord">{{languageJson.AlarmRecord.Title2}}</a></td><!--历史告警记录-->
+                    <td><a href="#/signalrecord">{{languageJson.SignalRecord.Title2}}</a></td><!--历史数据记录-->
+                    <td><a href="#/userOperationRecord">{{languageJson.OperationRecord.Title2}}</a></td><!--用户操作记录-->
+                </tr>
+            </table>
+        </div>
+
+        <div class="body_export" ng-show="SystemName == 'Windows'">
+            <button class="btn btn-default padding-bottom pull-right"
+                    ng-click="exportToHtml()">{{languageJson.AlarmRecord.Export}}</button><!--导出...-->
+        </div>
+    </div>
+    <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+    <div class="row ">
+        <div class="col-lg-2">
+            <select class="form-control"  ng-model="SelectTimeType" ng-change="changeTimeType(SelectTimeType)" style="margin-top: 12px;text-align-last: center;">
+                <option value="Month">{{languageJson.AlarmRecord.TimeType.Month}}</option><!--按月份-->
+                <option value="YMD">{{languageJson.AlarmRecord.TimeType.YMD}}</option><!--按年月日-->
+            </select>
+        </div>
+        <div class="col-lg-10" ng-show="SelectTimeType == 'Month'">
+            <label class="control-label text-right left" style="line-height: 60px;">{{startTime}}</label>
+            <div class="col-lg-9">
+                <rangeslider min="1" max="12" value="11" rang-value="rangeValues"></rangeslider>
+            </div>
+            <label class="control-label text-right" style="line-height: 60px;">{{endTime}}</label>
+        </div>
+        <div class="col-lg-10" ng-show="SelectTimeType == 'YMD'" style="height: 91px;padding-top: 14px;">
+            <label class="control-label col-lg-2" style="text-align: right;line-height: 35px;"><i class="fa fa-calendar"></i> {{languageJson.AlarmRecord.StartTime}}</label><!--开始时间-->
+            <div class="col-lg-3"><input id="TimeControl1" class="form-control" ng-model="SelectTime.startDate"></div>
+            <label class="control-label col-lg-2" style="text-align: right;line-height: 35px;"><i class="fa fa-calendar"></i> {{languageJson.AlarmRecord.EndTime}}</label><!--开始时间-->
+            <div class="col-lg-3"><input id="TimeControl2" class="form-control" ng-model="SelectTime.endDate"></div>
+
+        </div>
+    </div>
+    <div class="row dialog_box">
+        <div class="col-lg-12" style="margin: 10px 0px;">
+            <!-- 告警等级 -->
+            <div class="tabs-below active-alarm-filter">
+                <!--紧急告警-->
+                <span class="body pointer" ng-click="checkTest('levelUrgent')">
+                    <i class="fa {{levelFilter.levelUrgent == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel3"></i>
+                    <span>{{languageJson.AlarmRecord.EAlarm}}</span>
+                </span>
+                <!--重要告警-->
+                <span class="body pointer" ng-click="checkTest('levelImportant')">
+                    <i class="fa {{levelFilter.levelImportant == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel2"></i>
+                    <span>{{languageJson.AlarmRecord.IAlarm}}</span>
+                </span>
+                <!--一般告警-->
+                <span class="body pointer" ng-click="checkTest('levelCommon')">
+                    <i class="fa {{levelFilter.levelCommon == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel1"></i>
+                    <span>{{languageJson.AlarmRecord.GAlarm}}</span>
+                </span>
+                <!--提示信息-->
+                <span class="body pointer" ng-click="checkTest('levelTip')">
+                    <i class="fa {{levelFilter.levelTip == true ? 'fa-bell' : 'fa-bell-slash-o'}} fa-fw alarmLevel0"></i>
+                    <span>{{languageJson.AlarmRecord.PAlarm}}</span>
+                </span>
+            </div>
+
+            <!--<table class="panel table table-condensed table-bordered table-striped">
+                <tr hidden="hidden">
+                    <th style="width: 15%;text-align: right;"><label class="control-label" style="text-align: right;line-height: 33px;">{{languageJson.AlarmRecord.Equipment}}</label>&lt;!&ndash;设备：&ndash;&gt;</th>
+                    <td>
+                        <div class="dropdown-mul-1 hideBorder WhiteInput">
+                            <select style="display:none" name="" id="fields" multiple placeholder="请选择"> </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 10%;text-align: right;"><label class="control-label" style="text-align: right;line-height: 33px;">{{languageJson.AlarmRecord.AlarmLevel}}</label>&lt;!&ndash;告警等级：&ndash;&gt;</th>
+                    <td class="active-alarm-filter">
+                        &lt;!&ndash;<span class="body"><checkbox class="btn-danger" ng-model="levelFilter.levelUrgent" ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('levelUrgent')">{{languageJson.Alarm.EAlarm}}</span> </span>&lt;!&ndash;紧急告警&ndash;&gt;
+                        <span class="body"><checkbox class="btn-warning" ng-model="levelFilter.levelImportant"  ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('levelImportant')">{{languageJson.Alarm.IAlarm}}</span> </span>&lt;!&ndash;重要告警&ndash;&gt;
+                        <span class="body"><checkbox class="btn-info" ng-model="levelFilter.levelCommon"  ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('levelCommon')">{{languageJson.Alarm.GAlarm}}</span> </span>&lt;!&ndash;一般告警&ndash;&gt;
+                        <span class="body"><checkbox class="btn-success" ng-model="levelFilter.levelTip"  ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('levelTip')">{{languageJson.Alarm.PAlarm}}</span> </span>&lt;!&ndash;提示信息&ndash;&gt;&ndash;&gt;
+                    </td>
+                </tr>
+                <tr hidden="hidden">
+                    <th style="width: 10%;text-align: right;"><label class="control-label" style="text-align: right;line-height: 33px;">{{languageJson.AlarmRecord.CancelStatus}}</label>&lt;!&ndash;告警状态：&ndash;&gt;</th>
+                    <td class="active-alarm-filter">
+                        <span class="body"><checkbox class="btn-primary" ng-model="cancelFilter.unconfirmed"  ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('unconfirmed')">{{languageJson.AlarmRecord.Unconfirmed}}</span> </span>
+                        <span class="body"><checkbox class="btn-primary" ng-model="cancelFilter.confirmed"  ng-click="updateLevelFilter()"></checkbox> <span ng-click="checkTest('confirmed')">{{languageJson.AlarmRecord.Confirmed}}</span> </span>
+                    </td>
+                </tr>
+            </table>-->
+        </div>
+        <div class="col-lg-12">
+            <table class="table table-condensed table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <!--告警等级-->
+                    <th style="text-align: center;">{{languageJson.AlarmRecord.AlarmLevels}}</th>
+                    <!--设备名称-->
+                    <th style="text-align: center;">{{languageJson.AlarmRecord.DeviceName}}</th>
+                    <!--告警名称-->
+                    <th style="text-align: center;">{{languageJson.AlarmRecord.AlarmName}}</th>
+                    <!--含义-->
+                    <th style="text-align: center;">{{languageJson.AlarmRecord.Meanings}}</th>
+                    <!--触发值-->
+                    <th style="text-align: center;">{{languageJson.AlarmRecord.TriggerVal}}</th>
+                    <!--开始时间-->
+                    <th style="text-align: center;" width="20%">{{languageJson.AlarmRecord.StartTime}}</th>
+                    <!--结束时间-->
+                    <th style="text-align: center;" width="20%">{{languageJson.AlarmRecord.EndTime}}</th>
+                    <!--备注-->
+                    <th style="text-align: center;">{{languageJson.AlarmRecord.Remark}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="alarm in tableParams.list">
+                    <!--告警等级-->
+                    <td align="center">
+                        <span><i class="fa fa-bell fa-fw alarmLevel{{alarm.alarmLevel}}" style="font-size: 24px;"></i></span>
+                        <span style="font-size: 20px;">{{alarm.alarmLevelName}}</span>
+                    </td>
+                    <!--设备名称-->
+                    <td align="center">{{alarm.deviceName}}</td>
+                    <!--告警名称-->
+                    <td align="center">{{alarm.eventName}}</td>
+                    <!--含义-->
+                    <td align="center">{{alarm.meanings}}</td>
+                    <!--触发值-->
+                    <td align="center">{{alarm.triggerValue}}</td>
+                    <!--开始时间-->
+                    <td align="center">{{alarm.startTime}}</td>
+                    <!--结束时间-->
+                    <td align="center">{{alarm.endTime}}</td>
+                    <!--备注-->
+                    <td align="center">{{alarm.remark}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- 使用方法请参照Directives.js => tablePaging -->
+            <table-Paging table-Param="tableParams" filter-Param="filter"></table-Paging>
+        </div>
+    </div>
+</div>

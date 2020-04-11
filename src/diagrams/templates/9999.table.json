@@ -1,0 +1,102 @@
+{
+	"edit": false,
+	"page": {
+		"bgImage": ""
+	},
+	"table": {
+		"tr": [{
+			"type":"table",
+			"td": [{
+				"title":"温湿度1",
+				"table": {
+					"tr": [{
+						"type":"title",
+						"td": [
+							{"value": "温度"},
+							{"value": "湿度"}
+						]
+					},{
+						"type":"signal",
+						"td": [
+							{"value": "100000001.100600001"},
+							{"value": "100000001.100600002"}
+						]
+					}]
+				},
+				"colspan": 1,
+				"rowspan": 1,
+				"style": "default-base",
+				"backColor": "",
+				"fontSize": 16,
+				"fontColor": "#ffffff",
+				"fontWeight": "bold",
+				"textAlign": "center"
+			}, {
+				"title":"温湿度2",
+				"table": {
+					"tr": [{
+						"type":"title",
+						"td": [
+							{"value": "温度"},
+							{"value": "湿度"}
+						]
+					},{
+						"type":"singal",
+						"td": [
+							{"value": "100000001.100600001"},
+							{"value": "100000001.100600002"}
+						]
+					}]
+				},
+				"colspan": 1,
+				"rowspan": 1,
+				"style": "default-base",
+				"backColor": "",
+				"fontSize": 16,
+				"fontColor": "#ffffff",
+				"fontWeight": "bold",
+				"textAlign": "center"
+			}]
+		}, {
+			"type":"table",
+			"td": [{
+				"title":"温湿度3",
+				"table": {
+					"tr": [{
+						"type":"title",
+						"td": [
+							{"value": "温度"},
+							{"value": "湿度"}
+						]
+					},{
+						"type":"signal",
+						"td": [
+							{"value": "100000003.100600001"},
+							{"value": "100000003.100600002"}
+						]
+					},{
+						"type":"signal",
+						"td": [
+							{"value": "100000004.100600001"},
+							{"value": "100000004.100600002"}
+						]
+					},{
+						"type":"signal",
+						"td": [
+							{"value": "100000005.100600001"},
+							{"value": "100000005.100600002"}
+						]
+					}]
+				},
+				"colspan": 2,
+				"rowspan": 1,
+				"style": "default-base",
+				"backColor": "",
+				"fontSize": 16,
+				"fontColor": "#ffffff",
+				"fontWeight": "bold",
+				"textAlign": "center"
+			}]
+		}]
+	}
+}

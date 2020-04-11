@@ -1,0 +1,12 @@
+<KPIBags>
+	<KPIBag ID="Label1" BagType="Label" Text="Historical Alarm Charts" Tag=""/>
+	
+	<KPIBag ID="Chart1" BagType="Chart" SourceType="SQLStr" QueryString="select equipmentName,(SELECT count(*) from tbl_historyevent B where A.EquipmentId=B.EquipmentId ) AS equipmentCount from tbl_equipment A" Text="Historical Alarm Statistical(Equipment)"  Tag="ChartType=Bar&amp;YTitle=Count&amp;XTitle=Name"/>
+
+	<KPIBag ID="Chart2" BagType="Chart" SourceType="SQLStr" QueryString="SELECT 'Water' AS EventName,COUNT(*) FROM TBL_HistoryEvent WHERE BaseTypeId like '1004005%' UNION SELECT 'Smoke' AS EventName,COUNT(*) FROM TBL_HistoryEvent WHERE BaseTypeId like '1004006%' UNION SELECT 'Door' AS EventName,COUNT(*) FROM TBL_HistoryEvent WHERE BaseTypeId like '1004007%' UNION SELECT 'Infrared' AS EventName,COUNT(*) FROM TBL_HistoryEvent WHERE BaseTypeId like '1004008%';" Text="Comparison Alarm Count" Tag="ChartType=Pie&amp;ChartTitle=ComparisonAlarmCount"/>
+	
+	<KPIBag ID="Chart3" BagType="Chart" SourceType="StoredProcedure" QueryString="PAM_StationGAlarmStatisticByMonth" Text="Historical Alarm Statistical(Month)" Tag="ChartType=Bar&amp;YTitle=Count&amp;XTitle=Month"/>
+	
+	<KPIBag ID="Chart4" BagType="Chart" SourceType="StoredProcedure" QueryString="PAM_StationGAlarmStatisticByDay" Text="Historical Alarm Statistical(30 Day)" Tag="ChartType=Bar&amp;YTitle=Count&amp;XTitle=Day"/>
+	
+</KPIBags>

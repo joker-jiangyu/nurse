@@ -1,0 +1,213 @@
+<div class="container-fluid" ng-controller="OtherModuleCtrl"><!--OtherModuleCtrl-->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{languageJson.OtherModule.Title}}
+                <button type="button" class="btn btn-primary right return-btn" onclick="window.location.href='#/setting'"><i class="fa fa-reply"></i> {{languageJson.Login.Return}}</button>
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <spinner show="loading" tip="{{languageJson.Loading}}"></spinner><!--加载中-->
+    <!-- /.row -->
+    <div class="panel-body" ng-init="tab=1;tabs=0">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="tab" ng-class="{active:tab==1}" ng-click="initSpeedAddDoorCard();tabs=0">
+                <a href ng-click="tab = 1"> {{languageJson.OtherModule.BNode}} </a><!--B接口-->
+            </li>
+            <li class="tab" ng-class="{active:tab==2}" ng-click="initSpeedAddDoorCard();tabs=0">
+                <a href ng-click="tab = 2"> {{languageJson.OtherModule.Snmp}} </a><!--Snmp-->
+            </li>
+            <li class="tab" ng-class="{active:tab==3}" ng-click="initSpeedAddDoorCard();tabs=0">
+                <a href ng-click="tab = 3"> {{languageJson.OtherModule.OtherLog}} </a><!--其他报文-->
+            </li>
+        </ul>
+
+        <div class="tab-content tab-pane" ng-show="tab==1">
+            <form class="form-horizontal">
+                <br/>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                <select class="form-control" ng-model="moduleType">
+                                    <option value="bInterface_chinamobile">{{languageJson.OtherModule.ChinaMobile}}</option><!--中国移动B接口-->
+                                    <option value="bInterface_chinaunicom">{{languageJson.OtherModule.ChinaUnicom}}</option><!--中国联通B接口-->
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-default btn-primary" ng-click="printConfigClick(moduleType,'bInterface-log-container')">{{languageJson.OtherModule.PrintConfig}}</button><!--打印配置-->
+                                <button class="btn btn-default btn-primary" ng-click="modifyConfigClick(moduleType)">{{languageJson.OtherModule.ModifyConfig}}</button><!--修改配置-->
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-warning" ng-click="detectionConfigClick(moduleType)">{{languageJson.OtherModule.DetectionConfig}}</button><!--检测模块-->
+                                <!--<button class="btn btn-default btn-primary" ng-click="uploadConfigClick('bInterface')">{{languageJson.OtherModule.UploadConfig}}</button>--><!--上传配置-->
+                                <button class="btn btn-warning" ng-click="restartConfigClick(moduleType)">{{languageJson.OtherModule.RestartConfig}}</button><!--重启模块-->
+                                <button ng-show="moduleType == 'bInterface_chinamobile'" class="btn btn-default btn-primary" ng-click="downloadConfigClick()">{{languageJson.OtherModule.DownloadConfig}}</button><!--下载配置-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" style="padding-bottom: 20px;">
+                    <div class="panel-heading ng-binding">{{languageJson.OtherModule.Message}}</div><!--报文-->
+                    <br/>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-2 ng-binding tooltip-options">{{languageJson.OtherModule.CommandLine}}
+                                <a  href data-toggle="tooltip" ng-hide="languageJson.Language=='English'"
+                                    title="<h5>命令行：[]中括号为手动输入内容</h5>">
+                                    <i class="fa fa-question-circle fa-fw pointer "></i>
+                                </a>
+                            </label><!--命令行：-->
+                            <!-- 移动 -->
+                            <div class="col-md-2" ng-show="moduleType == 'bInterface_chinamobile'">
+                                <select class="form-control" ng-model="LogCmd" ng-change="Cmd = LogCmd">
+                                    <option value="">{{languageJson.OtherModule.ChinaMobileCommand.MessageRecord}}</option><!------ 报文记录 ------>
+                                    <option value="cmb_debug -a 301 -b LOGIN">{{languageJson.OtherModule.ChinaMobileCommand.LOGIN}}</option><!--获取FSU注册记录-->
+                                    <option value="cmb_debug -a 301 -b SEND_ALARM">{{languageJson.OtherModule.ChinaMobileCommand.SEND_ALARM}}</option><!--获取FSU上报告警记录-->
+                                    <option value="cmb_debug -a 301 -b GET_DATA">{{languageJson.OtherModule.ChinaMobileCommand.GET_DATA}}</option><!--获取SC请求监控点数据记录-->
+                                    <option value="cmb_debug -a 301 -b SET_POINT">{{languageJson.OtherModule.ChinaMobileCommand.SET_POINT}}</option><!--获取SC写监控点设置值记录-->
+                                    <option value="cmb_debug -a 301 -b GET_THRESHOLD">{{languageJson.OtherModule.ChinaMobileCommand.GET_THRESHOLD}}</option><!--获取SC请求监控点门限数据记录-->
+                                    <option value="cmb_debug -a 301 -b SET_THRESHOLD">{{languageJson.OtherModule.ChinaMobileCommand.SET_THRESHOLD}}</option><!--获取SC写监控点门限数据记录-->
+                                    <option value="cmb_debug -a 301 -b GET_LOGININFO">{{languageJson.OtherModule.ChinaMobileCommand.GET_LOGININFO}}</option><!--获取SC获取FSU注册信息记录-->
+                                    <option value="cmb_debug -a 301 -b SET_LOGININFO">{{languageJson.OtherModule.ChinaMobileCommand.SET_LOGININFO}}</option><!--获取SC设置FSU注册信息记录-->
+                                    <option value="cmb_debug -a 301 -b GET_FTP">{{languageJson.OtherModule.ChinaMobileCommand.GET_FTP}}</option><!--获取SC获取FSU的FTP信息记录-->
+                                    <option value="cmb_debug -a 301 -b SET_FTP">{{languageJson.OtherModule.ChinaMobileCommand.SET_FTP}}</option><!--获取SC设置FSU的FTP信息记录-->
+                                    <option value="cmb_debug -a 301 -b TIME_CHECK">{{languageJson.OtherModule.ChinaMobileCommand.TIME_CHECK}}</option><!--获取SC时间同步记录-->
+                                    <option value="cmb_debug -a 301 -b GET_FSUINFO">{{languageJson.OtherModule.ChinaMobileCommand.GET_FSUINFO}}</option><!--获取SC下发心跳记录-->
+                                    <option value="cmb_debug -a 301 -b UPDATE_FSUINFO_INTERVAL">{{languageJson.OtherModule.ChinaMobileCommand.UPDATE_FSUINFO_INTERVAL}}</option><!--获取SC更新FSU状态信息获取周期记录-->
+                                    <option value="cmb_debug -a 301 -b GET_DEV_CONF">{{languageJson.OtherModule.ChinaMobileCommand.GET_DEV_CONF}}</option><!--获取SC请求动环设备配置数据记录-->
+                                    <option value="cmb_debug -a 301 -b SEND_DEV_CONF_DATA">{{languageJson.OtherModule.ChinaMobileCommand.SEND_DEV_CONF_DATA}}</option><!--获取FSU上报动环设备的配置数据记录-->
+                                    <option value="cmb_debug -a 301 -b SET_DEV_CONF_DATA">{{languageJson.OtherModule.ChinaMobileCommand.SET_DEV_CONF_DATA}}</option><!--获取SC写动环设备的配置数据记录-->
+                                    <option value="cmb_debug -a 301 -b GET_STORAGERULE">{{languageJson.OtherModule.ChinaMobileCommand.GET_STORAGERULE}}</option><!--获取SC查询监控点存储规则记录-->
+                                    <option value="cmb_debug -a 301 -b SET_STORAGERULE">{{languageJson.OtherModule.ChinaMobileCommand.SET_STORAGERULE}}</option><!--获取SC写监控点存储规则记录-->
+                                    <option value="">{{languageJson.OtherModule.Command.TestCommand}}</option><!------ 测试命令 ------>
+                                    <option value="cmb_debug -v">{{languageJson.OtherModule.Command.ShowVersion}}</option><!--显示版本信息-->
+                                    <option value="cmb_debug -a 2">{{languageJson.OtherModule.Command.ReadDeviceList}}</option><!--获取所有设备列表-->
+                                    <option value="cmb_debug -a 3 -b [DeviceId]">{{languageJson.OtherModule.Command.ReadDeviceAllSemaphore}}</option><!--根据设备Id获取信号信息-->
+                                    <option value="cmb_debug -a 4 -b [DeviceId]">{{languageJson.OtherModule.Command.ReadDeviceAllAlarm}}</option><!--根据设备Id获取告警信息-->
+                                    <option value="cmb_debug -a 20">{{languageJson.OtherModule.Command.ShowAllActiveAlarm}}</option><!--显示所有活动警报-->
+                                    <option value="cmb_debug -a 21">{{languageJson.OtherModule.Command.ShowAllAlarmWillSendSC}}</option><!--显示所有警报将发送给SC-->
+                                    <option value="cmb_debug -a 22">{{languageJson.OtherModule.Command.ShowAllAlarmHasSentSC}}</option><!--显示所有警报已发送到SC-->
+                                    <option value="cmb_debug">{{languageJson.OtherModule.Command.ShowAllCommand}}</option><!--显示所有命令-->
+                                </select>
+                            </div>
+                            <!-- 联通 -->
+                            <div class="col-md-2" ng-show="moduleType == 'bInterface_chinaunicom'">
+                                <select class="form-control" ng-model="LogCmd" ng-change="Cmd = LogCmd">
+                                    <option value="">{{languageJson.OtherModule.ChinaUnicomCommand.MessageRecord}}</option><!------ 报文记录 ------>
+                                    <option value="cub_debug -a 301 -b LOGIN">{{languageJson.OtherModule.ChinaUnicomCommand.LOGIN}}</option><!--获取注册记录-->
+                                    <option value="cub_debug -a 301 -b SEND_ALARM">{{languageJson.OtherModule.ChinaUnicomCommand.SEND_ALARM}}</option><!--获取上报告警记录-->
+                                    <option value="cub_debug -a 301 -b SET_DODATA">{{languageJson.OtherModule.ChinaUnicomCommand.SET_DODATA}}</option><!--获取下发控制记录-->
+                                    <option value="cub_debug -a 301 -b GET_SUINFO">{{languageJson.OtherModule.ChinaUnicomCommand.GET_SUINFO}}</option><!--获取SC下发心跳记录-->
+                                    <option value="cub_debug -a 301 -b GET_FTP">{{languageJson.OtherModule.ChinaUnicomCommand.GET_FTP}}</option><!--获取SC获取FSU的FTP信息记录-->
+                                    <option value="cub_debug -a 301 -b SET_FTP">{{languageJson.OtherModule.ChinaUnicomCommand.SET_FTP}}</option><!--获取SC设置FSU的FTP信息记录-->
+                                    <option value="cub_debug -a 301 -b SET_TIME">{{languageJson.OtherModule.ChinaUnicomCommand.SET_TIME}}</option><!--获取SC时间同步记录-->
+                                    <option value="cub_debug -a 301 -b SET_IP">{{languageJson.OtherModule.ChinaUnicomCommand.SET_IP}}</option><!--获取SC设置数据上报IP记录-->
+                                    <option value="cub_debug -a 301 -b SEND_AIDATA">{{languageJson.OtherModule.ChinaUnicomCommand.SEND_AIDATA}}</option><!--获取遥测量变化数据主动上报记录-->
+                                    <option value="cub_debug -a 301 -b SEND_DIDATA">{{languageJson.OtherModule.ChinaUnicomCommand.SEND_DIDATA}}</option><!--获取遥信量变化数据主动上报记录-->
+                                    <option value="cub_debug -a 301 -b SET_AODATA">{{languageJson.OtherModule.ChinaUnicomCommand.SET_AODATA}}</option><!--获取SC设置遥调量参数记录-->
+                                    <option value="cub_debug -a 301 -b SET_AlarmProperty">{{languageJson.OtherModule.ChinaUnicomCommand.SET_AlarmProperty}}</option><!--获取SC设置告警量参数记录-->
+                                    <option value="cub_debug -a 301 -b GET_SUPORT">{{languageJson.OtherModule.ChinaUnicomCommand.GET_SUPORT}}</option><!--获取获取SU串口信息记录-->
+                                    <option value="">{{languageJson.OtherModule.Command.TestCommand}}</option><!------ 测试命令 ------>
+                                    <option value="cub_debug -v">{{languageJson.OtherModule.Command.ShowVersion}}</option><!--显示版本信息-->
+                                    <option value="cub_debug -a 2">{{languageJson.OtherModule.Command.ReadDeviceList}}</option><!--获取所有设备列表-->
+                                    <option value="cub_debug -a 3 -b [DeviceId]">{{languageJson.OtherModule.Command.ReadDeviceAllSemaphore}}</option><!--根据设备Id获取信号信息-->
+                                    <option value="cub_debug -a 4 -b [DeviceId]">{{languageJson.OtherModule.Command.ReadDeviceAllAlarm}}</option><!--根据设备Id获取告警信息-->
+                                    <option value="cub_debug -a 20">{{languageJson.OtherModule.Command.ShowAllActiveAlarm}}</option><!--显示所有活动警报-->
+                                    <option value="cub_debug -a 21">{{languageJson.OtherModule.Command.ShowAllAlarmWillSendSC}}</option><!--显示所有警报将发送给SC-->
+                                    <option value="cub_debug -a 22">{{languageJson.OtherModule.Command.ShowAllAlarmHasSentSC}}</option><!--显示所有警报已发送到SC-->
+                                    <option value="cub_debug">{{languageJson.OtherModule.Command.ShowAllCommand}}</option><!--显示所有命令-->
+                                </select>
+                            </div>
+                            <div class="col-md-3"><input class="form-control" type="text" ng-model="Cmd" placeholder="{{languageJson.OtherModule.SelectCommand}}"/></div><!--请选择命令格式-->
+                            <div class="col-md-3">
+                                <button class="btn btn-default btn-primary" ng-click="IssuedCmdClick(moduleType,'bInterface-log-container',Cmd)">{{languageJson.OtherModule.IssueOrder}}</button><!--下发命令-->
+                                <button class="btn btn-default" ng-click="clearLogClick('bInterface-log-container div')">{{languageJson.OtherModule.ClearMessage}}</button><!--清空报文-->
+                            </div>
+                            <div class="col-md-1 right export-button"><button class="btn btn-default" ng-click="exportLogClick('bInterface-log-container div')">{{languageJson.OtherModule.ExportLog}}</button></div><!--导出...-->
+                        </div>
+                    </div>
+                    <div id="bInterface-log-container" class="content_message">
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-content tab-pane" ng-show="tab==2">
+            <form class="form-horizontal">
+                <br/>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <button class="btn btn-default btn-primary" ng-click="printConfigClick('snmp','snmp-log-container')">{{languageJson.OtherModule.PrintConfig}}</button><!--打印配置-->
+                                <button class="btn btn-default btn-primary" ng-click="modifyConfigClick('snmp')">{{languageJson.OtherModule.ModifyConfig}}</button><!--修改配置-->
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-warning" ng-click="detectionConfigClick('snmp')">{{languageJson.OtherModule.DetectionConfig}}</button><!--检测模块-->
+                                <button class="btn btn-warning" ng-click="restartConfigClick('snmp')">{{languageJson.OtherModule.RestartConfig}}</button><!--重启模块-->
+                                <!--<button class="btn btn-default btn-primary" ng-click="uploadConfigClick('snmp')">{{languageJson.OtherModule.UploadConfig}}</button>--><!--上传配置-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" style="padding-bottom: 20px;">
+                    <div class="panel-heading ng-binding">{{languageJson.OtherModule.LogMessage}}</div><!--报文-->
+                    <br/>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-2 ng-binding">{{languageJson.OtherModule.PrintLog}}</label><!--打印报文-->
+                            <div class="col-md-1"><input type="checkbox" class="switch-check" ng-model="switchStatus" ng-click="switchCheckClick(switchStatus,'snmp','snmp-log-container')"></div>
+                            <div class="col-md-1"><button class="btn btn-default" ng-click="clearLogClick('snmp-log-container div')">{{languageJson.OtherModule.ClearLog}}</button></div><!--清空报文-->
+                            <!--<div class="col-md-1"><button class="btn btn-default" ng-click="addLogClick('snmp')">测试</button></div>-->
+                            <div class="col-md-1 right export-button"><button class="btn btn-default" ng-click="exportLogClick('snmp-log-container div')">{{languageJson.OtherModule.ExportLog}}</button></div><!--导出...-->
+                        </div>
+                    </div>
+                    <div id="snmp-log-container" class="content_message">
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-content tab-pane" ng-show="tab==3">
+            <form class="form-horizontal">
+                <br/>
+                <div class="panel panel-default" style="padding-bottom: 20px;">
+                    <div class="panel-heading ng-binding">{{languageJson.OtherModule.LogMessage}}</div><!--报文-->
+                    <br/>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-1 ng-binding">{{languageJson.OtherModule.Type.Title}}</label><!--类型:-->
+                            <div class="col-md-2">
+                                <select class="form-control" ng-model="type" ng-change="changeModuleType(switchStatus)">
+                                    <option value="nurse">Nurse</option>
+                                    <option value="fsu">Fsu</option>
+                                    <option value="dog">{{languageJson.OtherModule.Type.Dog}}</option><!--看门狗-->
+                                    <option value="snmp">Snmp</option>
+                                    <option value="bInterface">{{languageJson.OtherModule.Type.BNodeChinaMobile}}</option><!--B接口-->
+                                    <option value="bInterface">{{languageJson.OtherModule.Type.BNodeChinaUnicom}}</option><!--B接口-->
+                                </select>
+                            </div>
+                            <label class="control-label col-md-2 ng-binding">{{languageJson.OtherModule.PrintLog}}</label><!--打印报文-->
+                            <div class="col-md-1"><input type="checkbox" class="switch-check" ng-model="switchStatus" ng-click="switchCheckClick(switchStatus,type,'other-log-container')"></div>
+                            <div class="col-md-1"><button class="btn btn-default" ng-click="clearLogClick('other-log-container div')">{{languageJson.OtherModule.ClearLog}}</button></div><!--清空报文-->
+                            <div class="col-md-1" ng-show="type == 'nurse'"><button class="btn btn-default" ng-click="addLogClick()">{{languageJson.OtherModule.Test}}</button></div><!--测试-->
+                            <div class="col-md-1 right export-button"><button class="btn btn-default" ng-click="exportLogClick('other-log-container div')">{{languageJson.OtherModule.ExportLog}}</button></div><!--导出...-->
+                        </div>
+                    </div>
+                    <div id="other-log-container" class="content_message">
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script ng-hide="true">
+    $(function () { $(".tooltip-options a").tooltip({html : true });});
+</script>

@@ -1,0 +1,62 @@
+{
+    "edit": false,
+    "page": {
+        "bgImage": ""
+    },
+    "parts": [
+    	{
+    		"id": "image1",
+            "type": "imagepart",
+            "left": 128,
+            "top": 222,
+            "width": 270,
+            "height": 108,
+			"zindex":1,
+            "options": "img/diagram/FuelGenset_Img.png"
+    	},
+        {
+            "id": "signalgroup1",
+            "type": "signalgroup",
+            "left": 447,
+            "top": 170,
+            "width": 223,
+            "height": 200,
+			"zindex":1,
+            "binding": "BS:401999001",
+            "options": "Name:电源状态|Background:configure_bg"
+        },
+        {
+            "id": "signalgroup2",
+            "type": "signalgroup",
+            "left": 447,
+            "top": 448,
+            "width": 223,
+            "height": 200,
+			"zindex":1,
+            "binding": "BS:401026001|BS:401028001",
+            "options": "Name:相电压|Background:configure_bg"
+        },
+        {
+            "id": "signalgroup3",
+            "type": "signalgroup",
+            "left": 738,
+            "top": 174,
+            "width": 223,
+            "height": 200,
+			"zindex":1,
+            "binding": "BS:401032001|BS:401033001|BS:401034001",
+            "options": "Name:输出电流|Background:configure_bg"
+        },
+        {
+            "id": "signalgroup4",
+            "type": "signalgroup",
+            "left": 738,
+            "top": 445,
+            "width": 223,
+            "height": 200,
+			"zindex":1,
+            "binding": "BS:401330001|BS:401330002",
+            "options": "Name:开关状态|Background:configure_bg"
+        }
+    ]
+}

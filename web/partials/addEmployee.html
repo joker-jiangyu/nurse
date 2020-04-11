@@ -1,0 +1,46 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content am-modal-dialog">
+            <div class="modal-header" draggable><!-- draggable拖动事件，.am-modal-dialog拖动对象 -->
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-times"></i></button>
+                <h4 class="modal-title">{{languageJson.Person.Add}}</h4><!--新增人员-->
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-3">{{languageJson.Person.Addname}}</label><!-- 新增人员名字*: -->
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="" ng-model="employeeInfo.EmployeeName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-3">{{languageJson.Person.Phone}}</label><!-- 手机号码*: -->
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="" ng-model="employeeInfo.Mobile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label  col-md-3">{{languageJson.Person.Emails}}</label><!-- 邮箱: -->
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="" ng-model="employeeInfo.Email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        ng-click="add()">{{languageJson.Person.Adds}}</button>
+                <button type="button" class="btn btn-default" ng-click="$hide()">{{languageJson.Person.Close}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
